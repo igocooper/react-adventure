@@ -2,13 +2,20 @@
   "name": "react-adventure",
   "version": "1.0.0",
   "description": "React Adventure is a game written with React / Redux",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix src",
+      "prettier --write --ignore-unknown src"
+    ],
+    "json,md": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,8 +29,16 @@
   },
   "homepage": "https://github.com/igocooper/react-adventure#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "typescript": "*"
   }
 }
