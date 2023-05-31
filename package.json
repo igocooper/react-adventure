@@ -1,0 +1,20 @@
+{
+  "name": "react-adventure",
+  "version": "1.0.0",
+  "description": "React Adventure is a game written with React / Redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igocooper/react-adventure.git"
+  },
+  "keywords": [],
+  "author": "Oleg Lytvyn & Dmytro Lytvyn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igocooper/react-adventure/issues"
+  },
+  "homepage": "https://github.com/igocooper/react-adventure#readme"
+}
