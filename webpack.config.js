@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -11,8 +12,11 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: 'React Adventure Development',
+      favicon: './public/favicon.ico',
+      template: './public/index.html',
     }),
   ],
   module: {
