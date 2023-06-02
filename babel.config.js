@@ -23,7 +23,7 @@ module.exports = {
           },
         ],
       ],
-      plugins: ['react-refresh/babel'],
+      plugins: [],
     },
     production: {
       plugins: ['transform-react-remove-prop-types'],
