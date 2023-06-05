@@ -73,6 +73,7 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     static: './build',
-    hot: true
+    hot: true,
+    historyApiFallback: true
   }
 };
