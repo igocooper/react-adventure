@@ -40,6 +40,7 @@
     "@types/node": "^20.2.5",
     "@types/react": "~18.2.4",
     "@types/react-dom": "^18.2.4",
+    "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.41.0",
@@ -71,6 +72,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.7",
+    "react-router-dom": "^6.3.0",
+    "history": "^5.2.0",
     "styled-components": "^5.3.11"
   }
 }

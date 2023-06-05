@@ -1013,7 +1013,7 @@
   resolved "https://registry.npmjs.org/@babel/regjsgen/-/regjsgen-0.8.0.tgz"
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
-"@babel/runtime@^7.12.1", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.12.1", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.22.3"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.22.3.tgz"
   integrity sha512-XsDuspWKLUsxwCp6r7EhsExHtYfbe5oAGQ19kqngTdCPUoPQzOPdUbD/pB9PJiwb2ptYKQDjSJT3R6dC+EPqfQ==
@@ -1257,6 +1257,11 @@
     redux-thunk "^2.4.2"
     reselect "^4.1.8"
 
+"@remix-run/router@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.2.tgz#bbe75f8c59e0b7077584920ce2cc76f8f354934d"
+  integrity sha512-LzqpSrMK/3JBAVBI9u3NWtOhWNw5AMQfrUFYB0+bDHTSw17z++WJLsPsxAuK+oSddsxk4d7F/JcdDPM1M5YAhA==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
@@ -1338,6 +1343,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/history@^4.7.11":
+  version "4.7.11"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.11.tgz#56588b17ae8f50c53983a524fc3cc47437969d64"
+  integrity sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==
+
 "@types/hoist-non-react-statics@*", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz"
@@ -1383,12 +1393,7 @@
   resolved "https://registry.npmjs.org/@types/minimist/-/minimist-1.2.2.tgz"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*":
-  version "20.2.5"
-  resolved "https://registry.npmjs.org/@types/node/-/node-20.2.5.tgz"
-  integrity sha512-JJulVEQXmiY9Px5axXHeYGLSjhkZEnD+MDPDGbCbIAbMslkKwmygtZFy1X6s/075Yo94sf8GuSlFfPzysQrWZQ==
-
-"@types/node@^20.2.5":
+"@types/node@*", "@types/node@^20.2.5":
   version "20.2.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.5.tgz#26d295f3570323b2837d322180dfbf1ba156fefb"
   integrity sha512-JJulVEQXmiY9Px5axXHeYGLSjhkZEnD+MDPDGbCbIAbMslkKwmygtZFy1X6s/075Yo94sf8GuSlFfPzysQrWZQ==
@@ -1418,6 +1423,23 @@
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.2.4.tgz"
   integrity sha512-G2mHoTMTL4yoydITgOGwWdWMVd8sNgyEP85xVmMKAPUBwQWm9wBPQUmvbeF4V3WBY1P7mmL4BkjQ0SqUpf1snw==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-router-dom@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.3.3.tgz#e9d6b4a66fcdbd651a5f106c2656a30088cc1e83"
+  integrity sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "5.1.20"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.20.tgz#88eccaa122a82405ef3efbcaaa5dcdd9f021387c"
+  integrity sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==
+  dependencies:
+    "@types/history" "^4.7.11"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@~18.2.4":
@@ -3577,6 +3599,13 @@ he@^1.2.0:
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+history@^5.2.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
+  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
@@ -5166,6 +5195,21 @@ react-redux@^8.0.7:
     hoist-non-react-statics "^3.3.2"
     react-is "^18.0.0"
     use-sync-external-store "^1.0.0"
+
+react-router-dom@^6.3.0:
+  version "6.11.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.11.2.tgz#324d55750ffe2ecd54ca4ec6b7bc7ab01741f170"
+  integrity sha512-JNbKtAeh1VSJQnH6RvBDNhxNwemRj7KxCzc5jb7zvDSKRnPWIFj9pO+eXqjM69gQJ0r46hSz1x4l9y0651DKWw==
+  dependencies:
+    "@remix-run/router" "1.6.2"
+    react-router "6.11.2"
+
+react-router@6.11.2:
+  version "6.11.2"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.11.2.tgz#006301c4da1a173d7ad76b7ecd2da01b9dd3837a"
+  integrity sha512-74z9xUSaSX07t3LM+pS6Un0T55ibUE/79CzfZpy5wsPDZaea1F8QkrsiyRnA2YQ7LwE/umaydzXZV80iDCPkMg==
+  dependencies:
+    "@remix-run/router" "1.6.2"
 
 react@^18.2.0:
   version "18.2.0"
