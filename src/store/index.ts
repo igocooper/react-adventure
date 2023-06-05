@@ -1,9 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './rootSaga';
 
-export const index = configureStore({
-  reducer: rootReducer
-});
+const sagaMiddleware = createSagaMiddleware();
 
-export type RootState = ReturnType<typeof index.getState>;
-export type AppDispatch = typeof index.dispatch;
+const createStore = () => {
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: [sagaMiddleware]
+  });
+
+  sagaMiddleware.run(rootSaga);
+
+  return store;
+};
+
+export const store = createStore();
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
