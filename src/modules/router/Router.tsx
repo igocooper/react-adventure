@@ -8,7 +8,7 @@ import {
 import { path } from './constants';
 
 import { MainScreen } from 'modules/mainScreen';
-import { BattleField } from 'modules/battleField';
+import { BattleFieldContainer } from 'modules/battlefield/containers/BattlefieldContainer';
 
 export const Router = () => (
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -16,7 +16,7 @@ export const Router = () => (
   <HistoryRouter history={history}>
     <Routes>
       <Route path={path.MAIN} element={<MainScreen />} />
-      <Route path={path.BATTLEFIELD} element={<BattleField />} />
+      <Route path={path.BATTLEFIELD} element={<BattleFieldContainer />} />
     </Routes>
   </HistoryRouter>
 );
