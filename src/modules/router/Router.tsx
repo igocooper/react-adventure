@@ -9,6 +9,7 @@ import { path } from './constants';
 
 import { MainScreen } from 'modules/mainScreen';
 import { BattleField } from 'modules/battleField';
+import { SpritesGeneratorContainer } from 'modules/sprites/containers/SpritesGeneratorContainer';
 
 export const Router = () => (
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -17,6 +18,7 @@ export const Router = () => (
     <Routes>
       <Route path={path.MAIN} element={<MainScreen />} />
       <Route path={path.BATTLEFIELD} element={<BattleField />} />
+      <Route path={path.SPRITES} element={<SpritesGeneratorContainer />} />
     </Routes>
   </HistoryRouter>
 );
