@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "typeRoots": ["../../@types"],
+    "typeRoots": ["./@types"],
     "target": "ESNext",
     "module": "ESNext",
     "allowJs": false,
@@ -22,12 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "experimentalDecorators": false,
-    "skipLibCheck": false,
-    "forceConsistentCasingInFileNames": true
+    "esModuleInterop": true
   },
-  "include": [
-    "./src",
-  ],
+  "include": ["./src"]
 }

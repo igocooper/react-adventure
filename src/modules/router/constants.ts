@@ -1,4 +1,5 @@
 export const path = {
   MAIN: '/',
-  BATTLEFIELD: '/battlefield'
+  BATTLEFIELD: '/battlefield',
+  SPRITES: '/sprites'
 };
