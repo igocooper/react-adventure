@@ -11,7 +11,9 @@ export const Center = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const Character = styled(Center)<{ $type: string }>`
+export const Character = styled(Center).attrs((props: { $type: string }) => ({
+  className: `${props.$type} character`
+}))<{ $type: string }>`
   ${(props) => {
     switch (props.$type) {
       case 'knight':
