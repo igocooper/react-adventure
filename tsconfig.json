@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "typeRoots": ["../../@types"],
+    "typeRoots": ["./@types"],
     "target": "ESNext",
     "module": "ESNext",
     "allowJs": false,
     "jsx": "react",
     "noEmit": true,
-    "isolatedModules": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -22,12 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "experimentalDecorators": false,
-    "skipLibCheck": false,
-    "forceConsistentCasingInFileNames": true
+    "esModuleInterop": true
   },
-  "include": [
-    "./src",
-  ],
+  "include": ["./src"]
 }
