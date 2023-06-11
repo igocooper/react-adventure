@@ -6,24 +6,29 @@ import { Character } from '../Character';
 interface BattlefieldProps {
   attackers: Troop[];
   defenders: Troop[];
+  cursor: string;
 }
 
-export const Battlefield = ({ attackers, defenders }: BattlefieldProps) => {
+export const Battlefield = ({
+  attackers,
+  defenders,
+  cursor
+}: BattlefieldProps) => {
   return (
-    <Location>
+    <Location $cursor={cursor}>
       {/* TODO: Add MassAttack container */}
       <div>
         <Attackers>
           {attackers.map(({ id, position, type }: Troop) => (
             <Tile key={id} $position={position}>
-              <Character type={type} />
+              <Character type={type} id={id} />
             </Tile>
           ))}
         </Attackers>
         <Defenders>
           {defenders.map(({ id, position, type }: Troop) => (
             <Tile key={id} $position={position}>
-              <Character type={type} />
+              <Character type={type} id={id} />
             </Tile>
           ))}
         </Defenders>

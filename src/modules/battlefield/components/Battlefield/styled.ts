@@ -1,17 +1,47 @@
 import styled from 'styled-components';
 import villageRoadImg from './images/locations/village_road.png';
+import cursorDefaultImg from './images/cursors/cursor-default.png';
+import cursorScrollImg from './images/cursors/cursor-scroll.png';
+import cursorBowImg from './images/cursors/cursor-bow.png';
+import cursorSwordImg from './images/cursors/cursor-sword.png';
 
-export const Location = styled.div.attrs({
-  className: 'location'
-})`
+type LocationProps = {
+  $cursor: string;
+};
+interface TileProps {
+  $position: number;
+}
+
+export const Location = styled.div.attrs((props: { $cursor: string }) => ({
+  className: `location cursor-${props.$cursor}`
+}))<LocationProps>`
   width: 100vw;
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-
   background-image: url(${villageRoadImg});
+
+  &.cursor-sword {
+    cursor: url(${cursorSwordImg}), auto;
+  }
+
+  &.cursor-default {
+    cursor: url(${cursorDefaultImg}), auto;
+  }
+
+  &.cursor-disabled {
+    cursor: not-allowed;
+  }
+
+  &.cursor-scroll {
+    cursor: url(${cursorScrollImg}), auto;
+  }
+
+  &.cursor-bow {
+    cursor: url(${cursorBowImg}), auto;
+  }
 `;
 
 export const Troops = styled.div`
@@ -29,10 +59,6 @@ export const Attackers = styled(Troops).attrs({
 export const Defenders = styled(Troops).attrs({
   className: 'defenders'
 })``;
-
-interface TileProps {
-  $position: number;
-}
 
 export const Tile = styled.div.attrs((props: { $position: number }) => ({
   className: `tile tile-${props.$position}`
