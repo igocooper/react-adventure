@@ -1,7 +1,7 @@
 import React from 'react';
+import { CharacterContainer } from 'modules/battlefield/containers/CharacterContainer';
 import type { Trooper } from '../../types';
 import { Location, Attackers, Defenders, Tile } from './styled';
-import { Character } from '../Character';
 
 interface BattlefieldProps {
   attackers: Trooper[];
@@ -19,16 +19,16 @@ export const Battlefield = ({
       {/* TODO: Add MassAttack container */}
       <div>
         <Attackers>
-          {attackers.map(({ id, position, type }: Trooper) => (
+          {attackers.map(({ id, position, type, team }: Trooper) => (
             <Tile key={id} $position={position}>
-              <Character type={type} id={id} />
+              <CharacterContainer type={type} id={id} team={team} />
             </Tile>
           ))}
         </Attackers>
         <Defenders>
-          {defenders.map(({ id, position, type }: Trooper) => (
+          {defenders.map(({ id, position, type, team }: Trooper) => (
             <Tile key={id} $position={position}>
-              <Character type={type} id={id} />
+              <CharacterContainer type={type} id={id} team={team} />
             </Tile>
           ))}
         </Defenders>

@@ -1,13 +1,16 @@
-import { put, select, takeLatest } from 'typed-redux-saga/macro';
+import { put, select, takeLatest, call, take } from 'typed-redux-saga/macro';
 import {
+  finishTrooperTurn as finishTrooperTurnAction,
   setCursor as setCursorAction,
-  setHoveredElement as setHoveredElementAction
+  setHoveredElement as setHoveredElementAction,
+  setActivePlayer as setActivePlayerAction
 } from '../actions';
 import {
   activePlayerIdSelector,
   attackersSelector,
   battlefieldDisabledStatusSelector,
   defendersSelector,
+  hoveredElementSelector,
   makeCharacterByIdSelector
 } from '../selectors';
 import { checkMeleeAttackConstraints } from '../helpers/checkMeleeAttackConstraints';
@@ -74,7 +77,7 @@ const detectCharacterCursor = ({
   return CURSOR.DEFAULT;
 };
 
-function* setCursor({ payload: hoveredElement }: { payload: Element }) {
+function* updateCursor(hoveredElement: Element) {
   const isBattleFieldDisabled = yield* select(
     battlefieldDisabledStatusSelector
   );
@@ -108,6 +111,17 @@ function* setCursor({ payload: hoveredElement }: { payload: Element }) {
   }
 }
 
+function* setCursorOnFinishTurn() {
+  const hoveredElement = yield* select(hoveredElementSelector);
+  yield* take(setActivePlayerAction);
+  yield* call(updateCursor, hoveredElement);
+}
+
+function* setCursorOnHover({ payload: hoveredElement }: { payload: Element }) {
+  yield* call(updateCursor, hoveredElement);
+}
+
 export function* cursorSagaWatcher() {
-  yield takeLatest(setHoveredElementAction, setCursor);
+  yield takeLatest(setHoveredElementAction, setCursorOnHover);
+  yield takeLatest(finishTrooperTurnAction, setCursorOnFinishTurn);
 }

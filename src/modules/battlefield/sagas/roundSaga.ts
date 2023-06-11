@@ -1,17 +1,25 @@
-import { takeLatest, select, put, call } from 'typed-redux-saga/macro';
+import { takeLatest, select, put, call, take } from 'typed-redux-saga/macro';
 import {
-  finishTrooperTurn,
+  finishTrooperTurn as finishTrooperTurnAction,
   startRound as startRoundAction,
   finishRound as finishRoundAction,
   setRound,
   setInitiative,
-  setActivePlayer
+  setActivePlayer,
+  trooperClicked,
+  attackStarted,
+  attackFinished,
+  supportStarted,
+  supportFinished
 } from '../actions';
 import {
   roundSelector,
   initiativeSelector,
   attackersSelector,
-  defendersSelector
+  defendersSelector,
+  activePlayerIdSelector,
+  makeCharacterByIdSelector,
+  battlefieldDisabledStatusSelector
 } from '../selectors';
 
 import type { Trooper } from '../types';
@@ -31,13 +39,20 @@ function* initInitiative() {
     }));
 }
 
-function* finishRound() {
+function* finishTrooperTurn() {
   const round = yield* select(roundSelector);
   const initiative = yield* select(initiativeSelector);
 
-  if (initiative.length === 0) {
+  if (initiative.length === 1) {
     yield* put(finishRoundAction(round));
     yield* put(startRoundAction(round + 1));
+  }
+
+  const nextActivePlayer = initiative[1];
+
+  if (nextActivePlayer) {
+    yield* put(setActivePlayer(nextActivePlayer));
+    yield* put(setInitiative(initiative.slice(1)));
   }
 }
 
@@ -52,7 +67,39 @@ function* startRound({ payload }: { payload: number }) {
   }
 }
 
+function* handleTrooperClick({
+  payload: clickedTrooperInfo
+}: {
+  payload: Pick<Trooper, 'id' | 'team'>;
+}) {
+  const isBattleFieldDisabled = yield* select(
+    battlefieldDisabledStatusSelector
+  );
+
+  if (isBattleFieldDisabled) return;
+
+  const { team } = clickedTrooperInfo;
+  const activePlayerId = yield* select(activePlayerIdSelector);
+  const activeTrooper = yield* select(
+    makeCharacterByIdSelector(activePlayerId)
+  );
+
+  const isEnemySelected = activeTrooper && activeTrooper.team !== team;
+
+  if (isEnemySelected) {
+    yield* put(attackStarted(clickedTrooperInfo));
+
+    yield* take(attackFinished);
+  } else {
+    yield* put(supportStarted(clickedTrooperInfo));
+
+    yield* take(supportFinished);
+  }
+  yield* put(finishTrooperTurnAction());
+}
+
 export function* roundSagaWatcher() {
-  yield takeLatest(finishTrooperTurn, finishRound);
+  yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
   yield takeLatest(startRoundAction, startRound);
+  yield takeLatest(trooperClicked, handleTrooperClick);
 }

@@ -1,26 +1,25 @@
 import React from 'react';
-import { useDispatch } from 'store/hooks';
-import { setHoveredElement } from '../../actions';
 import * as styled from './styled';
-import { HOVERED_ELEMENT_TYPE } from '../../constants';
+import type { Trooper } from '../../types';
 
-interface CharacterProps {
-  id: number;
-  type: string;
+interface OwnProps {
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  onClick: () => void;
 }
+type CharacterProps = Pick<Trooper, 'type'> & OwnProps;
 
-export const Character = ({ type, id }: CharacterProps) => {
-  const dispatch = useDispatch();
+export const Character = ({
+  type,
+  onMouseEnter,
+  onMouseLeave,
+  onClick
+}: CharacterProps) => {
   return (
     <styled.Character
-      onMouseEnter={() => {
-        dispatch(
-          setHoveredElement({ id, type: HOVERED_ELEMENT_TYPE.CHARACTER })
-        );
-      }}
-      onMouseLeave={() => {
-        dispatch(setHoveredElement(null));
-      }}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       $type={type}
     />
   );

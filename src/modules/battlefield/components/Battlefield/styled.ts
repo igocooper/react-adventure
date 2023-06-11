@@ -5,9 +5,9 @@ import cursorScrollImg from './images/cursors/cursor-scroll.png';
 import cursorBowImg from './images/cursors/cursor-bow.png';
 import cursorSwordImg from './images/cursors/cursor-sword.png';
 
-type LocationProps = {
+interface LocationProps {
   $cursor: string;
-};
+}
 interface TileProps {
   $position: number;
 }

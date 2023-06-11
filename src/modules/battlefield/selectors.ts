@@ -61,9 +61,14 @@ export const uiSelector = createSelector(
   (battleField) => battleField.ui
 );
 
-export const hoveredElementSelector = createSelector(
+export const hoveredElementStateSelector = createSelector(
   uiSelector,
   (ui) => ui.hoveredElement
+);
+
+export const hoveredElementSelector = createSelector(
+  hoveredElementStateSelector,
+  (state) => state.element
 );
 
 export const cursorSelector = createSelector(uiSelector, (ui) => ui.cursor);
