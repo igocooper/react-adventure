@@ -28,8 +28,8 @@ export const useKeyframes = ({ imageWidth, imageHeight }: Props) => {
     if (!category || !keyframes) return;
 
     const keyframe = {
-      x,
-      y,
+      x: -x,
+      y: -y,
       width: imageWidth,
       height: imageHeight
     };

@@ -3,9 +3,10 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { downloadImage } from '../utils/download-image';
 import { useCanvas } from '../hooks/useCanvas';
 import { useKeyframes } from '../hooks/useKeyframes';
+import { sortFilesByName } from '../utils/sortFilesByName';
 
-const IMG_WIDTH = 300;
-const IMG_HEIGHT = 300;
+const IMG_WIDTH = 185;
+const IMG_HEIGHT = 146;
 
 export const SpritesGeneratorContainer = () => {
   const {
@@ -33,7 +34,7 @@ export const SpritesGeneratorContainer = () => {
         'enter keyframes category name. E.G "attack", "idle"'
       );
 
-      const urls = Array.from(files).map((file) => {
+      const urls = sortFilesByName(files).map((file) => {
         return URL.createObjectURL(file);
       });
 
