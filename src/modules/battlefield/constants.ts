@@ -1,6 +1,25 @@
-import type { Troop, Team } from './types';
+import type { Trooper, Team } from './types';
 
-const DEFAULT_TROOPS: Troop[] = [
+export enum CURSOR {
+  DEFAULT = 'default',
+  BOW = 'bow',
+  DISABLED = 'disabled',
+  SCROLL = 'scroll',
+  SWORD = 'sword'
+}
+
+export enum ATTACK_TYPE {
+  RANGE = 'range',
+  MELEE = 'melee',
+  SPLASH = 'splash'
+}
+
+export enum HOVERED_ELEMENT_TYPE {
+  DEFAULT = 'default',
+  CHARACTER = 'character'
+}
+
+const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'knight',

@@ -74,6 +74,9 @@ module.exports = {
     port: 8080,
     static: './build',
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    client: {
+      overlay: false
+    }
   }
 };

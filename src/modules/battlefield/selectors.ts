@@ -3,14 +3,24 @@ import { createSelector } from 'reselect';
 
 export const battlefieldSelector = (state: RootState) => state.battleField;
 
-export const initiativesSelector = createSelector(
+export const roundStateSelector = createSelector(
   battlefieldSelector,
-  (battleField) => battleField.initiatives
+  (battleField) => battleField.round
+);
+
+export const initiativeSelector = createSelector(
+  roundStateSelector,
+  (round) => round.initiative
+);
+
+export const roundSelector = createSelector(
+  roundStateSelector,
+  (state) => state.round
 );
 
 export const activePlayerSelector = createSelector(
-  battlefieldSelector,
-  (battleField) => battleField.activePlayer
+  roundStateSelector,
+  (state) => state.activePlayer
 );
 
 export const activePlayerIdSelector = createSelector(

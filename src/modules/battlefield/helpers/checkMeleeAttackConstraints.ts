@@ -1,12 +1,12 @@
-import { convertToObjectByPosition } from './convert-to-object-by-position';
-import type { Troop } from '../types';
+import { convertToObjectByPosition } from './convertToObjectByPosition';
+import type { Trooper } from '../types';
 
-type Props = {
-  attackers: Array<Troop>;
-  defenders: Array<Troop>;
-  targetHero: Troop;
-  activePlayer: Troop;
-};
+interface Props {
+  attackers: Trooper[];
+  defenders: Trooper[];
+  targetHero: Trooper;
+  activePlayer: Trooper;
+}
 
 export const checkMeleeAttackConstraints = ({
   attackers,
@@ -14,14 +14,14 @@ export const checkMeleeAttackConstraints = ({
   targetHero,
   activePlayer
 }: Props) => {
-  let targetTeam =
+  const targetTeam =
     targetHero.team === 'attackers'
-      ? convertToObjectByPosition<Troop>(attackers)
-      : convertToObjectByPosition<Troop>(defenders);
-  let allyTeam =
+      ? convertToObjectByPosition<Trooper>(attackers)
+      : convertToObjectByPosition<Trooper>(defenders);
+  const allyTeam =
     activePlayer.team === 'attackers'
-      ? convertToObjectByPosition<Troop>(attackers)
-      : convertToObjectByPosition<Troop>(defenders);
+      ? convertToObjectByPosition<Trooper>(attackers)
+      : convertToObjectByPosition<Trooper>(defenders);
 
   if (activePlayer.position === 1) {
     if (targetHero.position === 1) {
@@ -30,30 +30,43 @@ export const checkMeleeAttackConstraints = ({
       return true;
     } else if (
       targetHero.position === 3 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 4 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 5 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 6 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      targetTeam[4] &&
       targetTeam[4].currentHealth <= 0 &&
+      targetTeam[5] &&
       targetTeam[5].currentHealth <= 0
     ) {
       return true;
@@ -71,22 +84,31 @@ export const checkMeleeAttackConstraints = ({
       return true;
     } else if (
       targetHero.position === 4 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 5 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 6 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
@@ -102,30 +124,43 @@ export const checkMeleeAttackConstraints = ({
       return true;
     } else if (
       targetHero.position === 1 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 6 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 5 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 4 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      targetTeam[5] &&
       targetTeam[5].currentHealth <= 0 &&
+      targetTeam[6] &&
       targetTeam[6].currentHealth <= 0
     ) {
       return true;
@@ -137,56 +172,87 @@ export const checkMeleeAttackConstraints = ({
   if (activePlayer.position === 4) {
     if (
       targetHero.position === 1 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 2 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 3 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 4 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 5 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 6 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      targetTeam[4] &&
       targetTeam[4].currentHealth <= 0 &&
+      targetTeam[5] &&
       targetTeam[5].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
@@ -198,52 +264,79 @@ export const checkMeleeAttackConstraints = ({
   if (activePlayer.position === 5) {
     if (
       targetHero.position === 1 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 2 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 3 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 4 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 5 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 6 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
@@ -255,56 +348,87 @@ export const checkMeleeAttackConstraints = ({
   if (activePlayer.position === 6) {
     if (
       targetHero.position === 3 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 2 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 1 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 6 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 5 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;
     } else if (
       targetHero.position === 4 &&
+      targetTeam[1] &&
       targetTeam[1].currentHealth <= 0 &&
+      targetTeam[2] &&
       targetTeam[2].currentHealth <= 0 &&
+      targetTeam[3] &&
       targetTeam[3].currentHealth <= 0 &&
+      targetTeam[5] &&
       targetTeam[5].currentHealth <= 0 &&
+      targetTeam[6] &&
       targetTeam[6].currentHealth <= 0 &&
+      allyTeam[1] &&
       allyTeam[1].currentHealth <= 0 &&
+      allyTeam[2] &&
       allyTeam[2].currentHealth <= 0 &&
+      allyTeam[3] &&
       allyTeam[3].currentHealth <= 0
     ) {
       return true;

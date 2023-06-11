@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { Troop, Team } from 'modules/battlefield/types';
+import type { Trooper, Team } from 'modules/battlefield/types';
 import { ATTACKERS, DEFENDERS } from 'modules/battlefield/constants';
 
 export interface TroopsState {
-  attackers: Troop[];
-  defenders: Troop[];
+  attackers: Trooper[];
+  defenders: Trooper[];
 }
 
 interface ApplyDamagePayload {

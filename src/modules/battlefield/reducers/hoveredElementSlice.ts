@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { type HoveredElementType } from '../types';
 
 export type Element = {
   id: number;
-  type: string;
+  type: HoveredElementType;
 } | null;
 
-type State = {
+interface State {
   element: Element;
-};
+}
 
 const initialState: State = { element: null };
 

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Battlefield } from '../components/Battlefield';
-import { useSelector } from 'store/hooks';
+import { useSelector, useDispatchAction } from 'store/hooks';
+import { startRound as startRoundAction } from '../actions';
 import {
   attackersSelector,
   cursorSelector,
@@ -8,14 +9,14 @@ import {
 } from '../selectors';
 
 export const BattleFieldContainer = () => {
-  // TODO: figure out why selectors do not return correct type
-  // const props = useStructuredSelector({
-  //   attackers: attackersSelector,
-  //   defenders: defendersSelector,
-  // });
   const attackers = useSelector(attackersSelector);
   const defenders = useSelector(defendersSelector);
   const cursor = useSelector(cursorSelector);
+  const startRound = useDispatchAction(startRoundAction);
+
+  useEffect(() => {
+    startRound(1);
+  }, []);
 
   return (
     <Battlefield attackers={attackers} defenders={defenders} cursor={cursor} />

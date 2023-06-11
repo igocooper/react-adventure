@@ -1,7 +1,7 @@
-import { takeLatest, select, put } from 'typed-redux-saga/macro';
+import { put, select, takeLatest } from 'typed-redux-saga/macro';
 import {
-  setHoveredElement as setHoveredElementAction,
-  setCursor as setCursorAction
+  setCursor as setCursorAction,
+  setHoveredElement as setHoveredElementAction
 } from '../actions';
 import {
   activePlayerIdSelector,
@@ -10,91 +10,102 @@ import {
   defendersSelector,
   makeCharacterByIdSelector
 } from '../selectors';
-import { checkMeleeAttackConstraints } from '../helpers/check-melee-attack-constraints';
+import { checkMeleeAttackConstraints } from '../helpers/checkMeleeAttackConstraints';
 
 import type { Element } from '../reducers/hoveredElementSlice';
-import type { Troop } from '../types';
+import type { Trooper } from '../types';
+import { CURSOR, ATTACK_TYPE, HOVERED_ELEMENT_TYPE } from '../constants';
 
-type Props = {
+interface Props {
   type: string;
-  activePlayer?: Troop;
-  selectedPlayer?: Troop;
-  attackers: Array<Troop>;
-  defenders: Array<Troop>;
-};
+  activeTrooper?: Trooper;
+  selectedTrooper?: Trooper;
+  attackers: Trooper[];
+  defenders: Trooper[];
+}
 
-const detectCursor = ({
-  type,
-  activePlayer,
-  selectedPlayer,
+const detectCharacterCursor = ({
+  activeTrooper,
+  selectedTrooper,
   attackers,
   defenders
 }: Props) => {
-  if (!activePlayer || !selectedPlayer) {
-    return 'default';
+  if (!activeTrooper || !selectedTrooper) {
+    return CURSOR.DEFAULT;
   }
 
-  if (type === 'character') {
-    const isEnemy = activePlayer.team !== selectedPlayer.team;
-    const isDead = selectedPlayer.currentHealth <= 0;
+  const isEnemySelected = activeTrooper.team !== selectedTrooper.team;
+  const isDeadTrooperSelected = selectedTrooper.currentHealth <= 0;
+  const isAllySelected = !isEnemySelected;
 
-    if (isDead) {
-      return 'disabled';
-    }
-    if (isEnemy) {
-      if (activePlayer.attackType === 'range') {
-        return 'bow';
-      }
-      if (activePlayer.attackType === 'splash') {
-        return 'scroll';
-      }
-      if (activePlayer.attackType === 'melee') {
-        if (
-          checkMeleeAttackConstraints({
-            attackers,
-            defenders,
-            targetHero: selectedPlayer,
-            activePlayer
-          })
-        ) {
-          return 'sword';
-        } else {
-          return 'disabled';
-        }
-      }
+  if (isDeadTrooperSelected) {
+    return CURSOR.DISABLED;
+  }
+
+  if (isEnemySelected) {
+    if (activeTrooper.attackType === ATTACK_TYPE.RANGE) {
+      return CURSOR.BOW;
     }
 
-    if (!isEnemy) {
-      return 'default';
+    if (activeTrooper.attackType === ATTACK_TYPE.SPLASH) {
+      return CURSOR.SCROLL;
+    }
+
+    if (activeTrooper.attackType === ATTACK_TYPE.MELEE) {
+      if (
+        checkMeleeAttackConstraints({
+          attackers,
+          defenders,
+          targetHero: selectedTrooper,
+          activePlayer: activeTrooper
+        })
+      ) {
+        return CURSOR.SWORD;
+      } else {
+        return CURSOR.DISABLED;
+      }
     }
   }
-  return 'default';
+
+  if (isAllySelected) {
+    return CURSOR.DISABLED;
+  }
+
+  return CURSOR.DEFAULT;
 };
 
-function* setCursor({ payload }: { payload: Element }) {
+function* setCursor({ payload: hoveredElement }: { payload: Element }) {
   const isBattleFieldDisabled = yield* select(
     battlefieldDisabledStatusSelector
   );
   if (isBattleFieldDisabled) return;
-  if (!payload) {
-    yield* put(setCursorAction('default'));
+
+  if (!hoveredElement) {
+    yield* put(setCursorAction(CURSOR.DEFAULT));
     return;
   }
-  const { id, type } = payload;
-  const activePlayerId = yield* select(activePlayerIdSelector);
-  const activePlayer = yield* select(makeCharacterByIdSelector(activePlayerId));
-  const selectedPlayer = yield* select(makeCharacterByIdSelector(id));
-  const attackers = yield* select(attackersSelector);
-  const defenders = yield* select(defendersSelector);
 
-  const nextCursor = detectCursor({
-    type,
-    activePlayer,
-    selectedPlayer,
-    attackers,
-    defenders
-  });
-  yield* put(setCursorAction(nextCursor));
+  const { id, type } = hoveredElement;
+
+  if (type === HOVERED_ELEMENT_TYPE.CHARACTER) {
+    const activePlayerId = yield* select(activePlayerIdSelector);
+    const activeTrooper = yield* select(
+      makeCharacterByIdSelector(activePlayerId)
+    );
+    const selectedTrooper = yield* select(makeCharacterByIdSelector(id));
+    const attackers = yield* select(attackersSelector);
+    const defenders = yield* select(defendersSelector);
+
+    const nextCursor = detectCharacterCursor({
+      type,
+      activeTrooper,
+      selectedTrooper,
+      attackers,
+      defenders
+    });
+
+    yield* put(setCursorAction(nextCursor));
+  }
 }
 
 export function* cursorSagaWatcher() {

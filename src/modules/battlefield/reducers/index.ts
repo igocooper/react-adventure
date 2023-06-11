@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
-import { initiativesReducer } from './initiativesSlice';
+import { roundReducer } from './roundSlice';
 import { troopsReducer } from './troopsSlice';
 import { hoveredElementReducer } from './hoveredElementSlice';
 import { cursorReducer } from './cursorSlice';
 import { battlefieldDisabledStatusReducer } from './battlefieldDisabledStatusSlice';
-import { activePlayerReducer } from './activePlayerSlice';
 
 export const battleFieldReducer = combineReducers({
-  activePlayer: activePlayerReducer,
-  initiatives: initiativesReducer,
+  round: roundReducer,
   troops: troopsReducer,
   ui: combineReducers({
     hoveredElement: hoveredElementReducer,

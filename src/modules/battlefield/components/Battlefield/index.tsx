@@ -1,11 +1,11 @@
 import React from 'react';
-import type { Troop } from '../../types';
+import type { Trooper } from '../../types';
 import { Location, Attackers, Defenders, Tile } from './styled';
 import { Character } from '../Character';
 
 interface BattlefieldProps {
-  attackers: Troop[];
-  defenders: Troop[];
+  attackers: Trooper[];
+  defenders: Trooper[];
   cursor: string;
 }
 
@@ -19,14 +19,14 @@ export const Battlefield = ({
       {/* TODO: Add MassAttack container */}
       <div>
         <Attackers>
-          {attackers.map(({ id, position, type }: Troop) => (
+          {attackers.map(({ id, position, type }: Trooper) => (
             <Tile key={id} $position={position}>
               <Character type={type} id={id} />
             </Tile>
           ))}
         </Attackers>
         <Defenders>
-          {defenders.map(({ id, position, type }: Troop) => (
+          {defenders.map(({ id, position, type }: Trooper) => (
             <Tile key={id} $position={position}>
               <Character type={type} id={id} />
             </Tile>
