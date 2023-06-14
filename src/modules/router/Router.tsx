@@ -8,7 +8,7 @@ import {
 import { path } from './constants';
 
 import { MainScreen } from 'modules/mainScreen';
-import { BattleField } from 'modules/battleField';
+import { BattleFieldContainer } from 'modules/battlefield/containers/BattlefieldContainer';
 import { SpritesGeneratorContainer } from 'modules/sprites/containers/SpritesGeneratorContainer';
 
 export const Router = () => (
@@ -17,7 +17,7 @@ export const Router = () => (
   <HistoryRouter history={history}>
     <Routes>
       <Route path={path.MAIN} element={<MainScreen />} />
-      <Route path={path.BATTLEFIELD} element={<BattleField />} />
+      <Route path={path.BATTLEFIELD} element={<BattleFieldContainer />} />
       <Route path={path.SPRITES} element={<SpritesGeneratorContainer />} />
     </Routes>
   </HistoryRouter>

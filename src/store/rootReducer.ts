@@ -1,4 +1,6 @@
-import { counterReducer } from '../modules/mainScreen/containers/counter/CounterSlice';
-export const rootReducer = {
-  counter: counterReducer
-};
+import { combineReducers } from 'redux';
+import { battleFieldReducer } from 'modules/battleField/reducers';
+
+export const rootReducer = combineReducers({
+  battleField: battleFieldReducer
+});

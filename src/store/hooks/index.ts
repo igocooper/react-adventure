@@ -8,5 +8,4 @@ import type { RootState, AppDispatch } from '../index';
 export const useDispatch = () => useDispatchBase<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = useSelectorBase;
 
-// export { useDispatchAction } from './useDispatchAction';
-export { useStructuredSelector } from './useStructuredSelector';
+export { useDispatchAction } from './useDispatchAction';
