@@ -5,7 +5,9 @@ import { startRound as startRoundAction } from '../actions';
 import {
   attackersSelector,
   cursorSelector,
-  defendersSelector
+  defendersSelector,
+  activeTrooperSelector,
+  hoveredElementSelector
 } from '../selectors';
 
 export const BattleFieldContainer = () => {
@@ -13,12 +15,20 @@ export const BattleFieldContainer = () => {
   const defenders = useSelector(defendersSelector);
   const cursor = useSelector(cursorSelector);
   const startRound = useDispatchAction(startRoundAction);
+  const activeTrooper = useSelector(activeTrooperSelector);
+  const hoveredElement = useSelector(hoveredElementSelector);
 
   useEffect(() => {
     startRound(1);
   }, []);
 
   return (
-    <Battlefield attackers={attackers} defenders={defenders} cursor={cursor} />
+    <Battlefield
+      attackers={attackers}
+      defenders={defenders}
+      cursor={cursor}
+      activeTrooper={activeTrooper!}
+      hoveredTrooperId={hoveredElement?.id}
+    />
   );
 };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import type { Team } from '../../types';
 import villageRoadImg from './images/locations/village_road.png';
 import cursorDefaultImg from './images/cursors/cursor-default.png';
 import cursorScrollImg from './images/cursors/cursor-scroll.png';
@@ -59,6 +60,38 @@ export const Attackers = styled(Troops).attrs({
 export const Defenders = styled(Troops).attrs({
   className: 'defenders'
 })``;
+
+interface HighlighterProps {
+  $enemy: boolean;
+  $team: Team;
+}
+
+export const Highlighter = styled.div.attrs((props: HighlighterProps) => ({
+  className: `highlighter ${props.$team} ${props.$enemy ? 'enemy' : ''}`
+}))<HighlighterProps>`
+  box-shadow: 0 5px 11px #00000087;
+  background: transparent;
+  border-radius: 50%;
+  width: 100px;
+  height: 10px;
+  display: block;
+  position: absolute;
+  bottom: -26px;
+  left: -30%;
+  transform: skew(-204deg, -177deg);
+
+  &.attackers {
+    border: 2px inset #e2d213;
+  }
+
+  &.defenders {
+    border: 2px inset #953ac1;
+  }
+
+  &.enemy {
+    border: 2px inset #9a1111;
+  }
+`;
 
 export const Tile = styled.div.attrs((props: { $position: number }) => ({
   className: `tile tile-${props.$position}`
