@@ -6,7 +6,7 @@ export type HoveredElementType = 'default' | 'character';
 export interface Character {
   team: Team;
   type: string;
-  attack: string;
+  damage: string;
   attackType: AttackType;
   position: number;
   health: number;

@@ -6,7 +6,7 @@ import {
   setActivePlayer as setActivePlayerAction
 } from '../actions';
 import {
-  activePlayerIdSelector,
+  activeTrooperSelector,
   attackersSelector,
   battlefieldDisabledStatusSelector,
   defendersSelector,
@@ -91,10 +91,7 @@ function* updateCursor(hoveredElement: Element) {
   const { id, type } = hoveredElement;
 
   if (type === HOVERED_ELEMENT_TYPE.CHARACTER) {
-    const activePlayerId = yield* select(activePlayerIdSelector);
-    const activeTrooper = yield* select(
-      makeCharacterByIdSelector(activePlayerId)
-    );
+    const activeTrooper = yield* select(activeTrooperSelector);
     const selectedTrooper = yield* select(makeCharacterByIdSelector(id));
     const attackers = yield* select(attackersSelector);
     const defenders = yield* select(defendersSelector);

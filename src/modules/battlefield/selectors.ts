@@ -1,5 +1,6 @@
 import type { RootState } from 'store';
 import { createSelector } from 'reselect';
+import { checkMeleeAttackConstraints } from './helpers/checkMeleeAttackConstraints';
 
 export const battlefieldSelector = (state: RootState) => state.battleField;
 
@@ -38,6 +39,14 @@ export const troopsSelector = createSelector(
   (battleField) => battleField.troops
 );
 
+export const activeTrooperSelector = createSelector(
+  activePlayerIdSelector,
+  troopsSelector,
+  (id, troops) =>
+    troops.attackers.find((attacker) => attacker.id === id) ||
+    troops.defenders.find((defender) => defender.id === id)
+);
+
 export const attackersSelector = createSelector(
   troopsSelector,
   (troops) => troops.attackers
@@ -54,6 +63,25 @@ export const makeCharacterByIdSelector = (id: number) =>
     (troops) =>
       troops.attackers.find((attacker) => attacker.id === id) ||
       troops.defenders.find((defender) => defender.id === id)
+  );
+
+export const makeCanMeleeTrooperAttackSelector = (id: number) =>
+  createSelector(
+    activeTrooperSelector,
+    attackersSelector,
+    defendersSelector,
+    (activeTrooper, attackers, defenders) => {
+      const selectedTrooper =
+        attackers.find((attacker) => attacker.id === id) ||
+        defenders.find((defender) => defender.id === id);
+
+      return checkMeleeAttackConstraints({
+        attackers,
+        defenders,
+        targetHero: selectedTrooper,
+        activePlayer: activeTrooper
+      });
+    }
   );
 
 export const uiSelector = createSelector(
