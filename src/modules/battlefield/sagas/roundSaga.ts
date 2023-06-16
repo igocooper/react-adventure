@@ -17,12 +17,13 @@ import {
   initiativeSelector,
   attackersSelector,
   defendersSelector,
-  activePlayerIdSelector,
-  makeCharacterByIdSelector,
-  battlefieldDisabledStatusSelector
+  battlefieldDisabledStatusSelector,
+  activeTrooperSelector,
+  makeCanMeleeTrooperAttackSelector
 } from '../selectors';
 
 import type { Trooper } from '../types';
+import { ATTACK_TYPE } from '../constants';
 
 function* initInitiative() {
   const attackers = yield* select(attackersSelector);
@@ -78,15 +79,21 @@ function* handleTrooperClick({
 
   if (isBattleFieldDisabled) return;
 
-  const { team } = clickedTrooperInfo;
-  const activePlayerId = yield* select(activePlayerIdSelector);
-  const activeTrooper = yield* select(
-    makeCharacterByIdSelector(activePlayerId)
+  const { team, id } = clickedTrooperInfo;
+  const activeTrooper = yield* select(activeTrooperSelector);
+  const isEnemySelected = activeTrooper && activeTrooper.team !== team;
+  const canMeleeTrooperAttack = yield* select(
+    makeCanMeleeTrooperAttackSelector(id)
   );
 
-  const isEnemySelected = activeTrooper && activeTrooper.team !== team;
-
   if (isEnemySelected) {
+    if (
+      activeTrooper.attackType === ATTACK_TYPE.MELEE &&
+      !canMeleeTrooperAttack
+    ) {
+      return;
+    }
+
     yield* put(attackStarted(clickedTrooperInfo));
 
     yield* take(attackFinished);

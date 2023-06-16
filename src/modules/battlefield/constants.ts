@@ -14,6 +14,11 @@ export enum ATTACK_TYPE {
   SPLASH = 'splash'
 }
 
+export enum TROOPER_TEAM {
+  ATTACKERS = 'attackers',
+  DEFENDERS = 'defenders'
+}
+
 export enum HOVERED_ELEMENT_TYPE {
   DEFAULT = 'default',
   CHARACTER = 'character'
@@ -23,7 +28,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'knight',
-    attack: '10-15',
+    damage: '10-15',
     attackType: 'melee',
     position: 1,
     health: 50,
@@ -34,7 +39,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'knight',
-    attack: '8-10',
+    damage: '8-10',
     attackType: 'melee',
     position: 2,
     health: 60,
@@ -45,7 +50,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'spear-knight',
-    attack: '15-22',
+    damage: '15-22',
     attackType: 'melee',
     position: 3,
     health: 100,
@@ -56,7 +61,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'ice-mage',
-    attack: '50-60',
+    damage: '50-60',
     attackType: 'splash',
     position: 4,
     health: 30,
@@ -67,7 +72,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'archer',
-    attack: '50-70',
+    damage: '50-70',
     attackType: 'range',
     position: 5,
     health: 30,
@@ -78,7 +83,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   // {
   //   team: "attackers",
   //   type: "archer",
-  //   attack: '50-70',
+  //   damage: '50-70',
   //   attackType: 'single',
   //   attackId: ARCHER_ATTACK,
   //   position: 6,

@@ -42,16 +42,6 @@ export const troopsSlice = createSlice({
       if (targetTrooper != null) {
         targetTrooper.currentHealth -= damage;
       }
-
-      // TODO: Test mutation logic above
-      // state[team] = state[team].map((troop) => {
-      //   if (troop.id !== targetId) return troop;
-      //
-      //   return {
-      //     ...troop,
-      //     currentHealth: troop.currentHealth - damage
-      //   };
-      // });
     },
     applyHeal: (
       state: TroopsState,

@@ -4,8 +4,8 @@ import type { Trooper } from '../types';
 interface Props {
   attackers: Trooper[];
   defenders: Trooper[];
-  targetHero: Trooper;
-  activePlayer: Trooper;
+  targetHero?: Trooper;
+  activePlayer?: Trooper;
 }
 
 export const checkMeleeAttackConstraints = ({
@@ -14,6 +14,8 @@ export const checkMeleeAttackConstraints = ({
   targetHero,
   activePlayer
 }: Props) => {
+  if (!targetHero || !activePlayer) return false;
+
   const targetTeam =
     targetHero.team === 'attackers'
       ? convertToObjectByPosition<Trooper>(attackers)
