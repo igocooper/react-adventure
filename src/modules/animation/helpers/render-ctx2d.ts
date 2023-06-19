@@ -1,9 +1,5 @@
 import * as spriter from './spriter';
-import {
-  mat3x3Identity,
-  mat3x3Scale,
-  mat3x3Transform,
-} from './render-webgl';
+import { mat3x3Identity, mat3x3Scale, mat3x3Transform } from './render-webgl';
 
 export class RenderCtx2D {
   ctx: CanvasRenderingContext2D;
@@ -56,13 +52,7 @@ export class RenderCtx2D {
             ctxApplySpace(ctx, sprite_object.world_space);
             ctx.scale(image_file.width / 2, image_file.height / 2);
             ctx.globalAlpha *= sprite_object.alpha;
-            ctxDrawImageMesh(
-              ctx,
-              triangles,
-              positions,
-              texcoords,
-              image,
-            );
+            ctxDrawImageMesh(ctx, triangles, positions, texcoords, image);
             ctx.restore();
           }
           break;

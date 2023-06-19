@@ -1,3 +1,3 @@
-export const loadSCONFile = (url: string) => {
-  return fetch(url).then((response) => response.json());
+export const loadSCONFile = async (url: string) => {
+  return await fetch(url).then(async (response) => await response.json());
 };

@@ -1,5 +1,5 @@
-export const loadImage = (url: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
+export const loadImage = async (url: string): Promise<HTMLImageElement> => {
+  return await new Promise((resolve, reject) => {
     const image: HTMLImageElement = new Image();
     image.crossOrigin = 'Anonymous';
 

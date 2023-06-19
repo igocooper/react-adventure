@@ -16,10 +16,10 @@ const getUrls = (type: string) => {
   };
 };
 
-type Props = {
+interface Props {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-};
+}
 
 const CHARACTER_PROPS: Record<string, Props> = {
   torug: {

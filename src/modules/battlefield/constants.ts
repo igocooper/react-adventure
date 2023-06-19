@@ -90,7 +90,7 @@ const DEFAULT_TROOPS: Trooper[] = [
     currentHealth: 30,
     id: 6,
     initiative: 9
-  },
+  }
 ];
 
 export const ATTACKERS = DEFAULT_TROOPS;
