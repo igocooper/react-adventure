@@ -7,13 +7,14 @@ import { loadImage } from '../helpers/loadImage';
 import { wait } from '../helpers/wait';
 import { getRandomNumberInRange } from '../../battlefield/helpers/getRandomNumberInRange';
 
-type State = {};
-type Props = {
+/* eslint-disable @typescript-eslint/naming-convention */
+
+interface Props {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-};
+}
 
-export class CharacterAnimation extends Component<Props, State> {
+export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   ctx: Nullable<CanvasRenderingContext2D>;
   renderCtx: Nullable<RenderCtx2D>;
@@ -118,7 +119,7 @@ export class CharacterAnimation extends Component<Props, State> {
 
     this.spriter_pose.setAnim(animation);
     this.spriter_pose.setTime(0);
-    this.anim_length = animationLength || this.spriter_pose!.curAnimLength();
+    this.anim_length = animationLength || this.spriter_pose.curAnimLength();
     this.prev_time = 0;
     this.anim_time = 0;
   }
@@ -185,7 +186,7 @@ export class CharacterAnimation extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.init();
+    void this.init();
   }
 
   render() {

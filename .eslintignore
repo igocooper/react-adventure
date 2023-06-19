@@ -1,2 +1,5 @@
 node_modules/**
 /build
+/src/modules/animation/helpers/spriter.ts
+/src/modules/animation/helpers/render-ctx2d.ts
+/src/modules/animation/helpers/render-webgl.ts
