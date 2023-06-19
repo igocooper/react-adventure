@@ -1,16 +1,16 @@
 import React from 'react';
 import * as styled from './styled';
-import type { Trooper } from '../../types';
 
 interface OwnProps {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClick: () => void;
+  children: React.ReactNode;
 }
-type CharacterProps = Pick<Trooper, 'type'> & OwnProps;
+type CharacterProps = OwnProps;
 
 export const Character = ({
-  type,
+  children,
   onMouseEnter,
   onMouseLeave,
   onClick
@@ -20,7 +20,8 @@ export const Character = ({
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      $type={type}
-    />
+    >
+      {children}
+    </styled.Character>
   );
 };

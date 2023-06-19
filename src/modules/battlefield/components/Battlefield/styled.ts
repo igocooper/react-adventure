@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import type { Team } from '../../types';
 import villageRoadImg from './images/locations/village_road.png';
 import cursorDefaultImg from './images/cursors/cursor-default.png';
-import cursorScrollImg from './images/cursors/cursor-scroll.png';
+import cursorWandImg from './images/cursors/cursor-wand.png';
 import cursorBowImg from './images/cursors/cursor-bow.png';
 import cursorSwordImg from './images/cursors/cursor-sword.png';
 
@@ -36,8 +36,8 @@ export const Location = styled.div.attrs((props: { $cursor: string }) => ({
     cursor: not-allowed;
   }
 
-  &.cursor-scroll {
-    cursor: url(${cursorScrollImg}), auto;
+  &.cursor-wand {
+    cursor: url(${cursorWandImg}), auto;
   }
 
   &.cursor-bow {

@@ -51,7 +51,7 @@ const detectCharacterCursor = ({
     }
 
     if (activeTrooper.attackType === ATTACK_TYPE.SPLASH) {
-      return CURSOR.SCROLL;
+      return CURSOR.WAND;
     }
 
     if (activeTrooper.attackType === ATTACK_TYPE.MELEE) {

@@ -4,6 +4,8 @@ import { setHoveredElement, trooperClicked } from '../actions';
 import type { Trooper } from '../types';
 import { HOVERED_ELEMENT_TYPE } from '../constants';
 import { Character } from '../components/Character';
+import { CharacterAnimation } from '../../animation/containers/CharacterAnimation';
+import { getCharacterProps } from '../helpers/getCharacterProps';
 
 type CharacterProps = Pick<Trooper, 'id' | 'type' | 'team'>;
 
@@ -29,10 +31,11 @@ export const CharacterContainer = ({ id, type, team }: CharacterProps) => {
 
   return (
     <Character
-      type={type}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
-    />
+    >
+      <CharacterAnimation {...getCharacterProps(type)} />
+    </Character>
   );
 };
