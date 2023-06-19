@@ -1,5 +1,5 @@
-export const wait = async (time: number): Promise<void> => {
-  await new Promise((resolve) => {
+export const wait = async (time: number) => {
+  await new Promise<void>((resolve) => {
     setTimeout(() => {
       resolve();
     }, time);
