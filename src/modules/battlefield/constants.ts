@@ -1,4 +1,4 @@
-import type { Trooper, Team } from './types';
+import type { Trooper } from './types';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -24,7 +24,7 @@ export enum HOVERED_ELEMENT_TYPE {
   CHARACTER = 'character'
 }
 
-const DEFAULT_TROOPS: Trooper[] = [
+const ATTACKERS_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'mountain-warrior-1',
@@ -49,7 +49,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   },
   {
     team: 'attackers',
-    type: 'mountain-warrior-2',
+    type: 'mountain-warrior-5',
     damage: '15-22',
     attackType: 'melee',
     position: 3,
@@ -93,9 +93,41 @@ const DEFAULT_TROOPS: Trooper[] = [
   // }
 ];
 
-export const ATTACKERS = DEFAULT_TROOPS;
-export const DEFENDERS = DEFAULT_TROOPS.map((troop) => ({
-  ...troop,
-  team: 'defenders' as Team,
-  id: troop.id + 100
-}));
+const DEFENDERS_TROOPS: Trooper[] = [
+  {
+    team: 'defenders',
+    type: 'goblin-1',
+    damage: '10-15',
+    attackType: 'melee',
+    position: 1,
+    health: 50,
+    currentHealth: 50,
+    id: 11,
+    initiative: 5
+  },
+  {
+    team: 'defenders',
+    type: 'goblin-2',
+    damage: '6-10',
+    attackType: 'melee',
+    position: 2,
+    health: 60,
+    currentHealth: 60,
+    id: 12,
+    initiative: 2
+  },
+  {
+    team: 'attackers',
+    type: 'goblin-3',
+    damage: '15-22',
+    attackType: 'melee',
+    position: 3,
+    health: 100,
+    currentHealth: 100,
+    id: 13,
+    initiative: 3
+  }
+];
+
+export const ATTACKERS = ATTACKERS_TROOPS;
+export const DEFENDERS = DEFENDERS_TROOPS;

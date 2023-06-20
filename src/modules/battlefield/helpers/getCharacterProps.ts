@@ -46,6 +46,18 @@ const CHARACTER_PROPS: Record<string, Props> = {
   'mountain-warrior-5': {
     imagesUrls: getUrls('mountain-warrior-5'),
     sconFileUrl: '/common.scon'
+  },
+  'goblin-1': {
+    imagesUrls: getUrls('goblin-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'goblin-2': {
+    imagesUrls: getUrls('goblin-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'goblin-3': {
+    imagesUrls: getUrls('goblin-3'),
+    sconFileUrl: '/common.scon'
   }
 };
 
