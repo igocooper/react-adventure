@@ -108,7 +108,7 @@ export const Character = styled(Center).attrs((props: CharacterProps) => ({
   }
 
   &.defenders {
-    --shadow-color: #953ac1;
+    --shadow-color: #32a265;
   }
 
   &.enemy {
