@@ -107,7 +107,15 @@ export class CharacterAnimation extends Component<Props> {
     if (!this.spriter_pose) return;
 
     await wait(getRandomNumberInRange(0, 500));
-    this.idle();
+    // this.idle();
+
+    // this.attack('Slashing With Left Hands');
+    // this.attack('Slashing With Both Hands');
+    // this.attack('Slashing With Both Hands Sequence');
+    // this.attack('Slashing Two Handed Weapon');
+    // this.attack('Stabing With Left Hands');
+    this.attack('Stabing With Both Hands');
+    // this.attack('Cast With Wand');
   }
 
   setAnimation(animation: string, animationLength?: number) {
@@ -126,7 +134,7 @@ export class CharacterAnimation extends Component<Props> {
 
   idle() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Idle', Infinity);
+    this.setAnimation('Idle Blinking With Weapon', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
@@ -136,9 +144,9 @@ export class CharacterAnimation extends Component<Props> {
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
-  async attack() {
+  async attack(animation: string) {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Slashing');
+    this.setAnimation(animation, Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);

@@ -12,7 +12,8 @@ const getUrls = (type: string) => {
     'Right Hand.png': `/images/${type}/Right Hand.png`,
     'Right Leg.png': `/images/${type}/Right Leg.png`,
     'SlashFX.png': `/images/${type}/SlashFX.png`,
-    'Sword.png': `/images/${type}/Sword.png`
+    'Sword.png': `/images/${type}/Sword.png`,
+    'Right Hand Weapon.png': `/images/${type}/Right Hand Weapon.png`
   };
 };
 
