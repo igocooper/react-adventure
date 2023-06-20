@@ -39,7 +39,7 @@ const DEFAULT_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'torug',
-    damage: '8-10',
+    damage: '6-10',
     attackType: 'melee',
     position: 2,
     health: 60,
@@ -57,40 +57,40 @@ const DEFAULT_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 3,
     initiative: 3
-  },
-  {
-    team: 'attackers',
-    type: 'mountain-warrior-3',
-    damage: '50-60',
-    attackType: 'splash',
-    position: 4,
-    health: 30,
-    currentHealth: 30,
-    id: 4,
-    initiative: 8
-  },
-  {
-    team: 'attackers',
-    type: 'mountain-warrior-4',
-    damage: '50-70',
-    attackType: 'range',
-    position: 5,
-    health: 30,
-    currentHealth: 30,
-    id: 5,
-    initiative: 9
-  },
-  {
-    team: 'attackers',
-    type: 'mountain-warrior-5',
-    damage: '50-70',
-    attackType: 'range',
-    position: 6,
-    health: 30,
-    currentHealth: 30,
-    id: 6,
-    initiative: 9
   }
+  // {
+  //   team: 'attackers',
+  //   type: 'mountain-warrior-3',
+  //   damage: '50-60',
+  //   attackType: 'melee',
+  //   position: 4,
+  //   health: 30,
+  //   currentHealth: 30,
+  //   id: 4,
+  //   initiative: 8
+  // },
+  // {
+  //   team: 'attackers',
+  //   type: 'mountain-warrior-4',
+  //   damage: '50-70',
+  //   attackType: 'melee',
+  //   position: 5,
+  //   health: 30,
+  //   currentHealth: 30,
+  //   id: 5,
+  //   initiative: 9
+  // },
+  // {
+  //   team: 'attackers',
+  //   type: 'mountain-warrior-5',
+  //   damage: '50-70',
+  //   attackType: 'range',
+  //   position: 6,
+  //   health: 30,
+  //   currentHealth: 30,
+  //   id: 6,
+  //   initiative: 9
+  // }
 ];
 
 export const ATTACKERS = DEFAULT_TROOPS;

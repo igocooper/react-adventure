@@ -19,11 +19,31 @@ import {
   defendersSelector,
   battlefieldDisabledStatusSelector,
   activeTrooperSelector,
-  makeCanMeleeTrooperAttackSelector
+  makeCanMeleeTrooperAttackSelector,
+  makeCharacterByIdSelector
 } from '../selectors';
 
 import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
+
+function* getTroopersHealthMap() {
+  const attackers = yield* select(attackersSelector);
+  const defenders = yield* select(defendersSelector);
+  const troopers: Trooper[] = [...attackers, ...defenders];
+
+  return troopers.reduce(
+    (
+      res: Record<Trooper['id'], Trooper['currentHealth']>,
+      { currentHealth, id }
+    ) => {
+      return {
+        ...res,
+        [id]: currentHealth
+      };
+    },
+    {}
+  );
+}
 
 function* initInitiative() {
   const attackers = yield* select(attackersSelector);
@@ -31,6 +51,7 @@ function* initInitiative() {
   const troopers: Trooper[] = [...attackers, ...defenders];
 
   return troopers
+    .filter((trooper) => Boolean(trooper.currentHealth))
     .sort((character1, character2) => {
       return character2.initiative - character1.initiative;
     })
@@ -43,17 +64,21 @@ function* initInitiative() {
 function* finishTrooperTurn() {
   const round = yield* select(roundSelector);
   const initiative = yield* select(initiativeSelector);
+  const troopersHealthMap = yield* call(getTroopersHealthMap);
+  const updatedInitiative = initiative
+    .slice(1)
+    .filter(({ id }) => troopersHealthMap[id]! > 0);
 
-  if (initiative.length === 1) {
+  if (updatedInitiative.length === 0) {
     yield* put(finishRoundAction(round));
     yield* put(startRoundAction(round + 1));
   }
 
-  const nextActivePlayer = initiative[1];
+  const nextActivePlayer = updatedInitiative[0];
 
   if (nextActivePlayer) {
     yield* put(setActivePlayer(nextActivePlayer));
-    yield* put(setInitiative(initiative.slice(1)));
+    yield* put(setInitiative(updatedInitiative));
   }
 }
 
@@ -85,11 +110,16 @@ function* handleTrooperClick({
   const canMeleeTrooperAttack = yield* select(
     makeCanMeleeTrooperAttackSelector(id)
   );
+  const selectedTrooper = yield* select(
+    makeCharacterByIdSelector(clickedTrooperInfo.id)
+  );
+  const isEnemyDead = selectedTrooper!.currentHealth <= 0;
 
   if (isEnemySelected) {
     if (
-      activeTrooper.attackType === ATTACK_TYPE.MELEE &&
-      !canMeleeTrooperAttack
+      (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
+        !canMeleeTrooperAttack) ||
+      isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
     ) {
       return;
     }

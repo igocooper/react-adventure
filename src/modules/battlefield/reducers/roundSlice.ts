@@ -14,7 +14,7 @@ interface State {
 
 const initialState = {
   round: 0,
-  initiative: [],
+  initiative: [] as PlayerInfo[],
   activePlayer: { id: 0, index: 0 }
 };
 

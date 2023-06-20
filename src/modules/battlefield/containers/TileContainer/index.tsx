@@ -64,7 +64,7 @@ export const TileContainer = ({
         $active={active}
         $hovered={hovered}
       >
-        <CharacterAnimation {...getCharacterProps(type)} />
+        <CharacterAnimation {...getCharacterProps(type)} id={id} />
       </Character>
     </Tile>
   );

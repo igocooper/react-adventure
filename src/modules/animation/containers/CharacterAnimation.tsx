@@ -6,13 +6,15 @@ import { RenderCtx2D } from '../helpers/render-ctx2d';
 import { loadImage } from '../helpers/loadImage';
 import { wait } from '../helpers/wait';
 import { getRandomNumberInRange } from '../../battlefield/helpers/getRandomNumberInRange';
+import { register } from '../troopersAnimationInstances';
+import type { Trooper } from 'modules/battlefield/types';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
-interface Props {
+type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-}
+} & Pick<Trooper, 'id'>;
 
 export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -95,6 +97,7 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async init() {
+    const { id } = this.props;
     this.loading = true;
 
     this.initCanvasCtx();
@@ -104,23 +107,10 @@ export class CharacterAnimation extends Component<Props> {
 
     this.loading = false;
 
-    if (!this.spriter_pose) return;
+    register(id, this);
 
     await wait(getRandomNumberInRange(0, 500));
     this.idle();
-
-    const attacks = [
-      'Slashing With Left Hand',
-      'Slashing With Both Hands',
-      'Slashing Two Handed Weapon',
-      'Slashing With Both Hands Sequence',
-      'Stabing With Left Hand',
-      'Stabing With Both Hands',
-      'Cast With Wand'
-    ];
-    const attackIndex = getRandomNumberInRange(0, attacks.length - 1);
-
-    await this.attack(attacks[attackIndex]);
   }
 
   setAnimation(animation: string, animationLength?: number) {
@@ -139,7 +129,7 @@ export class CharacterAnimation extends Component<Props> {
 
   idle() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Idle', Infinity);
+    this.setAnimation('Idle With Weapon', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
@@ -149,12 +139,42 @@ export class CharacterAnimation extends Component<Props> {
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
-  async attack(animation: string) {
+  async hurt() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation(animation, Infinity);
+    this.setAnimation('Hurt');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
+    this.idle();
+  }
+
+  async die() {
+    cancelAnimationFrame(this.animationRequestId);
+    this.setAnimation('Dying');
+    this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
+
+    await wait(this.anim_length);
+  }
+
+  async attack() {
+    cancelAnimationFrame(this.animationRequestId);
+    // const attacks = [
+    //   'Slashing With Left Hand',
+    //   'Slashing With Both Hands',
+    //   'Slashing Two Handed Weapon',
+    //   'Slashing With Both Hands Sequence',
+    //   'Stabing With Left Hand',
+    //   'Stabing With Both Hands',
+    //   'Cast With Wand'
+    // ];
+    // const attackIndex = getRandomNumberInRange(0, attacks.length - 1);
+
+    // this.setAnimation(attacks[attackIndex]!);
+    this.setAnimation('Slashing With Left Hand');
+    this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
+
+    await wait(this.anim_length);
+    this.idle();
   }
 
   renderAnimationLoop(time: number) {
