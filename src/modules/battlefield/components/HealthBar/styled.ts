@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Defenders } from '../Battlefield/styled';
+import { Defenders } from '../../containers/BattlefieldContainer/styled';
 
 export const HealthBar = styled.div.attrs({
   className: 'health-bar'

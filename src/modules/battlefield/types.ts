@@ -1,6 +1,6 @@
 export type AttackType = 'melee' | 'range' | 'splash';
 export type Team = 'attackers' | 'defenders';
-export type Cursor = 'default' | 'bow' | 'disabled' | 'scroll' | 'sword';
+export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
 export type HoveredElementType = 'default' | 'character';
 
 export interface Character {
