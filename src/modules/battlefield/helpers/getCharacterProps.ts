@@ -76,6 +76,50 @@ const CHARACTER_PROPS: Record<string, Props> = {
   'golem-1': {
     imagesUrls: getUrls('golem-1'),
     sconFileUrl: '/common.scon'
+  },
+  'golem-2': {
+    imagesUrls: getUrls('golem-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'golem-3': {
+    imagesUrls: getUrls('golem-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'fallen-angel-1': {
+    imagesUrls: getUrls('fallen-angel-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'fallen-angel-2': {
+    imagesUrls: getUrls('fallen-angel-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'fallen-angel-3': {
+    imagesUrls: getUrls('fallen-angel-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'minotaur-1': {
+    imagesUrls: getUrls('minotaur-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'minotaur-2': {
+    imagesUrls: getUrls('minotaur-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'minotaur-3': {
+    imagesUrls: getUrls('minotaur-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'reaper-1': {
+    imagesUrls: getUrls('reaper-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'reaper-2': {
+    imagesUrls: getUrls('reaper-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'reaper-3': {
+    imagesUrls: getUrls('reaper-3'),
+    sconFileUrl: '/common.scon'
   }
 };
 

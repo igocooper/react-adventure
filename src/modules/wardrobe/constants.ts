@@ -58,7 +58,73 @@ export const HEADS = [
         newCharacterImages: [
             { url: '/images/golem-1/Head.png', itemSlot: 'Head.png' }
         ]
-    }
+    },
+    {
+        iconUrl: '/images/golem-2/Head.png',
+        newCharacterImages: [
+            { url: '/images/golem-2/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/golem-3/Head.png',
+        newCharacterImages: [
+            { url: '/images/golem-3/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-1/Head.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-1/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-2/Head.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-2/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-3/Head.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-3/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-1/Head.png',
+        newCharacterImages: [
+            { url: '/images/reaper-1/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-2/Head.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-2/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-3/Head.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-3/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-1/Head.png',
+        newCharacterImages: [
+            { url: '/images/reaper-1/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-2/Head.png',
+        newCharacterImages: [
+            { url: '/images/reaper-2/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-3/Head.png',
+        newCharacterImages: [
+            { url: '/images/reaper-3/Head.png', itemSlot: 'Head.png' }
+        ]
+    },
 ];
 
 export const ARMORS = [
@@ -271,6 +337,138 @@ export const ARMORS = [
             { url: '/images/golem-1/Left Hand.png', itemSlot: 'Left Hand.png' },
             { url: '/images/golem-1/Left Leg.png', itemSlot: 'Left Leg.png' }
         ]
+    },
+    {
+        iconUrl: '/images/golem-2/Body.png',
+        newCharacterImages: [
+            { url: '/images/golem-2/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/golem-2/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/golem-2/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/golem-2/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/golem-2/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/golem-2/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/golem-2/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/golem-3/Body.png',
+        newCharacterImages: [
+            { url: '/images/golem-3/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/golem-3/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/golem-3/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/golem-3/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/golem-3/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/golem-3/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/golem-3/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-1/Body.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-1/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/fallen-angel-1/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/fallen-angel-1/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/fallen-angel-1/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/fallen-angel-1/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/fallen-angel-1/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/fallen-angel-1/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-2/Body.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-2/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/fallen-angel-2/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/fallen-angel-2/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/fallen-angel-2/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/fallen-angel-2/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/fallen-angel-2/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/fallen-angel-2/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-3/Body.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-3/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/fallen-angel-3/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/fallen-angel-3/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/fallen-angel-3/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/fallen-angel-3/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/fallen-angel-3/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/fallen-angel-3/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-1/Body.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-1/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/minotaur-1/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/minotaur-1/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/minotaur-1/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/minotaur-1/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/minotaur-1/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/minotaur-1/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-2/Body.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-2/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/minotaur-2/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/minotaur-2/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/minotaur-2/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/minotaur-2/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/minotaur-2/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/minotaur-2/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-3/Body.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-3/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/minotaur-3/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/minotaur-3/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/minotaur-3/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/minotaur-3/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/minotaur-3/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/minotaur-3/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-1/Body.png',
+        newCharacterImages: [
+            { url: '/images/reaper-1/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/reaper-1/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/reaper-1/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/reaper-1/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/reaper-1/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/reaper-1/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/reaper-1/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-2/Body.png',
+        newCharacterImages: [
+            { url: '/images/reaper-2/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/reaper-2/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/reaper-2/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/reaper-2/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/reaper-2/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/reaper-2/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/reaper-2/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-3/Body.png',
+        newCharacterImages: [
+            { url: '/images/reaper-3/Body.png', itemSlot: 'Body.png' },
+            { url: '/images/reaper-3/Right Arm.png', itemSlot: 'Right Arm.png' },
+            { url: '/images/reaper-3/Right Hand.png', itemSlot: 'Right Hand.png' },
+            { url: '/images/reaper-3/Right Leg.png', itemSlot: 'Right Leg.png' },
+            { url: '/images/reaper-3/Left Arm.png', itemSlot: 'Left Arm.png' },
+            { url: '/images/reaper-3/Left Hand.png', itemSlot: 'Left Hand.png' },
+            { url: '/images/reaper-3/Left Leg.png', itemSlot: 'Left Leg.png' }
+        ]
     }
 ];
 
@@ -334,5 +532,71 @@ export const WEAPONS = [
         newCharacterImages: [
             { url: '/images/golem-1/Sword.png', itemSlot: 'Sword.png' }
         ]
-    }
+    },
+    {
+        iconUrl: '/images/golem-2/Sword.png',
+        newCharacterImages: [
+            { url: '/images/golem-2/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/golem-3/Sword.png',
+        newCharacterImages: [
+            { url: '/images/golem-3/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-1/Sword.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-1/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-2/Sword.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-2/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/fallen-angel-3/Sword.png',
+        newCharacterImages: [
+            { url: '/images/fallen-angel-3/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-1/Sword.png',
+        newCharacterImages: [
+            { url: '/images/reaper-1/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-2/Sword.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-2/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/minotaur-3/Sword.png',
+        newCharacterImages: [
+            { url: '/images/minotaur-3/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-1/Sword.png',
+        newCharacterImages: [
+            { url: '/images/reaper-1/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-2/Sword.png',
+        newCharacterImages: [
+            { url: '/images/reaper-2/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
+    {
+        iconUrl: '/images/reaper-3/Sword.png',
+        newCharacterImages: [
+            { url: '/images/reaper-3/Sword.png', itemSlot: 'Sword.png' }
+        ]
+    },
 ];
