@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import archerImg from './archer.png';
 import arrowImg from './arrow.png';
 
 type AreaProps = {

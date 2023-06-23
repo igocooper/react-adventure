@@ -24,6 +24,7 @@ export const AnimationArea = ({ children }: OwnProps) => {
   return (
     <Area ref={areaAnimationRef} $team={team}>
       <Arrow
+        team={team}
         containerNode={areaAnimationRef.current!}
         animationDuration={300}
         activeTrooperId={activeTrooper?.id}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Trooper } from 'modules/battlefield/types';
+import { Trooper, Team } from 'modules/battlefield/types';
 import { getElementBoundsWithinContainer } from 'modules/battlefield/helpers/get-element-bounds-within-container';
 import * as styled from './styled';
 import { getTrooperNode } from '../../troopersNodesMap';
@@ -10,6 +10,7 @@ type Props = {
   animationDuration: number;
   activeTrooperId?: Trooper['id'];
   selectedTrooperId?: Trooper['id'];
+  team: Team;
 };
 
 type State = {
@@ -55,10 +56,14 @@ export class Arrow extends Component<Props, State> {
 
   getArrowStyles(characterBounds: DOMRect) {
     const { width, height, left, top } = characterBounds;
+    const { team } = this.props;
+    const THRESHOLD = 22;
+    const safeLeft =
+      team === 'defenders' ? left - ARROW_WIDTH : left + width - ARROW_WIDTH;
 
     return {
-      left: left + width - ARROW_WIDTH,
-      top: top + height / 2 + 22 - ARROW_HEIGHT / 2,
+      left: safeLeft,
+      top: top + height / 2 + THRESHOLD - ARROW_HEIGHT / 2,
       width: `${ARROW_WIDTH}px`,
       height: `${ARROW_HEIGHT}px`,
       zIndex: '99'
