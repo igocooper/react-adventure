@@ -23,7 +23,7 @@ export const BattlefieldContainer = () => {
 
   return (
     <Location $cursor={cursor}>
-      <AnimationAreaContainer>
+      <AnimationAreaContainer id="area-container" >
         <Attackers>
           {attackers.map(
             ({ id, position, type, team, currentHealth, health }: Trooper) => (

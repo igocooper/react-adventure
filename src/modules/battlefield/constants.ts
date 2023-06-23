@@ -41,24 +41,24 @@ const ATTACKERS_TROOPS: Trooper[] = [
     type: 'torug',
     damage: '6-10',
     attackType: 'melee',
-    position: 2,
+    position: 3,
     health: 60,
     currentHealth: 60,
     id: 2,
-    initiative: 2
+    initiative: 10
   },
-  {
-    team: 'attackers',
-    type: 'mountain-warrior-5',
-    damage: '15-22',
-    attackType: 'range',
-    attackId: 'mountainArcherArrow',
-    position: 4,
-    health: 100,
-    currentHealth: 100,
-    id: 3,
-    initiative: 3
-  }
+  // {
+  //   team: 'attackers',
+  //   type: 'mountain-warrior-5',
+  //   damage: '15-22',
+  //   attackType: 'range',
+  //   attackId: 'mountainArcherArrow',
+  //   position: 4,
+  //   health: 100,
+  //   currentHealth: 100,
+  //   id: 3,
+  //   initiative: 3
+  // }
   // {
   //   team: 'attackers',
   //   type: 'mountain-warrior-1',
@@ -95,18 +95,18 @@ const ATTACKERS_TROOPS: Trooper[] = [
 ];
 
 const DEFENDERS_TROOPS: Trooper[] = [
-  {
-    team: 'defenders',
-    type: 'mountain-warrior-5',
-    damage: '15-22',
-    attackType: 'range',
-    attackId: 'mountainArcherArrow',
-    position: 6,
-    health: 100,
-    currentHealth: 100,
-    id: 103,
-    initiative: 3
-  },
+  // {
+  //   team: 'defenders',
+  //   type: 'mountain-warrior-5',
+  //   damage: '15-22',
+  //   attackType: 'range',
+  //   attackId: 'mountainArcherArrow',
+  //   position: 6,
+  //   health: 100,
+  //   currentHealth: 100,
+  //   id: 103,
+  //   initiative: 3
+  // },
   {
     team: 'defenders',
     type: 'goblin-1',

@@ -133,7 +133,23 @@ export class CharacterAnimation extends Component<Props> {
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
-  run() {
+  async run(characterBounds: DOMRect, targetBounds: DOMRect) {
+    this.runA()
+    const styles = this.getTargetStyles(characterBounds, targetBounds);
+    this.canvasRef.current.style.transform = styles.transform;
+    this.canvasRef.current.style.transition = 'transform 1.5s ease';
+    await wait(1200)
+    await this.attack();
+    this.runA();
+    this.canvasRef.current.style.transform = `translate(0, 0) rotate3d(0, 1, 0, 180deg)`;
+    this.canvasRef.current.style['transform-style'] = `preserve-3d`;
+
+    await wait(1200)
+    this.canvasRef.current.style.transform = `initial`;
+    this.idle()
+  }
+
+  runA() {
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation('Running', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
@@ -235,6 +251,28 @@ export class CharacterAnimation extends Component<Props> {
 
   componentDidMount() {
     void this.init();
+  }
+
+  getTargetStyles(characterBounds: DOMRect, targetBounds: DOMRect) {
+    const {
+      left: targetLeft,
+      width: targetWidth,
+      height: targetHeight,
+      top: targetTop
+    } = targetBounds;
+    const targetLeftCenter = targetLeft + targetWidth / 2;
+    const targetTopCenter = targetTop + targetHeight / 2;
+
+    const { left, top, width, height } = characterBounds;
+
+    const transformX = targetLeftCenter - left - width;
+    const transformY = targetTopCenter - top - height / 2;
+
+    return {
+      transform: `translate(${transformX}px, ${transformY}px)`,
+      x: transformX,
+      y: transformY,
+    };
   }
 
   render() {

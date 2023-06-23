@@ -10,9 +10,10 @@ import { MountainArcherArrow } from './MountainArcherArrow';
 
 interface OwnProps {
   children: React.ReactNode;
+  id: string;
 }
 
-export const AnimationAreaContainer = ({ children }: OwnProps) => {
+export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
   const areaAnimationRef = useRef<HTMLDivElement>(null);
   const activeTrooper = useSelector(activeTrooperSelector);
   const hoveredElement = useSelector(hoveredElementSelector);
@@ -22,7 +23,7 @@ export const AnimationAreaContainer = ({ children }: OwnProps) => {
   const team = activeTrooper?.team;
 
   return (
-    <Area ref={areaAnimationRef} $team={team}>
+    <Area ref={areaAnimationRef} $team={team} id={id}>
       <MountainArcherArrow
         team={team}
         containerNode={areaAnimationRef.current!}

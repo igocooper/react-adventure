@@ -8,11 +8,15 @@ import {
   defendersSelector,
   makeCharacterByIdSelector
 } from '../selectors';
-import { getRandomNumberInRange } from 'common/helpers';
+import {
+  getElementBoundsWithinContainer,
+  getRandomNumberInRange
+} from 'common/helpers';
 import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
 import { toggleBattlefieldStatus } from 'modules/battlefield/actions';
+import { getTrooperNode } from '../troopersNodesMap';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
@@ -82,14 +86,31 @@ function* playAttackAnimation({
     getTrooperAnimationInstance,
     selectedTrooperId
   );
+  const activeTrooperNode = getTrooperNode(activeTrooperId);
+  const attackedTrooperNode = getTrooperNode(selectedTrooperId);
+  const containerNode = document.getElementById('area-container');
+  const activeTrooperBounds = getElementBoundsWithinContainer(
+    activeTrooperNode!,
+    containerNode!
+  );
+  const attackedTrooperBounds = getElementBoundsWithinContainer(
+    attackedTrooperNode!,
+    containerNode!
+  );
 
-  yield* fork([activeTrooperAnimationInstance!, 'attack']);
+  yield* call(
+    [activeTrooperAnimationInstance!, 'run'],
+    activeTrooperBounds,
+    attackedTrooperBounds
+  );
 
-  if (isDying) {
-    yield* call([attackedTrooperAnimationInstance!, 'die']);
-  } else {
-    yield* call([attackedTrooperAnimationInstance!, 'hurt']);
-  }
+  // yield* fork([activeTrooperAnimationInstance!, 'attack']);
+  //
+  // if (isDying) {
+  //   yield* call([attackedTrooperAnimationInstance!, 'die']);
+  // } else {
+  //   yield* call([attackedTrooperAnimationInstance!, 'hurt']);
+  // }
 }
 
 function* attack({
