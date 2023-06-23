@@ -8,6 +8,7 @@ import { wait } from '../helpers/wait';
 import { getRandomNumberInRange } from '../../battlefield/helpers/getRandomNumberInRange';
 import { register } from '../troopersAnimationInstances';
 import type { Trooper } from 'modules/battlefield/types';
+import { registerTrooperNode } from "../../battlefield/troopersNodesMap";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -108,6 +109,7 @@ export class CharacterAnimation extends Component<Props> {
     this.loading = false;
 
     register(id, this);
+    registerTrooperNode(id, this.canvasRef.current!);
 
     await wait(getRandomNumberInRange(0, 500));
     this.idle();
@@ -182,7 +184,7 @@ export class CharacterAnimation extends Component<Props> {
     this.setAnimation('Shoot With Bow');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
-    await wait(this.anim_length);
+    await wait(this.anim_length - 500);
     this.idle();
   }
 
@@ -216,7 +218,7 @@ export class CharacterAnimation extends Component<Props> {
       this.ctx.globalAlpha = this.alpha;
 
       // origin at center, x right, y up
-      this.ctx.translate(this.ctx.canvas.width / 2, this.ctx.canvas.height);
+      this.ctx.translate(this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 + 60);
       this.ctx.scale(1, -1);
 
       this.ctx.translate(-this.camera_x, -this.camera_y);

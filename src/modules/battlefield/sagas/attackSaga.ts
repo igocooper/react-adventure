@@ -28,6 +28,35 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   return { damage, isDying };
 };
 
+function* playRangeAttackAnimation({
+  activeTrooperId,
+  selectedTrooperId,
+  isDying
+}: {
+  activeTrooperId: Trooper['id'];
+  selectedTrooperId: Trooper['id'];
+  isDying: boolean;
+}) {
+  const activeTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    activeTrooperId
+  );
+  const attackedTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    selectedTrooperId
+  );
+  const archerAnimation = yield* call(getTrooperAnimationInstance, 'arrow');
+
+  yield* call([activeTrooperAnimationInstance!, 'shoot']);
+  yield* call([archerAnimation!, 'play']);
+
+  if (isDying) {
+    yield* call([attackedTrooperAnimationInstance!, 'die']);
+  } else {
+    yield* call([attackedTrooperAnimationInstance!, 'hurt']);
+  }
+}
+
 function* playAttackAnimation({
   activeTrooperId,
   selectedTrooperId,
@@ -86,6 +115,22 @@ function* attack({
     }
 
     return;
+  }
+
+  if (activeTrooper?.attackType === ATTACK_TYPE.RANGE) {
+    yield* call(playRangeAttackAnimation, {
+      activeTrooperId: activeTrooper.id,
+      selectedTrooperId: selectedTrooperInfo.id,
+      isDying
+    });
+
+    yield* put(
+      applyDamage({
+        damage,
+        team: selectedTrooperInfo.team,
+        id: selectedTrooperInfo.id
+      })
+    );
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.MELEE) {

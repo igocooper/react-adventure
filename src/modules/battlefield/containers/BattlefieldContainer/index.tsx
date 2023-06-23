@@ -9,6 +9,7 @@ import {
 import { Attackers, Defenders, Location } from './styled';
 import type { Trooper } from '../../types';
 import { TileContainer } from '../TileContainer';
+import { AnimationArea } from '../AnimationArea';
 
 export const BattlefieldContainer = () => {
   const attackers = useSelector(attackersSelector);
@@ -22,8 +23,7 @@ export const BattlefieldContainer = () => {
 
   return (
     <Location $cursor={cursor}>
-      {/* TODO: Add MassAttack container */}
-      <div>
+      <AnimationArea>
         <Attackers>
           {attackers.map(
             ({ id, position, type, team, currentHealth, health }: Trooper) => (
@@ -54,7 +54,7 @@ export const BattlefieldContainer = () => {
             )
           )}
         </Defenders>
-      </div>
+      </AnimationArea>
     </Location>
   );
 };

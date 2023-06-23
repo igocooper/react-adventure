@@ -9763,7 +9763,7 @@
 							}
 						]
 					},
-					"name": "Slashing With Left Hand test",
+					"name": "Slashing With Left Hand",
 					"r": 424,
 					"t": -731,
 					"timeline": [
@@ -16902,7 +16902,7 @@
 							}
 						]
 					},
-					"name": "Slashing With Left Hand",
+					"name": "Shoot With Bow",
 					"timeline": [
 						{
 							"id": 0,
