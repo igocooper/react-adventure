@@ -16,7 +16,7 @@ const getUrls = (type: string) => {
     'Right Hand Weapon.png': `/images/${type}/Right Hand Weapon.png`
   };
 
-  if(type === 'mountain-warrior-5') {
+  if (type === 'mountain-warrior-5') {
     return {
       ...urlList,
       'Bow.png': `/images/${type}/Bow.png`,
@@ -25,7 +25,7 @@ const getUrls = (type: string) => {
       'Arrow.png': `/images/${type}/Arrow.png`,
       'Quiver.png': `/images/${type}/Quiver.png`,
       'Axe.png': `/images/${type}/Axe.png`,
-      'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`,
+      'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`
     };
   }
   return urlList;

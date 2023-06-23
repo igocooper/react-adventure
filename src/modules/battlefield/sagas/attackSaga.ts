@@ -126,11 +126,11 @@ function* attack({
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.RANGE) {
-    if (selectedTrooper?.attackId) {
+    if (activeTrooper?.attackId) {
       yield* call(playRangeAttackAnimation, {
         activeTrooperId: activeTrooper.id,
         selectedTrooperId: selectedTrooperInfo.id,
-        attackId: selectedTrooper.attackId,
+        attackId: activeTrooper.attackId,
         isDying
       });
     }

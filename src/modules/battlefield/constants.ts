@@ -36,17 +36,17 @@ const ATTACKERS_TROOPS: Trooper[] = [
   //   id: 1,
   //   initiative: 5
   // },
-  // {
-  //   team: 'attackers',
-  //   type: 'torug',
-  //   damage: '6-10',
-  //   attackType: 'melee',
-  //   position: 2,
-  //   health: 60,
-  //   currentHealth: 60,
-  //   id: 2,
-  //   initiative: 2
-  // },
+  {
+    team: 'attackers',
+    type: 'torug',
+    damage: '6-10',
+    attackType: 'melee',
+    position: 2,
+    health: 60,
+    currentHealth: 60,
+    id: 2,
+    initiative: 2
+  },
   {
     team: 'attackers',
     type: 'mountain-warrior-5',
@@ -106,18 +106,18 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 103,
     initiative: 3
+  },
+  {
+    team: 'defenders',
+    type: 'goblin-1',
+    damage: '10-15',
+    attackType: 'melee',
+    position: 2,
+    health: 50,
+    currentHealth: 50,
+    id: 11,
+    initiative: 5
   }
-  // {
-  //   team: 'defenders',
-  //   type: 'goblin-1',
-  //   damage: '10-15',
-  //   attackType: 'melee',
-  //   position: 1,
-  //   health: 50,
-  //   currentHealth: 50,
-  //   id: 11,
-  //   initiative: 5
-  // },
   // {
   //   team: 'defenders',
   //   type: 'goblin-2',
