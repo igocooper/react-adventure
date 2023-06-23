@@ -1,5 +1,5 @@
 const getUrls = (type: string) => {
-  return {
+  const urlList = {
     'Body.png': `/images/${type}/Body.png`,
     'Face 01.png': `/images/${type}/Face 01.png`,
     'Face 02.png': `/images/${type}/Face 02.png`,
@@ -15,6 +15,20 @@ const getUrls = (type: string) => {
     'Sword.png': `/images/${type}/Sword.png`,
     'Right Hand Weapon.png': `/images/${type}/Right Hand Weapon.png`
   };
+
+  if(type === 'mountain-warrior-5') {
+    return {
+      ...urlList,
+      'Bow.png': `/images/${type}/Bow.png`,
+      'Bowstring.png': `/images/${type}/Bowstring.png`,
+      'Drawn Bowstring.png': `/images/${type}/Drawn Bowstring.png`,
+      'Arrow.png': `/images/${type}/Arrow.png`,
+      'Quiver.png': `/images/${type}/Quiver.png`,
+      'Axe.png': `/images/${type}/Axe.png`,
+      'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`,
+    };
+  }
+  return urlList;
 };
 
 interface Props {
@@ -45,7 +59,7 @@ const CHARACTER_PROPS: Record<string, Props> = {
   },
   'mountain-warrior-5': {
     imagesUrls: getUrls('mountain-warrior-5'),
-    sconFileUrl: '/common.scon'
+    sconFileUrl: '/archer.scon'
   },
   'goblin-1': {
     imagesUrls: getUrls('goblin-1'),
@@ -57,6 +71,54 @@ const CHARACTER_PROPS: Record<string, Props> = {
   },
   'goblin-3': {
     imagesUrls: getUrls('goblin-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'golem-1': {
+    imagesUrls: getUrls('golem-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'golem-2': {
+    imagesUrls: getUrls('golem-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'golem-3': {
+    imagesUrls: getUrls('golem-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'fallen-angel-1': {
+    imagesUrls: getUrls('fallen-angel-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'fallen-angel-2': {
+    imagesUrls: getUrls('fallen-angel-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'fallen-angel-3': {
+    imagesUrls: getUrls('fallen-angel-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'minotaur-1': {
+    imagesUrls: getUrls('minotaur-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'minotaur-2': {
+    imagesUrls: getUrls('minotaur-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'minotaur-3': {
+    imagesUrls: getUrls('minotaur-3'),
+    sconFileUrl: '/common.scon'
+  },
+  'reaper-1': {
+    imagesUrls: getUrls('reaper-1'),
+    sconFileUrl: '/common.scon'
+  },
+  'reaper-2': {
+    imagesUrls: getUrls('reaper-2'),
+    sconFileUrl: '/common.scon'
+  },
+  'reaper-3': {
+    imagesUrls: getUrls('reaper-3'),
     sconFileUrl: '/common.scon'
   }
 };

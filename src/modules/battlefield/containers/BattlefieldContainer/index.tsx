@@ -7,7 +7,7 @@ import {
   defendersSelector
 } from '../../selectors';
 import { Attackers, Defenders, Location } from './styled';
-import { type Trooper } from '../../types';
+import type { Trooper } from '../../types';
 import { TileContainer } from '../TileContainer';
 
 export const BattlefieldContainer = () => {

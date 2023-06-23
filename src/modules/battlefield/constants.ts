@@ -60,7 +60,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
   }
   // {
   //   team: 'attackers',
-  //   type: 'mountain-warrior-3',
+  //   type: 'mountain-warrior-1',
   //   damage: '50-60',
   //   attackType: 'melee',
   //   position: 4,
@@ -82,7 +82,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
   // },
   // {
   //   team: 'attackers',
-  //   type: 'mountain-warrior-5',
+  //   type: 'mountain-warrior-2',
   //   damage: '50-70',
   //   attackType: 'range',
   //   position: 6,
@@ -117,7 +117,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     initiative: 2
   },
   {
-    team: 'attackers',
+    team: 'defenders',
     type: 'goblin-3',
     damage: '15-22',
     attackType: 'melee',

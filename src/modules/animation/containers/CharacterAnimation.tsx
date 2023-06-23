@@ -177,6 +177,15 @@ export class CharacterAnimation extends Component<Props> {
     this.idle();
   }
 
+  async shoot() {
+    cancelAnimationFrame(this.animationRequestId);
+    this.setAnimation('Shoot With Bow');
+    this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
+
+    await wait(this.anim_length);
+    this.idle();
+  }
+
   renderAnimationLoop(time: number) {
     const dt: number = time - (this.prev_time || time);
     this.prev_time = time;
