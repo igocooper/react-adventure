@@ -11,6 +11,8 @@ import {
 import { getRandomNumberInRange } from '../helpers/getRandomNumberInRange';
 import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
+import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
+import { toggleBattlefieldStatus } from 'modules/battlefield/actions';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
@@ -27,6 +29,41 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
 
   return { damage, isDying };
 };
+
+function* playRangeAttackAnimation({
+  activeTrooperId,
+  selectedTrooperId,
+  attackId,
+  isDying
+}: {
+  activeTrooperId: Trooper['id'];
+  selectedTrooperId: Trooper['id'];
+  attackId: string;
+  isDying: boolean;
+}) {
+  const activeTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    activeTrooperId
+  );
+  const attackedTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    selectedTrooperId
+  );
+  const archerAnimation = yield* call(getAreaEffectAnimationInstance, attackId);
+
+  yield* put(toggleBattlefieldStatus());
+
+  yield* call([activeTrooperAnimationInstance!, 'shoot']);
+  yield* call([archerAnimation!, 'play']);
+
+  if (isDying) {
+    yield* call([attackedTrooperAnimationInstance!, 'die']);
+  } else {
+    yield* call([attackedTrooperAnimationInstance!, 'hurt']);
+  }
+
+  yield* put(toggleBattlefieldStatus());
+}
 
 function* playAttackAnimation({
   activeTrooperId,
@@ -86,6 +123,25 @@ function* attack({
     }
 
     return;
+  }
+
+  if (activeTrooper?.attackType === ATTACK_TYPE.RANGE) {
+    if (activeTrooper?.attackId) {
+      yield* call(playRangeAttackAnimation, {
+        activeTrooperId: activeTrooper.id,
+        selectedTrooperId: selectedTrooperInfo.id,
+        attackId: activeTrooper.attackId,
+        isDying
+      });
+    }
+
+    yield* put(
+      applyDamage({
+        damage,
+        team: selectedTrooperInfo.team,
+        id: selectedTrooperInfo.id
+      })
+    );
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.MELEE) {

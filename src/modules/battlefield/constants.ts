@@ -25,17 +25,17 @@ export enum HOVERED_ELEMENT_TYPE {
 }
 
 const ATTACKERS_TROOPS: Trooper[] = [
-  {
-    team: 'attackers',
-    type: 'mountain-warrior-1',
-    damage: '10-15',
-    attackType: 'melee',
-    position: 1,
-    health: 50,
-    currentHealth: 50,
-    id: 1,
-    initiative: 5
-  },
+  // {
+  //   team: 'attackers',
+  //   type: 'mountain-warrior-1',
+  //   damage: '10-15',
+  //   attackType: 'melee',
+  //   position: 1,
+  //   health: 50,
+  //   currentHealth: 50,
+  //   id: 1,
+  //   initiative: 5
+  // },
   {
     team: 'attackers',
     type: 'torug',
@@ -51,8 +51,9 @@ const ATTACKERS_TROOPS: Trooper[] = [
     team: 'attackers',
     type: 'mountain-warrior-5',
     damage: '15-22',
-    attackType: 'melee',
-    position: 3,
+    attackType: 'range',
+    attackId: 'mountainArcherArrow',
+    position: 4,
     health: 100,
     currentHealth: 100,
     id: 3,
@@ -96,37 +97,49 @@ const ATTACKERS_TROOPS: Trooper[] = [
 const DEFENDERS_TROOPS: Trooper[] = [
   {
     team: 'defenders',
+    type: 'mountain-warrior-5',
+    damage: '15-22',
+    attackType: 'range',
+    attackId: 'mountainArcherArrow',
+    position: 6,
+    health: 100,
+    currentHealth: 100,
+    id: 103,
+    initiative: 3
+  },
+  {
+    team: 'defenders',
     type: 'goblin-1',
     damage: '10-15',
     attackType: 'melee',
-    position: 1,
+    position: 2,
     health: 50,
     currentHealth: 50,
     id: 11,
     initiative: 5
-  },
-  {
-    team: 'defenders',
-    type: 'goblin-2',
-    damage: '6-10',
-    attackType: 'melee',
-    position: 2,
-    health: 60,
-    currentHealth: 60,
-    id: 12,
-    initiative: 2
-  },
-  {
-    team: 'defenders',
-    type: 'goblin-3',
-    damage: '15-22',
-    attackType: 'melee',
-    position: 3,
-    health: 100,
-    currentHealth: 100,
-    id: 13,
-    initiative: 3
   }
+  // {
+  //   team: 'defenders',
+  //   type: 'goblin-2',
+  //   damage: '6-10',
+  //   attackType: 'melee',
+  //   position: 2,
+  //   health: 60,
+  //   currentHealth: 60,
+  //   id: 12,
+  //   initiative: 2
+  // },
+  // {
+  //   team: 'defenders',
+  //   type: 'goblin-3',
+  //   damage: '15-22',
+  //   attackType: 'melee',
+  //   position: 3,
+  //   health: 100,
+  //   currentHealth: 100,
+  //   id: 13,
+  //   initiative: 3
+  // }
 ];
 
 export const ATTACKERS = ATTACKERS_TROOPS;
