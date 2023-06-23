@@ -66,7 +66,10 @@ export const WardrobeContainer = () => {
         }}
       >
         <div>
-          <CharacterAnimation {...getCharacterProps(CHARACTER.type)} id={CHARACTER.id} />
+          <CharacterAnimation
+            {...getCharacterProps(CHARACTER.type)}
+            id={CHARACTER.id}
+          />
         </div>
         <div>
           <div>
@@ -79,8 +82,8 @@ export const WardrobeContainer = () => {
                   padding: '10px',
                   border: 'dotted'
                 }}
-                onClick={async () => {
-                  await updateCharacterImages(newCharacterImages);
+                onClick={() => {
+                  updateCharacterImages(newCharacterImages);
                 }}
                 src={iconUrl}
               />
@@ -96,8 +99,8 @@ export const WardrobeContainer = () => {
                   padding: '10px',
                   border: 'dotted'
                 }}
-                onClick={async () => {
-                  await updateCharacterImages(newCharacterImages);
+                onClick={() => {
+                  updateCharacterImages(newCharacterImages);
                 }}
                 src={iconUrl}
               />
@@ -113,8 +116,8 @@ export const WardrobeContainer = () => {
                   padding: '10px',
                   border: 'dotted'
                 }}
-                onClick={async () => {
-                  await updateCharacterImages(newCharacterImages);
+                onClick={() => {
+                  updateCharacterImages(newCharacterImages);
                 }}
                 src={iconUrl}
               />

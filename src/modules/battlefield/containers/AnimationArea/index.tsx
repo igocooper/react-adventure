@@ -6,27 +6,26 @@ import {
   hoveredElementSelector,
   makeCharacterByIdSelector
 } from '../../selectors';
-import { Arrow } from './Arrow';
+import { MountainArcherArrow } from './MountainArcherArrow';
 
-type OwnProps = {
+interface OwnProps {
   children: React.ReactNode;
-};
+}
 
 export const AnimationArea = ({ children }: OwnProps) => {
   const areaAnimationRef = useRef<HTMLDivElement>(null);
   const activeTrooper = useSelector(activeTrooperSelector);
   const hoveredElement = useSelector(hoveredElementSelector);
   const selectedTrooper = useSelector(
-    makeCharacterByIdSelector(hoveredElement?.id || 103)
+    makeCharacterByIdSelector(hoveredElement?.id || 0)
   );
-  const team = activeTrooper && activeTrooper.team;
+  const team = activeTrooper?.team;
 
   return (
     <Area ref={areaAnimationRef} $team={team}>
-      <Arrow
+      <MountainArcherArrow
         team={team}
         containerNode={areaAnimationRef.current!}
-        animationDuration={300}
         activeTrooperId={activeTrooper?.id}
         selectedTrooperId={selectedTrooper?.id}
       />

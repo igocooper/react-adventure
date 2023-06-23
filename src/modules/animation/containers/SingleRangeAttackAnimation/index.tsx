@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import { Trooper, Team } from 'modules/battlefield/types';
+import { type Trooper, type Team } from 'modules/battlefield/types';
 import { getElementBoundsWithinContainer } from 'modules/battlefield/helpers/get-element-bounds-within-container';
-import * as styled from './styled';
-import { getTrooperNode } from '../../troopersNodesMap';
-import { register } from '../../../animation/troopersAnimationInstances';
+import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
+import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
+import { RangeAttackImage } from './styled';
 
-type Props = {
+interface Props {
   containerNode: HTMLDivElement;
   animationDuration: number;
   activeTrooperId?: Trooper['id'];
   selectedTrooperId?: Trooper['id'];
-  team: Team;
-};
+  team?: Team;
+  attackId: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageUrl: string;
+  imageAdjustmentY: number;
+  imageAdjustmentX: number;
+}
 
-type State = {
+interface State {
   isPlaying: boolean;
-};
+}
 
-const ARCHER_ATTACK = 'arrow';
-const ARROW_WIDTH = 64;
-const ARROW_HEIGHT = 8;
-
-export class Arrow extends Component<Props, State> {
+export class SingleRangeAttackAnimation extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -32,12 +34,13 @@ export class Arrow extends Component<Props, State> {
   }
 
   componentDidMount() {
-    register(ARCHER_ATTACK, this);
+    const { attackId } = this.props;
+    registerAreaEffect(attackId, this);
   }
 
-  play() {
+  async play() {
     const { animationDuration } = this.props;
-    return new Promise<void>((resolve) => {
+    await new Promise<void>((resolve) => {
       this.setState(
         {
           isPlaying: true
@@ -56,21 +59,26 @@ export class Arrow extends Component<Props, State> {
 
   getArrowStyles(characterBounds: DOMRect) {
     const { width, height, left, top } = characterBounds;
-    const { team } = this.props;
-    const THRESHOLD = 22;
-    const safeLeft =
-      team === 'defenders' ? left - ARROW_WIDTH : left + width - ARROW_WIDTH;
+    const {
+      team,
+      imageAdjustmentY,
+      imageAdjustmentX,
+      imageWidth,
+      imageHeight
+    } = this.props;
+    const adjustmentX = team === 'defenders' ? 0 : width + imageAdjustmentX;
 
     return {
-      left: safeLeft,
-      top: top + height / 2 + THRESHOLD - ARROW_HEIGHT / 2,
-      width: `${ARROW_WIDTH}px`,
-      height: `${ARROW_HEIGHT}px`,
+      left: left + adjustmentX - imageWidth,
+      top: top + height / 2 + imageAdjustmentY - imageHeight / 2,
+      width: `${imageWidth}px`,
+      height: `${imageHeight}px`,
       zIndex: '99'
     };
   }
 
   getArrowTargetStyles(characterBounds: DOMRect, targetBounds: DOMRect) {
+    const { imageHeight, imageWidth } = this.props;
     const initialStyles = this.getArrowStyles(characterBounds);
 
     const {
@@ -79,8 +87,8 @@ export class Arrow extends Component<Props, State> {
       height: targetHeight,
       top: targetTop
     } = targetBounds;
-    const targetLeftCenter = targetLeft + targetWidth / 2 - ARROW_WIDTH / 2;
-    const targetTopCenter = targetTop + targetHeight / 2 - ARROW_HEIGHT / 2;
+    const targetLeftCenter = targetLeft + targetWidth / 2 - imageWidth / 2;
+    const targetTopCenter = targetTop + targetHeight / 2 - imageHeight / 2;
 
     const { left, top } = initialStyles;
 
@@ -99,7 +107,10 @@ export class Arrow extends Component<Props, State> {
       containerNode,
       activeTrooperId,
       selectedTrooperId,
-      animationDuration
+      animationDuration,
+      imageUrl,
+      imageWidth,
+      imageHeight
     } = this.props;
 
     if (!activeTrooperId || !selectedTrooperId) {
@@ -120,15 +131,18 @@ export class Arrow extends Component<Props, State> {
     if (!characterBounds.left || !targetBounds.left) return null;
 
     return (
-      <styled.Arrow
+      <RangeAttackImage
         $active={isPlaying}
+        $src={imageUrl}
+        $width={imageWidth}
+        $height={imageHeight}
         $animationDuration={animationDuration}
         style={
           isPlaying
             ? this.getArrowTargetStyles(characterBounds, targetBounds)
             : this.getArrowStyles(characterBounds)
         }
-      ></styled.Arrow>
+      />
     );
   }
 }

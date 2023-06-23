@@ -8,6 +8,7 @@ export interface Character {
   type: string;
   damage: string;
   attackType: AttackType;
+  attackId?: string;
   position: number;
   health: number;
   id: number;

@@ -11,6 +11,8 @@ import {
 import { getRandomNumberInRange } from '../helpers/getRandomNumberInRange';
 import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
+import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
+import { toggleBattlefieldStatus } from 'modules/battlefield/actions';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
@@ -31,10 +33,12 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
 function* playRangeAttackAnimation({
   activeTrooperId,
   selectedTrooperId,
+  attackId,
   isDying
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperId: Trooper['id'];
+  attackId: string;
   isDying: boolean;
 }) {
   const activeTrooperAnimationInstance = yield* call(
@@ -45,7 +49,9 @@ function* playRangeAttackAnimation({
     getTrooperAnimationInstance,
     selectedTrooperId
   );
-  const archerAnimation = yield* call(getTrooperAnimationInstance, 'arrow');
+  const archerAnimation = yield* call(getAreaEffectAnimationInstance, attackId);
+
+  yield* put(toggleBattlefieldStatus());
 
   yield* call([activeTrooperAnimationInstance!, 'shoot']);
   yield* call([archerAnimation!, 'play']);
@@ -55,6 +61,8 @@ function* playRangeAttackAnimation({
   } else {
     yield* call([attackedTrooperAnimationInstance!, 'hurt']);
   }
+
+  yield* put(toggleBattlefieldStatus());
 }
 
 function* playAttackAnimation({
@@ -118,11 +126,14 @@ function* attack({
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.RANGE) {
-    yield* call(playRangeAttackAnimation, {
-      activeTrooperId: activeTrooper.id,
-      selectedTrooperId: selectedTrooperInfo.id,
-      isDying
-    });
+    if (selectedTrooper?.attackId) {
+      yield* call(playRangeAttackAnimation, {
+        activeTrooperId: activeTrooper.id,
+        selectedTrooperId: selectedTrooperInfo.id,
+        attackId: selectedTrooper.attackId,
+        isDying
+      });
+    }
 
     yield* put(
       applyDamage({

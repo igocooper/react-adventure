@@ -5,7 +5,11 @@ import { getCharacterProps } from 'modules/battlefield/helpers/getCharacterProps
 import { setHoveredElement, trooperClicked } from '../../actions';
 import type { Trooper } from '../../types';
 import { HOVERED_ELEMENT_TYPE } from '../../constants';
-import { activeTrooperSelector, hoveredElementSelector } from '../../selectors';
+import {
+  activeTrooperSelector,
+  battlefieldDisabledStatusSelector,
+  hoveredElementSelector
+} from '../../selectors';
 import { Character, Tile } from './styled';
 import { HealthBar } from '../../components/HealthBar';
 
@@ -24,14 +28,19 @@ export const TileContainer = ({
 }: CharacterProps) => {
   const dispatch = useDispatch();
   const hoveredElement = useSelector(hoveredElementSelector);
+  const isBattlefieldDisabled = useSelector(battlefieldDisabledStatusSelector);
 
   const handleMouseEnter = useCallback(() => {
-    dispatch(setHoveredElement({ id, type: HOVERED_ELEMENT_TYPE.CHARACTER }));
-  }, [dispatch]);
+    if (!isBattlefieldDisabled) {
+      dispatch(setHoveredElement({ id, type: HOVERED_ELEMENT_TYPE.CHARACTER }));
+    }
+  }, [dispatch, isBattlefieldDisabled]);
 
   const handleMouseLeave = useCallback(() => {
-    dispatch(setHoveredElement(null));
-  }, [dispatch]);
+    if (!isBattlefieldDisabled) {
+      dispatch(setHoveredElement(null));
+    }
+  }, [dispatch, isBattlefieldDisabled]);
 
   const handleClick = useCallback(() => {
     dispatch(

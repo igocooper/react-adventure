@@ -15,6 +15,7 @@ export const getElementBoundsWithinContainer = (
     top: elementBounds.top - containerBounds.top,
     left: elementBounds.left - containerBounds.left,
     right: elementBounds.right - containerBounds.left,
-    bottom: elementBounds.bottom - containerBounds.top
+    bottom: elementBounds.bottom - containerBounds.top,
+    toJSON: () => {}
   };
 };
