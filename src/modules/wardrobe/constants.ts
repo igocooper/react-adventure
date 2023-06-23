@@ -90,9 +90,9 @@ export const HEADS = [
         ]
     },
     {
-        iconUrl: '/images/reaper-1/Head.png',
+        iconUrl: '/images/minotaur-1/Head.png',
         newCharacterImages: [
-            { url: '/images/reaper-1/Head.png', itemSlot: 'Head.png' }
+            { url: '/images/minotaur-1/Head.png', itemSlot: 'Head.png' }
         ]
     },
     {
