@@ -2,7 +2,7 @@ import React from 'react';
 import { getCharacterProps } from '../../../battlefield/helpers/getCharacterProps';
 import { CharacterAnimation } from '../../../animation/containers/CharacterAnimation';
 import { getTrooperAnimationInstance } from '../../../animation/troopersAnimationInstances';
-import { loadImage } from '../../../animation/helpers/loadImage';
+import { loadImage } from 'common/helpers';
 import { HEADS, ARMORS, WEAPONS, CHARACTER } from '../../constants';
 
 type Props = Array<Record<string, string>>;

@@ -16,7 +16,8 @@ module.exports = {
     alias: {
       Root: paths.srcDir,
       store: paths.storeDir,
-      modules: paths.modulesDir
+      modules: paths.modulesDir,
+      common: paths.commonDir
     },
     extensions: ['.tsx', '.ts', '.js']
   },

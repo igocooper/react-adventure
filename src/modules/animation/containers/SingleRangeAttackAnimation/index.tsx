@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { type Trooper, type Team } from 'modules/battlefield/types';
-import { getElementBoundsWithinContainer } from 'modules/battlefield/helpers/get-element-bounds-within-container';
+import { getElementBoundsWithinContainer } from 'common/helpers';
 import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { RangeAttackImage } from './styled';
@@ -57,7 +57,7 @@ export class SingleRangeAttackAnimation extends Component<Props, State> {
     });
   }
 
-  getArrowStyles(characterBounds: DOMRect) {
+  getInitialStyles(characterBounds: DOMRect) {
     const { width, height, left, top } = characterBounds;
     const {
       team,
@@ -77,9 +77,9 @@ export class SingleRangeAttackAnimation extends Component<Props, State> {
     };
   }
 
-  getArrowTargetStyles(characterBounds: DOMRect, targetBounds: DOMRect) {
+  getTargetStyles(characterBounds: DOMRect, targetBounds: DOMRect) {
     const { imageHeight, imageWidth } = this.props;
-    const initialStyles = this.getArrowStyles(characterBounds);
+    const initialStyles = this.getInitialStyles(characterBounds);
 
     const {
       left: targetLeft,
@@ -139,8 +139,8 @@ export class SingleRangeAttackAnimation extends Component<Props, State> {
         $animationDuration={animationDuration}
         style={
           isPlaying
-            ? this.getArrowTargetStyles(characterBounds, targetBounds)
-            : this.getArrowStyles(characterBounds)
+            ? this.getTargetStyles(characterBounds, targetBounds)
+            : this.getInitialStyles(characterBounds)
         }
       />
     );

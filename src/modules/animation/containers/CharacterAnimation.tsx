@@ -3,9 +3,7 @@ import { loadSCONFile } from '../helpers/loadSCONFile';
 import * as spriter from '../helpers/spriter';
 import type { Data, Pose } from '../helpers/spriter';
 import { RenderCtx2D } from '../helpers/render-ctx2d';
-import { loadImage } from '../helpers/loadImage';
-import { wait } from '../helpers/wait';
-import { getRandomNumberInRange } from '../../battlefield/helpers/getRandomNumberInRange';
+import { wait, loadImage, getRandomNumberInRange } from 'common/helpers';
 import { register } from '../troopersAnimationInstances';
 import type { Trooper } from 'modules/battlefield/types';
 import { registerTrooperNode } from '../../battlefield/troopersNodesMap';
@@ -184,7 +182,10 @@ export class CharacterAnimation extends Component<Props> {
     this.setAnimation('Shoot With Bow');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
-    await wait(this.anim_length - 500);
+    // We want to start animate arrow earlier for smoother effect
+    // TODO: find the way to not hardcode this value
+    const ADJUSTMENT = 500;
+    await wait(this.anim_length - ADJUSTMENT);
     this.idle();
   }
 

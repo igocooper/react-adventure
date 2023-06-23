@@ -9,7 +9,7 @@ import {
 import { Attackers, Defenders, Location } from './styled';
 import type { Trooper } from '../../types';
 import { TileContainer } from '../TileContainer';
-import { AnimationArea } from '../AnimationArea';
+import { AnimationAreaContainer } from '../AnimationAreaContainer';
 
 export const BattlefieldContainer = () => {
   const attackers = useSelector(attackersSelector);
@@ -23,7 +23,7 @@ export const BattlefieldContainer = () => {
 
   return (
     <Location $cursor={cursor}>
-      <AnimationArea>
+      <AnimationAreaContainer>
         <Attackers>
           {attackers.map(
             ({ id, position, type, team, currentHealth, health }: Trooper) => (
@@ -54,7 +54,7 @@ export const BattlefieldContainer = () => {
             )
           )}
         </Defenders>
-      </AnimationArea>
+      </AnimationAreaContainer>
     </Location>
   );
 };

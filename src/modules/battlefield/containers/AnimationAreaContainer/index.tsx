@@ -12,7 +12,7 @@ interface OwnProps {
   children: React.ReactNode;
 }
 
-export const AnimationArea = ({ children }: OwnProps) => {
+export const AnimationAreaContainer = ({ children }: OwnProps) => {
   const areaAnimationRef = useRef<HTMLDivElement>(null);
   const activeTrooper = useSelector(activeTrooperSelector);
   const hoveredElement = useSelector(hoveredElementSelector);

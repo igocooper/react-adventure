@@ -4,10 +4,12 @@ const rootPath = path.resolve(__dirname);
 const srcDir = path.resolve(rootPath, 'src');
 const storeDir = path.resolve(rootPath, 'src/store');
 const modulesDir = path.resolve(rootPath, 'src/modules');
+const commonDir = path.resolve(rootPath, 'src/common');
 
 module.exports = {
   rootPath,
   srcDir,
   storeDir,
-  modulesDir
+  modulesDir,
+  commonDir
 };

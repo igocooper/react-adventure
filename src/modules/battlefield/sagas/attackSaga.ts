@@ -8,7 +8,7 @@ import {
   defendersSelector,
   makeCharacterByIdSelector
 } from '../selectors';
-import { getRandomNumberInRange } from '../helpers/getRandomNumberInRange';
+import { getRandomNumberInRange } from 'common/helpers';
 import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
