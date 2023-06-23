@@ -6,7 +6,7 @@ interface AnimationInstance {
   die: () => Promise<void>;
   idle: () => void;
   shoot: () => void;
-  images: Record<string,Node>;
+  images: Record<string,HTMLImageElement>;
 }
 
 export const TroopersAnimationInstances = new Map<

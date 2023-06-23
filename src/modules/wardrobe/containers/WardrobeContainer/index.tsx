@@ -3,7 +3,7 @@ import { getCharacterProps } from '../../../battlefield/helpers/getCharacterProp
 import { CharacterAnimation } from '../../../animation/containers/CharacterAnimation';
 import { getTrooperAnimationInstance } from '../../../animation/troopersAnimationInstances';
 import { loadImage } from '../../../animation/helpers/loadImage';
-import { HEADS, ARMORS, WEAPONS } from '../../constants';
+import { HEADS, ARMORS, WEAPONS, CHARACTER } from '../../constants';
 
 type Props = Array<Record<string, string>>;
 
@@ -66,7 +66,7 @@ export const WardrobeContainer = () => {
         }}
       >
         <div>
-          <CharacterAnimation {...getCharacterProps('torug')} id={1000} />
+          <CharacterAnimation {...getCharacterProps(CHARACTER.type)} id={CHARACTER.id} />
         </div>
         <div>
           <div>

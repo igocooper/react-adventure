@@ -1,3 +1,8 @@
+export const CHARACTER = {
+    id: 1000,
+    type: 'torug',
+}
+
 export const HEADS = [
     {
         iconUrl: '/images/mountain-warrior-1/Head.png',
