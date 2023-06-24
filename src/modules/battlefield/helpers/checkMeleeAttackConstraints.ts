@@ -25,418 +25,162 @@ export const checkMeleeAttackConstraints = ({
       ? convertToObjectByPosition<Trooper>(attackers)
       : convertToObjectByPosition<Trooper>(defenders);
 
+  const noAllyFirstRow =
+    (!allyTeam[1] || allyTeam[1].currentHealth <= 0) &&
+    (!allyTeam[2] || allyTeam[2].currentHealth <= 0) &&
+    (!allyTeam[3] || allyTeam[3].currentHealth <= 0);
+
+  const noEnemyFirstRow =
+    (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+    (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+    (!targetTeam[3] || targetTeam[3].currentHealth <= 0);
+
   if (activePlayer.position === 1) {
-    if (targetHero.position === 1) {
-      return true;
-    } else if (targetHero.position === 2) {
-      return true;
-    } else if (
-      targetHero.position === 3 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 4 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 5 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 6 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      targetTeam[4] &&
-      targetTeam[4].currentHealth <= 0 &&
-      targetTeam[5] &&
-      targetTeam[5].currentHealth <= 0
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (targetHero.position) {
+      case 1:
+      case 2:
+        return true;
+      case 3:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0)
+        );
+      case 4:
+      case 5:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0)
+        );
+      case 6:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0) &&
+          (!targetTeam[4] || targetTeam[4].currentHealth <= 0) &&
+          (!targetTeam[5] || targetTeam[5].currentHealth <= 0)
+        );
+      default:
+        return false;
     }
   }
 
   if (activePlayer.position === 2) {
-    if (targetHero.position === 1) {
-      return true;
-    } else if (targetHero.position === 2) {
-      return true;
-    } else if (targetHero.position === 3) {
-      return true;
-    } else if (
-      targetHero.position === 4 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 5 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 6 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (targetHero.position) {
+      case 1:
+      case 2:
+      case 3:
+        return true;
+      case 4:
+      case 5:
+      case 6:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0)
+        );
+      default:
+        return false;
     }
   }
 
   if (activePlayer.position === 3) {
-    if (targetHero.position === 3) {
-      return true;
-    } else if (targetHero.position === 2) {
-      return true;
-    } else if (
-      targetHero.position === 1 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 6 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 5 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 4 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      targetTeam[5] &&
-      targetTeam[5].currentHealth <= 0 &&
-      targetTeam[6] &&
-      targetTeam[6].currentHealth <= 0
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (targetHero.position) {
+      case 1:
+        return (
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0)
+        );
+      case 2:
+      case 3:
+        return true;
+      case 4:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0) &&
+          (!targetTeam[5] || targetTeam[5].currentHealth <= 0) &&
+          (!targetTeam[6] || targetTeam[6].currentHealth <= 0)
+        );
+      case 5:
+      case 6:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0)
+        );
+
+      default:
+        return false;
     }
   }
 
   if (activePlayer.position === 4) {
-    if (
-      targetHero.position === 1 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 2 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 3 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 4 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 5 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 6 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      targetTeam[4] &&
-      targetTeam[4].currentHealth <= 0 &&
-      targetTeam[5] &&
-      targetTeam[5].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (targetHero.position) {
+      case 1:
+      case 2:
+        return noAllyFirstRow;
+      case 3:
+        return (
+          (!targetTeam[1] || targetTeam[1].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          noAllyFirstRow
+        );
+      case 4:
+      case 5:
+        return noEnemyFirstRow && noAllyFirstRow;
+      case 6:
+        return (
+          noEnemyFirstRow &&
+          (!targetTeam[4] || targetTeam[4].currentHealth <= 0) &&
+          (!targetTeam[5] || targetTeam[5].currentHealth <= 0) &&
+          noAllyFirstRow
+        );
+      default:
+        return false;
     }
   }
 
   if (activePlayer.position === 5) {
-    if (
-      targetHero.position === 1 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 2 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 3 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 4 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 5 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 6 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (targetHero.position) {
+      case 1:
+      case 2:
+      case 3:
+        return noAllyFirstRow;
+      case 4:
+      case 5:
+      case 6:
+        return noEnemyFirstRow && noAllyFirstRow;
+      default:
+        return false;
     }
   }
 
   if (activePlayer.position === 6) {
-    if (
-      targetHero.position === 3 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 2 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 1 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 6 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 5 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else if (
-      targetHero.position === 4 &&
-      targetTeam[1] &&
-      targetTeam[1].currentHealth <= 0 &&
-      targetTeam[2] &&
-      targetTeam[2].currentHealth <= 0 &&
-      targetTeam[3] &&
-      targetTeam[3].currentHealth <= 0 &&
-      targetTeam[5] &&
-      targetTeam[5].currentHealth <= 0 &&
-      targetTeam[6] &&
-      targetTeam[6].currentHealth <= 0 &&
-      allyTeam[1] &&
-      allyTeam[1].currentHealth <= 0 &&
-      allyTeam[2] &&
-      allyTeam[2].currentHealth <= 0 &&
-      allyTeam[3] &&
-      allyTeam[3].currentHealth <= 0
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (targetHero.position) {
+      case 1:
+        return (
+          (!targetTeam[3] || targetTeam[3].currentHealth <= 0) &&
+          (!targetTeam[2] || targetTeam[2].currentHealth <= 0) &&
+          noAllyFirstRow
+        );
+      case 2:
+      case 3:
+        return noAllyFirstRow;
+      case 4:
+        return (
+          noAllyFirstRow &&
+          noEnemyFirstRow &&
+          (!targetTeam[5] || targetTeam[5].currentHealth <= 0) &&
+          (!targetTeam[6] || targetTeam[6].currentHealth <= 0)
+        );
+      case 5:
+      case 6:
+        return noEnemyFirstRow && noAllyFirstRow;
+      default:
+        return false;
     }
   }
+
   return false;
 };
