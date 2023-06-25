@@ -24,6 +24,12 @@ export enum HOVERED_ELEMENT_TYPE {
   CHARACTER = 'character'
 }
 
+export enum AI_TYPE {
+  RANDOM = 'random',
+  DETERMINED = 'determined',
+  STRATEGIC = 'strategic'
+}
+
 const ATTACKERS_TROOPS: Trooper[] = [
   {
     team: 'attackers',
@@ -58,7 +64,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 3,
     initiative: 3
-  },
+  }
   // {
   //   team: 'attackers',
   //   type: 'mountain-warrior-1',
@@ -98,37 +104,40 @@ const DEFENDERS_TROOPS: Trooper[] = [
   {
     team: 'defenders',
     type: 'mountain-warrior-5',
-    damage: '15-22',
+    damage: '15-32',
     attackType: 'range',
     attackId: 'mountainArcherArrow',
     position: 1,
     health: 100,
     currentHealth: 100,
     id: 103,
-    initiative: 3
+    initiative: 13,
+    AItype: AI_TYPE.DETERMINED
   },
   {
     team: 'defenders',
     type: 'goblin-1',
-    damage: '10-15',
+    damage: '10-35',
     attackType: 'melee',
     position: 2,
     health: 50,
     currentHealth: 50,
     id: 102,
-    initiative: 5
+    initiative: 15,
+    AItype: AI_TYPE.DETERMINED
   },
   {
     team: 'defenders',
     type: 'goblin-2',
-    damage: '6-10',
+    damage: '6-30',
     attackType: 'melee',
     position: 3,
     health: 60,
     currentHealth: 60,
     id: 12,
-    initiative: 2
-  },
+    initiative: 12,
+    AItype: AI_TYPE.DETERMINED
+  }
   // {
   //   team: 'defenders',
   //   type: 'goblin-3',

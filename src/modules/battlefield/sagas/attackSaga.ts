@@ -110,7 +110,6 @@ function* playAttackAnimation({
 
   if (!tileNode || !attackedTrooperBounds || !activeTrooperBounds) return;
 
-  // @ts-ignore
   yield* call([activeTrooperAnimationInstance!, 'meleeAttack'], {
     characterBounds: activeTrooperBounds,
     targetBounds: attackedTrooperBounds,

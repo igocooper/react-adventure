@@ -1,6 +1,8 @@
 import type { RootState } from 'store';
 import { createSelector } from 'reselect';
 import { checkMeleeAttackConstraints } from './helpers/checkMeleeAttackConstraints';
+import { TROOPER_TEAM } from './constants';
+import type { Trooper } from './types';
 
 export const battlefieldSelector = (state: RootState) => state.battleField;
 
@@ -65,6 +67,19 @@ export const makeCharacterByIdSelector = (id: number) =>
       troops.defenders.find((defender) => defender.id === id)
   );
 
+export const makeIsTrooperDeadSelector = (id: Trooper['currentTargetId']) =>
+  createSelector(troopsSelector, (troops) => {
+    const trooper =
+      troops.attackers.find((attacker) => attacker.id === id) ||
+      troops.defenders.find((defender) => defender.id === id);
+
+    if (!trooper) {
+      return true;
+    }
+
+    return trooper.currentHealth <= 0;
+  });
+
 export const makeCanMeleeTrooperAttackSelector = (id: number) =>
   createSelector(
     activeTrooperSelector,
@@ -83,6 +98,45 @@ export const makeCanMeleeTrooperAttackSelector = (id: number) =>
       });
     }
   );
+
+export const enemyTeamNameSelector = createSelector(
+  activeTrooperSelector,
+  (activeTrooper) => {
+    return activeTrooper?.team === TROOPER_TEAM.ATTACKERS
+      ? TROOPER_TEAM.DEFENDERS
+      : TROOPER_TEAM.ATTACKERS;
+  }
+);
+
+export const enemyTeamSelector = createSelector(
+  activeTrooperSelector,
+  attackersSelector,
+  defendersSelector,
+  (activeTrooper, attackers, defenders) => {
+    return activeTrooper?.team === TROOPER_TEAM.ATTACKERS
+      ? defenders
+      : attackers;
+  }
+);
+
+export const meleeTrooperAllowedTargetsSelector = createSelector(
+  activeTrooperSelector,
+  enemyTeamSelector,
+  attackersSelector,
+  defendersSelector,
+  (activeTrooper, enemyTeam, attackers, defenders) => {
+    return enemyTeam.filter(
+      (enemyTrooper) =>
+        enemyTrooper.currentHealth > 0 &&
+        checkMeleeAttackConstraints({
+          attackers,
+          defenders,
+          targetHero: enemyTrooper,
+          activePlayer: activeTrooper
+        })
+    );
+  }
+);
 
 export const uiSelector = createSelector(
   battlefieldSelector,
