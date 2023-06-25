@@ -15,6 +15,7 @@ export const Location = styled.div.attrs((props: { $cursor: string }) => ({
   width: 100vw;
   height: 100vh;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
