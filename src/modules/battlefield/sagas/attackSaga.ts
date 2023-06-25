@@ -1,5 +1,6 @@
-import { takeLatest, put, select, call, fork } from 'typed-redux-saga/macro';
+import { takeLatest, put, select, call } from 'typed-redux-saga/macro';
 import { attackStarted, attackFinished, applyDamage } from '../actions';
+import { getTileNode } from '../tilesNodesMap';
 
 import type { Trooper } from '../types';
 import {
@@ -97,20 +98,25 @@ function* playAttackAnimation({
     attackedTrooperNode!,
     containerNode!
   );
+  const tileNode = getTileNode(activeTrooperId);
 
-  yield* call(
-    [activeTrooperAnimationInstance!, 'run'],
-    activeTrooperBounds,
-    attackedTrooperBounds
-  );
+  const onAfterAttack = async () => {
+    if (isDying) {
+      attackedTrooperAnimationInstance!.die();
+    } else {
+      attackedTrooperAnimationInstance!.hurt();
+    }
+  };
 
-  // yield* fork([activeTrooperAnimationInstance!, 'attack']);
-  //
-  // if (isDying) {
-  //   yield* call([attackedTrooperAnimationInstance!, 'die']);
-  // } else {
-  //   yield* call([attackedTrooperAnimationInstance!, 'hurt']);
-  // }
+  if (!tileNode || !attackedTrooperBounds || !activeTrooperBounds) return;
+
+  // @ts-ignore
+  yield* call([activeTrooperAnimationInstance!, 'meleeAttack'], {
+    characterBounds: activeTrooperBounds,
+    targetBounds: attackedTrooperBounds,
+    tileNode,
+    onAfterAttack
+  });
 }
 
 function* attack({

@@ -7,13 +7,16 @@ import { wait, loadImage, getRandomNumberInRange } from 'common/helpers';
 import { register } from '../troopersAnimationInstances';
 import type { Trooper } from 'modules/battlefield/types';
 import { registerTrooperNode } from '../../battlefield/troopersNodesMap';
+import { Canvas } from './styled';
+import { TROOPER_TEAM } from '../../battlefield/constants';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-} & Pick<Trooper, 'id'>;
+} & Pick<Trooper, 'id'> &
+  Pick<Trooper, 'team'>;
 
 export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -133,23 +136,51 @@ export class CharacterAnimation extends Component<Props> {
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
-  async run(characterBounds: DOMRect, targetBounds: DOMRect) {
-    this.runA()
-    const styles = this.getTargetStyles(characterBounds, targetBounds);
-    this.canvasRef.current.style.transform = styles.transform;
-    this.canvasRef.current.style.transition = 'transform 1.5s ease';
-    await wait(1200)
-    await this.attack();
-    this.runA();
-    this.canvasRef.current.style.transform = `translate(0, 0) rotate3d(0, 1, 0, 180deg)`;
-    this.canvasRef.current.style['transform-style'] = `preserve-3d`;
+  async meleeAttack({
+    characterBounds,
+    targetBounds,
+    tileNode,
+    onAfterAttack
+  }: {
+    characterBounds: DOMRect;
+    targetBounds: DOMRect;
+    tileNode: HTMLDivElement;
+    onAfterAttack?: () => Promise<void>
+  }) {
+    const TRANSITION_TIME = 1000;
+    this.run();
+    const styles = this.getTargetStyles(
+      characterBounds,
+      targetBounds,
+      this.props.team
+    );
 
-    await wait(1200)
-    this.canvasRef.current.style.transform = `initial`;
-    this.idle()
+    tileNode.style.transition = `transform ${TRANSITION_TIME}ms linear`;
+    tileNode.style.transform = styles.transform;
+
+    await wait(TRANSITION_TIME);
+    tileNode.style.zIndex = '7';
+    await this.attack();
+
+    if(onAfterAttack) {
+      await onAfterAttack();
+    }
+
+    this.run();
+    this.canvasRef.current!.style.transform =
+      this.props.team === 'attackers' ? 'rotate3d(0, 1, 0, 180deg)' : 'initial';
+    tileNode.style.transform = `translate(0, 0)`;
+
+    await wait(TRANSITION_TIME);
+    this.canvasRef.current!.style.removeProperty('transform');
+    tileNode.style.removeProperty('z-index');
+    tileNode.style.removeProperty('transform');
+    tileNode.style.removeProperty('transition');
+
+    this.idle();
   }
 
-  runA() {
+  run() {
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation('Running', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
@@ -253,7 +284,11 @@ export class CharacterAnimation extends Component<Props> {
     void this.init();
   }
 
-  getTargetStyles(characterBounds: DOMRect, targetBounds: DOMRect) {
+  getTargetStyles(
+    characterBounds: DOMRect,
+    targetBounds: DOMRect,
+    team: Trooper['team']
+  ) {
     const {
       left: targetLeft,
       width: targetWidth,
@@ -264,18 +299,25 @@ export class CharacterAnimation extends Component<Props> {
     const targetTopCenter = targetTop + targetHeight / 2;
 
     const { left, top, width, height } = characterBounds;
-
-    const transformX = targetLeftCenter - left - width;
+    const adjustmentX = team === TROOPER_TEAM.ATTACKERS ? width : 0;
+    const transformX = targetLeftCenter - left - adjustmentX;
     const transformY = targetTopCenter - top - height / 2;
 
     return {
       transform: `translate(${transformX}px, ${transformY}px)`,
       x: transformX,
-      y: transformY,
+      y: transformY
     };
   }
 
   render() {
-    return <canvas ref={this.canvasRef} width="200" height="180" />;
+    return (
+      <Canvas
+        $team={this.props.team}
+        ref={this.canvasRef}
+        width="200"
+        height="200"
+      />
+    );
   }
 }

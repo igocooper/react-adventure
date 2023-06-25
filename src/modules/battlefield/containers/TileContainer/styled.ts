@@ -1,85 +1,100 @@
-import styled from 'styled-components';
-import type { Team } from 'modules/battlefield/types';
-import { Defenders } from 'modules/battlefield/containers/BattlefieldContainer/styled';
+import styled, { css } from 'styled-components';
+import type { Team, Trooper } from 'modules/battlefield/types';
 
 interface TileProps {
   $position: number;
+  $team: Trooper['team'];
 }
 
-export const Tile = styled.div.attrs((props: { $position: number }) => ({
-  className: `tile tile-${props.$position}`
-}))<TileProps>`
+export const Tile = styled.div.attrs(
+  (props: { $position: number; $team: Trooper['team'] }) => ({
+    className: `tile tile-${props.$position} tile-${props.$team}`
+  })
+)<TileProps>`
   position: absolute;
   width: 70px;
   height: 100px;
 
-  &.tile-1 {
-    top: -10px;
-    left: 280px;
-    z-index: 1;
-  }
+  ${({ $team }) => {
+    switch ($team) {
+      case 'defenders':
+        return css`
+          &.tile-1 {
+            top: 150px;
+            left: 640px;
+            z-index: 2;
+          }
 
-  &.tile-2 {
-    top: 60px;
-    left: 220px;
-    z-index: 3;
-  }
+          &.tile-2 {
+            top: 270px;
+            left: 580px;
+            z-index: 4;
+          }
 
-  &.tile-3 {
-    z-index: 5;
-    top: 130px;
-    left: 150px;
-  }
+          &.tile-3 {
+            left: 510px;
+            top: 390px;
+            z-index: 6;
+          }
 
-  &.tile-4 {
-    left: 140px;
-    z-index: 2;
-  }
+          &.tile-4 {
+            top: 140px;
+            left: 790px;
+            z-index: 1;
+          }
 
-  &.tile-5 {
-    top: 70px;
-    left: 80px;
-    z-index: 4;
-  }
+          &.tile-5 {
+            top: 260px;
+            left: 730px;
+            z-index: 3;
+          }
 
-  &.tile-6 {
-    left: 10px;
-    top: 140px;
-    z-index: 6;
-  }
+          &.tile-6 {
+            z-index: 5;
+            top: 380px;
+            left: 660px;
+          }
+        `;
+      default:
+        return css`
+          &.tile-1 {
+            top: 140px;
+            left: 280px;
+            z-index: 1;
+          }
 
-  ${Defenders} & {
-    transform: rotate3d(0, 1, 0, 180deg);
+          &.tile-2 {
+            top: 260px;
+            left: 220px;
+            z-index: 3;
+          }
 
-    &.tile-1 {
-      left: 140px;
+          &.tile-3 {
+            z-index: 5;
+            top: 380px;
+            left: 150px;
+          }
+
+          &.tile-4 {
+            top: 150px;
+            left: 130px;
+            z-index: 2;
+          }
+
+          &.tile-5 {
+            top: 270px;
+            left: 70px;
+            z-index: 4;
+          }
+
+          &.tile-6 {
+            top: 390px;
+            left: 0;
+            z-index: 6;
+          }
+        `;
     }
-
-    &.tile-2 {
-      top: 70px;
-      left: 80px;
-    }
-
-    &.tile-3 {
-      left: 10px;
-      top: 140px;
-    }
-
-    &.tile-4 {
-      top: -10px;
-      left: 280px;
-    }
-
-    &.tile-5 {
-      top: 60px;
-      left: 220px;
-    }
-
-    &.tile-6 {
-      top: 130px;
-      left: 150px;
-    }
-  }
+  }}
 `;
 
 export const Center = styled.div`

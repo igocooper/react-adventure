@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'store/hooks';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
 import { getCharacterProps } from 'modules/battlefield/helpers/getCharacterProps';
@@ -12,6 +12,7 @@ import {
 } from '../../selectors';
 import { Character, Tile } from './styled';
 import { HealthBar } from '../../components/HealthBar';
+import { registerTileNode } from '../../tilesNodesMap';
 
 type CharacterProps = Pick<
   Trooper,
@@ -29,6 +30,11 @@ export const TileContainer = ({
   const dispatch = useDispatch();
   const hoveredElement = useSelector(hoveredElementSelector);
   const isBattlefieldDisabled = useSelector(battlefieldDisabledStatusSelector);
+  const tileRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    registerTileNode(id, tileRef.current!);
+  }, []);
 
   const handleMouseEnter = useCallback(() => {
     if (!isBattlefieldDisabled) {
@@ -57,7 +63,9 @@ export const TileContainer = ({
 
   return (
     <Tile
+      ref={tileRef}
       key={id}
+      $team={team}
       $position={position}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -73,7 +81,7 @@ export const TileContainer = ({
         $active={active}
         $hovered={hovered}
       >
-        <CharacterAnimation {...getCharacterProps(type)} id={id} />
+        <CharacterAnimation {...getCharacterProps(type)} id={id} team={team} />
       </Character>
     </Tile>
   );

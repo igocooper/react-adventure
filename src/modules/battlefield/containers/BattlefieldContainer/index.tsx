@@ -6,7 +6,7 @@ import {
   cursorSelector,
   defendersSelector
 } from '../../selectors';
-import { Attackers, Defenders, Location } from './styled';
+import { Location } from './styled';
 import type { Trooper } from '../../types';
 import { TileContainer } from '../TileContainer';
 import { AnimationAreaContainer } from '../AnimationAreaContainer';
@@ -24,7 +24,6 @@ export const BattlefieldContainer = () => {
   return (
     <Location $cursor={cursor}>
       <AnimationAreaContainer id="area-container" >
-        <Attackers>
           {attackers.map(
             ({ id, position, type, team, currentHealth, health }: Trooper) => (
               <TileContainer
@@ -38,8 +37,6 @@ export const BattlefieldContainer = () => {
               />
             )
           )}
-        </Attackers>
-        <Defenders>
           {defenders.map(
             ({ id, position, type, team, currentHealth, health }: Trooper) => (
               <TileContainer
@@ -53,7 +50,6 @@ export const BattlefieldContainer = () => {
               />
             )
           )}
-        </Defenders>
       </AnimationAreaContainer>
     </Location>
   );

@@ -2,6 +2,12 @@ import type { Trooper } from 'modules/battlefield/types';
 
 interface AnimationInstance {
   attack: () => Promise<void>;
+  meleeAttack: (props: {
+    characterBounds: DOMRect;
+    targetBounds: DOMRect;
+    tileNode: HTMLDivElement;
+    onAfterAttack?: () => Promise<void>
+  }) => Promise<void>;
   hurt: () => Promise<void>;
   die: () => Promise<void>;
   idle: () => void;
