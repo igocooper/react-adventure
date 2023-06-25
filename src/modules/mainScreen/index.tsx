@@ -1,14 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { path } from 'modules/router/constants';
+import { MainTitle } from './components/MainTitle';
+import { Options } from './components/Options';
+import { Container } from './styled';
 
 export const MainScreen = () => (
-  <ul>
-    <li>
-      <Link to={path.BATTLEFIELD}>Battlefield</Link>
-    </li>
-    <li>
-      <Link to={path.SPRITES}>Sprites</Link>
-    </li>
-  </ul>
+  <Container>
+    <MainTitle title="React Adventure" />
+    <Options />
+  </Container>
 );
