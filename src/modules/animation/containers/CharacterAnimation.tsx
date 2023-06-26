@@ -15,8 +15,7 @@ import { TROOPER_TEAM } from '../../battlefield/constants';
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-} & Pick<Trooper, 'id'> &
-  Pick<Trooper, 'team'>;
+} & Pick<Trooper, 'id' | 'team'>;
 
 export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;

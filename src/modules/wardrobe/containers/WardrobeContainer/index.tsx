@@ -4,6 +4,7 @@ import { CharacterAnimation } from '../../../animation/containers/CharacterAnima
 import { getTrooperAnimationInstance } from '../../../animation/troopersAnimationInstances';
 import { loadImage } from 'common/helpers';
 import { HEADS, ARMORS, WEAPONS, CHARACTER } from '../../constants';
+import { TROOPER_TEAM } from '../../../battlefield/constants';
 
 type Props = Array<Record<string, string>>;
 
@@ -69,6 +70,7 @@ export const WardrobeContainer = () => {
           <CharacterAnimation
             {...getCharacterProps(CHARACTER.type)}
             id={CHARACTER.id}
+            team={TROOPER_TEAM.ATTACKERS}
           />
         </div>
         <div>

@@ -12,6 +12,7 @@ import { AI_TYPE, HOVERED_ELEMENT_TYPE } from '../../constants';
 import { getRandomNumberInRange } from 'common/helpers';
 import { randomAI } from './randomAI';
 import { determinedAI } from './determinedAI';
+import { strategicAI } from './strategicAI';
 
 export function* clickOnEnemy({ id, team }: Pick<Trooper, 'id' | 'team'>) {
   yield* put(
@@ -45,6 +46,10 @@ function* performAITurn() {
     }
     case AI_TYPE.DETERMINED: {
       yield* call(determinedAI);
+      break;
+    }
+    case AI_TYPE.STRATEGIC: {
+      yield* call(strategicAI);
       break;
     }
     default:

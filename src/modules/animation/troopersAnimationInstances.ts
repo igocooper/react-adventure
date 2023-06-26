@@ -6,7 +6,7 @@ interface AnimationInstance {
     characterBounds: DOMRect;
     targetBounds: DOMRect;
     tileNode: HTMLDivElement;
-    onAfterAttack?: () => Promise<void>
+    onAfterAttack?: () => Promise<void>;
   }) => Promise<void>;
   hurt: () => Promise<void>;
   die: () => Promise<void>;

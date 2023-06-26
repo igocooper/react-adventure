@@ -79,6 +79,8 @@ function* playAttackAnimation({
   selectedTrooperId: Trooper['id'];
   isDying: boolean;
 }) {
+  yield* put(toggleBattlefieldStatus());
+
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
     activeTrooperId
@@ -116,6 +118,8 @@ function* playAttackAnimation({
     tileNode,
     onAfterAttack
   });
+
+  yield* put(toggleBattlefieldStatus());
 }
 
 function* attack({
