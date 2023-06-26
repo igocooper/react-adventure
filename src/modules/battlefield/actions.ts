@@ -5,13 +5,20 @@ export {
   setRound,
   setActivePlayer
 } from './reducers/roundSlice';
-export { applyDamage, applyHeal } from './reducers/troopsSlice';
+export {
+  applyDamage,
+  applyHeal,
+  setTrooperCurrentTargetId
+} from './reducers/troopsSlice';
 export { setHoveredElement } from './reducers/hoveredElementSlice';
 export { setCursor } from './reducers/cursorSlice';
 export {
   setBattlefieldStatus,
   toggleBattlefieldStatus
 } from './reducers/battlefieldDisabledStatusSlice';
+
+export const performAITurn = createAction('perform_AI_turn');
+
 export const finishTrooperTurn = createAction('finish_trooper_turn');
 
 export const attackStarted =

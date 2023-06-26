@@ -24,6 +24,12 @@ export enum HOVERED_ELEMENT_TYPE {
   CHARACTER = 'character'
 }
 
+export enum AI_TYPE {
+  RANDOM = 'random',
+  DETERMINED = 'determined',
+  STRATEGIC = 'strategic'
+}
+
 const ATTACKERS_TROOPS: Trooper[] = [
   {
     team: 'attackers',
@@ -34,31 +40,34 @@ const ATTACKERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 1,
-    initiative: 5
+    initiative: 5,
+    AItype: AI_TYPE.STRATEGIC
   },
   {
     team: 'attackers',
     type: 'torug',
-    damage: '6-10',
+    damage: '10-15',
     attackType: 'melee',
     position: 2,
-    health: 60,
+    health: 50,
     currentHealth: 60,
     id: 2,
-    initiative: 10
+    initiative: 10,
+    AItype: AI_TYPE.STRATEGIC
   },
   {
     team: 'attackers',
     type: 'mountain-warrior-5',
-    damage: '15-22',
+    damage: '10-15',
     attackType: 'range',
     attackId: 'mountainArcherArrow',
     position: 3,
     health: 100,
     currentHealth: 100,
     id: 3,
-    initiative: 3
-  },
+    initiative: 3,
+    AItype: AI_TYPE.STRATEGIC
+  }
   // {
   //   team: 'attackers',
   //   type: 'mountain-warrior-1',
@@ -98,14 +107,15 @@ const DEFENDERS_TROOPS: Trooper[] = [
   {
     team: 'defenders',
     type: 'mountain-warrior-5',
-    damage: '15-22',
+    damage: '10-15',
     attackType: 'range',
     attackId: 'mountainArcherArrow',
     position: 1,
     health: 100,
     currentHealth: 100,
     id: 103,
-    initiative: 3
+    initiative: 13,
+    AItype: AI_TYPE.DETERMINED
   },
   {
     team: 'defenders',
@@ -116,19 +126,21 @@ const DEFENDERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 102,
-    initiative: 5
+    initiative: 15,
+    AItype: AI_TYPE.DETERMINED
   },
   {
     team: 'defenders',
     type: 'goblin-2',
-    damage: '6-10',
+    damage: '10-15',
     attackType: 'melee',
     position: 3,
-    health: 60,
+    health: 50,
     currentHealth: 60,
     id: 12,
-    initiative: 2
-  },
+    initiative: 12,
+    AItype: AI_TYPE.DETERMINED
+  }
   // {
   //   team: 'defenders',
   //   type: 'goblin-3',

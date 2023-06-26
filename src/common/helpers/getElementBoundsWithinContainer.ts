@@ -1,8 +1,7 @@
 export const getElementBoundsWithinContainer = (
   element: HTMLElement,
   container: HTMLElement
-) => {
-  if (!element || !container) return {};
+): DOMRect => {
   const elementBounds = element.getBoundingClientRect();
   const { width, height } = elementBounds;
   const containerBounds = container.getBoundingClientRect();

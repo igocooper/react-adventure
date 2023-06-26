@@ -15,8 +15,7 @@ import { TROOPER_TEAM } from '../../battlefield/constants';
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-} & Pick<Trooper, 'id'> &
-  Pick<Trooper, 'team'>;
+} & Pick<Trooper, 'id' | 'team'>;
 
 export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -145,9 +144,9 @@ export class CharacterAnimation extends Component<Props> {
     characterBounds: DOMRect;
     targetBounds: DOMRect;
     tileNode: HTMLDivElement;
-    onAfterAttack?: () => Promise<void>
+    onAfterAttack?: () => Promise<void>;
   }) {
-    const TRANSITION_TIME = 1000;
+    const TRANSITION_TIME = 700;
     this.run();
     const styles = this.getTargetStyles(
       characterBounds,
@@ -162,14 +161,14 @@ export class CharacterAnimation extends Component<Props> {
     tileNode.style.zIndex = '7';
     await this.attack();
 
-    if(onAfterAttack) {
+    if (onAfterAttack) {
       await onAfterAttack();
     }
 
     this.run();
     this.canvasRef.current!.style.transform =
       this.props.team === 'attackers' ? 'rotate3d(0, 1, 0, 180deg)' : 'initial';
-    tileNode.style.transform = `translate(0, 0)`;
+    tileNode.style.transform = 'translate(0, 0)';
 
     await wait(TRANSITION_TIME);
     this.canvasRef.current!.style.removeProperty('transform');

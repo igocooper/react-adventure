@@ -3,6 +3,7 @@ import {
   finishTrooperTurn as finishTrooperTurnAction,
   startRound as startRoundAction,
   finishRound as finishRoundAction,
+  performAITurn,
   setRound,
   setInitiative,
   setActivePlayer,
@@ -25,6 +26,7 @@ import {
 
 import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
+import { wait } from 'common/helpers';
 
 function* getTroopersHealthMap() {
   const attackers = yield* select(attackersSelector);
@@ -79,6 +81,14 @@ function* finishTrooperTurn() {
   if (nextActivePlayer) {
     yield* put(setActivePlayer(nextActivePlayer));
     yield* put(setInitiative(updatedInitiative));
+
+    const nextActiveTrooper = yield* select(
+      makeCharacterByIdSelector(nextActivePlayer.id)
+    );
+
+    if (nextActiveTrooper?.AItype) {
+      yield* put(performAITurn());
+    }
   }
 }
 
@@ -90,6 +100,16 @@ function* startRound({ payload }: { payload: number }) {
 
   if (activePlayer) {
     yield* put(setActivePlayer(activePlayer));
+
+    const activeTrooper = yield* select(
+      makeCharacterByIdSelector(activePlayer.id)
+    );
+
+    if (activeTrooper?.AItype) {
+      // TODO: Wait till load of view
+      yield* call(wait, 1000);
+      yield* put(performAITurn());
+    }
   }
 }
 

@@ -26,9 +26,27 @@ const initialState: TroopsState = {
 };
 
 export const troopsSlice = createSlice({
-  name: 'troops',
+  name: 'troopers',
   initialState,
   reducers: {
+    setTrooperCurrentTargetId: (
+      state: TroopsState,
+      {
+        payload: { currentTargetId, activeTrooperId, team }
+      }: PayloadAction<{
+        team: Trooper['team'];
+        activeTrooperId: Trooper['id'];
+        currentTargetId: Trooper['currentTargetId'];
+      }>
+    ) => {
+      const activeTrooper = state[team].find(
+        (trooper) => trooper.id === activeTrooperId
+      );
+
+      if (activeTrooper) {
+        activeTrooper.currentTargetId = currentTargetId;
+      }
+    },
     applyDamage: (
       state: TroopsState,
       {
@@ -59,6 +77,7 @@ export const troopsSlice = createSlice({
   }
 });
 
-export const { applyDamage, applyHeal } = troopsSlice.actions;
+export const { applyDamage, applyHeal, setTrooperCurrentTargetId } =
+  troopsSlice.actions;
 
 export const troopsReducer = troopsSlice.reducer;

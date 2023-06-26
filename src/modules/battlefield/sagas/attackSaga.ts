@@ -79,6 +79,8 @@ function* playAttackAnimation({
   selectedTrooperId: Trooper['id'];
   isDying: boolean;
 }) {
+  yield* put(toggleBattlefieldStatus());
+
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
     activeTrooperId
@@ -110,13 +112,14 @@ function* playAttackAnimation({
 
   if (!tileNode || !attackedTrooperBounds || !activeTrooperBounds) return;
 
-  // @ts-ignore
   yield* call([activeTrooperAnimationInstance!, 'meleeAttack'], {
     characterBounds: activeTrooperBounds,
     targetBounds: attackedTrooperBounds,
     tileNode,
     onAfterAttack
   });
+
+  yield* put(toggleBattlefieldStatus());
 }
 
 function* attack({
