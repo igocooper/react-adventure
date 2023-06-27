@@ -1,4 +1,4 @@
-import { takeLatest, put, select, call } from 'typed-redux-saga/macro';
+import { takeLatest, put, select, call, fork } from 'typed-redux-saga/macro';
 import { attackStarted, attackFinished, applyDamage } from '../actions';
 import { getTileNode } from '../tilesNodesMap';
 
@@ -72,11 +72,13 @@ function* playRangeAttackAnimation({
 
 function* playAttackAnimation({
   activeTrooperId,
-  selectedTrooperId,
+  selectedTrooperInfo,
+  damage,
   isDying
 }: {
   activeTrooperId: Trooper['id'];
-  selectedTrooperId: Trooper['id'];
+  selectedTrooperInfo: Pick<Trooper, 'id' | 'team'>;
+  damage: number;
   isDying: boolean;
 }) {
   yield* put(toggleBattlefieldStatus());
@@ -87,10 +89,10 @@ function* playAttackAnimation({
   );
   const attackedTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
-    selectedTrooperId
+    selectedTrooperInfo.id
   );
   const activeTrooperNode = getTrooperNode(activeTrooperId);
-  const attackedTrooperNode = getTrooperNode(selectedTrooperId);
+  const attackedTrooperNode = getTrooperNode(selectedTrooperInfo.id);
   const containerNode = document.getElementById('area-container');
   const activeTrooperBounds = getElementBoundsWithinContainer(
     activeTrooperNode!,
@@ -101,22 +103,30 @@ function* playAttackAnimation({
     containerNode!
   );
   const tileNode = getTileNode(activeTrooperId);
-
-  const onAfterAttack = async () => {
-    if (isDying) {
-      attackedTrooperAnimationInstance!.die();
-    } else {
-      attackedTrooperAnimationInstance!.hurt();
-    }
-  };
-
   if (!tileNode || !attackedTrooperBounds || !activeTrooperBounds) return;
 
   yield* call([activeTrooperAnimationInstance!, 'meleeAttack'], {
     characterBounds: activeTrooperBounds,
     targetBounds: attackedTrooperBounds,
-    tileNode,
-    onAfterAttack
+    tileNode
+  });
+
+  if (isDying) {
+    yield* fork([attackedTrooperAnimationInstance!, 'die']);
+  } else {
+    yield* fork([attackedTrooperAnimationInstance!, 'hurt']);
+  }
+
+  yield* put(
+    applyDamage({
+      damage,
+      team: selectedTrooperInfo.team,
+      id: selectedTrooperInfo.id
+    })
+  );
+
+  yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
+    tileNode
   });
 
   yield* put(toggleBattlefieldStatus());
@@ -177,17 +187,10 @@ function* attack({
   if (activeTrooper?.attackType === ATTACK_TYPE.MELEE) {
     yield* call(playAttackAnimation, {
       activeTrooperId: activeTrooper.id,
-      selectedTrooperId: selectedTrooperInfo.id,
+      selectedTrooperInfo,
+      damage,
       isDying
     });
-
-    yield* put(
-      applyDamage({
-        damage,
-        team: selectedTrooperInfo.team,
-        id: selectedTrooperInfo.id
-      })
-    );
   }
 
   yield* put(attackFinished(selectedTrooperInfo));

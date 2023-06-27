@@ -2,3 +2,4 @@ export { getElementBoundsWithinContainer } from './getElementBoundsWithinContain
 export { getRandomNumberInRange } from './getRandomNumberInRange';
 export { wait } from './wait';
 export { loadImage } from './loadImage';
+export { getRandomArrayElement } from './getRandomArrayElement';

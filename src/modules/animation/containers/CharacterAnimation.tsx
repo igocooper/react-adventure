@@ -15,6 +15,7 @@ import { TROOPER_TEAM } from '../../battlefield/constants';
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
+  meleeAttackTransitionTime: number;
 } & Pick<Trooper, 'id' | 'team'>;
 
 export class CharacterAnimation extends Component<Props> {
@@ -36,6 +37,7 @@ export class CharacterAnimation extends Component<Props> {
   alpha: number;
   animationRequestId: number;
   loading: boolean;
+  meleeAttackTransitionTime: number;
 
   constructor(props: Props) {
     super(props);
@@ -57,6 +59,7 @@ export class CharacterAnimation extends Component<Props> {
     this.alpha = 1;
     this.images = {};
     this.animationRequestId = 0;
+    this.meleeAttackTransitionTime = props.meleeAttackTransitionTime || 700;
     this.canvasRef = React.createRef();
 
     this.renderAnimationLoop = this.renderAnimationLoop.bind(this);
@@ -87,9 +90,16 @@ export class CharacterAnimation extends Component<Props> {
       for (const file of folder.file_array) {
         if (file.type === 'image') {
           const imageKey: string = file.name;
-          const image = await loadImage(imagesUrls[imageKey]!);
+          let image: Nullable<HTMLImageElement> = null;
+          try {
+            image = await loadImage(imagesUrls[imageKey]!);
+          } catch (err) {
+            console.log(err);
+          }
 
-          this.images[imageKey] = image;
+          if (image) {
+            this.images[imageKey] = image;
+          }
         }
       }
     }
@@ -138,15 +148,12 @@ export class CharacterAnimation extends Component<Props> {
   async meleeAttack({
     characterBounds,
     targetBounds,
-    tileNode,
-    onAfterAttack
+    tileNode
   }: {
     characterBounds: DOMRect;
     targetBounds: DOMRect;
     tileNode: HTMLDivElement;
-    onAfterAttack?: () => Promise<void>;
   }) {
-    const TRANSITION_TIME = 700;
     this.run();
     const styles = this.getTargetStyles(
       characterBounds,
@@ -154,23 +161,21 @@ export class CharacterAnimation extends Component<Props> {
       this.props.team
     );
 
-    tileNode.style.transition = `transform ${TRANSITION_TIME}ms linear`;
+    tileNode.style.transition = `transform ${this.meleeAttackTransitionTime}ms linear`;
     tileNode.style.transform = styles.transform;
 
-    await wait(TRANSITION_TIME);
+    await wait(this.meleeAttackTransitionTime);
     tileNode.style.zIndex = '7';
     await this.attack();
+  }
 
-    if (onAfterAttack) {
-      await onAfterAttack();
-    }
-
+  async meleeGoBack({ tileNode }: { tileNode: HTMLDivElement }) {
     this.run();
     this.canvasRef.current!.style.transform =
       this.props.team === 'attackers' ? 'rotate3d(0, 1, 0, 180deg)' : 'initial';
     tileNode.style.transform = 'translate(0, 0)';
 
-    await wait(TRANSITION_TIME);
+    await wait(this.meleeAttackTransitionTime);
     this.canvasRef.current!.style.removeProperty('transform');
     tileNode.style.removeProperty('z-index');
     tileNode.style.removeProperty('transform');

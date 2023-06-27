@@ -9,7 +9,7 @@ import { activeTrooperSelector } from '../../selectors';
 import type { Trooper } from '../../types';
 
 import { AI_TYPE, HOVERED_ELEMENT_TYPE } from '../../constants';
-import { getRandomNumberInRange } from 'common/helpers';
+import { getRandomArrayElement } from 'common/helpers';
 import { randomAI } from './randomAI';
 import { determinedAI } from './determinedAI';
 import { strategicAI } from './strategicAI';
@@ -30,8 +30,8 @@ export function* clickOnEnemy({ id, team }: Pick<Trooper, 'id' | 'team'>) {
 }
 
 export function* getRandomEnemyId(allowedTargets: Trooper[]) {
-  const randomIndex = getRandomNumberInRange(1, allowedTargets.length) - 1;
-  return allowedTargets[randomIndex]?.id;
+  const randomTarget = getRandomArrayElement(allowedTargets);
+  return randomTarget?.id;
 }
 
 function* performAITurn() {

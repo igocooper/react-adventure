@@ -24,7 +24,7 @@ const getUrls = (type: string) => {
       'Drawn Bowstring.png': `/images/${type}/Drawn Bowstring.png`,
       'Arrow.png': `/images/${type}/Arrow.png`,
       'Quiver.png': `/images/${type}/Quiver.png`,
-      'Axe.png': `/images/${type}/Axe.png`,
+      'Axe.png': `/images/${type}/Axe.png`
     };
   }
   return urlList;

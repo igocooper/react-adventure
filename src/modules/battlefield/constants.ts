@@ -50,9 +50,9 @@ const ATTACKERS_TROOPS: Trooper[] = [
     attackType: 'melee',
     position: 2,
     health: 50,
-    currentHealth: 60,
+    currentHealth: 50,
     id: 2,
-    initiative: 10,
+    initiative: 5,
     AItype: AI_TYPE.DETERMINED
   },
   {
@@ -115,7 +115,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 103,
     initiative: 13,
-    // AItype: AI_TYPE.STRATEGIC
+    AItype: AI_TYPE.STRATEGIC
   },
   {
     team: 'defenders',
@@ -127,7 +127,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 50,
     id: 102,
     initiative: 15,
-    // AItype: AI_TYPE.STRATEGIC
+    AItype: AI_TYPE.STRATEGIC
   },
   {
     team: 'defenders',
@@ -136,10 +136,10 @@ const DEFENDERS_TROOPS: Trooper[] = [
     attackType: 'melee',
     position: 3,
     health: 50,
-    currentHealth: 60,
+    currentHealth: 50,
     id: 12,
     initiative: 12,
-    // AItype: AI_TYPE.STRATEGIC
+    AItype: AI_TYPE.STRATEGIC
   }
   // {
   //   team: 'defenders',
