@@ -87,9 +87,16 @@ export class CharacterAnimation extends Component<Props> {
       for (const file of folder.file_array) {
         if (file.type === 'image') {
           const imageKey: string = file.name;
-          const image = await loadImage(imagesUrls[imageKey]!);
+          let image: Nullable<HTMLImageElement> = null;
+          try {
+            image = await loadImage(imagesUrls[imageKey]!);
+          } catch (err) {
+            console.log(err);
+          }
 
-          this.images[imageKey] = image;
+          if (image) {
+            this.images[imageKey] = image;
+          }
         }
       }
     }
