@@ -59,6 +59,19 @@ export const defendersSelector = createSelector(
   (troops) => troops.defenders
 );
 
+export const battleFieldTroopersToLoadSelector = createSelector(
+  attackersSelector,
+  defendersSelector,
+  (attackers, defenders) => {
+    return [...attackers, ...defenders].reduce((result, trooper) => {
+      return {
+        ...result,
+        [trooper.id]: false
+      };
+    }, {});
+  }
+);
+
 export const makeCharacterByIdSelector = (id: number) =>
   createSelector(
     troopsSelector,
@@ -158,4 +171,30 @@ export const cursorSelector = createSelector(uiSelector, (ui) => ui.cursor);
 export const battlefieldDisabledStatusSelector = createSelector(
   uiSelector,
   (ui) => ui.battlefieldDisabledStatus
+);
+
+export const battlefieldLoadedStatusStateSelector = createSelector(
+  uiSelector,
+  (ui) => ui.battlefieldLoadedStatus
+);
+
+export const battlefieldLoadedStatusSelector = createSelector(
+  battlefieldLoadedStatusStateSelector,
+  (ui) => ui.isLoaded
+);
+
+export const troopersToLoadSelector = createSelector(
+  battlefieldLoadedStatusStateSelector,
+  (ui) => ui.loadedTroopersIds
+);
+
+export const hoveredTrooperSelector = createSelector(
+  hoveredElementSelector,
+  troopsSelector,
+  (hoveredElement, troops) => {
+    return (
+      troops.attackers.find((attacker) => attacker.id === hoveredElement?.id) ||
+      troops.defenders.find((defender) => defender.id === hoveredElement?.id)
+    );
+  }
 );

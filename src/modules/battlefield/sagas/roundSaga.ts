@@ -26,7 +26,6 @@ import {
 
 import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
-import { wait } from 'common/helpers';
 
 function* getTroopersHealthMap() {
   const attackers = yield* select(attackersSelector);
@@ -106,8 +105,6 @@ function* startRound({ payload }: { payload: number }) {
     );
 
     if (activeTrooper?.AItype) {
-      // TODO: Wait till load of view
-      yield* call(wait, 1000);
       yield* put(performAITurn());
     }
   }

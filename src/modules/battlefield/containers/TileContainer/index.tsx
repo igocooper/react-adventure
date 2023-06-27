@@ -2,7 +2,11 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'store/hooks';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
 import { getCharacterProps } from 'modules/battlefield/helpers/getCharacterProps';
-import { setHoveredElement, trooperClicked } from '../../actions';
+import {
+  setHoveredElement,
+  trooperClicked,
+  setTrooperLoadedStatus
+} from '../../actions';
 import type { Trooper } from '../../types';
 import { HOVERED_ELEMENT_TYPE } from '../../constants';
 import {
@@ -48,6 +52,15 @@ export const TileContainer = ({
     }
   }, [dispatch, isBattlefieldDisabled]);
 
+  const handleLoad = useCallback(
+    (id: Trooper['id']) => {
+      if (id) {
+        dispatch(setTrooperLoadedStatus(id));
+      }
+    },
+    [dispatch]
+  );
+
   const handleClick = useCallback(() => {
     dispatch(
       trooperClicked({
@@ -81,7 +94,12 @@ export const TileContainer = ({
         $active={active}
         $hovered={hovered}
       >
-        <CharacterAnimation {...getCharacterProps(type)} id={id} team={team} />
+        <CharacterAnimation
+          {...getCharacterProps(type)}
+          id={id}
+          team={team}
+          onLoad={handleLoad}
+        />
       </Character>
     </Tile>
   );

@@ -15,7 +15,8 @@ import { TROOPER_TEAM } from '../../battlefield/constants';
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-  meleeAttackTransitionTime: number;
+  meleeAttackTransitionTime?: number;
+  onLoad?: (id: Trooper['id']) => void;
 } & Pick<Trooper, 'id' | 'team'>;
 
 export class CharacterAnimation extends Component<Props> {
@@ -108,7 +109,7 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async init() {
-    const { id } = this.props;
+    const { id, onLoad } = this.props;
     this.loading = true;
 
     this.initCanvasCtx();
@@ -123,6 +124,12 @@ export class CharacterAnimation extends Component<Props> {
 
     await wait(getRandomNumberInRange(0, 500));
     this.idle();
+
+    // we need delay onload a bit so canvas could play animation
+    if (onLoad) {
+      await wait(10);
+      onLoad(id);
+    }
   }
 
   setAnimation(animation: string, animationLength?: number) {
@@ -182,6 +189,10 @@ export class CharacterAnimation extends Component<Props> {
     tileNode.style.removeProperty('transition');
 
     this.idle();
+  }
+
+  getImage() {
+    return this.canvasRef?.current?.toDataURL('image/png');
   }
 
   run() {

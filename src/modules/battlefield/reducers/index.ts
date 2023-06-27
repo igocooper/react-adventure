@@ -4,6 +4,7 @@ import { troopsReducer } from './troopsSlice';
 import { hoveredElementReducer } from './hoveredElementSlice';
 import { cursorReducer } from './cursorSlice';
 import { battlefieldDisabledStatusReducer } from './battlefieldDisabledStatusSlice';
+import { battlefieldLoadedStatusReducer } from './battlefieldLoadedStatusSlice';
 
 export const battleFieldReducer = combineReducers({
   round: roundReducer,
@@ -11,6 +12,7 @@ export const battleFieldReducer = combineReducers({
   ui: combineReducers({
     hoveredElement: hoveredElementReducer,
     cursor: cursorReducer,
-    battlefieldDisabledStatus: battlefieldDisabledStatusReducer
+    battlefieldDisabledStatus: battlefieldDisabledStatusReducer,
+    battlefieldLoadedStatus: battlefieldLoadedStatusReducer
   })
 });
