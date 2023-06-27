@@ -13,6 +13,7 @@ interface AnimationInstance {
   idle: () => void;
   shoot: () => void;
   images: Record<string, HTMLImageElement>;
+  getImage: () => string | undefined;
 }
 
 export const TroopersAnimationInstances = new Map<

@@ -17,6 +17,13 @@ export {
   toggleBattlefieldStatus
 } from './reducers/battlefieldDisabledStatusSlice';
 
+export {
+  setBattlefieldLoadedStatus,
+  setTrooperLoadedStatus,
+  resetBattlefieldLoadedStatus,
+  setTroopersToLoad
+} from './reducers/battlefieldLoadedStatusSlice';
+
 export const performAITurn = createAction('perform_AI_turn');
 
 export const finishTrooperTurn = createAction('finish_trooper_turn');
