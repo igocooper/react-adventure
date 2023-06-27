@@ -53,7 +53,7 @@ export class CharacterAnimation extends Component<Props> {
     this.anim_length = 1000;
     this.camera_x = 0;
     this.camera_y = 0;
-    this.camera_zoom = 0.22;
+    this.camera_zoom = 0.26;
     this.alpha = 1;
     this.images = {};
     this.animationRequestId = 0;
@@ -131,7 +131,7 @@ export class CharacterAnimation extends Component<Props> {
 
   idle() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Idle With Weapon', Infinity);
+    this.setAnimation('idle_with_weapon', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
@@ -181,13 +181,13 @@ export class CharacterAnimation extends Component<Props> {
 
   run() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Running', Infinity);
+    this.setAnimation('running', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
   async hurt() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Hurt');
+    this.setAnimation('hurt');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
@@ -196,7 +196,7 @@ export class CharacterAnimation extends Component<Props> {
 
   async die() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Dying');
+    this.setAnimation('dying');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
@@ -205,18 +205,18 @@ export class CharacterAnimation extends Component<Props> {
   async attack() {
     cancelAnimationFrame(this.animationRequestId);
     // const attacks = [
-    //   'Slashing With Left Hand',
-    //   'Slashing With Both Hands',
-    //   'Slashing Two Handed Weapon',
-    //   'Slashing With Both Hands Sequence',
-    //   'Stabing With Left Hand',
-    //   'Stabing With Both Hands',
-    //   'Cast With Wand'
+    //   'slashing_with_left_hand',
+    //   'slashing_with_both_hands',
+    //   'slashing_two_handed_weapon',
+    //   'slashing_with_both_hands_sequence',
+    //   'stabbing_with_left_hand',
+    //   'stabbing_with_both_hands',
+    //   'cast_with_wand'
     // ];
     // const attackIndex = getRandomNumberInRange(0, attacks.length - 1);
 
     // this.setAnimation(attacks[attackIndex]!);
-    this.setAnimation('Slashing With Left Hand');
+    this.setAnimation('slashing_with_left_hand');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);

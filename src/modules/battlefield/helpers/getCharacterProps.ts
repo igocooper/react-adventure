@@ -12,7 +12,7 @@ const getUrls = (type: string) => {
     'Right Hand.png': `/images/${type}/Right Hand.png`,
     'Right Leg.png': `/images/${type}/Right Leg.png`,
     'SlashFX.png': `/images/${type}/SlashFX.png`,
-    'Sword.png': `/images/${type}/Sword.png`,
+    'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`,
     'Right Hand Weapon.png': `/images/${type}/Right Hand Weapon.png`
   };
 
@@ -25,7 +25,7 @@ const getUrls = (type: string) => {
       'Arrow.png': `/images/${type}/Arrow.png`,
       'Quiver.png': `/images/${type}/Quiver.png`,
       'Axe.png': `/images/${type}/Axe.png`,
-      'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`
+      // 'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`
     };
   }
   return urlList;
