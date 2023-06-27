@@ -6,8 +6,8 @@ interface AnimationInstance {
     characterBounds: DOMRect;
     targetBounds: DOMRect;
     tileNode: HTMLDivElement;
-    onAfterAttack?: () => Promise<void>;
   }) => Promise<void>;
+  meleeGoBack: (props: { tileNode: HTMLDivElement }) => Promise<void>;
   hurt: () => Promise<void>;
   die: () => Promise<void>;
   idle: () => void;
