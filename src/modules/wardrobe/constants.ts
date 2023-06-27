@@ -515,129 +515,129 @@ export const ARMORS = [
 
 export const WEAPONS = [
   {
-    iconUrl: '/images/mountain-warrior-1/Sword.png',
+    iconUrl: '/images/mountain-warrior-1/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/mountain-warrior-1/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/mountain-warrior-1/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/mountain-warrior-2/Sword.png',
+    iconUrl: '/images/mountain-warrior-2/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/mountain-warrior-2/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/mountain-warrior-2/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/mountain-warrior-3/Sword.png',
+    iconUrl: '/images/mountain-warrior-3/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/mountain-warrior-3/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/mountain-warrior-3/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/mountain-warrior-4/Sword.png',
+    iconUrl: '/images/mountain-warrior-4/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/mountain-warrior-4/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/mountain-warrior-4/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/mountain-warrior-5/Sword.png',
+    iconUrl: '/images/mountain-warrior-5/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/mountain-warrior-5/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/mountain-warrior-5/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/torug/Sword.png',
+    iconUrl: '/images/torug/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/torug/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/torug/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/goblin-1/Sword.png',
+    iconUrl: '/images/goblin-1/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/goblin-1/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/goblin-1/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/goblin-2/Sword.png',
+    iconUrl: '/images/goblin-2/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/goblin-2/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/goblin-2/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/goblin-3/Sword.png',
+    iconUrl: '/images/goblin-3/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/goblin-3/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/goblin-3/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/golem-1/Sword.png',
+    iconUrl: '/images/golem-1/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/golem-1/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/golem-1/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/golem-2/Sword.png',
+    iconUrl: '/images/golem-2/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/golem-2/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/golem-2/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/golem-3/Sword.png',
+    iconUrl: '/images/golem-3/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/golem-3/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/golem-3/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/fallen-angel-1/Sword.png',
+    iconUrl: '/images/fallen-angel-1/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/fallen-angel-1/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/fallen-angel-1/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/fallen-angel-2/Sword.png',
+    iconUrl: '/images/fallen-angel-2/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/fallen-angel-2/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/fallen-angel-2/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/fallen-angel-3/Sword.png',
+    iconUrl: '/images/fallen-angel-3/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/fallen-angel-3/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/fallen-angel-3/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/reaper-1/Sword.png',
+    iconUrl: '/images/reaper-1/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/reaper-1/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/reaper-1/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/minotaur-2/Sword.png',
+    iconUrl: '/images/minotaur-2/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/minotaur-2/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/minotaur-2/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/minotaur-3/Sword.png',
+    iconUrl: '/images/minotaur-3/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/minotaur-3/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/minotaur-3/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/reaper-1/Sword.png',
+    iconUrl: '/images/reaper-1/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/reaper-1/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/reaper-1/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/reaper-2/Sword.png',
+    iconUrl: '/images/reaper-2/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/reaper-2/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/reaper-2/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   },
   {
-    iconUrl: '/images/reaper-3/Sword.png',
+    iconUrl: '/images/reaper-3/Left Hand Weapon.png',
     newCharacterImages: [
-      { url: '/images/reaper-3/Sword.png', itemSlot: 'Sword.png' }
+      { url: '/images/reaper-3/Left Hand Weapon.png', itemSlot: 'Left Hand Weapon.png' }
     ]
   }
 ];
