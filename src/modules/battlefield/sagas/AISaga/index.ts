@@ -1,8 +1,9 @@
-import { takeLatest, select, put, call } from 'typed-redux-saga/macro';
+import { takeLatest, select, put, call, take } from 'typed-redux-saga/macro';
 import {
   performAITurn as performAITurnAction,
   trooperClicked,
-  setHoveredElement
+  setHoveredElement,
+  attackFinished
 } from '../../actions';
 import { activeTrooperSelector } from '../../selectors';
 
@@ -27,6 +28,10 @@ export function* clickOnEnemy({ id, team }: Pick<Trooper, 'id' | 'team'>) {
       team
     })
   );
+
+  yield* take(attackFinished);
+
+  yield* put(setHoveredElement(null));
 }
 
 export function* getRandomEnemyId(allowedTargets: Trooper[]) {

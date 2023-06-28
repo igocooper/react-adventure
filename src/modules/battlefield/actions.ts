@@ -46,3 +46,9 @@ export const startRound = createAction<number>('start_round');
 
 export const trooperClicked =
   createAction<Pick<Trooper, 'id' | 'team'>>('trooper_clicked');
+
+export const waitClicked =
+  createAction<Pick<Trooper, 'id' | 'team'>>('wait_clicked');
+
+export const blockClicked =
+  createAction<Pick<Trooper, 'id' | 'team'>>('block_clicked');
