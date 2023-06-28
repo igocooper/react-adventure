@@ -14,36 +14,35 @@ export const Overlay = styled.div.attrs({
 export const HeaderContainer = styled.div.attrs({
   className: 'header'
 })`
-  color: #fff;
-  font-family: fantasy;
+  --header-background-color: #b7a49d;
+  position: absolute;
+  background: var(--header-background-color);
   border: 5px solid var(--border-outer-color);
   border-radius: 10px;
   outline: 1px solid #000;
-  position: absolute;
   left: 50%;
   top: 0;
   transform: translate(-50%, -50%);
+  overflow: hidden;
 `;
 
 export const HeaderContent = styled.div`
-  --header-background-color: #b7a49d;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  background: var(--header-background-color);
   min-height: 50px;
   min-width: 200px;
   border: 1px solid #000;
   border-radius: 6px;
 
   font-family: fantasy;
+  color: #fff;
   font-size: 36px;
   white-space: nowrap;
   padding: 8px 16px;
   text-shadow: -1px 3px 3px rgba(66, 68, 90, 1);
   box-shadow: inset -1px 1px 24px -13px rgb(0, 0, 0);
-  color: #fff;
 `;
 
 export const BorderOuter = styled.div.attrs({
@@ -71,7 +70,6 @@ export const Corner = styled.div`
   height: 25px;
   border-radius: 50%;
   background: var(--border-outer-color);
-  z-index: 9999;
 `;
 
 export const CornerLeft = styled(Corner)`
@@ -123,6 +121,7 @@ interface SpotProps {
   $size: number;
   $x: number;
   $y: number;
+  $color: string;
 }
 
 export const Spot = styled.div<SpotProps>`
@@ -133,7 +132,7 @@ export const Spot = styled.div<SpotProps>`
   left: ${({ $x }) => $x}%;
   border-radius: 50%;
   filter: blur(3px);
-  background: #6a3c2a;
+  background: ${({ $color }) => $color};
 `;
 
 export const SpotsWrapper = styled.div`

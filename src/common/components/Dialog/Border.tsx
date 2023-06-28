@@ -11,7 +11,7 @@ interface Props {
 
 export const Border = ({ children, header, numberOfSpots }: Props) => (
   <BorderOuter>
-    <Spots numberOfSpots={numberOfSpots} />
+    <Spots numberOfSpots={numberOfSpots} color="#6a3c2a" />
     <BorderInner>{children}</BorderInner>
     <Header header={header} />
   </BorderOuter>
