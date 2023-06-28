@@ -19,9 +19,9 @@ export type Trooper = Character & {
   currentHealth: number;
   AIType?: string;
   currentTargetId?: number;
-  criticalChance?: number,
-  criticalMultiplier?: number,
-  evadeChance?: number,
+  criticalChance?: number;
+  criticalMultiplier?: number;
+  evadeChance?: number;
 };
 
 declare global {
