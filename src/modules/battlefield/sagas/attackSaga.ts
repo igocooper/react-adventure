@@ -16,7 +16,6 @@ import {
 import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
-import { toggleBattlefieldStatus } from 'modules/battlefield/actions';
 import { getTrooperNode } from '../troopersNodesMap';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
@@ -75,8 +74,6 @@ function* playRangeAttackAnimation({
   );
   const archerAnimation = yield* call(getAreaEffectAnimationInstance, attackId);
 
-  yield* put(toggleBattlefieldStatus());
-
   yield* call([activeTrooperAnimationInstance!, 'shoot']);
   yield* call([archerAnimation!, 'play']);
 
@@ -87,8 +84,6 @@ function* playRangeAttackAnimation({
   if (!isEvading) {
     yield* call([attackedTrooperAnimationInstance!, 'hurt']);
   }
-
-  yield* put(toggleBattlefieldStatus());
 }
 
 function* playAttackAnimation({
@@ -104,8 +99,6 @@ function* playAttackAnimation({
   isDying: boolean;
   isEvading: boolean;
 }) {
-  yield* put(toggleBattlefieldStatus());
-
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
     activeTrooperId
@@ -153,8 +146,6 @@ function* playAttackAnimation({
   yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
     tileNode
   });
-
-  yield* put(toggleBattlefieldStatus());
 }
 
 function* attack({

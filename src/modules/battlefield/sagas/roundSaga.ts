@@ -1,4 +1,11 @@
-import { takeLatest, select, put, call, take } from 'typed-redux-saga/macro';
+import {
+  takeLatest,
+  select,
+  put,
+  call,
+  take,
+  takeEvery
+} from 'typed-redux-saga/macro';
 import {
   finishTrooperTurn as finishTrooperTurnAction,
   startRound as startRoundAction,
@@ -11,7 +18,8 @@ import {
   attackStarted,
   attackFinished,
   supportStarted,
-  supportFinished
+  supportFinished,
+  setBattlefieldStatus
 } from '../actions';
 import {
   roundSelector,
@@ -121,6 +129,8 @@ function* handleTrooperClick({
 
   if (isBattleFieldDisabled) return;
 
+  yield* put(setBattlefieldStatus(true));
+
   const { team, id } = clickedTrooperInfo;
   const activeTrooper = yield* select(activeTrooperSelector);
   const isEnemySelected = activeTrooper && activeTrooper.team !== team;
@@ -149,11 +159,13 @@ function* handleTrooperClick({
 
     yield* take(supportFinished);
   }
+
+  yield* put(setBattlefieldStatus(false));
   yield* put(finishTrooperTurnAction());
 }
 
 export function* roundSagaWatcher() {
   yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
   yield takeLatest(startRoundAction, startRound);
-  yield takeLatest(trooperClicked, handleTrooperClick);
+  yield takeEvery(trooperClicked, handleTrooperClick);
 }
