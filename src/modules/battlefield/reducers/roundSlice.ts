@@ -3,7 +3,6 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface PlayerInfo {
   id: number;
-  index: number;
 }
 
 interface State {

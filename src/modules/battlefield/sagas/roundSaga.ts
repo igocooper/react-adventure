@@ -10,6 +10,7 @@ import {
   finishTrooperTurn as finishTrooperTurnAction,
   startRound as startRoundAction,
   finishRound as finishRoundAction,
+  waitClicked as waitClickedAction,
   performAITurn,
   setRound,
   setInitiative,
@@ -64,9 +65,8 @@ function* initInitiative() {
     .sort((character1, character2) => {
       return character2.initiative - character1.initiative;
     })
-    .map(({ id }, index) => ({
-      id,
-      index
+    .map(({ id }) => ({
+      id
     }));
 }
 
@@ -164,8 +164,26 @@ function* handleTrooperClick({
   yield* put(finishTrooperTurnAction());
 }
 
+function* handleWaitClick({
+  payload
+}: {
+  payload: Pick<Trooper, 'id' | 'team'>;
+}) {
+  const { id } = payload;
+  const initiative = yield* select(initiativeSelector);
+  const activeTrooper = initiative.find((trooper) => trooper.id === id);
+
+  if (activeTrooper) {
+    const updatedInitiative = [...initiative, activeTrooper];
+
+    yield* put(setInitiative(updatedInitiative));
+    yield* put(finishTrooperTurnAction());
+  }
+}
+
 export function* roundSagaWatcher() {
   yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
   yield takeLatest(startRoundAction, startRound);
   yield takeEvery(trooperClicked, handleTrooperClick);
+  yield takeLatest(waitClickedAction, handleWaitClick);
 }
