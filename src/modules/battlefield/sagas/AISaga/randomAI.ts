@@ -12,7 +12,7 @@ export function* randomAI() {
   const activeTrooper = yield* select(activeTrooperSelector);
   const enemyTeamName = yield* select(enemyTeamNameSelector);
 
-  if (!activeTrooper?.AItype) return;
+  if (!activeTrooper?.AIType) return;
 
   switch (activeTrooper.attackType) {
     case ATTACK_TYPE.MELEE: {

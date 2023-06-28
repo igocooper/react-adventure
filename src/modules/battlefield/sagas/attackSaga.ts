@@ -20,12 +20,20 @@ import { toggleBattlefieldStatus } from 'modules/battlefield/actions';
 import { getTrooperNode } from '../troopersNodesMap';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
+  const { criticalChance, criticalMultiplier } = activeTrooper;
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
   let isDying = false;
   let damage = getRandomNumberInRange(
     parseInt(minDamage!, 10),
     parseInt(maxDamage!, 10)
   );
+
+  if (criticalChance) {
+    const isCriticalDamage = criticalChance >= getRandomNumberInRange(1, 100);
+    if (isCriticalDamage && criticalMultiplier) {
+      damage = Math.round(damage * criticalMultiplier);
+    }
+  }
 
   if (damage >= selectedTrooper.currentHealth) {
     damage = damage - (damage - selectedTrooper.currentHealth);
