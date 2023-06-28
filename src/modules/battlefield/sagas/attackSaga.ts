@@ -79,6 +79,7 @@ function* playRangeAttackAnimation({
 
   if (isDying) {
     yield* call([attackedTrooperAnimationInstance!, 'die']);
+    return;
   }
 
   if (!isEvading) {
@@ -129,6 +130,20 @@ function* playAttackAnimation({
 
   if (isDying) {
     yield* fork([attackedTrooperAnimationInstance!, 'die']);
+
+    yield* put(
+      applyDamage({
+        damage,
+        team: selectedTrooperInfo.team,
+        id: selectedTrooperInfo.id
+      })
+    );
+
+    yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
+      tileNode
+    });
+
+    return;
   }
 
   if (!isEvading) {

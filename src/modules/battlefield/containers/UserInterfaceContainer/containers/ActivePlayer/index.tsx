@@ -70,6 +70,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
         attackType={activeTrooper.attackType}
         initiative={activeTrooper.initiative}
         criticalChance={activeTrooper.criticalChance}
+        evadeChance={activeTrooper.evadeChance}
       />
     </ActiveContainer>
   );

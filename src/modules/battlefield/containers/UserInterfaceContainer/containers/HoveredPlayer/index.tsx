@@ -32,6 +32,7 @@ export const HoveredPlayer = ({ imageSrc }: Props) => {
           attackType={hoveredTrooper.attackType}
           initiative={hoveredTrooper.initiative}
           criticalChance={hoveredTrooper.criticalChance}
+          evadeChance={hoveredTrooper.evadeChance}
         />
       )}
       {imageSrc && <TrooperImage $src={imageSrc} $health={healthLeft} />}

@@ -5,6 +5,7 @@ import { ATTACK_TYPE } from '../../../constants';
 
 type Props = {
   criticalChance?: Trooper['criticalChance'];
+  evadeChance?: Trooper['evadeChance'];
 } & Pick<
   Trooper,
   'currentHealth' | 'health' | 'damage' | 'attackType' | 'initiative'
@@ -29,7 +30,8 @@ export const Info = ({
   damage,
   attackType,
   initiative,
-  criticalChance
+  criticalChance,
+  evadeChance
 }: Props) => {
   return (
     <Container>
@@ -51,6 +53,11 @@ export const Info = ({
       {criticalChance && (
         <Item>
           Critical: <Value>{criticalChance} %</Value>
+        </Item>
+      )}
+      {evadeChance && (
+        <Item>
+          Evade: <Value>{evadeChance} %</Value>
         </Item>
       )}
     </Container>
