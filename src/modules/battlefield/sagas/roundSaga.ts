@@ -85,7 +85,7 @@ function* finishTrooperTurn() {
       makeCharacterByIdSelector(nextActivePlayer.id)
     );
 
-    if (nextActiveTrooper?.AItype) {
+    if (nextActiveTrooper?.AIType) {
       yield* put(performAITurn());
     }
   }
@@ -104,7 +104,7 @@ function* startRound({ payload }: { payload: number }) {
       makeCharacterByIdSelector(activePlayer.id)
     );
 
-    if (activeTrooper?.AItype) {
+    if (activeTrooper?.AIType) {
       yield* put(performAITurn());
     }
   }

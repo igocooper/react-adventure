@@ -37,9 +37,9 @@ export function* getRandomEnemyId(allowedTargets: Trooper[]) {
 function* performAITurn() {
   const activeTrooper = yield* select(activeTrooperSelector);
 
-  if (!activeTrooper?.AItype) return;
+  if (!activeTrooper?.AIType) return;
 
-  switch (activeTrooper.AItype) {
+  switch (activeTrooper.AIType) {
     case AI_TYPE.RANDOM: {
       yield* call(randomAI);
       break;

@@ -151,7 +151,7 @@ export function* strategicAI() {
   const enemyTeamName = yield* select(enemyTeamNameSelector);
   const initiative = yield* select(initiativeSelector);
 
-  if (!activeTrooper?.AItype) return;
+  if (!activeTrooper?.AIType) return;
 
   switch (activeTrooper.attackType) {
     case ATTACK_TYPE.MELEE: {

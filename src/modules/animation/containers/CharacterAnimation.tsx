@@ -241,7 +241,7 @@ export class CharacterAnimation extends Component<Props> {
 
   async shoot() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('Shoot With Bow');
+    this.setAnimation('shoot_with_bow');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     // We want to start animate arrow earlier for smoother effect

@@ -17,8 +17,9 @@ export interface Character {
 
 export type Trooper = Character & {
   currentHealth: number;
-  AItype?: string;
-  currentTargetId?: number;
+  AIType?: string;
+  criticalChance?: number,
+  criticalMultiplier?: number,
 };
 
 declare global {
