@@ -21,8 +21,10 @@ import { getTrooperNode } from '../troopersNodesMap';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   const { criticalChance, criticalMultiplier } = activeTrooper;
+  const { evadeChance } = selectedTrooper;
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
   let isDying = false;
+  let isEvading = false;
   let damage = getRandomNumberInRange(
     parseInt(minDamage!, 10),
     parseInt(maxDamage!, 10)
@@ -35,24 +37,33 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
     }
   }
 
+  if (evadeChance) {
+    isEvading = evadeChance >= getRandomNumberInRange(1, 100);
+    if (isEvading) {
+      damage = 0;
+    }
+  }
+
   if (damage >= selectedTrooper.currentHealth) {
     damage = damage - (damage - selectedTrooper.currentHealth);
     isDying = true;
   }
 
-  return { damage, isDying };
+  return { damage, isDying, isEvading };
 };
 
 function* playRangeAttackAnimation({
   activeTrooperId,
   selectedTrooperId,
   attackId,
-  isDying
+  isDying,
+  isEvading
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperId: Trooper['id'];
   attackId: string;
   isDying: boolean;
+  isEvading: boolean;
 }) {
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
@@ -71,7 +82,9 @@ function* playRangeAttackAnimation({
 
   if (isDying) {
     yield* call([attackedTrooperAnimationInstance!, 'die']);
-  } else {
+  }
+
+  if (!isEvading) {
     yield* call([attackedTrooperAnimationInstance!, 'hurt']);
   }
 
@@ -82,12 +95,14 @@ function* playAttackAnimation({
   activeTrooperId,
   selectedTrooperInfo,
   damage,
-  isDying
+  isDying,
+  isEvading
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperInfo: Pick<Trooper, 'id' | 'team'>;
   damage: number;
   isDying: boolean;
+  isEvading: boolean;
 }) {
   yield* put(toggleBattlefieldStatus());
 
@@ -121,7 +136,9 @@ function* playAttackAnimation({
 
   if (isDying) {
     yield* fork([attackedTrooperAnimationInstance!, 'die']);
-  } else {
+  }
+
+  if (!isEvading) {
     yield* fork([attackedTrooperAnimationInstance!, 'hurt']);
   }
 
@@ -149,7 +166,10 @@ function* attack({
   const selectedTrooper = yield* select(
     makeCharacterByIdSelector(selectedTrooperInfo.id)
   );
-  const { damage, isDying } = calculateDamage(selectedTrooper!, activeTrooper!);
+  const { damage, isDying, isEvading } = calculateDamage(
+    selectedTrooper!,
+    activeTrooper!
+  );
 
   if (activeTrooper?.attackType === ATTACK_TYPE.SPLASH) {
     const teamSelector =
@@ -179,7 +199,8 @@ function* attack({
         activeTrooperId: activeTrooper.id,
         selectedTrooperId: selectedTrooperInfo.id,
         attackId: activeTrooper.attackId,
-        isDying
+        isDying,
+        isEvading
       });
     }
 
@@ -197,7 +218,8 @@ function* attack({
       activeTrooperId: activeTrooper.id,
       selectedTrooperInfo,
       damage,
-      isDying
+      isDying,
+      isEvading
     });
   }
 
