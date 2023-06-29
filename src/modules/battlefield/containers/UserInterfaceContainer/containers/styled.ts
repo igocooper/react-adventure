@@ -9,6 +9,8 @@ interface ImageProps {
   $health?: number;
 }
 
+const POSITION_ADJUSTMENT = 70;
+
 export const TrooperImage = styled.div<ImageProps>`
   width: 200px;
   height: 200px;
@@ -132,6 +134,6 @@ export const DamageItem = styled.span<DamageItemProps>`
   font-weight: 600;
   position: absolute;
   left: ${({ $position }) => $position.x}px;
-  top: ${({ $position }) => $position.y - 70}px;
+  top: ${({ $position }) => $position.y - POSITION_ADJUSTMENT}px;
   animation: ${blow} 3000ms linear;
 `;
