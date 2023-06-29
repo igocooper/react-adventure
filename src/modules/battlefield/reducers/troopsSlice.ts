@@ -12,6 +12,8 @@ interface ApplyDamagePayload {
   id: number;
   damage: number;
   team: Team;
+  isEvading?: boolean,
+  isCriticalDamage?: boolean,
 }
 
 interface ApplyHealPayload {

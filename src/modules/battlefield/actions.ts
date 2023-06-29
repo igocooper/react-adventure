@@ -24,6 +24,8 @@ export {
   setTroopersToLoad
 } from './reducers/battlefieldLoadedStatusSlice';
 
+export { addDamageEvent, resetDamageEvents } from './reducers/damageEventsSlice';
+
 export const performAITurn = createAction('perform_AI_turn');
 
 export const finishTrooperTurn = createAction('finish_trooper_turn');

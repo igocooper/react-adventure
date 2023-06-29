@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import type { Team } from 'modules/battlefield/types';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
 import waitIcon from '../images/wait-icon.png';
@@ -97,4 +97,41 @@ export const HoveredContainer = styled(Container)<
         $enemy ? theme.color.enemy : theme.color[$teamName]}
       2px solid;
   }
+`;
+
+export const DamageIndicator = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: none;
+`;
+
+const blow = keyframes`
+  0% {
+    opacity: 0;
+    transform:translate(0, 0);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform:translate(0, -100px) scale(.2);
+  }
+`;
+
+type DamageItemProps = {
+  $isCriticalDamage?: boolean;
+  $position: { x: number; y: number };
+}
+
+export const DamageItem = styled.span<DamageItemProps>`
+  opacity: 0;
+  color: ${({ $isCriticalDamage }) => ($isCriticalDamage ? 'red' : 'white')};
+  font-size: 42px;
+  font-weight: 600;
+  position: absolute;
+  left: ${({ $position }) => $position.x}px;
+  top: ${({ $position }) => $position.y - 70}px;
+  animation: ${blow} 3000ms linear;
 `;

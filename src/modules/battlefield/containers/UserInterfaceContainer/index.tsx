@@ -5,6 +5,7 @@ import { Interface } from './styled';
 import { useImages } from './hooks/useImages';
 import { ActivePlayer } from './containers/ActivePlayer';
 import { HoveredPlayer } from './containers/HoveredPlayer';
+import { DamageIndicatorContainer } from './containers/DamageIndicator';
 
 export const UserInterfaceContainer = () => {
   const activeTrooper = useSelector(activeTrooperSelector);
@@ -16,9 +17,12 @@ export const UserInterfaceContainer = () => {
     hoveredTrooper && imagesMap?.[hoveredTrooper.id];
 
   return (
-    <Interface>
-      <ActivePlayer imageSrc={activeTrooperImageSrc} />
-      <HoveredPlayer imageSrc={hoveredTrooperImageSrc} />
-    </Interface>
+    <>
+      <Interface>
+        <ActivePlayer imageSrc={activeTrooperImageSrc} />
+        <HoveredPlayer imageSrc={hoveredTrooperImageSrc} />
+      </Interface>
+      <DamageIndicatorContainer />
+    </>
   );
 };

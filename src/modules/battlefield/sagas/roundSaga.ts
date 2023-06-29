@@ -20,7 +20,8 @@ import {
   attackFinished,
   supportStarted,
   supportFinished,
-  setBattlefieldStatus
+  setBattlefieldStatus,
+  resetDamageEvents,
 } from '../actions';
 import {
   roundSelector,
@@ -100,6 +101,7 @@ function* finishTrooperTurn() {
 }
 
 function* startRound({ payload }: { payload: number }) {
+  yield* put(resetDamageEvents());
   const initiative = yield* call(initInitiative);
   const activePlayer = initiative[0];
   yield* put(setRound(payload));
