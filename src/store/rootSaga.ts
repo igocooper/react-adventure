@@ -5,6 +5,7 @@ import { roundSagaWatcher } from 'modules/battlefield/sagas/roundSaga';
 import { attackSagaWatcher } from '../modules/battlefield/sagas/attackSaga';
 import { AISagaWatcher } from '../modules/battlefield/sagas/AISaga';
 import { initSagaWatcher } from '../modules/battlefield/sagas/initSaga';
+import { damageEventsSagaWatcher } from '../modules/battlefield/sagas/damageEventsSaga';
 
 export function* rootSaga() {
   yield* all([
@@ -13,6 +14,7 @@ export function* rootSaga() {
     fork(routerSagaWatcher),
     fork(attackSagaWatcher),
     fork(AISagaWatcher),
-    fork(initSagaWatcher)
+    fork(initSagaWatcher),
+    fork(damageEventsSagaWatcher)
   ]);
 }

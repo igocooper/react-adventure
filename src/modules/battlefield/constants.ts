@@ -42,7 +42,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 1,
-    initiative: 5
+    initiative: 5,
     // AIType: AI_TYPE.DETERMINED
   },
   {

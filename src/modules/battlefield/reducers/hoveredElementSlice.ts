@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { type HoveredElementType } from '../types';
+import type { HoveredElementType } from '../types';
 
 export type Element = {
   id: number;
