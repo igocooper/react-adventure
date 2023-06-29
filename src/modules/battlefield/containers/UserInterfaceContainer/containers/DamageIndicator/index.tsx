@@ -1,7 +1,7 @@
 import React from 'react';
 import { DamageIndicator, DamageItem } from '../styled';
 import { useSelector } from 'react-redux';
-import { damageEventsSelector } from '../../../../selectors';
+import { damageEventsSelector } from 'modules/battlefield/selectors';
 
 export const DamageIndicatorContainer = ({}) => {
   const damageEvents = useSelector(damageEventsSelector);
@@ -19,8 +19,9 @@ export const DamageIndicatorContainer = ({}) => {
               key={id}
               $position={position}
               $isCriticalDamage={isCriticalDamage}
+              $miss={isEvading}
             >
-              {isCriticalDamage && 'Crit: '}
+              {isCriticalDamage && !isEvading && 'Crit: '}
               {!isEvading && damage}
               {isEvading && 'Miss'}
             </DamageItem>

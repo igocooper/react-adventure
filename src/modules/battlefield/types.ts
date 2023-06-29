@@ -3,6 +3,19 @@ export type Team = 'attackers' | 'defenders';
 export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
 export type HoveredElementType = 'default' | 'character';
 export type bloodItemSlot = 'Body Blood.png' | 'Body Cut.png' | 'Face Blood.png' | 'Face Cut.png';
+export type EffectName = 'poison' | 'anchor' | 'might' | 'hex';
+
+export type ApplyEffectProps = {
+  activeTrooper: Trooper;
+}
+
+export type Effect = {
+  name: EffectName;
+  duration: number;
+  once?: boolean;
+  done: boolean;
+  applyEffect: (props: ApplyEffectProps) => void;
+};
 
 export interface Character {
   team: Team;
@@ -23,6 +36,7 @@ export type Trooper = Character & {
   criticalChance?: number;
   criticalMultiplier?: number;
   evadeChance?: number;
+  effects: Array<Effect>;
 };
 
 declare global {

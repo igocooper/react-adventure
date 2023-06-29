@@ -1,4 +1,6 @@
 import type { Trooper } from './types';
+import { poisonEffect } from './sagas/roundSaga';
+import { mightEffect } from "./sagas/effectsSaga";
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -6,6 +8,13 @@ export enum CURSOR {
   DISABLED = 'disabled',
   WAND = 'wand',
   SWORD = 'sword'
+}
+
+export enum EFFECT {
+  POISON = 'poison',
+  ANCHOR = 'anchor',
+  MIGHT = 'might',
+  HEX = 'hex'
 }
 
 export enum ATTACK_TYPE {
@@ -44,6 +53,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 1,
     initiative: 5,
     // AIType: AI_TYPE.DETERMINED
+    effects: [poisonEffect]
   },
   {
     team: 'attackers',
@@ -56,8 +66,9 @@ const ATTACKERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 2,
-    initiative: 15
+    initiative: 15,
     // AIType: AI_TYPE.DETERMINED
+    effects: []
   },
   {
     team: 'attackers',
@@ -71,8 +82,9 @@ const ATTACKERS_TROOPS: Trooper[] = [
     health: 100,
     currentHealth: 100,
     id: 3,
-    initiative: 3
+    initiative: 3,
     // AIType: AI_TYPE.DETERMINED
+    effects: []
   }
   // {
   //   team: 'attackers',
@@ -122,7 +134,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 101,
     initiative: 13,
-    AIType: AI_TYPE.STRATEGIC
+    AIType: AI_TYPE.STRATEGIC,
+    effects: []
   },
   {
     team: 'defenders',
@@ -135,7 +148,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 50,
     id: 102,
     initiative: 15,
-    AIType: AI_TYPE.STRATEGIC
+    AIType: AI_TYPE.STRATEGIC,
+    effects: []
   },
   {
     team: 'defenders',
@@ -148,7 +162,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 50,
     id: 103,
     initiative: 12,
-    AIType: AI_TYPE.STRATEGIC
+    AIType: AI_TYPE.STRATEGIC,
+    effects: []
   }
   // {
   //   team: 'defenders',

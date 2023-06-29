@@ -118,22 +118,24 @@ const blow = keyframes`
   }
   100% {
     opacity: 0;
-    transform:translate(0, -100px) scale(.2);
+    transform:translate(0, -50px) scale(.2);
   }
 `;
 
 type DamageItemProps = {
   $isCriticalDamage?: boolean;
   $position: { x: number; y: number };
-}
+  $miss?: boolean;
+};
 
 export const DamageItem = styled.span<DamageItemProps>`
   opacity: 0;
-  color: ${({ $isCriticalDamage }) => ($isCriticalDamage ? 'red' : 'white')};
+  color: ${({ $isCriticalDamage, $miss }) =>
+    $isCriticalDamage && !$miss ? 'red' : 'white'};
   font-size: 42px;
   font-weight: 600;
   position: absolute;
   left: ${({ $position }) => $position.x}px;
   top: ${({ $position }) => $position.y - POSITION_ADJUSTMENT}px;
-  animation: ${blow} 3000ms linear;
+  animation: ${blow} 2000ms linear;
 `;

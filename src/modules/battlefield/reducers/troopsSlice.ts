@@ -1,26 +1,52 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { Trooper, Team } from 'modules/battlefield/types';
+import type { Trooper, Team, EffectName } from 'modules/battlefield/types';
 import { ATTACKERS, DEFENDERS } from 'modules/battlefield/constants';
 
-export interface TroopsState {
+export type TroopsState = {
   attackers: Trooper[];
   defenders: Trooper[];
-}
+};
 
-interface ApplyDamagePayload {
+type ApplyDamagePayload = {
   id: number;
   damage: number;
   team: Team;
-  isEvading?: boolean,
-  isCriticalDamage?: boolean,
-}
+  isEvading?: boolean;
+  isCriticalDamage?: boolean;
+};
 
-interface ApplyHealPayload {
+type ApplyHealPayload = {
   id: number;
   heal: number;
   team: Team;
-}
+};
+
+type SetEffectDurationPayload = {
+  id: number;
+  duration: number;
+  name: EffectName;
+  team: Team;
+};
+
+type SetEffectDonePayload = {
+  id: number;
+  value: boolean;
+  name: EffectName;
+  team: Team;
+};
+
+type RemoveEffectPayload = {
+  id: number;
+  name: EffectName;
+  team: Team;
+};
+
+type ModifyTrooperPayload = {
+  id: number;
+  team: Team;
+  updates: Partial<Trooper>;
+};
 
 const initialState: TroopsState = {
   attackers: ATTACKERS,
@@ -75,11 +101,70 @@ export const troopsSlice = createSlice({
           currentHealth: troop.currentHealth + heal
         };
       });
+    },
+    setEffectDuration: (
+      state: TroopsState,
+      action: PayloadAction<SetEffectDurationPayload>
+    ) => {
+      const { team, id, name, duration } = action.payload;
+      const trooper =
+        state[team] && state[team].find((target) => target.id === id);
+      const effect = trooper!.effects.find((target) => target.name === name);
+
+      if (effect) {
+        effect.duration = duration;
+      }
+    },
+    setEffectDone: (
+      state: TroopsState,
+      action: PayloadAction<SetEffectDonePayload>
+    ) => {
+      const { team, id, name, value } = action.payload;
+      const trooper =
+        state[team] && state[team].find((target) => target.id === id);
+      const effect = trooper!.effects.find((target) => target.name === name);
+
+      if (effect) {
+        effect.done = value;
+      }
+    },
+
+    removeEffect: (state, action: PayloadAction<RemoveEffectPayload>) => {
+      const { team, id, name } = action.payload;
+      const trooper =
+        state[team] && state[team].find((target) => target.id === id);
+
+      if (trooper) {
+        trooper.effects.filter((effect) => effect.name !== name);
+      }
+    },
+    modifyTrooper: (state, action: PayloadAction<ModifyTrooperPayload>) => {
+      const { team, id, updates } = action.payload;
+      return {
+        ...state,
+        [team]: state[team].map((trooper) => {
+          if (trooper.id === id) {
+            return {
+              ...trooper,
+              ...updates
+            };
+          }
+
+          return trooper;
+        })
+      };
     }
   }
 });
 
-export const { applyDamage, applyHeal, setTrooperCurrentTargetId } =
-  troopsSlice.actions;
+export const {
+  applyDamage,
+  applyHeal,
+  setTrooperCurrentTargetId,
+  removeEffect,
+  setEffectDuration,
+  modifyTrooper,
+  setEffectDone
+} = troopsSlice.actions;
 
 export const troopsReducer = troopsSlice.reducer;
