@@ -39,10 +39,6 @@ export const finishTrooperTurn = createAction('finish_trooper_turn');
 
 export const startTrooperTurn = createAction('start_trooper_turn');
 
-export const applyEffectsStarted = createAction('apply_effects_started');
-
-export const applyEffectsFinished = createAction('apply_effects_finished');
-
 export const attackStarted =
   createAction<Pick<Trooper, 'id' | 'team'>>('attack_started');
 

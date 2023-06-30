@@ -3,7 +3,7 @@ import { DamageIndicator, DamageItem } from '../styled';
 import { useSelector } from 'react-redux';
 import { damageEventsSelector } from 'modules/battlefield/selectors';
 
-export const DamageIndicatorContainer = ({}) => {
+export const DamageIndicatorContainer = () => {
   const damageEvents = useSelector(damageEventsSelector);
 
   if (!damageEvents.length) {

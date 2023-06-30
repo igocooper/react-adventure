@@ -9,7 +9,6 @@ import {
 import {
   finishTrooperTurn as finishTrooperTurnAction,
   startTrooperTurn as startTrooperTurnAction,
-  applyEffectsFinished,
   startRound as startRoundAction,
   finishRound as finishRoundAction,
   waitClicked as waitClickedAction,
@@ -23,10 +22,7 @@ import {
   supportStarted,
   supportFinished,
   setBattlefieldStatus,
-  resetDamageEvents,
-  setEffectDuration,
-  removeEffect,
-  applyDamage
+  resetDamageEvents
 } from '../actions';
 import {
   roundSelector,
@@ -39,22 +35,9 @@ import {
   makeCharacterByIdSelector
 } from '../selectors';
 
-import type { Trooper, Effect } from '../types';
+import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
-
-export const poisonEffect: Effect = {
-  name: 'poison',
-  duration: 1,
-  applyEffect: function* (activeTrooper: Trooper) {
-    yield* put(
-      applyDamage({
-        id: activeTrooper.id,
-        damage: 5,
-        team: activeTrooper.team
-      })
-    );
-  }
-};
+import { applyEffects } from './effectsSaga';
 
 function* getTroopersHealthMap() {
   const attackers = yield* select(attackersSelector);
@@ -93,16 +76,16 @@ function* initInitiative() {
 function* startTrooperTurn() {
   const activeTrooper = yield* select(activeTrooperSelector);
 
-  if (!activeTrooper) return;
-
-  take(applyEffectsFinished);
+  if (activeTrooper && activeTrooper.effects.length > 0) {
+    yield* call(applyEffects, activeTrooper);
+  }
 
   if (activeTrooper?.AIType) {
     yield* put(performAITurn());
   }
 }
 
-function* finishTrooperTurn() {
+export function* finishTrooperTurn() {
   const round = yield* select(roundSelector);
   const initiative = yield* select(initiativeSelector);
   const troopersHealthMap = yield* call(getTroopersHealthMap);

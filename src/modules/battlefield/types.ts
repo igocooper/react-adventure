@@ -15,9 +15,10 @@ export type Effect = {
   once?: boolean;
   done: boolean;
   applyEffect: (props: ApplyEffectProps) => void;
-};
+  cancelEffect?: (props: ApplyEffectProps) => void;
+}
 
-export interface Character {
+export type Character = {
   team: Team;
   type: string;
   damage: string;
@@ -36,7 +37,7 @@ export type Trooper = Character & {
   criticalChance?: number;
   criticalMultiplier?: number;
   evadeChance?: number;
-  effects: Array<Effect>;
+  effects: Effect[];
 };
 
 declare global {

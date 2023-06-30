@@ -1,6 +1,9 @@
 import type { Trooper } from './types';
-import { poisonEffect } from './sagas/roundSaga';
-import { mightEffect } from "./sagas/effectsSaga";
+import {
+  createPoisonEffect,
+  createMightEffect,
+  createAnchorEffect
+} from './sagas/effectsSaga/effects';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -53,7 +56,12 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 1,
     initiative: 5,
     // AIType: AI_TYPE.DETERMINED
-    effects: [poisonEffect]
+    effects: [
+      createPoisonEffect({
+        duration: 2,
+        damage: 10
+      })
+    ]
   },
   {
     team: 'attackers',
@@ -68,7 +76,12 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 2,
     initiative: 15,
     // AIType: AI_TYPE.DETERMINED
-    effects: []
+    effects: [
+      createMightEffect({
+        duration: 2,
+        multiplier: 2
+      })
+    ]
   },
   {
     team: 'attackers',
@@ -149,7 +162,11 @@ const DEFENDERS_TROOPS: Trooper[] = [
     id: 102,
     initiative: 15,
     AIType: AI_TYPE.STRATEGIC,
-    effects: []
+    effects: [
+      createAnchorEffect({
+        duration: 2
+      })
+    ]
   },
   {
     team: 'defenders',
@@ -161,7 +178,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 103,
-    initiative: 12,
+    initiative: 2,
     AIType: AI_TYPE.STRATEGIC,
     effects: []
   }
