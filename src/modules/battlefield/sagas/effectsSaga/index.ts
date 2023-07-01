@@ -22,6 +22,15 @@ export function* applyEffects(activeTrooper: Trooper) {
     }
 
     if (!effect.done) {
+      yield* put(
+        setEffectDuration({
+          team,
+          id,
+          name: effect.name,
+          duration: effect.duration - 1
+        })
+      );
+
       yield* call([effect, 'applyEffect'], { activeTrooper });
 
       if (effect.once) {
@@ -35,14 +44,5 @@ export function* applyEffects(activeTrooper: Trooper) {
         );
       }
     }
-
-    yield* put(
-      setEffectDuration({
-        team,
-        id,
-        name: effect.name,
-        duration: effect.duration - 1
-      })
-    );
   }
 }

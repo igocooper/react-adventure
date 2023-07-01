@@ -1,6 +1,7 @@
 import { type Effect } from 'modules/battlefield/types';
 import { call } from 'typed-redux-saga';
 import { finishTrooperTurn } from 'modules/battlefield/sagas/roundSaga';
+import anchorIcon from './icons/anchor.png';
 
 export const createAnchorEffect = ({
   duration
@@ -14,6 +15,7 @@ export const createAnchorEffect = ({
     done: false,
     applyEffect: function* () {
       yield* call(finishTrooperTurn);
-    }
+    },
+    iconSrc: anchorIcon
   };
 };

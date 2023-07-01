@@ -16,6 +16,7 @@ export type Effect = {
   done: boolean;
   applyEffect: (props: ApplyEffectProps) => void;
   cancelEffect?: (props: ApplyEffectProps) => void;
+  iconSrc: string;
 }
 
 export type Character = {

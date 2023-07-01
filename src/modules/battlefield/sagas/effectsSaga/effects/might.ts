@@ -3,6 +3,7 @@ import { put } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import { multiplyDamage } from 'modules/battlefield/helpers/multiplyDamage';
 import { divideDamage } from 'modules/battlefield/helpers/divideDamage';
+import mightIcon from './icons/might.png';
 
 export const createMightEffect = ({
   multiplier,
@@ -37,6 +38,7 @@ export const createMightEffect = ({
           team: activeTrooper.team
         })
       );
-    }
+    },
+    iconSrc: mightIcon
   };
 };

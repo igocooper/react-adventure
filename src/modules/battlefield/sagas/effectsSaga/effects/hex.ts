@@ -1,6 +1,9 @@
 import { type ApplyEffectProps, type Effect } from 'modules/battlefield/types';
 import { put } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
+import { multiplyDamage } from 'modules/battlefield/helpers/multiplyDamage';
+import { divideDamage } from 'modules/battlefield/helpers/divideDamage';
+import hexIcon from './icons/hex.png';
 
 export const createHexEffect = ({
   multiplier,
@@ -19,7 +22,7 @@ export const createHexEffect = ({
         modifyTrooper({
           id: activeTrooper.id,
           updates: {
-            currentHealth: activeTrooper.currentHealth / multiplier
+            damage: divideDamage(activeTrooper.damage, multiplier)
           },
           team: activeTrooper.team
         })
@@ -30,11 +33,12 @@ export const createHexEffect = ({
         modifyTrooper({
           id: activeTrooper.id,
           updates: {
-            currentHealth: activeTrooper.currentHealth * multiplier
+            damage: multiplyDamage(activeTrooper.damage, multiplier)
           },
           team: activeTrooper.team
         })
       );
-    }
+    },
+    iconSrc: hexIcon
   };
 };
