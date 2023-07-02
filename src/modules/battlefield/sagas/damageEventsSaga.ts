@@ -3,7 +3,7 @@ import {
   applyDamage,
   addDamageEvent as addDamageEventAction
 } from '../actions';
-import { Trooper } from '../types';
+import { type Trooper } from '../types';
 import { getTileNode } from '../tilesNodesMap';
 
 function* addDamageEvent({
@@ -14,9 +14,10 @@ function* addDamageEvent({
     damage: number;
     isCriticalDamage?: boolean;
     isEvading?: boolean;
+    isPoison?: boolean;
   };
 }) {
-  const { damage, id, isCriticalDamage, isEvading } = payload;
+  const { damage, id, isCriticalDamage, isEvading, isPoison } = payload;
   const tileNode = getTileNode(id);
 
   if (!tileNode) return;
@@ -27,6 +28,7 @@ function* addDamageEvent({
     id: eventId,
     damage,
     isCriticalDamage,
+    isPoison,
     isEvading,
     position: {
       x,

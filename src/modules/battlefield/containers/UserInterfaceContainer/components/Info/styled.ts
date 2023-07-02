@@ -8,6 +8,7 @@ export const Container = styled.div`
   padding: 8px 16px;
   border-radius: 6px;
   margin-top: 24px;
+  flex-shrink: 0;
 `;
 
 export const Item = styled.p`

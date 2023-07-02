@@ -8,7 +8,12 @@ export {
 export {
   applyDamage,
   applyHeal,
-  setTrooperCurrentTargetId
+  setTrooperCurrentTargetId,
+  setEffectDuration,
+  removeEffect,
+  addEffect,
+  modifyTrooper,
+  setEffectDone
 } from './reducers/troopsSlice';
 export { setHoveredElement } from './reducers/hoveredElementSlice';
 export { setCursor } from './reducers/cursorSlice';
@@ -24,11 +29,16 @@ export {
   setTroopersToLoad
 } from './reducers/battlefieldLoadedStatusSlice';
 
-export { addDamageEvent, resetDamageEvents } from './reducers/damageEventsSlice';
+export {
+  addDamageEvent,
+  resetDamageEvents
+} from './reducers/damageEventsSlice';
 
 export const performAITurn = createAction('perform_AI_turn');
 
 export const finishTrooperTurn = createAction('finish_trooper_turn');
+
+export const startTrooperTurn = createAction('start_trooper_turn');
 
 export const attackStarted =
   createAction<Pick<Trooper, 'id' | 'team'>>('attack_started');

@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import type { Team } from 'modules/battlefield/types';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
 import waitIcon from '../images/wait-icon.png';
@@ -8,8 +8,6 @@ interface ImageProps {
   $src?: string;
   $health?: number;
 }
-
-const POSITION_ADJUSTMENT = 70;
 
 export const TrooperImage = styled.div<ImageProps>`
   width: 200px;
@@ -21,6 +19,7 @@ export const TrooperImage = styled.div<ImageProps>`
   background-size: 160%;
   background-position: center -30px;
   background-repeat: no-repeat;
+  flex-shrink: 0;
 
   &:before {
     content: '';
@@ -31,6 +30,13 @@ export const TrooperImage = styled.div<ImageProps>`
     top: ${({ $health }) => ($health ? `${$health}%` : 0)};
     background: ${({ theme }) => theme.color.blood};
   }
+`;
+
+export const Effects = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  flex-wrap: wrap;
 `;
 
 interface ContainerProps {
@@ -47,7 +53,11 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const Icon = styled.img`
+interface IconProps {
+  disabled?: boolean;
+}
+
+export const Icon = styled.img<IconProps>`
   position: absolute;
   width: 50px;
   height: 50px;
@@ -57,11 +67,22 @@ export const Icon = styled.img`
   background: rgba(29, 20, 8, 0.9);
   z-index: 1;
   filter: drop-shadow(2px 4px 6px black);
-  transition: transform 300ms linear;
 
-  &:hover {
-    transform: scale(1.2);
-  }
+  ${({ disabled }) => {
+    if (!disabled) {
+      return css`
+        transition: transform 300ms linear;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      `;
+    }
+    return css`
+      filter: grayscale();
+      cursor: not-allowed;
+    `;
+  }}
 `;
 
 export const WaitIcon = styled(Icon).attrs({
@@ -84,6 +105,12 @@ export const ActiveContainer = styled(Container)`
   & ${Wrapper} {
     order: ${({ $teamName }) => ($teamName === TROOPER_TEAM.DEFENDERS ? 1 : 0)};
   }
+
+  & ${Effects} {
+    order: ${({ $teamName }) =>
+      $teamName === TROOPER_TEAM.DEFENDERS ? -1 : 0};
+  }
+
   & ${TrooperImage} {
     border: ${({ theme, $teamName }) => theme.color[$teamName]} 2px solid;
   }
@@ -99,41 +126,8 @@ export const HoveredContainer = styled(Container)<
         $enemy ? theme.color.enemy : theme.color[$teamName]}
       2px solid;
   }
-`;
 
-export const DamageIndicator = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  pointer-events: none;
-`;
-
-const blow = keyframes`
-  0% {
-    opacity: 0;
-    transform:translate(0, 0);
+  & ${Effects} {
+    order: ${({ $teamName }) => ($teamName === TROOPER_TEAM.DEFENDERS ? 1 : 0)};
   }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform:translate(0, -100px) scale(.2);
-  }
-`;
-
-type DamageItemProps = {
-  $isCriticalDamage?: boolean;
-  $position: { x: number; y: number };
-}
-
-export const DamageItem = styled.span<DamageItemProps>`
-  opacity: 0;
-  color: ${({ $isCriticalDamage }) => ($isCriticalDamage ? 'red' : 'white')};
-  font-size: 42px;
-  font-weight: 600;
-  position: absolute;
-  left: ${({ $position }) => $position.x}px;
-  top: ${({ $position }) => $position.y - POSITION_ADJUSTMENT}px;
-  animation: ${blow} 3000ms linear;
 `;

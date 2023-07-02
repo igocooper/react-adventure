@@ -8,6 +8,7 @@ import {
 } from 'typed-redux-saga/macro';
 import {
   finishTrooperTurn as finishTrooperTurnAction,
+  startTrooperTurn as startTrooperTurnAction,
   startRound as startRoundAction,
   finishRound as finishRoundAction,
   waitClicked as waitClickedAction,
@@ -22,6 +23,7 @@ import {
   supportFinished,
   setBattlefieldStatus,
   resetDamageEvents,
+  modifyTrooper
 } from '../actions';
 import {
   roundSelector,
@@ -36,6 +38,27 @@ import {
 
 import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
+import { applyEffects } from './effectsSaga';
+
+function* resetHasWaitedTrooperStatus() {
+  const attackers = yield* select(attackersSelector);
+  const defenders = yield* select(defendersSelector);
+  const troopers: Trooper[] = [...attackers, ...defenders];
+
+  for (const trooper of troopers) {
+    if (trooper.hasWaited) {
+      yield* put(
+        modifyTrooper({
+          id: trooper.id,
+          team: trooper.team,
+          updates: {
+            hasWaited: false
+          }
+        })
+      );
+    }
+  }
+}
 
 function* getTroopersHealthMap() {
   const attackers = yield* select(attackersSelector);
@@ -71,7 +94,19 @@ function* initInitiative() {
     }));
 }
 
-function* finishTrooperTurn() {
+function* startTrooperTurn() {
+  const activeTrooper = yield* select(activeTrooperSelector);
+
+  if (activeTrooper && activeTrooper.effects.length > 0) {
+    yield* call(applyEffects, activeTrooper);
+  }
+
+  if (activeTrooper?.AIType) {
+    yield* put(performAITurn());
+  }
+}
+
+export function* finishTrooperTurn() {
   const round = yield* select(roundSelector);
   const initiative = yield* select(initiativeSelector);
   const troopersHealthMap = yield* call(getTroopersHealthMap);
@@ -89,19 +124,13 @@ function* finishTrooperTurn() {
   if (nextActivePlayer) {
     yield* put(setActivePlayer(nextActivePlayer));
     yield* put(setInitiative(updatedInitiative));
-
-    const nextActiveTrooper = yield* select(
-      makeCharacterByIdSelector(nextActivePlayer.id)
-    );
-
-    if (nextActiveTrooper?.AIType) {
-      yield* put(performAITurn());
-    }
+    yield* put(startTrooperTurnAction());
   }
 }
 
 function* startRound({ payload }: { payload: number }) {
   yield* put(resetDamageEvents());
+  yield* call(resetHasWaitedTrooperStatus);
   const initiative = yield* call(initInitiative);
   const activePlayer = initiative[0];
   yield* put(setRound(payload));
@@ -109,14 +138,7 @@ function* startRound({ payload }: { payload: number }) {
 
   if (activePlayer) {
     yield* put(setActivePlayer(activePlayer));
-
-    const activeTrooper = yield* select(
-      makeCharacterByIdSelector(activePlayer.id)
-    );
-
-    if (activeTrooper?.AIType) {
-      yield* put(performAITurn());
-    }
+    yield* put(startTrooperTurnAction());
   }
 }
 
@@ -173,11 +195,23 @@ function* handleWaitClick({
 }) {
   const { id } = payload;
   const initiative = yield* select(initiativeSelector);
-  const activeTrooper = initiative.find((trooper) => trooper.id === id);
+  const activeTrooperInitiative = initiative.find(
+    (trooper) => trooper.id === id
+  );
+  const activeTrooper = yield* select(activeTrooperSelector);
 
   if (activeTrooper) {
-    const updatedInitiative = [...initiative, activeTrooper];
+    const updatedInitiative = [...initiative, activeTrooperInitiative!];
 
+    yield* put(
+      modifyTrooper({
+        id: activeTrooper.id,
+        team: activeTrooper.team,
+        updates: {
+          hasWaited: true
+        }
+      })
+    );
     yield* put(setInitiative(updatedInitiative));
     yield* put(finishTrooperTurnAction());
   }
@@ -185,6 +219,7 @@ function* handleWaitClick({
 
 export function* roundSagaWatcher() {
   yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
+  yield takeLatest(startTrooperTurnAction, startTrooperTurn);
   yield takeLatest(startRoundAction, startRound);
   yield takeEvery(trooperClicked, handleTrooperClick);
   yield takeLatest(waitClickedAction, handleWaitClick);

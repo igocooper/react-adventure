@@ -108,7 +108,9 @@ export class CharacterAnimation extends Component<Props> {
           const imageKey: string = file.name;
           let image: Nullable<HTMLImageElement> = null;
           try {
-            image = await loadImage(imagesUrls[imageKey]!);
+            if (imagesUrls[imageKey]) {
+              image = await loadImage(imagesUrls[imageKey]!);
+            }
           } catch (err) {
             console.log(err);
           }

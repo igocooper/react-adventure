@@ -1,7 +1,7 @@
 import React from 'react';
 import type { AttackType, Trooper } from 'modules/battlefield/types';
 import { Container, Value, Item } from './styled';
-import { ATTACK_TYPE } from '../../../constants';
+import { ATTACK_TYPE } from '../../../../constants';
 
 type Props = {
   criticalChance?: Trooper['criticalChance'];
