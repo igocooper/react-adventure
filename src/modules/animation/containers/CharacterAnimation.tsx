@@ -4,6 +4,7 @@ import * as spriter from '../helpers/spriter';
 import type { Data, Pose } from '../helpers/spriter';
 import { RenderCtx2D } from '../helpers/render-ctx2d';
 import { wait, loadImage, getRandomNumberInRange } from 'common/helpers';
+import { itemSlots } from 'common/constants';
 import { register } from '../troopersAnimationInstances';
 import type { Trooper } from 'modules/battlefield/types';
 import { registerTrooperNode } from '../../battlefield/troopersNodesMap';
@@ -18,6 +19,8 @@ type Props = {
   meleeAttackTransitionTime?: number;
   onLoad?: (id: Trooper['id']) => void;
 } & Pick<Trooper, 'id' | 'team'>;
+
+const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = itemSlots;
 
 export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -39,6 +42,12 @@ export class CharacterAnimation extends Component<Props> {
   animationRequestId: number;
   loading: boolean;
   meleeAttackTransitionTime: number;
+  bloodSlots: {
+    [BODY_BLOOD]: boolean;
+    [BODY_CUT]: boolean;
+    [FACE_BLOOD]: boolean;
+    [FACE_CUT]: boolean;
+  };
 
   constructor(props: Props) {
     super(props);
@@ -62,6 +71,12 @@ export class CharacterAnimation extends Component<Props> {
     this.animationRequestId = 0;
     this.meleeAttackTransitionTime = props.meleeAttackTransitionTime || 700;
     this.canvasRef = React.createRef();
+    this.bloodSlots = {
+      [BODY_BLOOD]: false,
+      [BODY_CUT]: false,
+      [FACE_BLOOD]: false,
+      [FACE_CUT]: false
+    };
 
     this.renderAnimationLoop = this.renderAnimationLoop.bind(this);
   }

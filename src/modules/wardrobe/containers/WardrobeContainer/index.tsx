@@ -2,23 +2,9 @@ import React from 'react';
 import { getCharacterProps } from '../../../battlefield/helpers/getCharacterProps';
 import { CharacterAnimation } from '../../../animation/containers/CharacterAnimation';
 import { getTrooperAnimationInstance } from '../../../animation/troopersAnimationInstances';
-import { loadImage } from 'common/helpers';
+import { updateCharacterImages } from 'common/helpers';
 import { HEADS, ARMORS, WEAPONS, CHARACTER } from '../../constants';
 import { TROOPER_TEAM } from '../../../battlefield/constants';
-
-type Props = Array<Record<string, string>>;
-
-const updateCharacterImages = async (newImages: Props) => {
-  const characterAnimation = getTrooperAnimationInstance(1000);
-  if (!characterAnimation) return;
-
-  for (const newImage of newImages) {
-    const { url, itemSlot } = newImage;
-    if (!url || !itemSlot) return;
-
-    characterAnimation.images[itemSlot] = await loadImage(url);
-  }
-};
 
 export const WardrobeContainer = () => {
   return (
@@ -85,7 +71,7 @@ export const WardrobeContainer = () => {
                   border: 'dotted'
                 }}
                 onClick={() => {
-                  updateCharacterImages(newCharacterImages);
+                  updateCharacterImages(newCharacterImages, 1000);
                 }}
                 src={iconUrl}
               />
@@ -102,7 +88,7 @@ export const WardrobeContainer = () => {
                   border: 'dotted'
                 }}
                 onClick={() => {
-                  updateCharacterImages(newCharacterImages);
+                  updateCharacterImages(newCharacterImages, 1000);
                 }}
                 src={iconUrl}
               />
@@ -119,7 +105,7 @@ export const WardrobeContainer = () => {
                   border: 'dotted'
                 }}
                 onClick={() => {
-                  updateCharacterImages(newCharacterImages);
+                  updateCharacterImages(newCharacterImages, 1000);
                 }}
                 src={iconUrl}
               />

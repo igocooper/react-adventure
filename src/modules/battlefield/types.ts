@@ -2,6 +2,7 @@ export type AttackType = 'melee' | 'range' | 'splash';
 export type Team = 'attackers' | 'defenders';
 export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
 export type HoveredElementType = 'default' | 'character';
+export type bloodItemSlot = 'Body Blood.png' | 'Body Cut.png' | 'Face Blood.png' | 'Face Cut.png';
 
 export interface Character {
   team: Team;
