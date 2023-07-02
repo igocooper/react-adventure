@@ -17,7 +17,8 @@ export enum EFFECT {
   POISON = 'poison',
   ANCHOR = 'anchor',
   MIGHT = 'might',
-  HEX = 'hex'
+  HEX = 'hex',
+  BLOCK = 'block'
 }
 
 export enum ATTACK_TYPE {
@@ -53,6 +54,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     position: 1,
     health: 50,
     currentHealth: 50,
+    defence: 0,
     id: 1,
     initiative: 5,
     // AIType: AI_TYPE.DETERMINED
@@ -69,6 +71,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     position: 2,
     health: 50,
     currentHealth: 50,
+    defence: 0,
     id: 2,
     initiative: 15,
     abilities: [
@@ -92,6 +95,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     position: 3,
     health: 100,
     currentHealth: 100,
+    defence: 0,
     id: 3,
     initiative: 3,
     abilities: [],
@@ -144,6 +148,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     position: 1,
     health: 100,
     currentHealth: 100,
+    defence: 0,
     id: 101,
     initiative: 13,
     abilities: [],
@@ -159,6 +164,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     position: 2,
     health: 50,
     currentHealth: 50,
+    defence: 0,
     id: 102,
     initiative: 25,
     abilities: [],
@@ -174,6 +180,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     position: 3,
     health: 50,
     currentHealth: 50,
+    defence: 0,
     id: 103,
     initiative: 22,
     abilities: [

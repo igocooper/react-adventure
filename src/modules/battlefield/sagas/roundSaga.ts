@@ -23,7 +23,9 @@ import {
   supportFinished,
   setBattlefieldStatus,
   resetDamageEvents,
-  modifyTrooper
+  modifyTrooper,
+  blockClicked as blockClickedAction,
+  addEffect
 } from '../actions';
 import {
   roundSelector,
@@ -39,6 +41,7 @@ import {
 import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
 import { applyEffects } from './effectsSaga';
+import { createBlockEffect } from './effectsSaga/effects/block';
 
 function* resetHasWaitedTrooperStatus() {
   const attackers = yield* select(attackersSelector);
@@ -217,10 +220,29 @@ function* handleWaitClick({
   }
 }
 
+function* handleBlockClick() {
+  const activeTrooper = yield* select(activeTrooperSelector);
+
+  if (activeTrooper) {
+    const blockEffect = createBlockEffect();
+
+    yield* call(blockEffect.applyEffect, { activeTrooper });
+    yield* put(
+      addEffect({
+        id: activeTrooper.id,
+        team: activeTrooper.team,
+        effect: createBlockEffect()
+      })
+    );
+  }
+  yield* put(finishTrooperTurnAction());
+}
+
 export function* roundSagaWatcher() {
   yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
   yield takeLatest(startTrooperTurnAction, startTrooperTurn);
   yield takeLatest(startRoundAction, startRound);
   yield takeEvery(trooperClicked, handleTrooperClick);
   yield takeLatest(waitClickedAction, handleWaitClick);
+  yield takeLatest(blockClickedAction, handleBlockClick);
 }

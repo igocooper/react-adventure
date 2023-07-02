@@ -1,10 +1,9 @@
 import type { Trooper } from 'modules/battlefield/types';
 import { itemSlots } from 'common/constants';
 
-
 const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = itemSlots;
 
-export type AnimationInstance = {
+export interface AnimationInstance {
   attack: () => Promise<void>;
   meleeAttack: (props: {
     characterBounds: DOMRect;
