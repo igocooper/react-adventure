@@ -1,6 +1,10 @@
 import type { Trooper } from 'modules/battlefield/types';
+import { itemSlots } from 'common/constants';
 
-interface AnimationInstance {
+
+const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = itemSlots;
+
+export type AnimationInstance = {
   attack: () => Promise<void>;
   meleeAttack: (props: {
     characterBounds: DOMRect;
@@ -14,6 +18,12 @@ interface AnimationInstance {
   shoot: () => void;
   images: Record<string, HTMLImageElement>;
   getImage: () => string | undefined;
+  bloodSlots: {
+    [BODY_BLOOD]: boolean;
+    [BODY_CUT]: boolean;
+    [FACE_BLOOD]: boolean;
+    [FACE_CUT]: boolean;
+  };
 }
 
 export const TroopersAnimationInstances = new Map<
