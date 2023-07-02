@@ -1,6 +1,11 @@
 import { type ApplyEffectProps, type Effect } from 'modules/battlefield/types';
-import { put } from 'typed-redux-saga';
-import { applyDamage } from 'modules/battlefield/reducers/troopsSlice';
+import { call, put, fork } from 'typed-redux-saga';
+import {
+  applyDamage,
+  finishTrooperTurn,
+  removeAllEffects
+} from 'modules/battlefield/actions';
+import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import poisonIcon from './icons/poison.png';
 
 export const createPoisonEffect = ({
@@ -14,6 +19,16 @@ export const createPoisonEffect = ({
   duration,
   done: false,
   applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+    const isDying = damage >= activeTrooper.currentHealth;
+    const activeTrooperAnimationInstance = yield* call(
+      getTrooperAnimationInstance,
+      activeTrooper.id
+    );
+
+    if (damage >= activeTrooper.currentHealth) {
+      damage = damage - (damage - activeTrooper.currentHealth);
+    }
+
     yield* put(
       applyDamage({
         id: activeTrooper.id,
@@ -22,6 +37,19 @@ export const createPoisonEffect = ({
         isPoison: true
       })
     );
+
+    if (isDying) {
+      yield* fork([activeTrooperAnimationInstance!, 'die']);
+      yield* put(
+        removeAllEffects({
+          id: activeTrooper.id,
+          team: activeTrooper.team
+        })
+      );
+      yield* put(finishTrooperTurn());
+    } else {
+      yield* fork([activeTrooperAnimationInstance!, 'hurt']);
+    }
   },
   iconSrc: poisonIcon
 });

@@ -48,6 +48,11 @@ interface RemoveEffectPayload {
   team: Team;
 }
 
+interface RemoveAllEffectPayload {
+  id: number;
+  team: Team;
+}
+
 interface AddEffectPayload {
   id: number;
   effect: Effect;
@@ -155,6 +160,25 @@ export const troopsSlice = createSlice({
       };
     },
 
+    removeAllEffects: (
+      state,
+      action: PayloadAction<RemoveAllEffectPayload>
+    ) => {
+      const { team, id } = action.payload;
+      return {
+        ...state,
+        [team]: state[team].map((trooper) => {
+          if (trooper.id === id) {
+            return {
+              ...trooper,
+              effects: []
+            };
+          }
+          return trooper;
+        })
+      };
+    },
+
     addEffect: (state, action: PayloadAction<AddEffectPayload>) => {
       const { team, id, effect } = action.payload;
 
@@ -204,6 +228,7 @@ export const {
   applyHeal,
   setTrooperCurrentTargetId,
   removeEffect,
+  removeAllEffects,
   addEffect,
   setEffectDuration,
   modifyTrooper,
