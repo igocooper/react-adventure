@@ -10,6 +10,7 @@ import { ATTACK_TYPE } from '../../constants';
 import { setTrooperCurrentTargetId } from '../../reducers/troopsSlice';
 import { clickOnEnemy, getRandomEnemyId } from './index';
 import { type Trooper } from 'modules/battlefield/types';
+import { blockClicked } from '../../actions';
 
 function* setNewCurrentTarget(
   activeTrooper: Trooper,
@@ -68,6 +69,15 @@ export function* determinedAI() {
   switch (activeTrooper.attackType) {
     case ATTACK_TYPE.MELEE: {
       const allowedTargets = yield* select(meleeTrooperAllowedTargetsSelector);
+
+      if (allowedTargets.length === 0) {
+        yield* put(
+          blockClicked({
+            id: activeTrooper.id,
+            team: activeTrooper.team
+          })
+        );
+      }
 
       yield* call(hitOrUpdateCurrentTarget, {
         activeTrooper,

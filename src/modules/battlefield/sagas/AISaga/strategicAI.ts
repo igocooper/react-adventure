@@ -1,4 +1,4 @@
-import { call, select } from 'typed-redux-saga';
+import { call, put, select } from 'typed-redux-saga';
 import {
   activeTrooperSelector,
   enemyTeamNameSelector,
@@ -11,6 +11,7 @@ import { clickOnEnemy, getRandomEnemyId } from './index';
 import { getDamage } from 'modules/battlefield/helpers/getDamage';
 import type { Trooper } from 'modules/battlefield/types';
 import { getRandomArrayElement } from 'common/helpers';
+import { blockClicked } from '../../actions';
 
 const getTargetTrooper = (
   originalAllowedTargets: Trooper[],
@@ -156,6 +157,15 @@ export function* strategicAI() {
   switch (activeTrooper.attackType) {
     case ATTACK_TYPE.MELEE: {
       const allowedTargets = yield* select(meleeTrooperAllowedTargetsSelector);
+
+      if (allowedTargets.length === 0) {
+        yield* put(
+          blockClicked({
+            id: activeTrooper.id,
+            team: activeTrooper.team
+          })
+        );
+      }
 
       const trooperId = getTargetTrooper(
         allowedTargets,
