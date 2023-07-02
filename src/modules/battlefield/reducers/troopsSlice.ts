@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { Trooper, Team, EffectName } from 'modules/battlefield/types';
+import type {
+  Trooper,
+  Team,
+  EffectName,
+  Effect
+} from 'modules/battlefield/types';
 import { ATTACKERS, DEFENDERS } from 'modules/battlefield/constants';
 
 export interface TroopsState {
@@ -14,6 +19,7 @@ interface ApplyDamagePayload {
   team: Team;
   isEvading?: boolean;
   isCriticalDamage?: boolean;
+  isPoison?: boolean;
 }
 
 interface ApplyHealPayload {
@@ -39,6 +45,12 @@ interface SetEffectDonePayload {
 interface RemoveEffectPayload {
   id: number;
   name: EffectName;
+  team: Team;
+}
+
+interface AddEffectPayload {
+  id: number;
+  effect: Effect;
   team: Team;
 }
 
@@ -142,6 +154,32 @@ export const troopsSlice = createSlice({
         })
       };
     },
+
+    addEffect: (state, action: PayloadAction<AddEffectPayload>) => {
+      const { team, id, effect } = action.payload;
+
+      return {
+        ...state,
+        [team]: state[team].map((trooper) => {
+          if (trooper.id === id) {
+            const existingEffect = trooper.effects.find(
+              (target) => target.name === effect.name
+            );
+            // TODO: think more about complex effect merging
+            if (existingEffect) {
+              return trooper;
+            }
+
+            return {
+              ...trooper,
+              effects: [...trooper.effects, effect]
+            };
+          }
+          return trooper;
+        })
+      };
+    },
+
     modifyTrooper: (state, action: PayloadAction<ModifyTrooperPayload>) => {
       const { team, id, updates } = action.payload;
       return {
@@ -166,6 +204,7 @@ export const {
   applyHeal,
   setTrooperCurrentTargetId,
   removeEffect,
+  addEffect,
   setEffectDuration,
   modifyTrooper,
   setEffectDone

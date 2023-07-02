@@ -11,6 +11,7 @@ export {
   setTrooperCurrentTargetId,
   setEffectDuration,
   removeEffect,
+  addEffect,
   modifyTrooper,
   setEffectDone
 } from './reducers/troopsSlice';

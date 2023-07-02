@@ -22,7 +22,8 @@ import {
   supportStarted,
   supportFinished,
   setBattlefieldStatus,
-  resetDamageEvents
+  resetDamageEvents,
+  modifyTrooper
 } from '../actions';
 import {
   roundSelector,
@@ -38,6 +39,26 @@ import {
 import type { Trooper } from '../types';
 import { ATTACK_TYPE } from '../constants';
 import { applyEffects } from './effectsSaga';
+
+function* resetHasWaitedTrooperStatus() {
+  const attackers = yield* select(attackersSelector);
+  const defenders = yield* select(defendersSelector);
+  const troopers: Trooper[] = [...attackers, ...defenders];
+
+  for (const trooper of troopers) {
+    if (trooper.hasWaited) {
+      yield* put(
+        modifyTrooper({
+          id: trooper.id,
+          team: trooper.team,
+          updates: {
+            hasWaited: false
+          }
+        })
+      );
+    }
+  }
+}
 
 function* getTroopersHealthMap() {
   const attackers = yield* select(attackersSelector);
@@ -109,6 +130,7 @@ export function* finishTrooperTurn() {
 
 function* startRound({ payload }: { payload: number }) {
   yield* put(resetDamageEvents());
+  yield* call(resetHasWaitedTrooperStatus);
   const initiative = yield* call(initInitiative);
   const activePlayer = initiative[0];
   yield* put(setRound(payload));
@@ -173,11 +195,23 @@ function* handleWaitClick({
 }) {
   const { id } = payload;
   const initiative = yield* select(initiativeSelector);
-  const activeTrooper = initiative.find((trooper) => trooper.id === id);
+  const activeTrooperInitiative = initiative.find(
+    (trooper) => trooper.id === id
+  );
+  const activeTrooper = yield* select(activeTrooperSelector);
 
   if (activeTrooper) {
-    const updatedInitiative = [...initiative, activeTrooper];
+    const updatedInitiative = [...initiative, activeTrooperInitiative!];
 
+    yield* put(
+      modifyTrooper({
+        id: activeTrooper.id,
+        team: activeTrooper.team,
+        updates: {
+          hasWaited: true
+        }
+      })
+    );
     yield* put(setInitiative(updatedInitiative));
     yield* put(finishTrooperTurnAction());
   }

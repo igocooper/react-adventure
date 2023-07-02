@@ -1,5 +1,5 @@
 import React from 'react';
-import { DamageIndicator, DamageItem } from '../styled';
+import { DamageIndicator, DamageItem } from './styled';
 import { useSelector } from 'react-redux';
 import { damageEventsSelector } from 'modules/battlefield/selectors';
 
@@ -13,16 +13,17 @@ export const DamageIndicatorContainer = () => {
   return (
     <DamageIndicator>
       {damageEvents.map(
-        ({ id, damage, position, isCriticalDamage, isEvading }) => {
+        ({ id, damage, position, isCriticalDamage, isEvading, isPoison }) => {
           return (
             <DamageItem
               key={id}
               $position={position}
               $isCriticalDamage={isCriticalDamage}
               $miss={isEvading}
+              $isPoison={isPoison}
             >
               {isCriticalDamage && !isEvading && 'Crit: '}
-              {!isEvading && damage}
+              {!isEvading && `-${damage}`}
               {isEvading && 'Miss'}
             </DamageItem>
           );

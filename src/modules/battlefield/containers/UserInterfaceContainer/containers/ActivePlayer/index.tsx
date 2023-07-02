@@ -6,12 +6,14 @@ import {
 import { blockClicked, waitClicked } from 'modules/battlefield/actions';
 import { useDispatch, useSelector } from 'store/hooks';
 import { Info } from '../../components/Info';
+import { Effect } from '../../components/Effect';
 import {
   ActiveContainer,
   TrooperImage,
   Wrapper,
   WaitIcon,
-  BlockIcon
+  BlockIcon,
+  Effects
 } from '../styled';
 
 interface Props {
@@ -22,7 +24,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
   const activeTrooper = useSelector(activeTrooperSelector);
   const activeTrooperTeamName = useSelector(activeTeamNameSelector);
   const dispatch = useDispatch();
-  const { id, team } = activeTrooper || {};
+  const { id, team, hasWaited } = activeTrooper || {};
 
   const handleBlock = useCallback(() => {
     if (id && team) {
@@ -36,7 +38,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
   }, [dispatch, id, team]);
 
   const handleWait = useCallback(() => {
-    if (id && team) {
+    if (id && team && !hasWaited) {
       dispatch(
         waitClicked({
           id,
@@ -59,7 +61,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
       {imageSrc && (
         <Wrapper>
           <TrooperImage $src={imageSrc} $health={healthLeft} />
-          <WaitIcon onClick={handleWait} />
+          <WaitIcon onClick={handleWait} disabled={hasWaited} />
           <BlockIcon onClick={handleBlock} />
         </Wrapper>
       )}
@@ -72,6 +74,17 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
         criticalChance={activeTrooper.criticalChance}
         evadeChance={activeTrooper.evadeChance}
       />
+      <Effects>
+        {activeTrooper.effects.map(({ name, iconSrc, duration }, index) => {
+          return (
+            <Effect
+              iconSrc={iconSrc}
+              key={`${name}-${index}`}
+              duration={duration}
+            />
+          );
+        })}
+      </Effects>
     </ActiveContainer>
   );
 };

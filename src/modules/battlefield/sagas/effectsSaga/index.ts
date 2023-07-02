@@ -3,7 +3,9 @@ import { setEffectDuration, removeEffect, setEffectDone } from '../../actions';
 import type { Trooper } from 'modules/battlefield/types';
 
 export function* applyEffects(activeTrooper: Trooper) {
-  const { effects, team, id } = activeTrooper;
+  const { effects, team, id, hasWaited } = activeTrooper;
+
+  if (hasWaited) return;
 
   for (const effect of effects) {
     if (effect.duration === 0) {
@@ -31,8 +33,6 @@ export function* applyEffects(activeTrooper: Trooper) {
         })
       );
 
-      yield* call([effect, 'applyEffect'], { activeTrooper });
-
       if (effect.once) {
         yield* put(
           setEffectDone({
@@ -43,6 +43,8 @@ export function* applyEffects(activeTrooper: Trooper) {
           })
         );
       }
+
+      yield* call([effect, 'applyEffect'], { activeTrooper });
     }
   }
 }

@@ -2,14 +2,19 @@ export type AttackType = 'melee' | 'range' | 'splash';
 export type Team = 'attackers' | 'defenders';
 export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
 export type HoveredElementType = 'default' | 'character';
-export type bloodItemSlot = 'Body Blood.png' | 'Body Cut.png' | 'Face Blood.png' | 'Face Cut.png';
+export type bloodItemSlot =
+  | 'Body Blood.png'
+  | 'Body Cut.png'
+  | 'Face Blood.png'
+  | 'Face Cut.png';
 export type EffectName = 'poison' | 'anchor' | 'might' | 'hex';
+export type AbilityName = 'poison';
 
-export type ApplyEffectProps = {
+export interface ApplyEffectProps {
   activeTrooper: Trooper;
 }
 
-export type Effect = {
+export interface Effect {
   name: EffectName;
   duration: number;
   once?: boolean;
@@ -19,7 +24,17 @@ export type Effect = {
   iconSrc: string;
 }
 
-export type Character = {
+export interface ApplyAbilityProps {
+  targetTrooper: Trooper;
+}
+
+export interface Ability {
+  name: AbilityName;
+  hitChance: number;
+  applyAbility: (props: ApplyAbilityProps) => void;
+}
+
+export interface Character {
   team: Team;
   type: string;
   damage: string;
@@ -29,6 +44,7 @@ export type Character = {
   health: number;
   id: number;
   initiative: number;
+  abilities: Ability[];
 }
 
 export type Trooper = Character & {
@@ -39,6 +55,7 @@ export type Trooper = Character & {
   criticalMultiplier?: number;
   evadeChance?: number;
   effects: Effect[];
+  hasWaited?: boolean;
 };
 
 declare global {

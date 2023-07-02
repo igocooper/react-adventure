@@ -57,7 +57,7 @@ function* playRangeAttackAnimation({
   selectedTrooperId,
   attackId,
   isDying,
-  isEvading,
+  isEvading
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperId: Trooper['id'];
@@ -237,7 +237,7 @@ function* attack({
       damage,
       isDying,
       isEvading,
-      isCriticalDamage,
+      isCriticalDamage
     });
   }
 

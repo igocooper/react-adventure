@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export type DamageEvent = {
+export interface DamageEvent {
   id: number;
   damage: number;
   isEvading?: boolean;
   isCriticalDamage?: boolean;
+  isPoison?: boolean;
   position: {
     x: number;
     y: number;
   };
-};
+}
 
-const initialState: Array<DamageEvent> = [];
+const initialState: DamageEvent[] = [];
 
 export const damageEventsSlice = createSlice({
   name: 'damageEvents',
@@ -22,7 +23,6 @@ export const damageEventsSlice = createSlice({
       state.push(action.payload);
     },
     resetDamageEvents: (state) => {
-
       return state.slice(-1);
     }
   }

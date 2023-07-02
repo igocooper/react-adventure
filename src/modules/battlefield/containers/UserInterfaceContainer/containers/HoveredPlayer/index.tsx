@@ -5,7 +5,8 @@ import {
 } from 'modules/battlefield/selectors';
 import { useSelector } from 'store/hooks';
 import { Info } from '../../components/Info';
-import { HoveredContainer, TrooperImage } from '../styled';
+import { Effect } from '../../components/Effect';
+import { Effects, HoveredContainer, TrooperImage } from '../styled';
 
 interface Props {
   imageSrc?: string;
@@ -25,15 +26,30 @@ export const HoveredPlayer = ({ imageSrc }: Props) => {
       $enemy={activeTrooperTeamName !== hoveredTrooper?.team}
     >
       {hoveredTrooper && (
-        <Info
-          currentHealth={hoveredTrooper.currentHealth}
-          health={hoveredTrooper.health}
-          damage={hoveredTrooper.damage}
-          attackType={hoveredTrooper.attackType}
-          initiative={hoveredTrooper.initiative}
-          criticalChance={hoveredTrooper.criticalChance}
-          evadeChance={hoveredTrooper.evadeChance}
-        />
+        <>
+          <Effects>
+            {hoveredTrooper.effects.map(
+              ({ name, iconSrc, duration }, index) => {
+                return (
+                  <Effect
+                    iconSrc={iconSrc}
+                    key={`${name}_${index}`}
+                    duration={duration}
+                  />
+                );
+              }
+            )}
+          </Effects>
+          <Info
+            currentHealth={hoveredTrooper.currentHealth}
+            health={hoveredTrooper.health}
+            damage={hoveredTrooper.damage}
+            attackType={hoveredTrooper.attackType}
+            initiative={hoveredTrooper.initiative}
+            criticalChance={hoveredTrooper.criticalChance}
+            evadeChance={hoveredTrooper.evadeChance}
+          />
+        </>
       )}
       {imageSrc && <TrooperImage $src={imageSrc} $health={healthLeft} />}
     </HoveredContainer>

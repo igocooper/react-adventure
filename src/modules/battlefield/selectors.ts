@@ -186,8 +186,8 @@ export const battlefieldLoadedStatusStateSelector = createSelector(
 );
 
 export const damageEventsSelector = createSelector(
-    uiSelector,
-    (ui) => ui.damageEvents
+  uiSelector,
+  (ui) => ui.damageEvents
 );
 
 export const battlefieldLoadedStatusSelector = createSelector(

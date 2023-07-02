@@ -1,9 +1,5 @@
 import type { Trooper } from './types';
-import {
-  createPoisonEffect,
-  createMightEffect,
-  createAnchorEffect
-} from './sagas/effectsSaga/effects';
+import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -11,6 +7,10 @@ export enum CURSOR {
   DISABLED = 'disabled',
   WAND = 'wand',
   SWORD = 'sword'
+}
+
+export enum ABILITY {
+  POISON = 'poison'
 }
 
 export enum EFFECT {
@@ -56,12 +56,8 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 1,
     initiative: 5,
     // AIType: AI_TYPE.DETERMINED
-    effects: [
-      createPoisonEffect({
-        duration: 2,
-        damage: 10
-      })
-    ]
+    abilities: [],
+    effects: []
   },
   {
     team: 'attackers',
@@ -75,13 +71,15 @@ const ATTACKERS_TROOPS: Trooper[] = [
     currentHealth: 50,
     id: 2,
     initiative: 15,
-    // AIType: AI_TYPE.DETERMINED
-    effects: [
-      createMightEffect({
-        duration: 2,
-        multiplier: 2
+    abilities: [
+      createPoisonAbility({
+        duration: 1,
+        damage: 15,
+        hitChance: 100
       })
-    ]
+    ],
+    // AIType: AI_TYPE.DETERMINED
+    effects: []
   },
   {
     team: 'attackers',
@@ -96,6 +94,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 3,
     initiative: 3,
+    abilities: [],
     // AIType: AI_TYPE.DETERMINED
     effects: []
   }
@@ -147,6 +146,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     currentHealth: 100,
     id: 101,
     initiative: 13,
+    abilities: [],
     AIType: AI_TYPE.STRATEGIC,
     effects: []
   },
@@ -160,13 +160,10 @@ const DEFENDERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 102,
-    initiative: 15,
+    initiative: 25,
+    abilities: [],
     AIType: AI_TYPE.STRATEGIC,
-    effects: [
-      createAnchorEffect({
-        duration: 2
-      })
-    ]
+    effects: []
   },
   {
     team: 'defenders',
@@ -178,8 +175,15 @@ const DEFENDERS_TROOPS: Trooper[] = [
     health: 50,
     currentHealth: 50,
     id: 103,
-    initiative: 2,
-    AIType: AI_TYPE.STRATEGIC,
+    initiative: 22,
+    abilities: [
+      createPoisonAbility({
+        duration: 1,
+        damage: 25,
+        hitChance: 100
+      })
+    ],
+    // AIType: AI_TYPE.STRATEGIC,
     effects: []
   }
   // {
