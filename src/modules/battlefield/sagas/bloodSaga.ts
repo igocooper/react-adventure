@@ -1,7 +1,7 @@
 import { takeLatest, select } from 'typed-redux-saga/macro';
 import { applyDamage } from '../actions';
 import { makeCharacterByIdSelector } from '../selectors';
-import {getRandomArrayElement, updateCharacterImages} from 'common/helpers';
+import { getRandomArrayElement, updateCharacterImages } from 'common/helpers';
 import {
   bodyBloodUrls,
   bodyCutUrls,

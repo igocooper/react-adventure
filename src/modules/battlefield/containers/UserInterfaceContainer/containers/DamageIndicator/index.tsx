@@ -7,7 +7,7 @@ export const DamageIndicatorContainer = () => {
   const damageEvents = useSelector(damageEventsSelector);
 
   if (!damageEvents.length) {
-    return;
+    return null;
   }
 
   return (

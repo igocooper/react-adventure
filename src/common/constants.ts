@@ -16,7 +16,7 @@ export enum itemSlots {
   LEFT_HAND = 'Left Hand.png',
   LEFT_HAND_WEAPON = 'Left Hand Weapon.png',
   LEFT_LEG = 'Left Leg.png',
-  SLASH_FX = 'SlashFX.png',
+  SLASH_FX = 'SlashFX.png'
 }
 
 export const bodyBloodUrls = [

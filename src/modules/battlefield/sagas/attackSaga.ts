@@ -37,6 +37,12 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
     }
   }
 
+  if (selectedTrooper.defence) {
+    damage = damage - Math.floor((damage / 100) * selectedTrooper.defence);
+  }
+
+  console.log('damage', damage);
+
   if (evadeChance) {
     isEvading = evadeChance >= getRandomNumberInRange(1, 100);
     if (isEvading) {

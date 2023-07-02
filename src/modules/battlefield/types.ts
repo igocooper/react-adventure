@@ -7,7 +7,7 @@ export type bloodItemSlot =
   | 'Body Cut.png'
   | 'Face Blood.png'
   | 'Face Cut.png';
-export type EffectName = 'poison' | 'anchor' | 'might' | 'hex';
+export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
 export type AbilityName = 'poison';
 
 export interface ApplyEffectProps {
@@ -45,6 +45,7 @@ export interface Character {
   id: number;
   initiative: number;
   abilities: Ability[];
+  defence: number;
 }
 
 export type Trooper = Character & {
