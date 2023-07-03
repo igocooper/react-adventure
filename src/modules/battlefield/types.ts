@@ -7,6 +7,32 @@ export type bloodItemSlot =
   | 'Body Cut.png'
   | 'Face Blood.png'
   | 'Face Cut.png';
+export type LocationName =
+  | 'forest-road'
+  | 'castle-dungeon'
+  | 'castle-throne-hall'
+  | 'castle-courtyard'
+  | 'castle-hall'
+  | 'dragon-dungeon-lair'
+  | 'dragon-dungeon-treasure'
+  | 'dragon-dungeon-entrance'
+  | 'dragon-dungeon-lava'
+  | 'lava-arena'
+  | 'ice-arena'
+  | 'forest-arena'
+  | 'graveyard-arena'
+  | 'goblin-village-outpost'
+  | 'goblin-village-throne-hall'
+  | 'goblin-village-bridge'
+  | 'goblin-village-entrance'
+  | 'cave'
+  | 'cave-spiders'
+  | 'cave-lava'
+  | 'cave-crystals'
+  | 'forest'
+  | 'elven-forest'
+  | 'fores-2'
+  | 'forest-3';
 export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
 export type AbilityName = 'poison';
 
