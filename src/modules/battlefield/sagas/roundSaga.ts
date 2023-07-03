@@ -39,9 +39,10 @@ import {
 } from '../selectors';
 
 import type { Trooper } from '../types';
-import { ATTACK_TYPE } from '../constants';
+import { ATTACK_TYPE, EFFECT } from '../constants';
 import { applyEffects } from './effectsSaga';
 import { createBlockEffect } from './effectsSaga/effects/block';
+import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
 
 function* resetHasWaitedTrooperStatus() {
   const attackers = yield* select(attackersSelector);
@@ -226,6 +227,12 @@ function* handleBlockClick() {
   if (activeTrooper) {
     const blockEffect = createBlockEffect();
 
+    const blockAnimation = yield* call(
+      getAreaEffectAnimationInstance,
+      EFFECT.BLOCK
+    );
+
+    yield* call(blockAnimation!.play);
     yield* call(blockEffect.applyEffect, { activeTrooper });
     yield* put(
       addEffect({
