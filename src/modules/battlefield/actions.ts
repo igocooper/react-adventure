@@ -11,6 +11,7 @@ export {
   setTrooperCurrentTargetId,
   setEffectDuration,
   removeEffect,
+  removeAllEffects,
   addEffect,
   modifyTrooper,
   setEffectDone
