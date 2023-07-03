@@ -1,5 +1,9 @@
 import type { Trooper } from './types';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
+import {
+  createPoisonEffect,
+  createAnchorEffect
+} from './sagas/effectsSaga/effects';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -219,7 +223,15 @@ const DEFENDERS_TROOPS: Trooper[] = [
       })
     ],
     // AIType: AI_TYPE.STRATEGIC,
-    effects: []
+    effects: [
+      createAnchorEffect({
+        duration: 1
+      }),
+      createPoisonEffect({
+        damage: 15,
+        duration: 2
+      })
+    ]
   }
   // {
   //   team: 'defenders',

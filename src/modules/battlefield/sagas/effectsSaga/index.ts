@@ -4,6 +4,7 @@ import type { Trooper } from 'modules/battlefield/types';
 
 export function* applyEffects(activeTrooper: Trooper) {
   const { effects, team, id, hasWaited } = activeTrooper;
+  const delayedEffects = [];
 
   if (hasWaited) return;
 
@@ -44,7 +45,19 @@ export function* applyEffects(activeTrooper: Trooper) {
         );
       }
 
-      yield* call([effect, 'applyEffect'], { activeTrooper });
+      const delayedEffect = yield* call([effect, 'applyEffect'], {
+        activeTrooper
+      });
+
+      if (delayedEffect) {
+        delayedEffects.push(delayedEffect);
+      }
     }
+  }
+
+  for (const delayedEffect of delayedEffects) {
+    yield* call(delayedEffect, {
+      activeTrooper
+    });
   }
 }
