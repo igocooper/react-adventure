@@ -1,15 +1,16 @@
 import styled from 'styled-components';
-import villageRoadImg from '../../images/locations/village_road.png';
 import cursorDefaultImg from '../../images/cursors/cursor-default.png';
 import cursorWandImg from '../../images/cursors/cursor-wand.png';
 import cursorBowImg from '../../images/cursors/cursor-bow.png';
 import cursorSwordImg from '../../images/cursors/cursor-sword.png';
+import { type LocationName } from 'modules/battlefield/types';
 
 interface LocationProps {
   $cursor: string;
+  $location: LocationName;
 }
 
-export const Location = styled.div.attrs((props: { $cursor: string }) => ({
+export const Location = styled.div.attrs((props: LocationProps) => ({
   className: `location cursor-${props.$cursor}`
 }))<LocationProps>`
   width: 100vw;
@@ -19,7 +20,8 @@ export const Location = styled.div.attrs((props: { $cursor: string }) => ({
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  background-image: url(${villageRoadImg});
+  background-image: url(${({ $location }) =>
+    `/images/locations/${$location}.png`});
 
   &.cursor-sword {
     cursor: url(${cursorSwordImg}), auto;

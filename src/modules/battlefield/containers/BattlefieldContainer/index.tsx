@@ -14,6 +14,7 @@ import {
 } from '../../selectors';
 import { Location } from './styled';
 import type { Trooper } from '../../types';
+import { useLocation } from 'common/hooks/useLocation';
 import { TileContainer } from '../TileContainer';
 import { AnimationAreaContainer } from '../AnimationAreaContainer';
 import { UserInterfaceContainer } from '../UserInterfaceContainer';
@@ -30,6 +31,8 @@ export const BattlefieldContainer = () => {
     resetBattlefieldLoadedStatus
   );
 
+  const location = useLocation();
+
   useEffect(() => {
     setTroopersToLoad(troopersToLoad);
 
@@ -45,7 +48,7 @@ export const BattlefieldContainer = () => {
   }, [battleFieldLoaded]);
 
   return (
-    <Location $cursor={cursor}>
+    <Location $cursor={cursor} $location={location}>
       <AnimationAreaContainer id="area-container">
         {attackers.map(
           ({ id, position, type, team, currentHealth, health }: Trooper) => (
