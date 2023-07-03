@@ -1,3 +1,4 @@
+import type { CallEffect } from 'redux-saga/effects';
 export type AttackType = 'melee' | 'range' | 'splash';
 export type Team = 'attackers' | 'defenders';
 export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
@@ -14,12 +15,17 @@ export interface ApplyEffectProps {
   activeTrooper: Trooper;
 }
 
+type ApplyDelayedEffect = (
+  props: ApplyEffectProps
+) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
+type ApplyEffect = (props: ApplyEffectProps) => void;
+
 export interface Effect {
   name: EffectName;
   duration: number;
   once?: boolean;
   done: boolean;
-  applyEffect: (props: ApplyEffectProps) => void;
+  applyEffect: ApplyEffect | ApplyDelayedEffect;
   cancelEffect?: (props: ApplyEffectProps) => void;
   iconSrc: string;
 }

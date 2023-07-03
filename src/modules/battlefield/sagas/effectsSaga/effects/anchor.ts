@@ -14,7 +14,9 @@ export const createAnchorEffect = ({
     once: true,
     done: false,
     applyEffect: function* () {
-      yield* call(finishTrooperTurn);
+      return function* () {
+        yield* call(finishTrooperTurn);
+      };
     },
     iconSrc: anchorIcon
   };
