@@ -7,6 +7,8 @@ import {
 } from 'modules/battlefield/actions';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import poisonIcon from './icons/poison.png';
+import { getAreaEffectAnimationInstance } from '../../../../animation/areaEffectsAnimationInstances';
+import { EFFECT } from '../../../constants';
 
 export const createPoisonEffect = ({
   duration,
@@ -28,6 +30,13 @@ export const createPoisonEffect = ({
     if (damage >= activeTrooper.currentHealth) {
       damage = damage - (damage - activeTrooper.currentHealth);
     }
+
+    const poisonAnimation = yield* call(
+      getAreaEffectAnimationInstance,
+      EFFECT.POISON
+    );
+
+    yield* fork(poisonAnimation!.play);
 
     yield* put(
       applyDamage({
