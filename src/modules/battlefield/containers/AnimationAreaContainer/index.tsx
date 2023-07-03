@@ -8,6 +8,7 @@ import {
 } from '../../selectors';
 import { MountainArcherArrow } from './MountainArcherArrow';
 import { Block } from './Block';
+import { Poison } from './Poison';
 
 interface OwnProps {
   children: React.ReactNode;
@@ -32,6 +33,10 @@ export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
         selectedTrooperId={selectedTrooper?.id}
       />
       <Block
+        containerNode={areaAnimationRef.current!}
+        activeTrooperId={activeTrooper?.id}
+      />
+      <Poison
         containerNode={areaAnimationRef.current!}
         activeTrooperId={activeTrooper?.id}
       />
