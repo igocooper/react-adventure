@@ -1,26 +1,30 @@
+import { itemSlots } from 'common/constants';
+
 const getUrls = (type: string) => {
   return {
-    'Body.png': `/images/${type}/Body.png`,
-    'Face 01.png': `/images/${type}/Face 01.png`,
-    'Face 02.png': `/images/${type}/Face 02.png`,
-    'Face 03.png': `/images/${type}/Face 03.png`,
-    'Head.png': `/images/${type}/Head.png`,
-    'Left Arm.png': `/images/${type}/Left Arm.png`,
-    'Left Hand.png': `/images/${type}/Left Hand.png`,
-    'Left Leg.png': `/images/${type}/Left Leg.png`,
-    'Right Arm.png': `/images/${type}/Right Arm.png`,
-    'Right Hand.png': `/images/${type}/Right Hand.png`,
-    'Right Leg.png': `/images/${type}/Right Leg.png`,
-    'SlashFX.png': `/images/${type}/SlashFX.png`,
-    'Left Hand Weapon.png': `/images/${type}/Left Hand Weapon.png`,
-    'Right Hand Weapon.png': `/images/${type}/Right Hand Weapon.png`,
+    [itemSlots.BODY]: `/images/${type}/Body.png`,
+    [itemSlots.FACE_01]: `/images/${type}/Face 01.png`,
+    [itemSlots.FACE_02]: `/images/${type}/Face 02.png`,
+    [itemSlots.FACE_03]: `/images/${type}/Face 03.png`,
+    [itemSlots.HEAD]: `/images/${type}/Head.png`,
+    [itemSlots.LEFT_ARM]: `/images/${type}/Left Arm.png`,
+    [itemSlots.LEFT_HAND]: `/images/${type}/Left Hand.png`,
+    [itemSlots.LEFT_LEG]: `/images/${type}/Left Leg.png`,
+    [itemSlots.RIGHT_ARM]: `/images/${type}/Right Arm.png`,
+    [itemSlots.RIGHT_HAND]: `/images/${type}/Right Hand.png`,
+    [itemSlots.RIGHT_LEG]: `/images/${type}/Right Leg.png`,
+    [itemSlots.SLASH_FX]: `/images/${type}/SlashFX.png`,
+    [itemSlots.LEFT_HAND_WEAPON]: `/images/${type}/Left Hand Weapon.png`,
+    [itemSlots.RIGHT_HAND_WEAPON]: `/images/${type}/Right Hand Weapon.png`,
     // Archer images
-    'Bow.png': `/images/${type}/Bow.png`,
-    'Bowstring.png': `/images/${type}/Bowstring.png`,
-    'Drawn Bowstring.png': `/images/${type}/Drawn Bowstring.png`,
-    'Arrow.png': `/images/${type}/Arrow.png`,
-    'Quiver.png': `/images/${type}/Quiver.png`,
-    'Axe.png': `/images/${type}/Axe.png`
+    [itemSlots.BOW]: `/images/${type}/Bow.png`,
+    [itemSlots.BOWSTRING]: `/images/${type}/Bowstring.png`,
+    [itemSlots.DRAWN_BOWSTRING]: `/images/${type}/Drawn Bowstring.png`,
+    [itemSlots.ARROW]: `/images/${type}/Arrow.png`,
+    [itemSlots.QUIVER]: `/images/${type}/Quiver.png`,
+    // Hero
+    [itemSlots.HEAD_HAIR]: `/images/${type}/Head Hair.png`,
+    [itemSlots.HEAD_BEARD]: `/images/${type}/Head Beard.png`
   };
 };
 
