@@ -8,62 +8,62 @@ import type {
 } from 'modules/battlefield/types';
 import { ATTACKERS, DEFENDERS } from 'modules/battlefield/constants';
 
-export interface TroopsState {
+export type TroopsState = {
   attackers: Trooper[];
   defenders: Trooper[];
-}
+};
 
-interface ApplyDamagePayload {
+type ApplyDamagePayload = {
   id: number;
   damage: number;
   team: Team;
   isEvading?: boolean;
   isCriticalDamage?: boolean;
   isPoison?: boolean;
-}
+};
 
-interface ApplyHealPayload {
+type ApplyHealPayload = {
   id: number;
   heal: number;
   team: Team;
-}
+};
 
-interface SetEffectDurationPayload {
+type SetEffectDurationPayload = {
   id: number;
   duration: number;
   name: EffectName;
   team: Team;
-}
+};
 
-interface SetEffectDonePayload {
+type SetEffectDonePayload = {
   id: number;
   value: boolean;
   name: EffectName;
   team: Team;
-}
+};
 
-interface RemoveEffectPayload {
+type RemoveEffectPayload = {
   id: number;
   name: EffectName;
   team: Team;
-}
+};
 
-interface RemoveAllEffectPayload {
+type RemoveAllEffectPayload = {
   id: number;
   team: Team;
-}
+};
 
-interface AddEffectPayload {
+type AddEffectPayload = {
   id: number;
   effect: Effect;
   team: Team;
-}
+};
 
-interface ModifyTrooperPayload {
+type ModifyTrooperPayload = {
   id: number;
   team: Team;
   updates: Partial<Trooper>;
-}
+};
 
 const initialState: TroopsState = {
   attackers: ATTACKERS,

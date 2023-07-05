@@ -19,13 +19,13 @@ import type { Element } from '../reducers/hoveredElementSlice';
 import type { Trooper } from '../types';
 import { CURSOR, ATTACK_TYPE, HOVERED_ELEMENT_TYPE } from '../constants';
 
-interface Props {
+type Props = {
   type: string;
   activeTrooper?: Trooper;
   selectedTrooper?: Trooper;
   attackers: Trooper[];
   defenders: Trooper[];
-}
+};
 
 const detectCharacterCursor = ({
   activeTrooper,

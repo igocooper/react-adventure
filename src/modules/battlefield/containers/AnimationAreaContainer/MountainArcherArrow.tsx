@@ -1,13 +1,13 @@
 import React from 'react';
 import { SingleRangeAttackAnimation } from '../../../animation/containers/SingleRangeAttackAnimation';
-import { type Team, type Trooper } from '../../types';
+import type { Team, Trooper } from '../../types';
 
-interface Props {
+type Props = {
   containerNode: HTMLDivElement;
   activeTrooperId?: Trooper['id'];
   selectedTrooperId?: Trooper['id'];
   team?: Team;
-}
+};
 
 export const MountainArcherArrow = (props: Props) => {
   return (

@@ -1,6 +1,6 @@
-interface AnimationInstance {
+type AnimationInstance = {
   play: () => Promise<void>;
-}
+};
 
 export const AreaEffectsAnimationInstances = new Map<
   string,

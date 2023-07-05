@@ -8,9 +8,9 @@ import { Info } from '../../components/Info';
 import { Effect } from '../../components/Effect';
 import { Effects, HoveredContainer, TrooperImage } from '../styled';
 
-interface Props {
+type Props = {
   imageSrc?: string;
-}
+};
 
 export const HoveredPlayer = ({ imageSrc }: Props) => {
   const hoveredTrooper = useSelector(hoveredTrooperSelector);

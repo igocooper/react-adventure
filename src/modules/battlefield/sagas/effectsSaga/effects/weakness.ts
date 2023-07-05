@@ -1,4 +1,4 @@
-import { type ApplyEffectProps, type Effect } from 'modules/battlefield/types';
+import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
 import { put } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import weakness from './icons/weakness.png';

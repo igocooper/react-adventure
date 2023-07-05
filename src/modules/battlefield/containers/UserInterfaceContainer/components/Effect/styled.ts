@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-interface EffectProps {
+type EffectProps = {
   src: string;
-}
+};
 
 export const Container = styled.div`
   position: relative;

@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import type { Team, Trooper } from 'modules/battlefield/types';
 
-interface TileProps {
+type TileProps = {
   $position: number;
   $team: Trooper['team'];
-}
+};
 
 export const Tile = styled.div.attrs(
   (props: { $position: number; $team: Trooper['team'] }) => ({
@@ -104,12 +104,12 @@ export const Center = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-interface CharacterProps {
+type CharacterProps = {
   $enemy: boolean;
   $active: boolean;
   $hovered: boolean;
   $team: Team;
-}
+};
 
 export const Character = styled(Center).attrs((props: CharacterProps) => ({
   className: `character ${props.$team} ${props.$enemy ? 'enemy' : ''} ${

@@ -1,16 +1,16 @@
 import { useRef } from 'react';
 
-interface Props {
+type Props = {
   imageWidth: number;
   imageHeight: number;
-}
+};
 
-interface Keyframe {
+type Keyframe = {
   x: number;
   y: number;
   width: number;
   height: number;
-}
+};
 
 type Keyframes = Record<string, Record<number, Keyframe>>;
 

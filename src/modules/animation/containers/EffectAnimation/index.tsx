@@ -5,7 +5,7 @@ import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { EffectImage } from './styled';
 
-interface Props {
+type Props = {
   containerNode: HTMLDivElement;
   animationDuration: number;
   trooperId?: Trooper['id'];
@@ -13,11 +13,11 @@ interface Props {
   imageWidth: number;
   imageHeight: number;
   imageUrl: string;
-}
+};
 
-interface State {
+type State = {
   isPlaying: boolean;
-}
+};
 
 export class EffectAnimation extends Component<Props, State> {
   constructor(props: Props) {

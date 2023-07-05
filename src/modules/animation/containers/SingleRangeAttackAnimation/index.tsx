@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { type Trooper, type Team } from 'modules/battlefield/types';
+import type { Trooper, Team } from 'modules/battlefield/types';
 import { getElementBoundsWithinContainer } from 'common/helpers';
 import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { RangeAttackImage } from './styled';
 
-interface Props {
+type Props = {
   containerNode: HTMLDivElement;
   animationDuration: number;
   activeTrooperId?: Trooper['id'];
@@ -17,11 +17,11 @@ interface Props {
   imageUrl: string;
   imageAdjustmentY: number;
   imageAdjustmentX: number;
-}
+};
 
-interface State {
+type State = {
   isPlaying: boolean;
-}
+};
 
 export class SingleRangeAttackAnimation extends Component<Props, State> {
   constructor(props: Props) {

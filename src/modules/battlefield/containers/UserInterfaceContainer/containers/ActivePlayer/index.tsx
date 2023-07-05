@@ -16,9 +16,9 @@ import {
   Effects
 } from '../styled';
 
-interface Props {
+type Props = {
   imageSrc?: string;
-}
+};
 
 export const ActivePlayer = ({ imageSrc }: Props) => {
   const activeTrooper = useSelector(activeTrooperSelector);

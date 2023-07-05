@@ -3,11 +3,11 @@ import React from 'react';
 import { Header } from './Header';
 import { Spots } from './Spots';
 
-interface Props {
+type Props = {
   header: string;
   children: React.ReactNode;
   numberOfSpots?: number;
-}
+};
 
 export const Border = ({ children, header, numberOfSpots }: Props) => (
   <BorderOuter>

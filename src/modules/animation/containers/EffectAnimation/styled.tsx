@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import type { EffectName } from 'modules/battlefield/types';
 
-interface EffectImageProps {
+type EffectImageProps = {
   $active?: boolean;
   $animationDuration: number;
   $height: number;
@@ -12,7 +12,7 @@ interface EffectImageProps {
     x: number;
     y: number;
   };
-}
+};
 
 export const EffectImage = styled.div.attrs(
   ({ $attackId }: EffectImageProps) => ({

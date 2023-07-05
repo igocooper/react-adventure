@@ -3,10 +3,10 @@ import { EffectAnimation } from 'modules/animation/containers/EffectAnimation';
 import type { Trooper } from '../../types';
 import { EFFECT } from '../../constants';
 
-interface Props {
+type Props = {
   containerNode: HTMLDivElement;
   trooperId?: Trooper['id'];
-}
+};
 
 export const Block = (props: Props) => {
   return (

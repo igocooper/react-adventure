@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, DurationLabel, Image } from './styled';
 
-interface EffectProps {
+type EffectProps = {
   iconSrc: string;
   duration: number;
-}
+};
 
 export const Effect = ({ iconSrc, duration }: EffectProps) => {
   return (

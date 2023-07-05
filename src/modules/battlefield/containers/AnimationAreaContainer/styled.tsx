@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { TROOPER_TEAM } from '../../constants';
 
-interface AreaProps {
+type AreaProps = {
   $team?: string;
-}
+};
 
 export const Area = styled.div.attrs(({ $team }: AreaProps) => ({
   className: `${$team || ''}`

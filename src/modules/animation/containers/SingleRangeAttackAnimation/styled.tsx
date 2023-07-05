@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-interface RangeAttackImageProps {
+type RangeAttackImageProps = {
   $active?: boolean;
   $animationDuration: number;
   $height: number;
   $width: number;
   $src: string;
-}
+};
 
 export const RangeAttackImage = styled.div<RangeAttackImageProps>`
   opacity: ${({ $active }) => ($active ? 1 : 0)};

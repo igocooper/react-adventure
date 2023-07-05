@@ -31,8 +31,9 @@ module.exports = {
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
-    'yield-star-spacing': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
+    '@typescript-eslint/consistent-type-definitions': 'off',
+    'yield-star-spacing': 'off',
     'generator-star-spacing': 'off',
     semi: 'off'
   }

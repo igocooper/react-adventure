@@ -10,10 +10,10 @@ import { MountainArcherArrow } from './MountainArcherArrow';
 import { Block } from './Block';
 import { Poison } from './Poison';
 
-interface OwnProps {
+type OwnProps = {
   children: React.ReactNode;
   id: string;
-}
+};
 
 export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
   const areaAnimationRef = useRef<HTMLDivElement>(null);

@@ -1,4 +1,4 @@
-import { type Effect, type Trooper } from 'modules/battlefield/types';
+import type { Effect, Trooper } from 'modules/battlefield/types';
 import { put } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/actions';
 import blockIcon from './icons/block.png';

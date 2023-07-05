@@ -37,16 +37,16 @@ export type LocationName =
 export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
 export type AbilityName = 'poison';
 
-export interface ApplyEffectProps {
+export type ApplyEffectProps = {
   activeTrooper: Trooper;
-}
+};
 
 type ApplyDelayedEffect = (
   props: ApplyEffectProps
 ) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
 type ApplyEffect = (props: ApplyEffectProps) => void;
 
-export interface Effect {
+export type Effect = {
   name: EffectName;
   duration: number;
   once?: boolean;
@@ -54,19 +54,19 @@ export interface Effect {
   applyEffect: ApplyEffect | ApplyDelayedEffect;
   cancelEffect?: (props: ApplyEffectProps) => void;
   iconSrc: string;
-}
+};
 
-export interface ApplyAbilityProps {
+export type ApplyAbilityProps = {
   targetTrooper: Trooper;
-}
+};
 
-export interface Ability {
+export type Ability = {
   name: AbilityName;
   hitChance: number;
   applyAbility: (props: ApplyAbilityProps) => void;
-}
+};
 
-export interface Character {
+export type Character = {
   team: Team;
   type: string;
   damage: string;
@@ -78,7 +78,7 @@ export interface Character {
   initiative: number;
   abilities: Ability[];
   defence: number;
-}
+};
 
 export type Trooper = Character & {
   currentHealth: number;

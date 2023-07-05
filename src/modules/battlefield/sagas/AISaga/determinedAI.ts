@@ -9,7 +9,7 @@ import {
 import { ATTACK_TYPE } from '../../constants';
 import { setTrooperCurrentTargetId } from '../../reducers/troopsSlice';
 import { clickOnEnemy, getRandomEnemyId } from './index';
-import { type Trooper } from 'modules/battlefield/types';
+import type { Trooper } from 'modules/battlefield/types';
 import { blockClicked } from '../../actions';
 
 function* setNewCurrentTarget(

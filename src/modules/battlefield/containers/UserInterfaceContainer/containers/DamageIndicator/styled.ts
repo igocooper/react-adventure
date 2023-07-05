@@ -23,12 +23,12 @@ const blow = keyframes`
   }
 `;
 
-interface DamageItemProps {
+type DamageItemProps = {
   $isCriticalDamage?: boolean;
   $isPoison?: boolean;
   $position: { x: number; y: number };
   $miss?: boolean;
-}
+};
 
 export const DamageItem = styled.span<DamageItemProps>`
   opacity: 0;

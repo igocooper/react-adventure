@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import type { Trooper } from 'modules/battlefield/types';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
 
-interface CanvasProps {
+type CanvasProps = {
   $team: Trooper['team'];
-}
+};
 
 export const Canvas = styled.canvas<CanvasProps>`
   transform: ${({ $team }) =>

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface DamageEvent {
+export type DamageEvent = {
   id: number;
   damage: number;
   isEvading?: boolean;
@@ -11,7 +11,7 @@ export interface DamageEvent {
     x: number;
     y: number;
   };
-}
+};
 
 const initialState: DamageEvent[] = [];
 

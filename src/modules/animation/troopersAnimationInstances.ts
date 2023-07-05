@@ -3,7 +3,7 @@ import { itemSlots } from 'common/constants';
 
 const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = itemSlots;
 
-export interface AnimationInstance {
+export type AnimationInstance = {
   attack: () => Promise<void>;
   meleeAttack: (props: {
     characterBounds: DOMRect;
@@ -24,7 +24,7 @@ export interface AnimationInstance {
     [FACE_BLOOD]: boolean;
     [FACE_CUT]: boolean;
   };
-}
+};
 
 export const TroopersAnimationInstances = new Map<
   Trooper['id'],

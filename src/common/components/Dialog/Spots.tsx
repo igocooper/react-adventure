@@ -2,12 +2,12 @@ import { Spot, SpotsWrapper } from './styled';
 import React, { useState } from 'react';
 import { getRandomNumberInRange } from '../../helpers';
 
-interface Props {
+type Props = {
   numberOfSpots?: number;
   color: string;
   maxSize?: number;
   minSize?: number;
-}
+};
 
 const DEFAULT_NUMBER_OF_SPOTS = 15;
 

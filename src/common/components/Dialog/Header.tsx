@@ -7,9 +7,9 @@ import {
 } from './styled';
 import React from 'react';
 
-interface Props {
+type Props = {
   header: string;
-}
+};
 
 export const Header = ({ header }: Props) => (
   <>

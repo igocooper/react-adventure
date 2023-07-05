@@ -38,10 +38,10 @@ const getSconFile = (type: string) => {
   }
 };
 
-interface Props {
+type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
-}
+};
 
 export const getCharacterProps = (type: string): Props => {
   return {

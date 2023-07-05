@@ -7,9 +7,9 @@ export type Element = {
   type: HoveredElementType;
 } | null;
 
-interface State {
+type State = {
   element: Element;
-}
+};
 
 const initialState: State = { element: null };
 

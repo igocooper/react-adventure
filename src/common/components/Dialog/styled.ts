@@ -120,12 +120,12 @@ export const Content = styled.div`
   font-family: fantasy;
 `;
 
-interface SpotProps {
+type SpotProps = {
   $size: number;
   $x: number;
   $y: number;
   $color: string;
-}
+};
 
 export const Spot = styled.div<SpotProps>`
   position: absolute;

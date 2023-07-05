@@ -4,10 +4,10 @@ import { TROOPER_TEAM } from 'modules/battlefield/constants';
 import waitIcon from '../images/wait-icon.png';
 import blockIcon from '../images/block-icon.png';
 
-interface ImageProps {
+type ImageProps = {
   $src?: string;
   $health?: number;
-}
+};
 
 export const TrooperImage = styled.div<ImageProps>`
   width: 200px;
@@ -39,9 +39,9 @@ export const Effects = styled.div`
   flex-wrap: wrap;
 `;
 
-interface ContainerProps {
+type ContainerProps = {
   $teamName: Team;
-}
+};
 
 export const Container = styled.div<ContainerProps>`
   display: flex;
@@ -53,9 +53,9 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-interface IconProps {
+type IconProps = {
   disabled?: boolean;
-}
+};
 
 export const Icon = styled.img<IconProps>`
   position: absolute;

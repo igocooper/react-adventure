@@ -1,12 +1,12 @@
 import { convertToObjectByPosition } from './convertToObjectByPosition';
 import type { Trooper } from '../types';
 
-interface Props {
+type Props = {
   attackers: Trooper[];
   defenders: Trooper[];
   targetHero?: Trooper;
   activePlayer?: Trooper;
-}
+};
 
 export const checkMeleeAttackConstraints = ({
   attackers,

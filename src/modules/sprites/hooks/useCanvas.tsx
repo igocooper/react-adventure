@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 
-interface Props {
+type Props = {
   imageWidth: number;
   imageHeight: number;
-}
+};
 
 export const useCanvas = ({ imageWidth, imageHeight }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

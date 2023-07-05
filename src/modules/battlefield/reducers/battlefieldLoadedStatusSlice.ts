@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Trooper } from '../types';
 
-interface State {
+type State = {
   loadedTroopersIds: Record<Trooper['id'], boolean>;
   isLoaded: boolean;
-}
+};
 
 const initialState: State = {
   loadedTroopersIds: {},

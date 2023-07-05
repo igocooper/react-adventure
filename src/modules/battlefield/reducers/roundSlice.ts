@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface PlayerInfo {
+type PlayerInfo = {
   id: number;
-}
+};
 
-interface State {
+type State = {
   round: number;
   initiative: PlayerInfo[];
   activePlayer: PlayerInfo;
-}
+};
 
 const initialState = {
   round: 0,

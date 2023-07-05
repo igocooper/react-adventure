@@ -3,12 +3,12 @@ import cursorDefaultImg from '../../images/cursors/cursor-default.png';
 import cursorWandImg from '../../images/cursors/cursor-wand.png';
 import cursorBowImg from '../../images/cursors/cursor-bow.png';
 import cursorSwordImg from '../../images/cursors/cursor-sword.png';
-import { type LocationName } from 'modules/battlefield/types';
+import type { LocationName } from 'modules/battlefield/types';
 
-interface LocationProps {
+type LocationProps = {
   $cursor: string;
   $location: LocationName;
-}
+};
 
 export const Location = styled.div.attrs((props: LocationProps) => ({
   className: `location cursor-${props.$cursor}`

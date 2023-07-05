@@ -3,7 +3,7 @@ import {
   applyDamage,
   addDamageEvent as addDamageEventAction
 } from '../actions';
-import { type Trooper } from '../types';
+import type { Trooper } from '../types';
 import { getTileNode } from '../tilesNodesMap';
 
 function* addDamageEvent({

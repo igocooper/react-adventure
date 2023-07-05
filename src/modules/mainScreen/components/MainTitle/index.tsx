@@ -1,9 +1,9 @@
 import React from 'react';
 import { HiglightedTitle, Letter } from './styled';
 
-interface OwnProps {
+type OwnProps = {
   title: string;
-}
+};
 
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 

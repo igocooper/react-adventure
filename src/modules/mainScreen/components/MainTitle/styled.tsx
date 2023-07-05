@@ -24,9 +24,9 @@ export const HiglightedTitle = styled.div`
   justify-content: center;
 `;
 
-interface LetterProps {
+type LetterProps = {
   $i: number;
-}
+};
 
 export const Letter = styled.span<LetterProps>`
   font-size: 60px;

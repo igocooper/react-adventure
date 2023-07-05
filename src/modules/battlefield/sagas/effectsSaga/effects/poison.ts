@@ -1,4 +1,4 @@
-import { type ApplyEffectProps, type Effect } from 'modules/battlefield/types';
+import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
 import { call, put, fork } from 'typed-redux-saga';
 import {
   applyDamage,
