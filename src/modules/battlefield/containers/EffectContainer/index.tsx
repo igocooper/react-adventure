@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { registerEffectNode } from '../../effectsNodesMap';
-import { type Trooper } from '../../types';
+import type { Trooper } from '../../types';
 import { Effect } from './styled';
 
 type Props = Pick<Trooper, 'id'> & {

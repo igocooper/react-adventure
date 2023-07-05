@@ -1,7 +1,7 @@
 import type {
   Ability,
   ApplyAbilityProps,
-  type Trooper
+  Trooper
 } from 'modules/battlefield/types';
 import { call, put } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
