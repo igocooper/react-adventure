@@ -5,7 +5,7 @@ import { EFFECT } from '../../constants';
 
 interface Props {
   containerNode: HTMLDivElement;
-  activeTrooperId?: Trooper['id'];
+  trooperId?: Trooper['id'];
 }
 
 export const Block = (props: Props) => {

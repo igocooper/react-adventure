@@ -8,7 +8,7 @@ import { EffectImage } from './styled';
 interface Props {
   containerNode: HTMLDivElement;
   animationDuration: number;
-  activeTrooperId?: Trooper['id'];
+  trooperId?: Trooper['id'];
   attackId: EffectName;
   imageWidth: number;
   imageHeight: number;
@@ -57,7 +57,7 @@ export class EffectAnimation extends Component<Props, State> {
     const { isPlaying } = this.state;
     const {
       containerNode,
-      activeTrooperId,
+      trooperId,
       animationDuration,
       imageUrl,
       imageWidth,
@@ -65,11 +65,11 @@ export class EffectAnimation extends Component<Props, State> {
       attackId
     } = this.props;
 
-    if (!activeTrooperId) {
+    if (!trooperId) {
       return null;
     }
 
-    const targetNode = getTrooperNode(activeTrooperId);
+    const targetNode = getTrooperNode(trooperId);
     const targetBounds = getElementBoundsWithinContainer(
       targetNode!,
       containerNode

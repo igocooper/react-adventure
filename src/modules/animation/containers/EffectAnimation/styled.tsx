@@ -26,6 +26,7 @@ export const EffectImage = styled.div.attrs(
   left: ${({ $position }) => $position.x}px;
   transform: translate(-50%, -50%);
   z-index: 99;
+  pointer-events: none;
 
   &:before {
     content: '';

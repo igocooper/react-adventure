@@ -15,6 +15,7 @@ export interface AnimationInstance {
   die: () => Promise<void>;
   idle: () => void;
   shoot: () => void;
+  effected: () => Promise<void>;
   images: Record<string, HTMLImageElement>;
   getImage: () => string | undefined;
   bloodSlots: {

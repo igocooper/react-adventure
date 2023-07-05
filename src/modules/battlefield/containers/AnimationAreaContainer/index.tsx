@@ -34,11 +34,11 @@ export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
       />
       <Block
         containerNode={areaAnimationRef.current!}
-        activeTrooperId={activeTrooper?.id}
+        trooperId={activeTrooper?.id}
       />
       <Poison
         containerNode={areaAnimationRef.current!}
-        activeTrooperId={activeTrooper?.id}
+        trooperId={selectedTrooper?.id}
       />
       {children}
     </Area>

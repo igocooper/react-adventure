@@ -25,7 +25,8 @@ export enum itemSlots {
   BOWSTRING = 'Bowstring.png',
   DRAWN_BOWSTRING = 'Drawn Bowstring.png',
   ARROW = 'Arrow.png',
-  QUIVER = 'Quiver.png'
+  QUIVER = 'Quiver.png',
+  EFFECT = 'Effect.png'
 }
 
 export const bodyBloodUrls = [

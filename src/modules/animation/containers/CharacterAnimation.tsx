@@ -268,6 +268,14 @@ export class CharacterAnimation extends Component<Props> {
     this.idle();
   }
 
+  async effected() {
+    cancelAnimationFrame(this.animationRequestId);
+    this.setAnimation('effected');
+    this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
+    await wait(this.anim_length);
+    this.idle();
+  }
+
   renderAnimationLoop(time: number) {
     const dt: number = time - (this.prev_time || time);
     this.prev_time = time;
