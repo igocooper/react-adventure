@@ -13,6 +13,7 @@ export const Container = styled.div`
 
 export const Item = styled.p`
   color: #fff;
+  font-family: fantasy;
 `;
 
 export const Value = styled.span`
