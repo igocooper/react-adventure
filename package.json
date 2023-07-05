@@ -11,11 +11,11 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix src",
+      "eslint src",
       "prettier --write --ignore-unknown src"
     ],
     "json,md": [
-      "eslint --fix",
+      "eslint",
       "prettier --write --ignore-unknown"
     ]
   },

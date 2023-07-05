@@ -30,6 +30,10 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off',
-    '@typescript-eslint/ban-ts-comment': 'off'
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'yield-star-spacing': 'off',
+    '@typescript-eslint/space-before-function-paren': 'off',
+    'generator-star-spacing': 'off',
+    semi: 'off'
   }
 };
