@@ -18,7 +18,6 @@ import { useLocation } from 'common/hooks/useLocation';
 import { TileContainer } from '../TileContainer';
 import { AnimationAreaContainer } from '../AnimationAreaContainer';
 import { UserInterfaceContainer } from '../UserInterfaceContainer';
-import { Dialog } from '../../../../common/components/Dialog';
 
 export const BattlefieldContainer = () => {
   const attackers = useSelector(attackersSelector);
@@ -50,7 +49,6 @@ export const BattlefieldContainer = () => {
 
   return (
     <Location $cursor={cursor} $location={location}>
-      <Dialog header="inventory" />
       <AnimationAreaContainer id="area-container">
         {attackers.map(
           ({ id, position, type, team, currentHealth, health }: Trooper) => (
