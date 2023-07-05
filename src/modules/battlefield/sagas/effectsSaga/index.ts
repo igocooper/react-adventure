@@ -21,7 +21,7 @@ export function* applyEffects(activeTrooper: Trooper) {
           name: effect.name
         })
       );
-      return;
+      continue;
     }
 
     if (!effect.done) {

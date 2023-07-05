@@ -35,7 +35,7 @@ export type LocationName =
   | 'fores-2'
   | 'forest-3';
 export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
-export type AbilityName = 'poison';
+export type AbilityName = 'poison' | 'might';
 
 export interface ApplyEffectProps {
   activeTrooper: Trooper;
@@ -62,7 +62,7 @@ export interface ApplyAbilityProps {
 
 export interface Ability {
   name: AbilityName;
-  hitChance: number;
+  hitChance?: number;
   applyAbility: (props: ApplyAbilityProps) => void;
 }
 
