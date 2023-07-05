@@ -3,7 +3,7 @@ import { getCharacterProps } from '../../../battlefield/helpers/getCharacterProp
 import { CharacterAnimation } from '../../../animation/containers/CharacterAnimation';
 import { getTrooperAnimationInstance } from '../../../animation/troopersAnimationInstances';
 import { updateCharacterImages } from 'common/helpers';
-import { HEADS, ARMORS, WEAPONS, CHARACTER } from '../../constants';
+import {HEADS, ARMORS, WEAPONS, CHARACTER, HELMETS, BEARDS, HAIRS} from '../../constants';
 import { TROOPER_TEAM } from '../../../battlefield/constants';
 
 export const WardrobeContainer = () => {
@@ -16,7 +16,7 @@ export const WardrobeContainer = () => {
       >
         <button
           onClick={() => {
-            const characterAnimation = getTrooperAnimationInstance(1000);
+            const characterAnimation = getTrooperAnimationInstance(CHARACTER.id);
             characterAnimation?.attack();
           }}
         >
@@ -24,7 +24,7 @@ export const WardrobeContainer = () => {
         </button>
         <button
           onClick={() => {
-            const characterAnimation = getTrooperAnimationInstance(1000);
+            const characterAnimation = getTrooperAnimationInstance(CHARACTER.id);
             characterAnimation?.hurt();
           }}
         >
@@ -32,7 +32,7 @@ export const WardrobeContainer = () => {
         </button>
         <button
           onClick={() => {
-            const characterAnimation = getTrooperAnimationInstance(1000);
+            const characterAnimation = getTrooperAnimationInstance(CHARACTER.id);
             characterAnimation?.die();
           }}
         >
@@ -40,7 +40,7 @@ export const WardrobeContainer = () => {
         </button>
         <button
           onClick={() => {
-            const characterAnimation = getTrooperAnimationInstance(1000);
+            const characterAnimation = getTrooperAnimationInstance(CHARACTER.id);
             characterAnimation?.die();
           }}
         >
@@ -60,6 +60,57 @@ export const WardrobeContainer = () => {
           />
         </div>
         <div>
+            <div>
+                <h2>Hairs</h2>
+                {HAIRS.map(({ iconUrl, newCharacterImages }) => (
+                    <img
+                        key={iconUrl}
+                        style={{
+                            height: '50px',
+                            padding: '10px',
+                            border: 'dotted'
+                        }}
+                        onClick={() => {
+                            updateCharacterImages(newCharacterImages, CHARACTER.id);
+                        }}
+                        src={iconUrl}
+                    />
+                ))}
+            </div>
+            <div>
+                <h2>Beards</h2>
+                {BEARDS.map(({ iconUrl, newCharacterImages }) => (
+                    <img
+                        key={iconUrl}
+                        style={{
+                            height: '50px',
+                            padding: '10px',
+                            border: 'dotted'
+                        }}
+                        onClick={() => {
+                            updateCharacterImages(newCharacterImages, CHARACTER.id);
+                        }}
+                        src={iconUrl}
+                    />
+                ))}
+            </div>
+            <div>
+                <h2>Helmets</h2>
+                {HELMETS.map(({ iconUrl, newCharacterImages }) => (
+                    <img
+                        key={iconUrl}
+                        style={{
+                            height: '50px',
+                            padding: '10px',
+                            border: 'dotted'
+                        }}
+                        onClick={() => {
+                            updateCharacterImages(newCharacterImages, CHARACTER.id);
+                        }}
+                        src={iconUrl}
+                    />
+                ))}
+            </div>
           <div>
             <h2>Heads</h2>
             {HEADS.map(({ iconUrl, newCharacterImages }) => (
@@ -71,7 +122,7 @@ export const WardrobeContainer = () => {
                   border: 'dotted'
                 }}
                 onClick={() => {
-                  updateCharacterImages(newCharacterImages, 1000);
+                  updateCharacterImages(newCharacterImages, CHARACTER.id);
                 }}
                 src={iconUrl}
               />
@@ -88,7 +139,7 @@ export const WardrobeContainer = () => {
                   border: 'dotted'
                 }}
                 onClick={() => {
-                  updateCharacterImages(newCharacterImages, 1000);
+                  updateCharacterImages(newCharacterImages, CHARACTER.id);
                 }}
                 src={iconUrl}
               />
@@ -105,7 +156,7 @@ export const WardrobeContainer = () => {
                   border: 'dotted'
                 }}
                 onClick={() => {
-                  updateCharacterImages(newCharacterImages, 1000);
+                  updateCharacterImages(newCharacterImages, CHARACTER.id);
                 }}
                 src={iconUrl}
               />

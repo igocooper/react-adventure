@@ -1,5 +1,9 @@
 export enum itemSlots {
   HEAD = 'Head.png',
+  HEAD_ARMOR = 'Head Armor.png',
+  HEAD_ARMOR_HIGH = 'Head Armor High.png',
+  HEAD_HAIR = 'Head Hair.png',
+  HEAD_BEARD = 'Head Beard.png',
   FACE_01 = 'Face 01.png',
   FACE_02 = 'Face 02.png',
   FACE_03 = 'Face 03.png',
@@ -16,7 +20,12 @@ export enum itemSlots {
   LEFT_HAND = 'Left Hand.png',
   LEFT_HAND_WEAPON = 'Left Hand Weapon.png',
   LEFT_LEG = 'Left Leg.png',
-  SLASH_FX = 'SlashFX.png'
+  SLASH_FX = 'SlashFX.png',
+  BOW = 'Bow.png',
+  BOWSTRING = 'Bowstring.png',
+  DRAWN_BOWSTRING = 'Drawn Bowstring.png',
+  ARROW = 'Arrow.png',
+  QUIVER = 'Quiver.png'
 }
 
 export const bodyBloodUrls = [
