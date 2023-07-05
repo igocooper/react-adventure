@@ -11,7 +11,7 @@ function* addDamageEvent({
 }: {
   payload: {
     id: Trooper['id'];
-    damage: number;
+    damage: number | string;
     isCriticalDamage?: boolean;
     isEvading?: boolean;
     isPoison?: boolean;
@@ -26,7 +26,7 @@ function* addDamageEvent({
   const eventId = Date.now();
   const damageEvent = {
     id: eventId,
-    damage,
+    value: `-${damage}`,
     isCriticalDamage,
     isPoison,
     isEvading,
