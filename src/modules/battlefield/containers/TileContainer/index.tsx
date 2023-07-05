@@ -62,13 +62,15 @@ export const TileContainer = ({
   );
 
   const handleClick = useCallback(() => {
-    dispatch(
-      trooperClicked({
-        id,
-        team
-      })
-    );
-  }, [dispatch, id, team]);
+    if (!isBattlefieldDisabled && currentHealth > 0) {
+      dispatch(
+        trooperClicked({
+          id,
+          team
+        })
+      );
+    }
+  }, [dispatch, id, team, isBattlefieldDisabled]);
 
   const activeTrooper = useSelector(activeTrooperSelector);
   const active = id === activeTrooper?.id;

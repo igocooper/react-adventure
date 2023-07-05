@@ -7,12 +7,13 @@ import {
 } from '../../actions';
 import {
   attackersSelector,
+  battlefieldDisabledStatusSelector,
   battlefieldLoadedStatusSelector,
   battleFieldTroopersToLoadSelector,
   cursorSelector,
   defendersSelector
 } from '../../selectors';
-import { Location } from './styled';
+import { Location, Battlefield } from './styled';
 import type { Trooper } from '../../types';
 import { useLocation } from 'common/hooks/useLocation';
 import { TileContainer } from '../TileContainer';
@@ -22,6 +23,7 @@ import { UserInterfaceContainer } from '../UserInterfaceContainer';
 export const BattlefieldContainer = () => {
   const attackers = useSelector(attackersSelector);
   const defenders = useSelector(defendersSelector);
+  const isBattleFieldDisabled = useSelector(battlefieldDisabledStatusSelector);
   const cursor = useSelector(cursorSelector);
   const troopersToLoad = useSelector(battleFieldTroopersToLoadSelector);
   const battleFieldLoaded = useSelector(battlefieldLoadedStatusSelector);
@@ -48,36 +50,38 @@ export const BattlefieldContainer = () => {
   }, [battleFieldLoaded]);
 
   return (
-    <Location $cursor={cursor} $location={location}>
-      <AnimationAreaContainer id="area-container">
-        {attackers.map(
-          ({ id, position, type, team, currentHealth, health }: Trooper) => (
-            <TileContainer
-              key={id}
-              type={type}
-              id={id}
-              currentHealth={currentHealth}
-              health={health}
-              position={position}
-              team={team}
-            />
-          )
-        )}
-        {defenders.map(
-          ({ id, position, type, team, currentHealth, health }: Trooper) => (
-            <TileContainer
-              key={id}
-              type={type}
-              id={id}
-              currentHealth={currentHealth}
-              health={health}
-              position={position}
-              team={team}
-            />
-          )
-        )}
-      </AnimationAreaContainer>
-      <UserInterfaceContainer />
-    </Location>
+    <Battlefield $disabled={isBattleFieldDisabled}>
+      <Location $cursor={cursor} $location={location}>
+        <AnimationAreaContainer id="area-container">
+          {attackers.map(
+            ({ id, position, type, team, currentHealth, health }: Trooper) => (
+              <TileContainer
+                key={id}
+                type={type}
+                id={id}
+                currentHealth={currentHealth}
+                health={health}
+                position={position}
+                team={team}
+              />
+            )
+          )}
+          {defenders.map(
+            ({ id, position, type, team, currentHealth, health }: Trooper) => (
+              <TileContainer
+                key={id}
+                type={type}
+                id={id}
+                currentHealth={currentHealth}
+                health={health}
+                position={position}
+                team={team}
+              />
+            )
+          )}
+        </AnimationAreaContainer>
+        <UserInterfaceContainer />
+      </Location>
+    </Battlefield>
   );
 };

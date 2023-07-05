@@ -5,6 +5,19 @@ import cursorBowImg from '../../images/cursors/cursor-bow.png';
 import cursorSwordImg from '../../images/cursors/cursor-sword.png';
 import type { LocationName } from 'modules/battlefield/types';
 
+type BattlefieldProps = {
+  $disabled: boolean;
+}
+
+export const Battlefield = styled.div.attrs({
+  className: 'battlefield'
+})<BattlefieldProps>`
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'initial')};
+`;
+
 type LocationProps = {
   $cursor: string;
   $location: LocationName;
