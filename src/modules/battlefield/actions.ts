@@ -47,6 +47,8 @@ export const attackStarted =
 export const attackFinished =
   createAction<Pick<Trooper, 'id' | 'team'>>('attack_finished');
 
+export const abilitiesApplied = createAction('abilities_applied');
+
 export const supportStarted =
   createAction<Pick<Trooper, 'id' | 'team'>>('support_started');
 

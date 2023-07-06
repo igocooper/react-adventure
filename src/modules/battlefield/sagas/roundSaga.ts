@@ -25,7 +25,8 @@ import {
   resetDamageEvents,
   modifyTrooper,
   blockClicked as blockClickedAction,
-  addEffect
+  addEffect,
+  abilitiesApplied
 } from '../actions';
 import {
   roundSelector,
@@ -180,6 +181,7 @@ function* handleTrooperClick({
     }
 
     yield* put(attackStarted(clickedTrooperInfo));
+    yield* take(abilitiesApplied);
 
     yield* take(attackFinished);
   } else {

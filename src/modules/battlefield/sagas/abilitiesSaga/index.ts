@@ -1,5 +1,5 @@
-import { call, select } from 'typed-redux-saga/macro';
-import { applyDamage } from '../../actions';
+import { call, select, put } from 'typed-redux-saga/macro';
+import { applyDamage, abilitiesApplied } from '../../actions';
 import { takeEvery } from 'typed-redux-saga';
 import {
   activeTrooperSelector,
@@ -23,6 +23,8 @@ export function* applyAbilities({
   for (const ability of abilities) {
     yield* call([ability, 'applyAbility'], { targetTrooper });
   }
+
+  yield* put(abilitiesApplied());
 }
 
 export function* abilitiesSagaWatcher() {

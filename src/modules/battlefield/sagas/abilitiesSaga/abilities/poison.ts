@@ -1,5 +1,5 @@
 import type { Ability, ApplyAbilityProps } from 'modules/battlefield/types';
-import { call, fork, put } from 'typed-redux-saga';
+import { call, put } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createPoisonEffect } from '../../effectsSaga/effects';
 import { getRandomNumberInRange } from 'common/helpers';
@@ -31,7 +31,7 @@ export const createPoisonAbility = ({
         EFFECT.POISON
       );
 
-      yield* fork(poisonAnimation!.play);
+      yield* call(poisonAnimation!.play);
 
       yield* put(
         addEffect({

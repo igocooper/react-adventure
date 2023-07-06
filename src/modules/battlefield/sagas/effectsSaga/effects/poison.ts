@@ -47,6 +47,7 @@ export const createPoisonEffect = ({
     );
 
     if (isDying) {
+      yield* call([activeTrooperAnimationInstance!, 'effected']);
       yield* fork([activeTrooperAnimationInstance!, 'die']);
       yield* put(
         removeAllEffects({

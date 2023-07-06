@@ -11,8 +11,8 @@ type Props = {
 export const Poison = (props: Props) => {
   return (
     <EffectAnimation
-      imageWidth={75}
-      imageHeight={75}
+      imageWidth={65}
+      imageHeight={65}
       attackId={EFFECT.POISON}
       animationDuration={500}
       imageUrl="/images/effects/poison.png"
