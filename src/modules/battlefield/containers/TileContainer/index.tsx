@@ -16,6 +16,7 @@ import {
 } from '../../selectors';
 import { Character, Tile } from './styled';
 import { HealthBar } from '../../components/HealthBar';
+import { EffectContainer } from '../EffectContainer';
 import { registerTileNode } from '../../tilesNodesMap';
 
 type CharacterProps = Pick<
@@ -87,22 +88,24 @@ export const TileContainer = ({
       onClick={handleClick}
     >
       {hovered && <HealthBar currentHealth={currentHealth} health={health} />}
-      <Character
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-        $team={team}
-        $enemy={!active && team !== activeTrooper?.team}
-        $active={active}
-        $hovered={hovered}
-      >
-        <CharacterAnimation
-          {...getCharacterProps(type)}
-          id={id}
-          team={team}
-          onLoad={handleLoad}
-        />
-      </Character>
+      <EffectContainer id={id}>
+        <Character
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
+          $team={team}
+          $enemy={!active && team !== activeTrooper?.team}
+          $active={active}
+          $hovered={hovered}
+        >
+          <CharacterAnimation
+            {...getCharacterProps(type)}
+            id={id}
+            team={team}
+            onLoad={handleLoad}
+          />
+        </Character>
+      </EffectContainer>
     </Tile>
   );
 };

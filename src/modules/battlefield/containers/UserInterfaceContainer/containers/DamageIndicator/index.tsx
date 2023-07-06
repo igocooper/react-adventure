@@ -13,7 +13,7 @@ export const DamageIndicatorContainer = () => {
   return (
     <DamageIndicator>
       {damageEvents.map(
-        ({ id, damage, position, isCriticalDamage, isEvading, isPoison }) => {
+        ({ id, value, position, isCriticalDamage, isEvading, isPoison }) => {
           return (
             <DamageItem
               key={id}
@@ -23,7 +23,7 @@ export const DamageIndicatorContainer = () => {
               $isPoison={isPoison}
             >
               {isCriticalDamage && !isEvading && 'Crit: '}
-              {!isEvading && `-${damage}`}
+              {!isEvading && value}
               {isEvading && 'Miss'}
             </DamageItem>
           );
