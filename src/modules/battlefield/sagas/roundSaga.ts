@@ -177,6 +177,7 @@ function* handleTrooperClick({
         !canMeleeTrooperAttack) ||
       isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
     ) {
+      yield* put(setBattlefieldStatus(false));
       return;
     }
 
