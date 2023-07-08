@@ -10,6 +10,8 @@ import { MountainArcherArrow } from './MountainArcherArrow';
 import { Block } from './Block';
 import { Poison } from './Poison';
 import { Anchor } from './Anchor';
+import { IceSpikes } from './IceSpikes';
+import { Kraken } from './Kraken';
 
 type OwnProps = {
   children: React.ReactNode;
@@ -45,6 +47,8 @@ export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
         containerNode={areaAnimationRef.current!}
         trooperId={activeTrooper?.id}
       />
+      <IceSpikes />
+      <Kraken />
       {children}
     </Area>
   );

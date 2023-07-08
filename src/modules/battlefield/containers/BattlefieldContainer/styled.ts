@@ -7,7 +7,7 @@ import type { LocationName } from 'modules/battlefield/types';
 
 type BattlefieldProps = {
   $disabled: boolean;
-}
+};
 
 export const Battlefield = styled.div.attrs({
   className: 'battlefield'

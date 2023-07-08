@@ -35,6 +35,8 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': 'off',
     'yield-star-spacing': 'off',
     'generator-star-spacing': 'off',
+    'quote-props': 'off',
+    '@typescript-eslint/promise-function-async': 'off',
     semi: 'off'
   }
 };

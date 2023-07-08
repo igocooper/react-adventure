@@ -256,6 +256,15 @@ export class CharacterAnimation extends Component<Props> {
     this.idle();
   }
 
+  async cast() {
+    cancelAnimationFrame(this.animationRequestId);
+    this.setAnimation('cast_with_wand');
+    this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
+
+    await wait(this.anim_length);
+    this.idle();
+  }
+
   async shoot() {
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation('shoot_with_bow');

@@ -193,7 +193,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     id: 101,
     initiative: 13,
     abilities: [],
-    AIType: AI_TYPE.STRATEGIC,
+    // AIType: AI_TYPE.STRATEGIC,
     effects: []
   },
   {
@@ -209,7 +209,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     id: 102,
     initiative: 25,
     abilities: [],
-    AIType: AI_TYPE.STRATEGIC,
+    // AIType: AI_TYPE.STRATEGIC,
     effects: []
   },
   {
