@@ -1,4 +1,11 @@
-import { takeLatest, put, select, call, fork } from 'typed-redux-saga/macro';
+import {
+  takeLatest,
+  put,
+  select,
+  call,
+  fork,
+  all
+} from 'typed-redux-saga/macro';
 import { attackStarted, attackFinished, applyDamage } from '../actions';
 import { getTileNode } from '../tilesNodesMap';
 
@@ -14,9 +21,10 @@ import {
   getRandomNumberInRange
 } from 'common/helpers';
 import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
-import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
-import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
+import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
+import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getTrooperNode } from '../troopersNodesMap';
+import { applyAbilities } from './abilitiesSaga';
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   const { criticalChance, criticalMultiplier } = activeTrooper;
@@ -136,8 +144,27 @@ function* playAttackAnimation({
   });
 
   if (isDying) {
-    yield* fork([attackedTrooperAnimationInstance!, 'die']);
+    yield* all([
+      call(applyAbilities, { id: selectedTrooperInfo.id }),
+      call([attackedTrooperAnimationInstance!, 'die']),
+      put(
+        applyDamage({
+          damage,
+          team: selectedTrooperInfo.team,
+          id: selectedTrooperInfo.id,
+          isEvading,
+          isCriticalDamage
+        })
+      ),
+      call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
+        tileNode
+      })
+    ]);
 
+    return;
+  }
+
+  if (isEvading) {
     yield* put(
       applyDamage({
         damage,
@@ -151,27 +178,24 @@ function* playAttackAnimation({
     yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
       tileNode
     });
-
-    return;
   }
 
-  if (!isEvading) {
-    yield* fork([attackedTrooperAnimationInstance!, 'hurt']);
-  }
-
-  yield* put(
-    applyDamage({
-      damage,
-      team: selectedTrooperInfo.team,
-      id: selectedTrooperInfo.id,
-      isEvading,
-      isCriticalDamage
+  yield* all([
+    call([attackedTrooperAnimationInstance!, 'hurt']),
+    call(applyAbilities, { id: selectedTrooperInfo.id }),
+    put(
+      applyDamage({
+        damage,
+        team: selectedTrooperInfo.team,
+        id: selectedTrooperInfo.id,
+        isEvading,
+        isCriticalDamage
+      })
+    ),
+    call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
+      tileNode
     })
-  );
-
-  yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
-    tileNode
-  });
+  ]);
 }
 
 function* attack({
@@ -223,15 +247,18 @@ function* attack({
       });
     }
 
-    yield* put(
-      applyDamage({
-        damage,
-        team: selectedTrooperInfo.team,
-        id: selectedTrooperInfo.id,
-        isEvading,
-        isCriticalDamage
-      })
-    );
+    yield* all([
+      call(applyAbilities, { id: selectedTrooperInfo.id }),
+      put(
+        applyDamage({
+          damage,
+          team: selectedTrooperInfo.team,
+          id: selectedTrooperInfo.id,
+          isEvading,
+          isCriticalDamage
+        })
+      )
+    ]);
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.MELEE) {

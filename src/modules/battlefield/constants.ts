@@ -1,5 +1,9 @@
 import type { Trooper } from './types';
-import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
+import {
+  createPoisonAbility,
+  createMightAbility,
+  createAnchorAbility
+} from './sagas/abilitiesSaga/abilities';
 import {
   createPoisonEffect,
   createAnchorEffect
@@ -111,7 +115,12 @@ const ATTACKERS_TROOPS: Trooper[] = [
         duration: 1,
         damage: 15,
         hitChance: 100
-      })
+      }),
+      createMightAbility({
+        duration: 1,
+        multiplier: 2
+      }),
+      createAnchorAbility({ duration: 1 })
     ],
     // AIType: AI_TYPE.DETERMINED
     effects: []
