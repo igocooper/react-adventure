@@ -70,7 +70,11 @@ export const WardrobeContainer = () => {
       >
         <div>
           <CharacterAnimation
-            {...getCharacterProps(CHARACTER.type)}
+            {...getCharacterProps({
+              type: CHARACTER.type,
+              equipment: CHARACTER.equipment,
+              appearance: CHARACTER.appearance
+            })}
             id={CHARACTER.id}
             team={TROOPER_TEAM.ATTACKERS}
           />

@@ -54,7 +54,16 @@ export const BattlefieldContainer = () => {
       <Location $cursor={cursor} $location={location}>
         <AnimationAreaContainer>
           {attackers.map(
-            ({ id, position, type, team, currentHealth, health }: Trooper) => (
+            ({
+              id,
+              position,
+              type,
+              team,
+              currentHealth,
+              health,
+              equipment,
+              appearance
+            }: Trooper) => (
               <TileContainer
                 key={id}
                 type={type}
@@ -63,11 +72,22 @@ export const BattlefieldContainer = () => {
                 health={health}
                 position={position}
                 team={team}
+                equipment={equipment}
+                appearance={appearance}
               />
             )
           )}
           {defenders.map(
-            ({ id, position, type, team, currentHealth, health }: Trooper) => (
+            ({
+              id,
+              position,
+              type,
+              team,
+              currentHealth,
+              health,
+              equipment,
+              appearance
+            }: Trooper) => (
               <TileContainer
                 key={id}
                 type={type}
@@ -76,6 +96,8 @@ export const BattlefieldContainer = () => {
                 health={health}
                 position={position}
                 team={team}
+                equipment={equipment}
+                appearance={appearance}
               />
             )
           )}

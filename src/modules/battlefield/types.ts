@@ -1,13 +1,23 @@
 import type { CallEffect } from 'redux-saga/effects';
-export type AttackType = 'melee' | 'range' | 'splash';
-export type Team = 'attackers' | 'defenders';
+import type { Character } from 'common/types';
+
+export type {
+  Ability,
+  ApplyAbilityProps,
+  Team,
+  AttackType
+} from 'common/types';
+
 export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
+
 export type HoveredElementType = 'default' | 'character';
+
 export type bloodItemSlot =
   | 'Body Blood.png'
   | 'Body Cut.png'
   | 'Face Blood.png'
   | 'Face Cut.png';
+
 export type LocationName =
   | 'forest-road'
   | 'castle-dungeon'
@@ -34,8 +44,8 @@ export type LocationName =
   | 'elven-forest'
   | 'fores-2'
   | 'forest-3';
+
 export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
-export type AbilityName = 'poison' | 'might' | 'anchor';
 
 export type ApplyEffectProps = {
   activeTrooper: Trooper;
@@ -44,6 +54,7 @@ export type ApplyEffectProps = {
 type ApplyDelayedEffect = (
   props: ApplyEffectProps
 ) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
+
 type ApplyEffect = (props: ApplyEffectProps) => void;
 
 export type Effect = {
@@ -54,30 +65,6 @@ export type Effect = {
   applyEffect: ApplyEffect | ApplyDelayedEffect;
   cancelEffect?: (props: ApplyEffectProps) => void;
   iconSrc: string;
-};
-
-export type ApplyAbilityProps = {
-  targetTrooper: Trooper;
-};
-
-export type Ability = {
-  name: AbilityName;
-  hitChance?: number;
-  applyAbility: (props: ApplyAbilityProps) => void;
-};
-
-export type Character = {
-  team: Team;
-  type: string;
-  damage: string;
-  attackType: AttackType;
-  attackId?: string;
-  position: number;
-  health: number;
-  id: number;
-  initiative: number;
-  abilities: Ability[];
-  defence: number;
 };
 
 export type Trooper = Character & {

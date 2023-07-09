@@ -1,4 +1,4 @@
-export enum itemSlots {
+export enum CHARACTER_IMAGE_SLOT {
   HEAD = 'Head.png',
   HEAD_ARMOR = 'Head Armor.png',
   HEAD_ARMOR_HIGH = 'Head Armor High.png',
@@ -29,7 +29,7 @@ export enum itemSlots {
   EFFECT = 'Effect.png'
 }
 
-export const bodyBloodUrls = [
+export const BODY_BLOOD_URLS = [
   '/images/blood/Body Blood.png',
   '/images/blood/Body Blood 01.png',
   '/images/blood/Body Blood 02.png',
@@ -42,7 +42,7 @@ export const bodyBloodUrls = [
   '/images/blood/Body Blood 09.png'
 ];
 
-export const bodyCutUrls = [
+export const BODY_CUT_URLS = [
   '/images/blood/Body Cut.png',
   '/images/blood/Body Cut 01.png',
   '/images/blood/Body Cut 02.png',
@@ -54,7 +54,7 @@ export const bodyCutUrls = [
   '/images/blood/Body Cut 08.png'
 ];
 
-export const faceBloodUrls = [
+export const FACE_BLOOD_URLS = [
   '/images/blood/Face Blood.png',
   '/images/blood/Face Blood 01.png',
   '/images/blood/Face Blood 02.png',
@@ -69,7 +69,7 @@ export const faceBloodUrls = [
   '/images/blood/Face Blood 11.png'
 ];
 
-export const faceCutUrls = [
+export const FACE_CUT_URLS = [
   '/images/blood/Face Cut.png',
   '/images/blood/Face Cut 01.png',
   '/images/blood/Face Cut 02.png',
@@ -81,3 +81,10 @@ export const faceCutUrls = [
   '/images/blood/Face Cut 08.png',
   '/images/blood/Face Cut 09.png'
 ];
+
+export enum HELMET_TYPE {
+  FULL_FACE = 'full-face',
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small'
+}

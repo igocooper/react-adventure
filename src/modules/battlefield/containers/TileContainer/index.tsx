@@ -21,7 +21,14 @@ import { registerTileNode } from '../../tilesNodesMap';
 
 type CharacterProps = Pick<
   Trooper,
-  'id' | 'type' | 'team' | 'position' | 'currentHealth' | 'health'
+  | 'id'
+  | 'type'
+  | 'team'
+  | 'position'
+  | 'currentHealth'
+  | 'health'
+  | 'appearance'
+  | 'equipment'
 >;
 
 export const TileContainer = ({
@@ -30,7 +37,9 @@ export const TileContainer = ({
   team,
   position,
   currentHealth,
-  health
+  health,
+  equipment,
+  appearance
 }: CharacterProps) => {
   const dispatch = useDispatch();
   const hoveredElement = useSelector(hoveredElementSelector);
@@ -99,7 +108,11 @@ export const TileContainer = ({
           $hovered={hovered}
         >
           <CharacterAnimation
-            {...getCharacterProps(type)}
+            {...getCharacterProps({
+              type,
+              appearance,
+              equipment
+            })}
             id={id}
             team={team}
             onLoad={handleLoad}

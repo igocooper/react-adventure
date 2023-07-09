@@ -4,6 +4,9 @@ import {
   createPoisonEffect,
   createAnchorEffect
 } from './sagas/effectsSaga/effects';
+import { fullHelmet } from 'configs/helmets';
+import { golemSword } from 'configs/swords';
+import { torugArmor } from 'configs/armors';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -79,7 +82,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
   {
     team: 'attackers',
     type: 'mountain-warrior-4',
-    damage: '25-60',
+    damage: '10-25',
     attackId: 'ice-spikes',
     criticalChance: 50,
     criticalMultiplier: 2,
@@ -90,13 +93,13 @@ const ATTACKERS_TROOPS: Trooper[] = [
     defence: 0,
     id: 1,
     initiative: 99,
-    // AIType: AI_TYPE.DETERMINED
     abilities: [],
-    effects: []
+    effects: [],
+    equipment: {}
   },
   {
     team: 'attackers',
-    type: 'torug',
+    type: 'hero',
     damage: '10-15',
     criticalChance: 50,
     criticalMultiplier: 2,
@@ -107,14 +110,21 @@ const ATTACKERS_TROOPS: Trooper[] = [
     defence: 0,
     id: 2,
     initiative: 15,
-    abilities: [
-      createPoisonAbility({
-        duration: 1,
-        damage: 15,
-        hitChance: 100
-      })
-    ],
-    // AIType: AI_TYPE.DETERMINED
+    abilities: [],
+    equipment: {
+      helmet: fullHelmet,
+      leftHand: golemSword,
+      armor: torugArmor
+    },
+    appearance: {
+      headEarless: '/images/hero/Head Earless.png',
+      head: '/images/hero/Head.png',
+      headBeard: '/images/hero/Head Beard.png',
+      headHair: '/images/hero/Head Hair.png',
+      face01: '/images/hero/Face 01.png',
+      face02: '/images/hero/Face 02.png',
+      face03: '/images/hero/Face 03.png'
+    },
     effects: []
   },
   {
@@ -132,8 +142,8 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 3,
     initiative: 3,
     abilities: [],
-    // AIType: AI_TYPE.DETERMINED
-    effects: []
+    effects: [],
+    equipment: {}
   }
   // {
   //   team: 'attackers',
@@ -186,7 +196,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
     initiative: 13,
     abilities: [],
     // AIType: AI_TYPE.STRATEGIC,
-    effects: []
+    effects: [],
+    equipment: {}
   },
   {
     team: 'defenders',
@@ -202,7 +213,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
     initiative: 25,
     abilities: [],
     // AIType: AI_TYPE.STRATEGIC,
-    effects: []
+    effects: [],
+    equipment: {}
   },
   {
     team: 'defenders',
@@ -232,7 +244,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
         damage: 15,
         duration: 2
       })
-    ]
+    ],
+    equipment: {}
   }
   // {
   //   team: 'defenders',

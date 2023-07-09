@@ -17,7 +17,8 @@ module.exports = {
       Root: paths.srcDir,
       store: paths.storeDir,
       modules: paths.modulesDir,
-      common: paths.commonDir
+      common: paths.commonDir,
+      configs: paths.configsDir
     },
     extensions: ['.tsx', '.ts', '.js']
   },
