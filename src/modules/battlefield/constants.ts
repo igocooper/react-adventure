@@ -1,9 +1,5 @@
 import type { Trooper } from './types';
-import {
-  createPoisonAbility,
-  createMightAbility,
-  createAnchorAbility
-} from './sagas/abilitiesSaga/abilities';
+import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 import {
   createPoisonEffect,
   createAnchorEffect
@@ -82,17 +78,18 @@ export enum LOCATION {
 const ATTACKERS_TROOPS: Trooper[] = [
   {
     team: 'attackers',
-    type: 'mountain-warrior-1',
-    damage: '10-15',
+    type: 'mountain-warrior-4',
+    damage: '25-60',
+    attackId: 'ice-spikes',
     criticalChance: 50,
     criticalMultiplier: 2,
-    attackType: 'melee',
+    attackType: 'splash',
     position: 1,
     health: 50,
     currentHealth: 50,
     defence: 0,
     id: 1,
-    initiative: 5,
+    initiative: 99,
     // AIType: AI_TYPE.DETERMINED
     abilities: [],
     effects: []
@@ -115,12 +112,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
         duration: 1,
         damage: 15,
         hitChance: 100
-      }),
-      createMightAbility({
-        duration: 1,
-        multiplier: 2
-      }),
-      createAnchorAbility({ duration: 1 })
+      })
     ],
     // AIType: AI_TYPE.DETERMINED
     effects: []
@@ -193,7 +185,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     id: 101,
     initiative: 13,
     abilities: [],
-    AIType: AI_TYPE.STRATEGIC,
+    // AIType: AI_TYPE.STRATEGIC,
     effects: []
   },
   {
@@ -209,7 +201,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     id: 102,
     initiative: 25,
     abilities: [],
-    AIType: AI_TYPE.STRATEGIC,
+    // AIType: AI_TYPE.STRATEGIC,
     effects: []
   },
   {
@@ -279,3 +271,5 @@ const DEFENDERS_TROOPS: Trooper[] = [
 
 export const ATTACKERS = ATTACKERS_TROOPS;
 export const DEFENDERS = DEFENDERS_TROOPS;
+
+export const AREA_CONTAINER_ID = 'area-container';

@@ -20,11 +20,22 @@ import {
   getElementBoundsWithinContainer,
   getRandomNumberInRange
 } from 'common/helpers';
-import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
+import { AREA_CONTAINER_ID, ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getTrooperNode } from '../troopersNodesMap';
 import { applyAbilities } from './abilitiesSaga';
+
+function* getEnemyCoordinates(id: Trooper['id']) {
+  const tileNode = getTileNode(id);
+  const areaContainer = document.getElementById(AREA_CONTAINER_ID);
+  const { x, width, height, y } = getElementBoundsWithinContainer(
+    tileNode!,
+    areaContainer!
+  );
+
+  return { x: x + width / 2, y: y + height / 2 };
+}
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   const { criticalChance, criticalMultiplier } = activeTrooper;
@@ -125,7 +136,7 @@ function* playAttackAnimation({
   );
   const activeTrooperNode = getTrooperNode(activeTrooperId);
   const attackedTrooperNode = getTrooperNode(selectedTrooperInfo.id);
-  const containerNode = document.getElementById('area-container');
+  const containerNode = document.getElementById(AREA_CONTAINER_ID);
   const activeTrooperBounds = getElementBoundsWithinContainer(
     activeTrooperNode!,
     containerNode!
@@ -198,6 +209,52 @@ function* playAttackAnimation({
   ]);
 }
 
+function* handleEnemyTrooperDamage({
+  enemyTrooper,
+  activeTrooper
+}: {
+  enemyTrooper: Trooper;
+  activeTrooper: Trooper;
+}) {
+  const { damage, isCriticalDamage, isEvading, isDying } = calculateDamage(
+    enemyTrooper,
+    activeTrooper
+  );
+
+  const attackedTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    enemyTrooper.id
+  );
+
+  if (isDying) {
+    yield* fork([attackedTrooperAnimationInstance!, 'die']);
+    yield* put(
+      applyDamage({
+        damage,
+        team: enemyTrooper.team,
+        id: enemyTrooper.id,
+        isEvading,
+        isCriticalDamage
+      })
+    );
+    return;
+  }
+
+  if (!isEvading) {
+    yield* fork([attackedTrooperAnimationInstance!, 'hurt']);
+  }
+
+  yield* put(
+    applyDamage({
+      damage,
+      team: enemyTrooper.team,
+      id: enemyTrooper.id,
+      isEvading,
+      isCriticalDamage
+    })
+  );
+}
+
 function* attack({
   payload: selectedTrooperInfo
 }: {
@@ -219,21 +276,40 @@ function* attack({
         : defendersSelector;
     const enemyTeam = yield* select(teamSelector);
 
-    for (const enemyTrooper of enemyTeam) {
-      const { damage } = calculateDamage(enemyTrooper, activeTrooper);
+    const activeTrooperAnimationInstance = yield* call(
+      getTrooperAnimationInstance,
+      activeTrooper.id
+    );
 
-      yield* put(
-        applyDamage({
-          damage,
-          team: selectedTrooperInfo.team,
-          id: selectedTrooperInfo.id,
-          isEvading,
-          isCriticalDamage
-        })
-      );
+    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+
+    const tasks = [];
+    const coordinates = [];
+
+    for (const enemyTrooper of enemyTeam) {
+      if (enemyTrooper.currentHealth > 0) {
+        tasks.push(
+          call(handleEnemyTrooperDamage, {
+            activeTrooper,
+            enemyTrooper
+          })
+        );
+
+        // TODO: decide how abilities should apply for splash attack
+        const coordinate = yield* call(getEnemyCoordinates, enemyTrooper.id);
+
+        coordinates.push(coordinate);
+      }
     }
 
-    return;
+    const attackAnimation = yield* call(
+      getAreaEffectAnimationInstance,
+      activeTrooper.attackId!
+    );
+
+    yield* call([attackAnimation!, 'play'], coordinates);
+
+    yield* all(tasks);
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.RANGE) {

@@ -1,5 +1,7 @@
+import type { Coordinates } from 'modules/battlefield/types';
+
 type AnimationInstance = {
-  play: () => Promise<void>;
+  play: (props?: Coordinates) => Promise<void>;
 };
 
 export const AreaEffectsAnimationInstances = new Map<

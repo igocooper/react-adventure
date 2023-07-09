@@ -13,6 +13,7 @@ export type AnimationInstance = {
   meleeGoBack: (props: { tileNode: HTMLDivElement }) => Promise<void>;
   hurt: () => Promise<void>;
   die: () => Promise<void>;
+  cast: () => Promise<void>;
   idle: () => void;
   shoot: () => void;
   effected: () => Promise<void>;

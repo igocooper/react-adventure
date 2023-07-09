@@ -91,6 +91,13 @@ export type Trooper = Character & {
   hasWaited?: boolean;
 };
 
+export type Coordinate = {
+  x: number;
+  y: number;
+};
+
+export type Coordinates = Coordinate[];
+
 declare global {
   type Nullable<T> = T | null;
 }

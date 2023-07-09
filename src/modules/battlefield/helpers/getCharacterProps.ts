@@ -23,8 +23,12 @@ const getUrls = (type: string) => {
     [itemSlots.ARROW]: `/images/${type}/Arrow.png`,
     [itemSlots.QUIVER]: `/images/${type}/Quiver.png`,
     // Hero
-    [itemSlots.HEAD_HAIR]: `/images/${type}/Head Hair.png`,
-    [itemSlots.HEAD_BEARD]: `/images/${type}/Head Beard.png`
+    ...(type === 'hero'
+      ? {
+          [itemSlots.HEAD_HAIR]: `/images/${type}/Head Hair.png`,
+          [itemSlots.HEAD_BEARD]: `/images/${type}/Head Beard.png`
+        }
+      : {})
   };
 };
 
