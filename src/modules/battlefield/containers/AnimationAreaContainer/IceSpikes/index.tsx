@@ -8,8 +8,8 @@ type State = {
   coordinates: Coordinates;
 };
 
-const FRAME_WIDTH = 185;
-const FRAME_HEIGHT = 146;
+const FRAME_WIDTH = 256;
+const FRAME_HEIGHT = 256;
 
 const prepareCoordinates = (coordinates: Coordinates) =>
   coordinates.map((coordinate) => {

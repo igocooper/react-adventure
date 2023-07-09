@@ -281,7 +281,7 @@ function* attack({
       activeTrooper.id
     );
 
-    yield* call([activeTrooperAnimationInstance!, 'cast']);
+    yield* fork([activeTrooperAnimationInstance!, 'cast']);
 
     const tasks = [];
     const coordinates = [];
