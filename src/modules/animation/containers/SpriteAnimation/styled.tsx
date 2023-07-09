@@ -28,4 +28,5 @@ export const MagicEffect = styled.div<MagicEffectProps>`
     }${typeof $bgPosition.x === 'number' ? 'px' : ''}`};
   background-image: url('${({ $src }) => $src}');
   z-index: 99;
+  pointer-events: none;
 `;
