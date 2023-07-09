@@ -6,8 +6,8 @@ type MagicEffectProps = {
   $width: number;
   $src: string;
   $position: {
-    x: number;
-    y: number;
+    x: number | string;
+    y: number | string;
   };
   $bgPosition: {
     x: number;
@@ -23,7 +23,9 @@ export const MagicEffect = styled.div<MagicEffectProps>`
   width: ${({ $width }) => $width}px;
   height: ${({ $height }) => $height}px;
   background-position: ${({ $bgPosition }) =>
-    `${$bgPosition.x}px ${$bgPosition.y}px`};
+    `${$bgPosition.x}${typeof $bgPosition.x === 'number' ? 'px' : ''} ${
+      $bgPosition.y
+    }${typeof $bgPosition.x === 'number' ? 'px' : ''}`};
   background-image: url('${({ $src }) => $src}');
   z-index: 99;
 `;

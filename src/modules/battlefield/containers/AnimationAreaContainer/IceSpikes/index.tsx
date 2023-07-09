@@ -20,7 +20,7 @@ const prepareCoordinates = (coordinates: Coordinates) =>
     };
   });
 
-export class IceSpikes extends Component<undefined, State> {
+export class IceSpikes extends Component<unknown, State> {
   // ts-ignore
   spikesRefs: Array<React.RefObject<any>>;
 

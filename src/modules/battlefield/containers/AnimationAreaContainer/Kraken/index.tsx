@@ -5,19 +5,14 @@ import frames from './frames';
 import { activeTeamNameSelector } from 'modules/battlefield/selectors';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
 
+const FRAME_WIDTH = 384;
+
 export const Kraken = () => {
   const activeTeamName = useSelector(activeTeamNameSelector);
-  // TODO: calculate correct position
   const position =
     activeTeamName === TROOPER_TEAM.ATTACKERS
-      ? {
-          x: 500,
-          y: 50
-        }
-      : {
-          x: 0,
-          y: 0
-        };
+      ? { x: `calc(50% + ${FRAME_WIDTH / 2}px)`, y: 50 }
+      : { x: 0, y: 50 };
 
   return (
     <SpriteAnimation

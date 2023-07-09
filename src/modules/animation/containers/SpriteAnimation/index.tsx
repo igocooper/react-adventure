@@ -11,8 +11,8 @@ type Props = {
   src: string;
   frames: Frames;
   position: {
-    x: number;
-    y: number;
+    x: number | string;
+    y: number | string;
   };
   className?: string;
 };

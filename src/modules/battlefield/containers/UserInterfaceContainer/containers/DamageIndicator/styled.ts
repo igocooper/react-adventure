@@ -2,7 +2,9 @@ import styled, { keyframes } from 'styled-components';
 
 const POSITION_ADJUSTMENT = 70;
 
-export const DamageIndicator = styled.div`
+export const DamageIndicator = styled.div.attrs({
+  className: 'damaga-indicator'
+})`
   width: 100%;
   height: 100%;
   position: relative;

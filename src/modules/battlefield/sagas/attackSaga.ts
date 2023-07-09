@@ -20,7 +20,7 @@ import {
   getElementBoundsWithinContainer,
   getRandomNumberInRange
 } from 'common/helpers';
-import { ATTACK_TYPE, TROOPER_TEAM } from '../constants';
+import { AREA_CONTAINER_ID, ATTACK_TYPE, TROOPER_TEAM } from '../constants';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getTrooperNode } from '../troopersNodesMap';
@@ -28,7 +28,7 @@ import { applyAbilities } from './abilitiesSaga';
 
 function* getEnemyCoordinates(id: Trooper['id']) {
   const tileNode = getTileNode(id);
-  const areaContainer = document.getElementById('area-container');
+  const areaContainer = document.getElementById(AREA_CONTAINER_ID);
   const { x, width, height, y } = getElementBoundsWithinContainer(
     tileNode!,
     areaContainer!
@@ -136,7 +136,7 @@ function* playAttackAnimation({
   );
   const activeTrooperNode = getTrooperNode(activeTrooperId);
   const attackedTrooperNode = getTrooperNode(selectedTrooperInfo.id);
-  const containerNode = document.getElementById('area-container');
+  const containerNode = document.getElementById(AREA_CONTAINER_ID);
   const activeTrooperBounds = getElementBoundsWithinContainer(
     activeTrooperNode!,
     containerNode!

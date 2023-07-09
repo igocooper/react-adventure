@@ -12,13 +12,13 @@ import { Poison } from './Poison';
 import { Anchor } from './Anchor';
 import { IceSpikes } from './IceSpikes';
 import { Kraken } from './Kraken';
+import { AREA_CONTAINER_ID } from '../../constants';
 
 type OwnProps = {
   children: React.ReactNode;
-  id: string;
 };
 
-export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
+export const AnimationAreaContainer = ({ children }: OwnProps) => {
   const areaAnimationRef = useRef<HTMLDivElement>(null);
   const activeTrooper = useSelector(activeTrooperSelector);
   const hoveredElement = useSelector(hoveredElementSelector);
@@ -28,7 +28,7 @@ export const AnimationAreaContainer = ({ children, id }: OwnProps) => {
   const team = activeTrooper?.team;
 
   return (
-    <Area ref={areaAnimationRef} $team={team} id={id}>
+    <Area ref={areaAnimationRef} $team={team} id={AREA_CONTAINER_ID}>
       <MountainArcherArrow
         team={team}
         containerNode={areaAnimationRef.current!}
