@@ -3,11 +3,11 @@ import { applyDamage } from '../actions';
 import { makeCharacterByIdSelector } from '../selectors';
 import { getRandomArrayElement, updateCharacterImages } from 'common/helpers';
 import {
-  bodyBloodUrls,
-  bodyCutUrls,
-  faceBloodUrls,
-  faceCutUrls,
-  itemSlots
+  BODY_BLOOD_URLS,
+  BODY_CUT_URLS,
+  FACE_BLOOD_URLS,
+  FACE_CUT_URLS,
+  CHARACTER_IMAGE_SLOT
 } from 'common/constants';
 import { getTrooperAnimationInstance } from '../../animation/troopersAnimationInstances';
 
@@ -57,45 +57,45 @@ function* addBlood({
   const { bloodSlots } = characterAnimation;
 
   if (
-    !bloodSlots[itemSlots.BODY_BLOOD] &&
+    !bloodSlots[CHARACTER_IMAGE_SLOT.BODY_BLOOD] &&
     currentHealth < getHealthPercent(health, 75)
   ) {
     updateBloodSlot({
-      urls: bodyBloodUrls,
-      itemSlot: itemSlots.BODY_BLOOD,
+      urls: BODY_BLOOD_URLS,
+      itemSlot: CHARACTER_IMAGE_SLOT.BODY_BLOOD,
       id: attackedTrooperId
     });
   }
 
   if (
-    !bloodSlots[itemSlots.FACE_BLOOD] &&
+    !bloodSlots[CHARACTER_IMAGE_SLOT.FACE_BLOOD] &&
     currentHealth < getHealthPercent(health, 50)
   ) {
     updateBloodSlot({
-      urls: faceBloodUrls,
-      itemSlot: itemSlots.FACE_BLOOD,
+      urls: FACE_BLOOD_URLS,
+      itemSlot: CHARACTER_IMAGE_SLOT.FACE_BLOOD,
       id: attackedTrooperId
     });
   }
 
   if (
-    !bloodSlots[itemSlots.FACE_CUT] &&
+    !bloodSlots[CHARACTER_IMAGE_SLOT.FACE_CUT] &&
     currentHealth < getHealthPercent(health, 25)
   ) {
     updateBloodSlot({
-      urls: faceCutUrls,
-      itemSlot: itemSlots.FACE_CUT,
+      urls: FACE_CUT_URLS,
+      itemSlot: CHARACTER_IMAGE_SLOT.FACE_CUT,
       id: attackedTrooperId
     });
   }
 
   if (
-    !bloodSlots[itemSlots.BODY_CUT] &&
+    !bloodSlots[CHARACTER_IMAGE_SLOT.BODY_CUT] &&
     currentHealth < getHealthPercent(health, 15)
   ) {
     updateBloodSlot({
-      urls: bodyCutUrls,
-      itemSlot: itemSlots.BODY_CUT,
+      urls: BODY_CUT_URLS,
+      itemSlot: CHARACTER_IMAGE_SLOT.BODY_CUT,
       id: attackedTrooperId
     });
   }

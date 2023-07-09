@@ -7,7 +7,7 @@ import {
 } from 'modules/battlefield/actions';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import poisonIcon from './icons/poison.png';
-import { itemSlots } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 import { updateCharacterImages } from 'common/helpers';
 
 export const createPoisonEffect = ({
@@ -33,7 +33,12 @@ export const createPoisonEffect = ({
 
     yield* call(
       updateCharacterImages,
-      [{ url: '/images/effects/poison.png', itemSlot: itemSlots.EFFECT }],
+      [
+        {
+          url: '/images/effects/poison.png',
+          itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
+        }
+      ],
       activeTrooper.id
     );
 

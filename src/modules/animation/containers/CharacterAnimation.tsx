@@ -4,7 +4,7 @@ import * as spriter from '../helpers/spriter';
 import type { Data, Pose } from '../helpers/spriter';
 import { RenderCtx2D } from '../helpers/render-ctx2d';
 import { wait, loadImage, getRandomNumberInRange } from 'common/helpers';
-import { itemSlots } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 import { register } from '../troopersAnimationInstances';
 import type { Trooper } from 'modules/battlefield/types';
 import { registerTrooperNode } from '../../battlefield/troopersNodesMap';
@@ -20,7 +20,7 @@ type Props = {
   onLoad?: (id: Trooper['id']) => void;
 } & Pick<Trooper, 'id' | 'team'>;
 
-const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = itemSlots;
+const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = CHARACTER_IMAGE_SLOT;
 
 export class CharacterAnimation extends Component<Props> {
   canvasRef: React.RefObject<HTMLCanvasElement>;

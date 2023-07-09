@@ -1,15 +1,28 @@
-import { itemSlots } from '../../common/constants';
+import { CHARACTER_IMAGE_SLOT } from '../../common/constants';
 
 export const CHARACTER = {
   id: 1000,
-  type: 'hero'
+  type: 'hero',
+  equipment: {},
+  appearance: {
+    headEarless: '/images/hero/Head Earless.png',
+    head: '/images/hero/Head.png',
+    headBeard: '/images/hero/Head Beard.png',
+    headHair: '/images/hero/Head Hair.png',
+    face01: '/images/hero/Face 01.png',
+    face02: '/images/hero/Face 02.png',
+    face03: '/images/hero/Face 03.png'
+  }
 };
 
 export const HAIRS = [
   {
     iconUrl: '/images/hairs/Hair Black.png',
     newCharacterImages: [
-      { url: '/images/hairs/Hair Black.png', itemSlot: itemSlots.HEAD_HAIR }
+      {
+        url: '/images/hairs/Hair Black.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
+      }
     ]
   },
   {
@@ -17,7 +30,7 @@ export const HAIRS = [
     newCharacterImages: [
       {
         url: '/images/hairs/Hair Black Long.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       }
     ]
   },
@@ -26,14 +39,17 @@ export const HAIRS = [
     newCharacterImages: [
       {
         url: '/images/hairs/Hair Black Short.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       }
     ]
   },
   {
     iconUrl: '/images/hairs/Hair Blue.png',
     newCharacterImages: [
-      { url: '/images/hairs/Hair Blue.png', itemSlot: itemSlots.HEAD_HAIR }
+      {
+        url: '/images/hairs/Hair Blue.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
+      }
     ]
   },
   {
@@ -41,7 +57,7 @@ export const HAIRS = [
     newCharacterImages: [
       {
         url: '/images/hairs/Hair Dark Green.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       }
     ]
   },
@@ -50,7 +66,7 @@ export const HAIRS = [
     newCharacterImages: [
       {
         url: '/images/hairs/Hair Grey Short.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       }
     ]
   }
@@ -60,7 +76,10 @@ export const BEARDS = [
   {
     iconUrl: '/images/beards/Beard Black.png',
     newCharacterImages: [
-      { url: '/images/beards/Beard Black.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/beards/Beard Black.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
@@ -68,26 +87,35 @@ export const BEARDS = [
     newCharacterImages: [
       {
         url: '/images/beards/Beard Delicate.png',
-        itemSlot: itemSlots.HEAD_BEARD
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
       }
     ]
   },
   {
     iconUrl: '/images/beards/Beard Pirate.png',
     newCharacterImages: [
-      { url: '/images/beards/Beard Pirate.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/beards/Beard Pirate.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/beards/Beard Small.png',
     newCharacterImages: [
-      { url: '/images/beards/Beard Small.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/beards/Beard Small.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/beards/Mask Red.png',
     newCharacterImages: [
-      { url: '/images/beards/Mask Red.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/beards/Mask Red.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   }
 ];
@@ -96,23 +124,38 @@ export const HELMETS = [
   {
     iconUrl: '/images/helmets/Death Knight Helmet.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head Earless.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      {
+        url: '/images/hero/Head Earless.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD
+      },
       {
         url: '/images/helmets/Death Knight Helmet.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
@@ -120,32 +163,35 @@ export const HELMETS = [
     newCharacterImages: [
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.FACE_01
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.FACE_02
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.FACE_03
-      },
-      { url: '/images/helmets/Full Helmet.png', itemSlot: itemSlots.HEAD },
-      {
-        url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
       },
       {
-        url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        url: '/images/helmets/Full Helmet.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_BEARD
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
+      },
+      {
+        url: '/images/mountain-warrior-4/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
+      },
+      {
+        url: '/images/mountain-warrior-4/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
       }
     ]
   },
@@ -154,165 +200,246 @@ export const HELMETS = [
     newCharacterImages: [
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.FACE_01
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.FACE_02
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.FACE_03
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/helmets/Gladiator Full Helmet.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_BEARD
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
       }
     ]
   },
   {
     iconUrl: '/images/helmets/Gladiator Helmet.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head Earless.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      {
+        url: '/images/hero/Head Earless.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD
+      },
       {
         url: '/images/helmets/Gladiator Helmet.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/helmets/Spartan Helmet.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head Earless.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      {
+        url: '/images/hero/Head Earless.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD
+      },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/helmets/Spartan Helmet.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/helmets/Viking Helmet.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      { url: '/images/hero/Head.png', itemSlot: CHARACTER_IMAGE_SLOT.HEAD },
       {
         url: '/images/helmets/Viking Helmet.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/helmets/Torug Crown.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      { url: '/images/hero/Head.png', itemSlot: CHARACTER_IMAGE_SLOT.HEAD },
       {
         url: '/images/helmets/Torug Crown.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
-      { url: '/images/hero/Head Hair.png', itemSlot: itemSlots.HEAD_HAIR },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Hair.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
+      },
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/helmets/Pirate Captain Hat.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      { url: '/images/hero/Head.png', itemSlot: CHARACTER_IMAGE_SLOT.HEAD },
       {
         url: '/images/helmets/Pirate Captain Hat.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   },
   {
     iconUrl: '/images/helmets/Pirate Hat.png',
     newCharacterImages: [
-      { url: '/images/hero/Face 01.png', itemSlot: itemSlots.FACE_01 },
-      { url: '/images/hero/Face 02.png', itemSlot: itemSlots.FACE_02 },
-      { url: '/images/hero/Face 03.png', itemSlot: itemSlots.FACE_03 },
-      { url: '/images/hero/Head.png', itemSlot: itemSlots.HEAD },
+      {
+        url: '/images/hero/Face 01.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_01
+      },
+      {
+        url: '/images/hero/Face 02.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_02
+      },
+      {
+        url: '/images/hero/Face 03.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.FACE_03
+      },
+      { url: '/images/hero/Head.png', itemSlot: CHARACTER_IMAGE_SLOT.HEAD },
       {
         url: '/images/helmets/Pirate Hat.png',
-        itemSlot: itemSlots.HEAD_ARMOR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_ARMOR_HIGH
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_ARMOR_HIGH
       },
       {
         url: '/images/mountain-warrior-4/Face 01.png',
-        itemSlot: itemSlots.HEAD_HAIR
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR
       },
-      { url: '/images/hero/Head Beard.png', itemSlot: itemSlots.HEAD_BEARD }
+      {
+        url: '/images/hero/Head Beard.png',
+        itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD
+      }
     ]
   }
 ];

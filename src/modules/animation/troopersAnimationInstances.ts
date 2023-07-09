@@ -1,7 +1,7 @@
 import type { Trooper } from 'modules/battlefield/types';
-import { itemSlots } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 
-const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = itemSlots;
+const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = CHARACTER_IMAGE_SLOT;
 
 export type AnimationInstance = {
   attack: () => Promise<void>;

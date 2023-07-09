@@ -4,7 +4,7 @@ import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createMightEffect } from '../../effectsSaga/effects';
 import { getEffectNode } from '../../../effectsNodesMap';
 import { updateCharacterImages } from '../../../../../common/helpers';
-import { itemSlots } from '../../../../../common/constants';
+import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 import { getTrooperAnimationInstance } from '../../../../animation/troopersAnimationInstances';
 
 export const createMightAbility = ({
@@ -39,7 +39,12 @@ export const createMightAbility = ({
 
     yield* call(
       updateCharacterImages,
-      [{ url: '/images/effects/holy.png', itemSlot: itemSlots.EFFECT }],
+      [
+        {
+          url: '/images/effects/holy.png',
+          itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
+        }
+      ],
       targetTrooper.id
     );
 
