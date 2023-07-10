@@ -7,7 +7,7 @@ import {
   meleeTrooperAllowedTargetsSelector
 } from '../../selectors';
 import { ATTACK_TYPE } from '../../constants';
-import { clickOnEnemy, getRandomEnemyId } from './index';
+import { clickOnTrooper, getRandomEnemyId } from './index';
 import type { Trooper } from 'modules/battlefield/types';
 import { getRandomArrayElement, getDamage } from 'common/helpers';
 import { blockClicked } from '../../actions';
@@ -173,7 +173,7 @@ export function* strategicAI() {
       );
 
       if (trooperId) {
-        yield* call(clickOnEnemy, {
+        yield* call(clickOnTrooper, {
           id: trooperId,
           team: enemyTeamName
         });
@@ -194,7 +194,7 @@ export function* strategicAI() {
       );
 
       if (trooperId) {
-        yield* call(clickOnEnemy, {
+        yield* call(clickOnTrooper, {
           id: trooperId,
           team: enemyTeamName
         });
@@ -211,7 +211,7 @@ export function* strategicAI() {
       const randomId = yield* call(getRandomEnemyId, allowedTargets);
 
       if (randomId) {
-        yield* call(clickOnEnemy, {
+        yield* call(clickOnTrooper, {
           id: randomId,
           team: enemyTeamName
         });

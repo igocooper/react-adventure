@@ -11,6 +11,15 @@ export const hero = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     ...overrides,
+    appearance: {
+      headEarless: '/images/hero/Head Earless.png',
+      head: '/images/hero/Head.png',
+      headBeard: '/images/hero/Head Beard.png',
+      headHair: '/images/hero/Head Hair.png',
+      face01: '/images/hero/Face 01.png',
+      face02: '/images/hero/Face 02.png',
+      face03: '/images/hero/Face 03.png'
+    },
     type: 'hero',
     baseDamage: '3-3',
     damage: '3-3',

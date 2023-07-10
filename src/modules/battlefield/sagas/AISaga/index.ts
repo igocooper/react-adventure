@@ -14,8 +14,9 @@ import { getRandomArrayElement } from 'common/helpers';
 import { randomAI } from './randomAI';
 import { determinedAI } from './determinedAI';
 import { strategicAI } from './strategicAI';
+import { supportRandomAI } from './supportRandomAI';
 
-export function* clickOnEnemy({ id, team }: Pick<Trooper, 'id' | 'team'>) {
+export function* clickOnTrooper({ id, team }: Pick<Trooper, 'id' | 'team'>) {
   yield* put(
     setHoveredElement({
       id,
@@ -55,6 +56,10 @@ function* performAITurn() {
     }
     case AI_TYPE.STRATEGIC: {
       yield* call(strategicAI);
+      break;
+    }
+    case AI_TYPE.SUPPORT_RANDOM: {
+      yield* call(supportRandomAI);
       break;
     }
     default:

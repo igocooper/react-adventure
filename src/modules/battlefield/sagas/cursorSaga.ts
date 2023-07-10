@@ -71,6 +71,9 @@ const detectCharacterCursor = ({
   }
 
   if (isAllySelected) {
+    if (activeTrooper.supportType !== undefined) {
+      return CURSOR.WAND;
+    }
     return CURSOR.DISABLED;
   }
 

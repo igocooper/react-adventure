@@ -195,6 +195,7 @@ export const applyCharacterEquipmentStats = (props: Character) => {
   let criticalChance = props.criticalChance;
   let criticalMultiplier = props.criticalMultiplier;
   let defence = props.defence;
+  let power = props.power;
 
   if (leftHand) {
     attackType = leftHand.attackType;
@@ -211,6 +212,10 @@ export const applyCharacterEquipmentStats = (props: Character) => {
       criticalChance = criticalChance
         ? criticalChance + leftHand.criticalChance
         : leftHand.criticalChance;
+    }
+
+    if (leftHand.power) {
+      power = power ? power + leftHand.power : leftHand.power;
     }
   }
 
@@ -256,6 +261,7 @@ export const applyCharacterEquipmentStats = (props: Character) => {
     attackType,
     criticalChance,
     criticalMultiplier,
-    defence
+    defence,
+    power
   };
 };

@@ -8,14 +8,14 @@ type Props = {
   trooperId?: Trooper['id'];
 };
 
-export const Block = (props: Props) => {
+export const Heal = (props: Props) => {
   return (
     <EffectAnimation
-      imageWidth={105}
-      imageHeight={105}
-      attackId={EFFECT.BLOCK}
+      imageWidth={100}
+      imageHeight={100}
+      attackId={EFFECT.HEAL}
       animationDuration={500}
-      imageUrl="/images/effects/block.png"
+      imageUrl="/images/effects/heal.png"
       {...props}
     />
   );

@@ -8,7 +8,7 @@ import {
 } from '../../selectors';
 import { ATTACK_TYPE } from '../../constants';
 import { setTrooperCurrentTargetId } from '../../reducers/troopsSlice';
-import { clickOnEnemy, getRandomEnemyId } from './index';
+import { clickOnTrooper, getRandomEnemyId } from './index';
 import type { Trooper } from 'modules/battlefield/types';
 import { blockClicked } from '../../actions';
 
@@ -53,7 +53,7 @@ function* hitOrUpdateCurrentTarget({
   }
 
   if (targetId) {
-    yield* call(clickOnEnemy, {
+    yield* call(clickOnTrooper, {
       id: targetId,
       team: enemyTeamName
     });
