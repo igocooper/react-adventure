@@ -8,9 +8,8 @@ import {
 } from '../../selectors';
 import { ATTACK_TYPE } from '../../constants';
 import { clickOnEnemy, getRandomEnemyId } from './index';
-import { getDamage } from 'modules/battlefield/helpers/getDamage';
 import type { Trooper } from 'modules/battlefield/types';
-import { getRandomArrayElement } from 'common/helpers';
+import { getRandomArrayElement, getDamage } from 'common/helpers';
 import { blockClicked } from '../../actions';
 
 const getTargetTrooper = (

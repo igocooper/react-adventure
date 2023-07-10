@@ -1,11 +1,13 @@
-import type { CallEffect } from 'redux-saga/effects';
-import type { Character } from 'common/types';
+import type { Character, Team } from 'common/types';
 
 export type {
   Ability,
   ApplyAbilityProps,
   Team,
-  AttackType
+  AttackType,
+  Effect,
+  EffectName,
+  ApplyEffectProps
 } from 'common/types';
 
 export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
@@ -45,36 +47,12 @@ export type LocationName =
   | 'fores-2'
   | 'forest-3';
 
-export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
-
-export type ApplyEffectProps = {
-  activeTrooper: Trooper;
-};
-
-type ApplyDelayedEffect = (
-  props: ApplyEffectProps
-) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
-
-type ApplyEffect = (props: ApplyEffectProps) => void;
-
-export type Effect = {
-  name: EffectName;
-  duration: number;
-  once?: boolean;
-  done: boolean;
-  applyEffect: ApplyEffect | ApplyDelayedEffect;
-  cancelEffect?: (props: ApplyEffectProps) => void;
-  iconSrc: string;
-};
-
 export type Trooper = Character & {
-  currentHealth: number;
+  id: number;
+  team: Team;
+  position: number;
   AIType?: string;
   currentTargetId?: number;
-  criticalChance?: number;
-  criticalMultiplier?: number;
-  evadeChance?: number;
-  effects: Effect[];
   hasWaited?: boolean;
 };
 

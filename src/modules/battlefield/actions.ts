@@ -1,4 +1,5 @@
 import type { Trooper } from './types';
+import type { TroopsState } from './reducers/troopsSlice';
 import { createAction } from '@reduxjs/toolkit';
 export {
   setInitiative,
@@ -6,6 +7,7 @@ export {
   setActivePlayer
 } from './reducers/roundSlice';
 export {
+  setTroopers,
   applyDamage,
   applyHeal,
   setTrooperCurrentTargetId,
@@ -65,3 +67,5 @@ export const waitClicked =
 
 export const blockClicked =
   createAction<Pick<Trooper, 'id' | 'team'>>('block_clicked');
+
+export const startBattle = createAction<TroopsState>('start_battle');

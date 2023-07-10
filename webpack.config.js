@@ -18,7 +18,8 @@ module.exports = {
       store: paths.storeDir,
       modules: paths.modulesDir,
       common: paths.commonDir,
-      configs: paths.configsDir
+      config: paths.configDir,
+      factory: paths.factoryDir
     },
     extensions: ['.tsx', '.ts', '.js']
   },

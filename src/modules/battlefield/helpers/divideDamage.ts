@@ -1,4 +1,4 @@
-import { getDamage } from './getDamage';
+import { getDamage } from 'common/helpers';
 
 export const divideDamage = (damage: string, divider: number) => {
   const [minDamage, maxDamage] = getDamage(damage);

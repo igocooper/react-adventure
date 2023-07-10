@@ -4,8 +4,11 @@ import type {
   Equipment,
   Helmet,
   Shield,
-  Weapon
-} from '../types';
+  Weapon,
+  Character
+} from 'common/types';
+import { getDamage } from 'common/helpers';
+import { isWeapon, isShield } from 'common/typeGuards';
 import { CHARACTER_IMAGE_SLOT, HELMET_TYPE } from '../constants';
 
 type AppearanceUrls = Record<string, string>;
@@ -181,4 +184,78 @@ export const applyEquipment = ({
   }
 
   return appearance;
+};
+
+export const applyCharacterEquipmentStats = (props: Character) => {
+  const { equipment } = props;
+  const { leftHand, rightHand, armor, helmet } = equipment;
+
+  let damage = props.damage;
+  let attackType = props.attackType;
+  let criticalChance = props.criticalChance;
+  let criticalMultiplier = props.criticalMultiplier;
+  let defence = props.defence;
+
+  if (leftHand) {
+    attackType = leftHand.attackType;
+    damage = leftHand.damage;
+
+    if (leftHand.criticalMultiplier) {
+      criticalMultiplier =
+        criticalMultiplier && leftHand.criticalMultiplier < criticalMultiplier
+          ? criticalMultiplier
+          : leftHand.criticalMultiplier;
+    }
+
+    if (leftHand.criticalChance) {
+      criticalChance = criticalChance
+        ? criticalChance + leftHand.criticalChance
+        : leftHand.criticalChance;
+    }
+  }
+
+  if (leftHand && rightHand && isWeapon(rightHand)) {
+    const [leftHandMinDamage, leftHandMaxDamage] = getDamage(leftHand.damage);
+    const [rightHandMinDamage, rightHandMaxDamage] = getDamage(
+      rightHand.damage
+    );
+
+    damage = `${leftHandMinDamage + rightHandMinDamage}-${
+      leftHandMaxDamage + rightHandMaxDamage
+    }`;
+
+    if (rightHand.criticalMultiplier) {
+      criticalMultiplier =
+        criticalMultiplier && rightHand.criticalMultiplier < criticalMultiplier
+          ? criticalMultiplier
+          : rightHand.criticalMultiplier;
+    }
+
+    if (rightHand.criticalChance) {
+      criticalChance = criticalChance
+        ? criticalChance + rightHand.criticalChance
+        : rightHand.criticalChance;
+    }
+  }
+
+  if (rightHand && isShield(rightHand)) {
+    defence = defence ? defence + rightHand.defence : rightHand.defence;
+  }
+
+  if (armor) {
+    defence = defence ? defence + armor.defence : armor.defence;
+  }
+
+  if (helmet) {
+    defence = defence ? defence + helmet.defence : helmet.defence;
+  }
+
+  return {
+    ...props,
+    damage,
+    attackType,
+    criticalChance,
+    criticalMultiplier,
+    defence
+  };
 };

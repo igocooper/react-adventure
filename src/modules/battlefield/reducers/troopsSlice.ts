@@ -74,6 +74,9 @@ export const troopsSlice = createSlice({
   name: 'troopers',
   initialState,
   reducers: {
+    setTroopers: (_, { payload }: PayloadAction<TroopsState>) => {
+      return payload;
+    },
     setTrooperCurrentTargetId: (
       state: TroopsState,
       {
@@ -224,6 +227,7 @@ export const troopsSlice = createSlice({
 });
 
 export const {
+  setTroopers,
   applyDamage,
   applyHeal,
   setTrooperCurrentTargetId,
