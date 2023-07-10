@@ -1,4 +1,5 @@
 import type { Trooper } from 'modules/battlefield/types';
+import type { CallEffect } from 'redux-saga/effects';
 
 export type AttackType = 'melee' | 'range' | 'splash';
 export type Team = 'attackers' | 'defenders';
@@ -14,6 +15,28 @@ export type Ability = {
   applyAbility: (props: ApplyAbilityProps) => void;
 };
 
+export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
+
+export type ApplyEffectProps = {
+  activeTrooper: Trooper;
+};
+
+type ApplyDelayedEffect = (
+  props: ApplyEffectProps
+) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
+
+type ApplyEffect = (props: ApplyEffectProps) => void;
+
+export type Effect = {
+  name: EffectName;
+  duration: number;
+  once?: boolean;
+  done: boolean;
+  applyEffect: ApplyEffect | ApplyDelayedEffect;
+  cancelEffect?: (props: ApplyEffectProps) => void;
+  iconSrc: string;
+};
+
 export type Appearance = {
   head: string;
   headHair: string;
@@ -25,19 +48,22 @@ export type Appearance = {
 };
 
 export type Character = {
-  team: Team;
   type: string;
+  health: number;
+  currentHealth: number;
+  initiative: number;
   damage: string;
+  baseDamage: string;
   attackType: AttackType;
   attackId?: string;
-  position: number;
-  health: number;
-  id: number;
-  initiative: number;
+  criticalChance?: number;
+  criticalMultiplier?: number;
+  evadeChance?: number;
+  defence: number;
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];
-  defence: number;
+  effects: Effect[];
 };
 
 export type Armor = {
@@ -68,6 +94,9 @@ export type Weapon = {
   name: string;
   imageSrc: string;
   damage: string;
+  criticalChance?: number;
+  criticalMultiplier?: number;
+  attackType: AttackType;
   abilities?: [Ability];
 };
 

@@ -1,12 +1,10 @@
 import type { Trooper } from './types';
-import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
+import { goblin1, goblin2, goblin3 } from 'factory/characters/goblins';
+import { hero } from 'factory/characters/hero';
 import {
-  createPoisonEffect,
-  createAnchorEffect
-} from './sagas/effectsSaga/effects';
-import { fullHelmet } from 'configs/helmets';
-import { golemSword } from 'configs/swords';
-import { torugArmor } from 'configs/armors';
+  mountainWarrior5,
+  mountainWarrior4
+} from '../../factory/characters/mountain-warriors';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -79,207 +77,39 @@ export enum LOCATION {
 }
 
 const ATTACKERS_TROOPS: Trooper[] = [
-  {
-    team: 'attackers',
-    type: 'mountain-warrior-4',
-    damage: '10-25',
-    attackId: 'ice-spikes',
-    criticalChance: 50,
-    criticalMultiplier: 2,
-    attackType: 'splash',
-    position: 1,
-    health: 50,
-    currentHealth: 50,
-    defence: 0,
+  hero({
     id: 1,
-    initiative: 99,
-    abilities: [],
-    effects: [],
-    equipment: {}
-  },
-  {
     team: 'attackers',
-    type: 'hero',
-    damage: '10-15',
-    criticalChance: 50,
-    criticalMultiplier: 2,
-    attackType: 'melee',
-    position: 2,
-    health: 50,
-    currentHealth: 50,
-    defence: 0,
+    position: 2
+  }),
+  mountainWarrior5({
     id: 2,
-    initiative: 15,
-    abilities: [],
-    equipment: {
-      helmet: fullHelmet,
-      leftHand: golemSword,
-      armor: torugArmor
-    },
-    appearance: {
-      headEarless: '/images/hero/Head Earless.png',
-      head: '/images/hero/Head.png',
-      headBeard: '/images/hero/Head Beard.png',
-      headHair: '/images/hero/Head Hair.png',
-      face01: '/images/hero/Face 01.png',
-      face02: '/images/hero/Face 02.png',
-      face03: '/images/hero/Face 03.png'
-    },
-    effects: []
-  },
-  {
     team: 'attackers',
-    type: 'mountain-warrior-5',
-    damage: '10-15',
-    criticalChance: 50,
-    criticalMultiplier: 2,
-    attackType: 'range',
-    attackId: 'mountainArcherArrow',
-    position: 3,
-    health: 100,
-    currentHealth: 100,
-    defence: 0,
+    position: 5
+  }),
+  mountainWarrior4({
     id: 3,
-    initiative: 3,
-    abilities: [],
-    effects: [],
-    equipment: {}
-  }
-  // {
-  //   team: 'attackers',
-  //   type: 'mountain-warrior-1',
-  //   damage: '50-60',
-  //   attackType: 'melee',
-  //   position: 4,
-  //   health: 30,
-  //   currentHealth: 30,
-  //   id: 4,
-  //   initiative: 8
-  // },
-  // {
-  //   team: 'attackers',
-  //   type: 'mountain-warrior-4',
-  //   damage: '50-70',
-  //   attackType: 'melee',
-  //   position: 5,
-  //   health: 30,
-  //   currentHealth: 30,
-  //   id: 5,
-  //   initiative: 9
-  // },
-  // {
-  //   team: 'attackers',
-  //   type: 'mountain-warrior-2',
-  //   damage: '50-70',
-  //   attackType: 'range',
-  //   position: 6,
-  //   health: 30,
-  //   currentHealth: 30,
-  //   id: 6,
-  //   initiative: 9
-  // }
+    team: 'attackers',
+    position: 6
+  })
 ];
 
 const DEFENDERS_TROOPS: Trooper[] = [
-  {
-    team: 'defenders',
-    type: 'mountain-warrior-5',
-    damage: '10-15',
-    evadeChance: 25,
-    attackType: 'range',
-    attackId: 'mountainArcherArrow',
-    position: 1,
-    health: 100,
-    currentHealth: 100,
-    defence: 0,
+  goblin1({
     id: 101,
-    initiative: 13,
-    abilities: [],
-    // AIType: AI_TYPE.STRATEGIC,
-    effects: [],
-    equipment: {}
-  },
-  {
-    team: 'defenders',
-    type: 'goblin-1',
-    damage: '10-15',
-    evadeChance: 25,
-    attackType: 'melee',
-    position: 2,
-    health: 50,
-    currentHealth: 50,
-    defence: 0,
+    position: 1,
+    team: 'defenders'
+  }),
+  goblin2({
     id: 102,
-    initiative: 25,
-    abilities: [],
-    // AIType: AI_TYPE.STRATEGIC,
-    effects: [],
-    equipment: {}
-  },
-  {
-    team: 'defenders',
-    type: 'goblin-2',
-    damage: '10-15',
-    evadeChance: 25,
-    attackType: 'melee',
-    position: 3,
-    health: 50,
-    currentHealth: 50,
-    defence: 0,
+    position: 2,
+    team: 'defenders'
+  }),
+  goblin3({
     id: 103,
-    initiative: 22,
-    abilities: [
-      createPoisonAbility({
-        duration: 1,
-        damage: 25,
-        hitChance: 100
-      })
-    ],
-    // AIType: AI_TYPE.STRATEGIC,
-    effects: [
-      createAnchorEffect({
-        duration: 1
-      }),
-      createPoisonEffect({
-        damage: 15,
-        duration: 2
-      })
-    ],
-    equipment: {}
-  }
-  // {
-  //   team: 'defenders',
-  //   type: 'goblin-3',
-  //   damage: '15-22',
-  //   attackType: 'melee',
-  //   position: 4,
-  //   health: 100,
-  //   currentHealth: 100,
-  //   id: 13,
-  //   initiative: 3
-  // },
-  // {
-  //   team: 'defenders',
-  //   type: 'goblin-3',
-  //   damage: '15-22',
-  //   attackType: 'melee',
-  //   position: 5,
-  //   health: 100,
-  //   currentHealth: 100,
-  //   id: 14,
-  //   initiative: 3
-  // },
-  // {
-  //   team: 'defenders',
-  //   type: 'goblin-3',
-  //   damage: '15-22',
-  //   attackType: 'melee',
-  //   position: 6,
-  //   health: 100,
-  //   currentHealth: 100,
-  //   id: 15,
-  //   initiative: 3
-  // }
+    position: 3,
+    team: 'defenders'
+  })
 ];
 
 export const ATTACKERS = ATTACKERS_TROOPS;

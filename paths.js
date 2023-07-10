@@ -5,7 +5,8 @@ const srcDir = path.resolve(rootPath, 'src');
 const storeDir = path.resolve(rootPath, 'src/store');
 const modulesDir = path.resolve(rootPath, 'src/modules');
 const commonDir = path.resolve(rootPath, 'src/common');
-const configsDir = path.resolve(rootPath, 'src/configs');
+const configDir = path.resolve(rootPath, 'src/config');
+const factoryDir = path.resolve(rootPath, 'src/factory');
 
 module.exports = {
   rootPath,
@@ -13,5 +14,6 @@ module.exports = {
   storeDir,
   modulesDir,
   commonDir,
-  configsDir
+  configDir,
+  factoryDir
 };

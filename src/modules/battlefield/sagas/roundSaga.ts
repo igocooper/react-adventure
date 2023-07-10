@@ -25,8 +25,11 @@ import {
   resetDamageEvents,
   modifyTrooper,
   blockClicked as blockClickedAction,
-  addEffect
+  addEffect,
+  setTroopers,
+  startBattle as startBattleAction
 } from '../actions';
+import { pushNextUrl } from 'modules/router/actions';
 import {
   roundSelector,
   initiativeSelector,
@@ -43,6 +46,7 @@ import { ATTACK_TYPE, EFFECT } from '../constants';
 import { applyEffects } from './effectsSaga';
 import { createBlockEffect } from './effectsSaga/effects/block';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
+import type { TroopsState } from '../reducers/troopsSlice';
 
 function* resetHasWaitedTrooperStatus() {
   const attackers = yield* select(attackersSelector);
@@ -246,6 +250,12 @@ function* handleBlockClick() {
   yield* put(finishTrooperTurnAction());
 }
 
+function* startBattle({ payload }: { payload: TroopsState }) {
+  yield* put(setTroopers(payload));
+
+  yield* put(pushNextUrl('/battlefield'));
+}
+
 export function* roundSagaWatcher() {
   yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
   yield takeLatest(startTrooperTurnAction, startTrooperTurn);
@@ -253,4 +263,5 @@ export function* roundSagaWatcher() {
   yield takeEvery(trooperClicked, handleTrooperClick);
   yield takeLatest(waitClickedAction, handleWaitClick);
   yield takeLatest(blockClickedAction, handleBlockClick);
+  yield takeLatest(startBattleAction, startBattle);
 }
