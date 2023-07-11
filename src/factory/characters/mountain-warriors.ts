@@ -1,7 +1,7 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE } from 'modules/battlefield/constants';
-import { mountainBow, mountainWand } from 'factory/weapons';
+import { mountainBow, mountainStaff } from 'factory/weapons';
 
 export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -22,7 +22,7 @@ export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
 export const mountainWarrior4 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: mountainWand
+      leftHand: mountainStaff
     },
     abilities: [],
     effects: [],

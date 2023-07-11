@@ -6,7 +6,7 @@ import {
   meleeTrooperAllowedTargetsSelector
 } from '../../selectors';
 import { ATTACK_TYPE } from '../../constants';
-import { clickOnEnemy, getRandomEnemyId } from './index';
+import { clickOnTrooper, getRandomEnemyId } from './index';
 import { blockClicked } from '../../actions';
 
 export function* randomAI() {
@@ -31,7 +31,7 @@ export function* randomAI() {
       const randomId = yield* call(getRandomEnemyId, allowedTargets);
 
       if (randomId) {
-        yield* call(clickOnEnemy, {
+        yield* call(clickOnTrooper, {
           id: randomId,
           team: enemyTeamName
         });
@@ -48,7 +48,7 @@ export function* randomAI() {
       const randomId = yield* call(getRandomEnemyId, allowedTargets);
 
       if (randomId) {
-        yield* call(clickOnEnemy, {
+        yield* call(clickOnTrooper, {
           id: randomId,
           team: enemyTeamName
         });

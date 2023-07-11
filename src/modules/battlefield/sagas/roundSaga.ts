@@ -187,14 +187,17 @@ function* handleTrooperClick({
     yield* put(attackStarted(clickedTrooperInfo));
 
     yield* take(attackFinished);
-  } else {
+    yield* put(finishTrooperTurnAction());
+  }
+
+  if (!isEnemySelected && activeTrooper?.supportType !== undefined) {
     yield* put(supportStarted(clickedTrooperInfo));
 
     yield* take(supportFinished);
+    yield* put(finishTrooperTurnAction());
   }
 
   yield* put(setBattlefieldStatus(false));
-  yield* put(finishTrooperTurnAction());
 }
 
 function* handleWaitClick({

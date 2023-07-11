@@ -128,6 +128,17 @@ export const activeTeamNameSelector = createSelector(
   }
 );
 
+export const activeTeamSelector = createSelector(
+  activeTrooperSelector,
+  attackersSelector,
+  defendersSelector,
+  (activeTrooper, attackers, defenders) => {
+    return activeTrooper?.team === TROOPER_TEAM.ATTACKERS
+      ? attackers
+      : defenders;
+  }
+);
+
 export const enemyTeamSelector = createSelector(
   activeTrooperSelector,
   attackersSelector,

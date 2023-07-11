@@ -1,21 +1,44 @@
-import { takeLatest, put } from 'typed-redux-saga/macro';
-import { supportStarted, supportFinished, applyHeal } from '../actions';
-
+import { takeLatest, put, all, call, select } from 'typed-redux-saga/macro';
+import { supportStarted, supportFinished } from '../actions';
+import { applyAbilities } from './abilitiesSaga';
 import type { Trooper } from '../types';
+import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
+import { activeTrooperSelector, makeCharacterByIdSelector } from '../selectors';
+import { SUPPORT_TYPE } from '../constants';
+import { createHealEffect } from './effectsSaga/effects';
 
 function* support({
   payload: selectedTrooperInfo
 }: {
   payload: Pick<Trooper, 'id' | 'team'>;
 }) {
-  // TODO: calc heal and extend supports types
-  yield* put(
-    applyHeal({
-      heal: 10,
-      team: selectedTrooperInfo.team,
-      id: selectedTrooperInfo.id
-    })
+  const activeTrooper = yield* select(activeTrooperSelector);
+  const targetTrooper = yield* select(
+    makeCharacterByIdSelector(selectedTrooperInfo.id)
   );
+
+  if (!activeTrooper?.supportType) return;
+
+  if (activeTrooper.supportType === SUPPORT_TYPE.HEAL) {
+    const healEffect = createHealEffect({
+      duration: 0,
+      heal: activeTrooper.power!
+    });
+
+    const activeTrooperAnimationInstance = yield* call(
+      getTrooperAnimationInstance,
+      activeTrooper.id
+    );
+
+    yield* all([
+      call([activeTrooperAnimationInstance!, 'cast']),
+      call([healEffect, 'applyEffect'], { activeTrooper: targetTrooper! })
+    ]);
+
+    yield* call(applyAbilities, { id: selectedTrooperInfo.id });
+  }
+
+  yield* call(applyAbilities, { id: selectedTrooperInfo.id });
 
   yield* put(supportFinished(selectedTrooperInfo));
 }

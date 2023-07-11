@@ -2,8 +2,9 @@ import type { Trooper } from 'modules/battlefield/types';
 import type { CallEffect } from 'redux-saga/effects';
 
 export type AttackType = 'melee' | 'range' | 'splash';
+export type SupportType = 'heal' | 'buff';
 export type Team = 'attackers' | 'defenders';
-export type AbilityName = 'poison' | 'might' | 'anchor';
+export type AbilityName = 'poison' | 'might' | 'anchor' | 'heal';
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -15,7 +16,13 @@ export type Ability = {
   applyAbility: (props: ApplyAbilityProps) => void;
 };
 
-export type EffectName = 'poison' | 'anchor' | 'might' | 'hex' | 'block';
+export type EffectName =
+  | 'poison'
+  | 'anchor'
+  | 'might'
+  | 'hex'
+  | 'block'
+  | 'heal';
 
 export type ApplyEffectProps = {
   activeTrooper: Trooper;
@@ -55,6 +62,8 @@ export type Character = {
   damage: string;
   baseDamage: string;
   attackType: AttackType;
+  supportType?: SupportType;
+  power?: number;
   attackId?: string;
   criticalChance?: number;
   criticalMultiplier?: number;
@@ -94,6 +103,7 @@ export type Weapon = {
   name: string;
   imageSrc: string;
   damage: string;
+  power?: number;
   criticalChance?: number;
   criticalMultiplier?: number;
   attackType: AttackType;

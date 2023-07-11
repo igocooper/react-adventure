@@ -1,10 +1,13 @@
 import type { Trooper } from './types';
-import { goblin1, goblin2, goblin3 } from 'factory/characters/goblins';
-import { hero } from 'factory/characters/hero';
 import {
+  goblin1,
+  goblin2,
+  goblin3,
+  hero,
   mountainWarrior5,
-  mountainWarrior4
-} from '../../factory/characters/mountain-warriors';
+  mountainWarrior4,
+  priest1
+} from 'factory/characters';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -23,13 +26,19 @@ export enum EFFECT {
   ANCHOR = 'anchor',
   MIGHT = 'might',
   HEX = 'hex',
-  BLOCK = 'block'
+  BLOCK = 'block',
+  HEAL = 'heal'
 }
 
 export enum ATTACK_TYPE {
   RANGE = 'range',
   MELEE = 'melee',
-  SPLASH = 'splash'
+  SPLASH = 'splash',
+  SUPPORT = 'support'
+}
+
+export enum SUPPORT_TYPE {
+  HEAL = 'heal'
 }
 
 export enum TROOPER_TEAM {
@@ -45,7 +54,8 @@ export enum HOVERED_ELEMENT_TYPE {
 export enum AI_TYPE {
   RANDOM = 'random',
   DETERMINED = 'determined',
-  STRATEGIC = 'strategic'
+  STRATEGIC = 'strategic',
+  SUPPORT_RANDOM = 'support_random'
 }
 
 export enum LOCATION {
@@ -82,13 +92,18 @@ const ATTACKERS_TROOPS: Trooper[] = [
     team: 'attackers',
     position: 2
   }),
-  mountainWarrior5({
+  priest1({
     id: 2,
+    team: 'attackers',
+    position: 4
+  }),
+  mountainWarrior5({
+    id: 3,
     team: 'attackers',
     position: 5
   }),
   mountainWarrior4({
-    id: 3,
+    id: 4,
     team: 'attackers',
     position: 6
   })
