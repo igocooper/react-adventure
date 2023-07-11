@@ -4,7 +4,7 @@ import {
   activeTrooperSelector,
   activeTeamNameSelector
 } from '../../selectors';
-import { SUPPORT_TYPE } from '../../constants';
+import { SUPPORT_TYPE } from 'common/constants';
 import { clickOnTrooper, getRandomEnemyId } from './index';
 import { blockClicked } from '../../actions';
 

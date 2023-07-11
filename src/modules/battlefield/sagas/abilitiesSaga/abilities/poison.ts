@@ -4,7 +4,7 @@ import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createPoisonEffect } from '../../effectsSaga/effects';
 import { getRandomNumberInRange } from 'common/helpers';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
-import { EFFECT } from 'modules/battlefield/constants';
+import { EFFECT, ABILITY_TYPE, ABILITY } from 'common/constants';
 
 export const createPoisonAbility = ({
   duration,
@@ -15,7 +15,8 @@ export const createPoisonAbility = ({
   damage: number;
   hitChance: number;
 }): Ability => ({
-  name: 'poison',
+  type: ABILITY_TYPE.CURSE,
+  name: ABILITY.POISON,
   hitChance,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
     const roll = getRandomNumberInRange(1, 100);

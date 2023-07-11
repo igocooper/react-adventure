@@ -3,7 +3,7 @@ import { call, put } from 'typed-redux-saga';
 import { finishTrooperTurn } from 'modules/battlefield/sagas/roundSaga';
 import anchorIcon from './icons/anchor.png';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
-import { EFFECT } from '../../../constants';
+import { EFFECT } from 'common/constants';
 import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/reducers/damageEventsSlice';
 import { getTileNode } from 'modules/battlefield/tilesNodesMap';
 import { getEffectNode } from '../../../effectsNodesMap';

@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE } from 'modules/battlefield/constants';
+import { ATTACK_TYPE, SUPPORT_TYPE } from 'common/constants';
 import {
   crookedStaff,
   rustyAxe,
@@ -108,8 +108,9 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     damage: '3-4',
     health: 60,
     currentHealth: 60,
-    initiative: 3,
+    initiative: 6,
     attackType: ATTACK_TYPE.MELEE,
+    supportType: SUPPORT_TYPE.BUFF,
     criticalChance: 5,
     criticalMultiplier: 2,
     defence: 20,

@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE } from 'modules/battlefield/constants';
+import { ATTACK_TYPE } from 'common/constants';
 import { waterMageStaff } from 'factory/weapons';
 
 export const waterMage = (overrides: Partial<Trooper>) =>

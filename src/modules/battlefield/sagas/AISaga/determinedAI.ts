@@ -6,7 +6,7 @@ import {
   makeIsTrooperDeadSelector,
   meleeTrooperAllowedTargetsSelector
 } from '../../selectors';
-import { ATTACK_TYPE } from '../../constants';
+import { ATTACK_TYPE } from 'common/constants';
 import { setTrooperCurrentTargetId } from '../../reducers/troopsSlice';
 import { clickOnTrooper, getRandomEnemyId } from './index';
 import type { Trooper } from 'modules/battlefield/types';

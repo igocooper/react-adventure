@@ -9,6 +9,7 @@ import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { getTileNode } from 'modules/battlefield/tilesNodesMap';
 import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/reducers/damageEventsSlice';
 import { createAnchorEffect } from '../../effectsSaga/effects';
+import { ABILITY_TYPE, ABILITY } from 'common/constants';
 
 function* publishDamageEvent(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -32,7 +33,8 @@ export const createAnchorAbility = ({
 }: {
   duration: number;
 }): Ability => ({
-  name: 'anchor',
+  type: ABILITY_TYPE.CURSE,
+  name: ABILITY.ANCHOR,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
     const anchorEffect = createAnchorEffect({
       duration

@@ -15,6 +15,7 @@ export const RangeAttackImage = styled.div<RangeAttackImageProps>`
   position: absolute;
   transition: ${({ $animationDuration }) =>
     `transform ${$animationDuration / 1000}s ease-out`};
+  pointer-events: none;
 
   &:before {
     content: '';

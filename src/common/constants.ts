@@ -88,3 +88,43 @@ export enum HELMET_TYPE {
   MEDIUM = 'medium',
   SMALL = 'small'
 }
+
+export enum CURSOR {
+  DEFAULT = 'default',
+  BOW = 'bow',
+  DISABLED = 'disabled',
+  WAND = 'wand',
+  SWORD = 'sword'
+}
+
+export enum ABILITY_TYPE {
+  CURSE = 'curse',
+  BUFF = 'buff'
+}
+
+export enum ABILITY {
+  POISON = 'poison',
+  ANCHOR = 'anchor',
+  HEAL = 'heal',
+  MIGHT = 'might'
+}
+
+export enum EFFECT {
+  POISON = 'poison',
+  ANCHOR = 'anchor',
+  MIGHT = 'might',
+  HEX = 'hex',
+  BLOCK = 'block',
+  HEAL = 'heal'
+}
+
+export enum ATTACK_TYPE {
+  RANGE = 'range',
+  MELEE = 'melee',
+  SPLASH = 'splash'
+}
+
+export enum SUPPORT_TYPE {
+  HEAL = 'heal',
+  BUFF = 'buff'
+}

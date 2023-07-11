@@ -5,6 +5,7 @@ import {
 } from '../actions';
 import type { Trooper } from '../types';
 import { getTileNode } from '../tilesNodesMap';
+import { getRandomNumberInRange } from 'common/helpers';
 
 function* addDamageEvent({
   payload
@@ -23,7 +24,7 @@ function* addDamageEvent({
   if (!tileNode) return;
 
   const { x, y } = tileNode.getBoundingClientRect();
-  const eventId = Date.now();
+  const eventId = Date.now() + getRandomNumberInRange(1, 1000);
   const damageEvent = {
     id: eventId,
     value: `-${damage}`,
