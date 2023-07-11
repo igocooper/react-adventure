@@ -12,3 +12,10 @@ export const rustyAxe: Weapon = {
   damage: '6-7',
   attackType: ATTACK_TYPE.MELEE
 };
+
+export const skullSmasher: Weapon = {
+  name: 'Skull Smasher',
+  imageSrc: '/images/weapons/axes/skull-smasher.png',
+  damage: '15-25',
+  attackType: ATTACK_TYPE.MELEE
+};

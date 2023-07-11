@@ -21,3 +21,12 @@ export const rustyBastardSword: Weapon = {
   criticalChance: 10,
   criticalMultiplier: 2
 };
+
+export const meatCutter: Weapon = {
+  name: 'Meat Cutter',
+  imageSrc: '/images/weapons/swords/meat-cutter.png',
+  damage: '5-8',
+  attackType: ATTACK_TYPE.MELEE,
+  criticalChance: 10,
+  criticalMultiplier: 2
+};

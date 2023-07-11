@@ -32,9 +32,9 @@ export const mountainWarrior4 = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 25,
     currentHealth: 25,
-    initiative: 1,
+    initiative: 9,
     attackType: ATTACK_TYPE.SPLASH,
-    attackId: 'ice-spikes',
+    attackId: 'magma-geysers',
     defence: 0,
     criticalChance: 5,
     criticalMultiplier: 2

@@ -20,3 +20,17 @@ export const oldWoodenStaff: Weapon = {
   power: 10,
   attackType: ATTACK_TYPE.MELEE
 };
+
+export const waterMageStaff: Weapon = {
+  name: 'Water Mage Staff',
+  imageSrc: '/images/weapons/staffs/water-mage-staff.png',
+  damage: '13-17',
+  attackType: ATTACK_TYPE.SPLASH
+};
+
+export const crookedStaff: Weapon = {
+  name: 'Crooked Staff',
+  imageSrc: '/images/weapons/staffs/crooked-staff.png',
+  damage: '3-5',
+  attackType: ATTACK_TYPE.MELEE
+};

@@ -23,7 +23,7 @@ export const priest1 = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 50,
     currentHealth: 50,
-    initiative: 10,
+    initiative: 1,
     attackType: ATTACK_TYPE.MELEE,
     supportType: SUPPORT_TYPE.HEAL,
     defence: 0,

@@ -3,3 +3,4 @@ export * from './hero';
 export * from './priests';
 export * from './goblins';
 export * from './mountain-warriors';
+export * from './mages';

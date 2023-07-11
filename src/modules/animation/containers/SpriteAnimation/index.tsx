@@ -15,6 +15,7 @@ type Props = {
     y: number | string;
   };
   className?: string;
+  fps?: number;
 };
 
 type State = {
@@ -49,11 +50,11 @@ export class SpriteAnimation extends Component<Props, State> {
   }
 
   async play() {
-    const { frames } = this.props;
+    const { frames, fps } = this.props;
 
     this.animationStateRef.current = true;
 
-    await animate(frames, this.setState.bind(this), FPS);
+    await animate(frames, this.setState.bind(this), fps || FPS);
 
     this.animationStateRef.current = false;
   }

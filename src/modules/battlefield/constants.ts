@@ -4,10 +4,14 @@ import {
   goblin2,
   goblin3,
   hero,
+  armoredGoblin,
   mountainWarrior5,
   mountainWarrior4,
-  priest1
+  waterMage,
+  priest1,
+  goblinBuffer
 } from 'factory/characters';
+import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 
 export enum CURSOR {
   DEFAULT = 'default',
@@ -33,12 +37,12 @@ export enum EFFECT {
 export enum ATTACK_TYPE {
   RANGE = 'range',
   MELEE = 'melee',
-  SPLASH = 'splash',
-  SUPPORT = 'support'
+  SPLASH = 'splash'
 }
 
 export enum SUPPORT_TYPE {
-  HEAL = 'heal'
+  HEAL = 'heal',
+  BUFF = 'buff'
 }
 
 export enum TROOPER_TEAM {
@@ -103,6 +107,11 @@ const ATTACKERS_TROOPS: Trooper[] = [
     position: 5
   }),
   mountainWarrior4({
+    id: 5,
+    team: 'attackers',
+    position: 1
+  }),
+  waterMage({
     id: 4,
     team: 'attackers',
     position: 6
@@ -115,14 +124,31 @@ const DEFENDERS_TROOPS: Trooper[] = [
     position: 1,
     team: 'defenders'
   }),
-  goblin2({
+  armoredGoblin({
     id: 102,
     position: 2,
-    team: 'defenders'
+    team: 'defenders',
+    abilities: [
+      createPoisonAbility({
+        duration: 1,
+        damage: 10,
+        hitChance: 75
+      })
+    ]
   }),
   goblin3({
     id: 103,
     position: 3,
+    team: 'defenders'
+  }),
+  goblin2({
+    id: 104,
+    position: 4,
+    team: 'defenders'
+  }),
+  goblinBuffer({
+    id: 105,
+    position: 5,
     team: 'defenders'
   })
 ];
