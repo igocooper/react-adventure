@@ -13,38 +13,6 @@ import {
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 
-export enum CURSOR {
-  DEFAULT = 'default',
-  BOW = 'bow',
-  DISABLED = 'disabled',
-  WAND = 'wand',
-  SWORD = 'sword'
-}
-
-export enum ABILITY {
-  POISON = 'poison'
-}
-
-export enum EFFECT {
-  POISON = 'poison',
-  ANCHOR = 'anchor',
-  MIGHT = 'might',
-  HEX = 'hex',
-  BLOCK = 'block',
-  HEAL = 'heal'
-}
-
-export enum ATTACK_TYPE {
-  RANGE = 'range',
-  MELEE = 'melee',
-  SPLASH = 'splash'
-}
-
-export enum SUPPORT_TYPE {
-  HEAL = 'heal',
-  BUFF = 'buff'
-}
-
 export enum TROOPER_TEAM {
   ATTACKERS = 'attackers',
   DEFENDERS = 'defenders'

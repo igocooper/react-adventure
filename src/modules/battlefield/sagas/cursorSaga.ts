@@ -17,7 +17,8 @@ import { checkMeleeAttackConstraints } from '../helpers/checkMeleeAttackConstrai
 
 import type { Element } from '../reducers/hoveredElementSlice';
 import type { Trooper } from '../types';
-import { CURSOR, ATTACK_TYPE, HOVERED_ELEMENT_TYPE } from '../constants';
+import { CURSOR, ATTACK_TYPE } from 'common/constants';
+import { HOVERED_ELEMENT_TYPE } from '../constants';
 
 type Props = {
   type: string;

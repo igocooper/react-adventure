@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, SUPPORT_TYPE } from 'modules/battlefield/constants';
+import { ATTACK_TYPE, SUPPORT_TYPE } from 'common/constants';
 import { oldWoodenStaff } from 'factory/weapons';
 import { createHealAbility } from '../../modules/battlefield/sagas/abilitiesSaga/abilities/heal';
 

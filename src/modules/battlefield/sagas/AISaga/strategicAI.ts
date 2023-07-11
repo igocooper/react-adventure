@@ -6,7 +6,7 @@ import {
   initiativeSelector,
   meleeTrooperAllowedTargetsSelector
 } from '../../selectors';
-import { ATTACK_TYPE } from '../../constants';
+import { ATTACK_TYPE } from 'common/constants';
 import { clickOnTrooper, getRandomEnemyId } from './index';
 import type { Trooper } from 'modules/battlefield/types';
 import { getRandomArrayElement, getDamage } from 'common/helpers';

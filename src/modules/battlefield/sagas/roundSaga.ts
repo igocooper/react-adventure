@@ -42,7 +42,7 @@ import {
 } from '../selectors';
 
 import type { Trooper } from '../types';
-import { ATTACK_TYPE, EFFECT } from '../constants';
+import { ATTACK_TYPE, EFFECT } from 'common/constants';
 import { applyEffects } from './effectsSaga';
 import { createBlockEffect } from './effectsSaga/effects/block';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';

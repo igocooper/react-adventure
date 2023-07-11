@@ -5,6 +5,7 @@ export type AttackType = 'melee' | 'range' | 'splash';
 export type SupportType = 'heal' | 'buff';
 export type Team = 'attackers' | 'defenders';
 export type AbilityName = 'poison' | 'might' | 'anchor' | 'heal';
+export type AbilityType = 'curse' | 'buff';
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -12,6 +13,7 @@ export type ApplyAbilityProps = {
 
 export type Ability = {
   name: AbilityName;
+  type: AbilityType;
   hitChance?: number;
   applyAbility: (props: ApplyAbilityProps) => void;
 };

@@ -5,7 +5,7 @@ import {
   enemyTeamSelector,
   meleeTrooperAllowedTargetsSelector
 } from '../../selectors';
-import { ATTACK_TYPE } from '../../constants';
+import { ATTACK_TYPE } from 'common/constants';
 import { clickOnTrooper, getRandomEnemyId } from './index';
 import { blockClicked } from '../../actions';
 

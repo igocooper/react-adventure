@@ -1,10 +1,10 @@
 import { takeLatest, put, all, call, select } from 'typed-redux-saga/macro';
 import { supportStarted, supportFinished } from '../actions';
-import { applyAbilities } from './abilitiesSaga';
+import { applyBuffs } from './abilitiesSaga';
 import type { Trooper } from '../types';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { activeTrooperSelector, makeCharacterByIdSelector } from '../selectors';
-import { SUPPORT_TYPE } from '../constants';
+import { SUPPORT_TYPE } from 'common/constants';
 import { createHealEffect } from './effectsSaga/effects';
 
 function* support({
@@ -35,10 +35,10 @@ function* support({
       call([healEffect, 'applyEffect'], { activeTrooper: targetTrooper! })
     ]);
 
-    yield* call(applyAbilities, { id: selectedTrooperInfo.id });
+    yield* call(applyBuffs, { id: selectedTrooperInfo.id });
   }
 
-  yield* call(applyAbilities, { id: selectedTrooperInfo.id });
+  yield* call(applyBuffs, { id: selectedTrooperInfo.id });
 
   yield* put(supportFinished(selectedTrooperInfo));
 }

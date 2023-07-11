@@ -20,11 +20,12 @@ import {
   getElementBoundsWithinContainer,
   getRandomNumberInRange
 } from 'common/helpers';
-import { AREA_CONTAINER_ID, ATTACK_TYPE, TROOPER_TEAM } from '../constants';
+import { AREA_CONTAINER_ID, TROOPER_TEAM } from '../constants';
+import { ATTACK_TYPE } from 'common/constants';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getTrooperNode } from '../troopersNodesMap';
-import { applyAbilities } from './abilitiesSaga';
+import { applyCurses } from './abilitiesSaga';
 
 function* getEnemyCoordinates(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -156,7 +157,7 @@ function* playAttackAnimation({
 
   if (isDying) {
     yield* all([
-      call(applyAbilities, { id: selectedTrooperInfo.id }),
+      call(applyCurses, { id: selectedTrooperInfo.id }),
       call([attackedTrooperAnimationInstance!, 'die']),
       put(
         applyDamage({
@@ -193,7 +194,7 @@ function* playAttackAnimation({
 
   yield* all([
     call([attackedTrooperAnimationInstance!, 'hurt']),
-    call(applyAbilities, { id: selectedTrooperInfo.id }),
+    call(applyCurses, { id: selectedTrooperInfo.id }),
     put(
       applyDamage({
         damage,
@@ -324,7 +325,7 @@ function* attack({
     }
 
     yield* all([
-      call(applyAbilities, { id: selectedTrooperInfo.id }),
+      call(applyCurses, { id: selectedTrooperInfo.id }),
       put(
         applyDamage({
           damage,

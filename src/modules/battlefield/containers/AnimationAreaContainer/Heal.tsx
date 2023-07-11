@@ -1,7 +1,7 @@
 import React from 'react';
 import { EffectAnimation } from 'modules/animation/containers/EffectAnimation';
 import type { Trooper } from '../../types';
-import { EFFECT } from '../../constants';
+import { EFFECT } from 'common/constants';
 
 type Props = {
   containerNode: HTMLDivElement;

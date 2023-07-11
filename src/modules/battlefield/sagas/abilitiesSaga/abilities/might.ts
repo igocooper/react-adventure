@@ -3,9 +3,9 @@ import { call, put } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createMightEffect } from '../../effectsSaga/effects';
 import { getEffectNode } from '../../../effectsNodesMap';
-import { updateCharacterImages } from '../../../../../common/helpers';
-import { CHARACTER_IMAGE_SLOT } from 'common/constants';
-import { getTrooperAnimationInstance } from '../../../../animation/troopersAnimationInstances';
+import { updateCharacterImages } from 'common/helpers';
+import { ABILITY, ABILITY_TYPE, CHARACTER_IMAGE_SLOT } from 'common/constants';
+import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 
 export const createMightAbility = ({
   duration,
@@ -14,7 +14,8 @@ export const createMightAbility = ({
   duration: number;
   multiplier: number;
 }): Ability => ({
-  name: 'might',
+  type: ABILITY_TYPE.BUFF,
+  name: ABILITY.MIGHT,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
     const trooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,
@@ -26,9 +27,14 @@ export const createMightAbility = ({
       duration
     });
 
-    yield* call(mightEffect.applyEffect, {
-      activeTrooper: targetTrooper
-    });
+    // WE DO NOT WANT EFFECT TO STUCK UP
+    if (
+      !targetTrooper.effects.find((effect) => effect.name === mightEffect.name)
+    ) {
+      yield* call(mightEffect.applyEffect, {
+        activeTrooper: targetTrooper
+      });
+    }
 
     mightEffect.done = true;
 
@@ -41,7 +47,7 @@ export const createMightAbility = ({
       updateCharacterImages,
       [
         {
-          url: '/images/effects/holy.png',
+          url: '/images/effects/might.png',
           itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
         }
       ],

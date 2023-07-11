@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE } from 'modules/battlefield/constants';
+import { ATTACK_TYPE } from 'common/constants';
 import { mountainBow, mountainStaff } from 'factory/weapons';
 
 export const mountainWarrior1 = (overrides: Partial<Trooper>) =>

@@ -4,7 +4,7 @@ import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createHealEffect } from '../../effectsSaga/effects';
 import { getRandomNumberInRange } from 'common/helpers';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
-import { EFFECT } from 'modules/battlefield/constants';
+import { ABILITY, ABILITY_TYPE, EFFECT } from 'common/constants';
 
 export const createHealAbility = ({
   duration,
@@ -15,7 +15,8 @@ export const createHealAbility = ({
   heal: number;
   hitChance: number;
 }): Ability => ({
-  name: 'heal',
+  type: ABILITY_TYPE.BUFF,
+  name: ABILITY.HEAL,
   hitChance,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
     const roll = getRandomNumberInRange(1, 100);
