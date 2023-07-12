@@ -29,7 +29,7 @@ type CharacterProps = Pick<
   | 'appearance'
   | 'equipment'
 > & {
-  containerNode: HTMLElement;
+  containerNode?: HTMLElement;
 };
 
 export const TileContainer = ({
@@ -112,7 +112,7 @@ export const TileContainer = ({
           $hovered={hovered}
         >
           <CharacterComponent
-            containerNode={containerNode}
+            containerNode={containerNode!}
             type={type}
             appearance={appearance}
             equipment={equipment}
