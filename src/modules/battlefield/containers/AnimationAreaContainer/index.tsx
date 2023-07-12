@@ -7,14 +7,10 @@ import {
   hoveredElementSelector,
   makeCharacterByIdSelector
 } from '../../selectors';
-import { MountainArcherArrow } from './MountainArcherArrow';
 import { Block } from './Block';
 import { Poison } from './Poison';
 import { Anchor } from './Anchor';
-import { IceSpikes } from './IceSpikes';
-import { Kraken } from './Kraken';
 import { Heal } from './Heal';
-import { MagmaGeysers } from './MagmaGeysers';
 import { AREA_CONTAINER_ID } from '../../constants';
 
 type OwnProps = {
@@ -35,12 +31,6 @@ export const AnimationAreaContainer = ({ children }: OwnProps) => {
     <Area ref={areaAnimationRef} $team={team} id={AREA_CONTAINER_ID}>
       {battleFieldLoaded && (
         <>
-          <MountainArcherArrow
-            team={team}
-            containerNode={areaAnimationRef.current!}
-            activeTrooperId={activeTrooper?.id}
-            selectedTrooperId={selectedTrooper?.id}
-          />
           <Block
             containerNode={areaAnimationRef.current!}
             trooperId={activeTrooper?.id}
@@ -53,16 +43,23 @@ export const AnimationAreaContainer = ({ children }: OwnProps) => {
             containerNode={areaAnimationRef.current!}
             trooperId={activeTrooper?.id}
           />
-          <IceSpikes />
-          <Kraken />
-          <MagmaGeysers />
           <Heal
             containerNode={areaAnimationRef.current!}
             trooperId={selectedTrooper?.id}
           />
         </>
       )}
-      {children}
+
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, {
+            // @ts-expect-error
+            containerNode: areaAnimationRef.current!
+          });
+        }
+
+        return child;
+      })}
     </Area>
   );
 };

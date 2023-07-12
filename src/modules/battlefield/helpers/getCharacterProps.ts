@@ -4,9 +4,6 @@ import { applyEquipment } from 'common/helpers/equipment';
 
 const getSconFile = (type: string) => {
   switch (type) {
-    case 'mountain-warrior-5': {
-      return '/archer.scon';
-    }
     default:
       return '/common.scon';
   }
@@ -29,9 +26,8 @@ const getDefaultAppearance = (type: string): AppearanceUrls => {
     [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: `/images/${type}/Right Leg.png`,
     [CHARACTER_IMAGE_SLOT.SLASH_FX]: `/images/${type}/SlashFX.png`,
     [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: `/images/${type}/Left Hand Weapon.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_HAND_WEAPON]: `/images/${type}/Right Hand Weapon.png`,
     // Archer images
-    ...(type === 'mountain-warrior-5'
+    ...(type.includes('archer')
       ? {
           [CHARACTER_IMAGE_SLOT.BOW]: `/images/${type}/Bow.png`,
           [CHARACTER_IMAGE_SLOT.BOWSTRING]: `/images/${type}/Bowstring.png`,

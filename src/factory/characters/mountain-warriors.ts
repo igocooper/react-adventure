@@ -2,6 +2,8 @@ import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE } from 'common/constants';
 import { mountainBow, mountainStaff } from 'factory/weapons';
+import { ATTACK_ID } from 'modules/battlefield/characters/MoutainArcher/constants';
+import { ATTACK_ID_LAVA_GEYSER } from 'modules/battlefield/characters/MountainMage/constants';
 
 export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -19,7 +21,7 @@ export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
     defence: 0
   }) as Trooper;
 
-export const mountainWarrior4 = (overrides: Partial<Trooper>) =>
+export const mountainMage = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
       leftHand: mountainStaff
@@ -27,20 +29,20 @@ export const mountainWarrior4 = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     ...overrides,
-    type: 'mountain-warrior-4',
+    type: 'mountain-mage',
     baseDamage: '1-3',
     damage: '1-3',
     health: 25,
     currentHealth: 25,
     initiative: 9,
     attackType: ATTACK_TYPE.SPLASH,
-    attackId: 'magma-geysers',
+    attackId: ATTACK_ID_LAVA_GEYSER,
     defence: 0,
     criticalChance: 5,
     criticalMultiplier: 2
   }) as Trooper;
 
-export const mountainWarrior5 = (overrides: Partial<Trooper>) =>
+export const mountainArcher = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
       leftHand: mountainBow
@@ -48,14 +50,14 @@ export const mountainWarrior5 = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     ...overrides,
-    type: 'mountain-warrior-5',
+    type: 'mountain-archer',
     baseDamage: '1-3',
     damage: '1-3',
     health: 25,
     currentHealth: 25,
     initiative: 5,
     attackType: ATTACK_TYPE.RANGE,
-    attackId: 'mountainArcherArrow',
+    attackId: ATTACK_ID,
     defence: 0,
     criticalChance: 10,
     criticalMultiplier: 2

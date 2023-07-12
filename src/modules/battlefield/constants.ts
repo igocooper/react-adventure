@@ -5,8 +5,8 @@ import {
   goblin3,
   hero,
   armoredGoblin,
-  mountainWarrior5,
-  mountainWarrior4,
+  mountainArcher,
+  mountainMage,
   waterMage,
   priest1,
   goblinBuffer
@@ -69,12 +69,12 @@ const ATTACKERS_TROOPS: Trooper[] = [
     team: 'attackers',
     position: 4
   }),
-  mountainWarrior5({
+  mountainArcher({
     id: 3,
     team: 'attackers',
     position: 5
   }),
-  mountainWarrior4({
+  mountainMage({
     id: 5,
     team: 'attackers',
     position: 1

@@ -8,7 +8,7 @@ enum ATTACK_TYPE {
 
 export const mountainBow: Weapon = {
   name: 'Mountain Bow',
-  imageSrc: '/images/mountain-warrior-5/Bow.png',
+  imageSrc: '/images/mountain-archer/Bow.png',
   damage: '10-15',
   attackType: ATTACK_TYPE.RANGE
 };

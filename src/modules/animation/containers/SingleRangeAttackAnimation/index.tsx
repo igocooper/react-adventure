@@ -6,7 +6,7 @@ import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstan
 import { RangeAttackImage } from './styled';
 
 type Props = {
-  containerNode: HTMLDivElement;
+  containerNode: HTMLElement;
   animationDuration: number;
   activeTrooperId?: Trooper['id'];
   selectedTrooperId?: Trooper['id'];

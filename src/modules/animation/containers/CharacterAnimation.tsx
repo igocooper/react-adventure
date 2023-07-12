@@ -18,6 +18,7 @@ type Props = {
   sconFileUrl: string;
   meleeAttackTransitionTime?: number;
   onLoad?: (id: Trooper['id']) => void;
+  animationMap?: Record<string, string>;
 } & Pick<Trooper, 'id' | 'team'>;
 
 const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = CHARACTER_IMAGE_SLOT;
@@ -164,8 +165,9 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   idle() {
+    const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('idle_with_weapon', Infinity);
+    this.setAnimation(animationMap?.idle || 'idle_with_weapon', Infinity);
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
@@ -219,8 +221,9 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async hurt() {
+    const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('hurt');
+    this.setAnimation(animationMap?.hurt || 'hurt');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
@@ -228,14 +231,16 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async die() {
+    const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('dying');
+    this.setAnimation(animationMap?.dying || 'dying');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
   }
 
   async attack() {
+    const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
     // const attacks = [
     //   'slashing_with_left_hand',
@@ -249,7 +254,7 @@ export class CharacterAnimation extends Component<Props> {
     // const attackIndex = getRandomNumberInRange(0, attacks.length - 1);
 
     // this.setAnimation(attacks[attackIndex]!);
-    this.setAnimation('slashing_with_left_hand');
+    this.setAnimation(animationMap?.attack || 'slashing_with_left_hand');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
@@ -278,8 +283,9 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async effected() {
+    const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('effected');
+    this.setAnimation(animationMap?.effected || 'effected');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
     await wait(this.anim_length);
     this.idle();

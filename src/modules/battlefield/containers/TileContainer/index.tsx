@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'store/hooks';
-import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
-import { getCharacterProps } from 'modules/battlefield/helpers/getCharacterProps';
 import {
   setHoveredElement,
   trooperClicked,
@@ -18,6 +16,7 @@ import { Character, Tile } from './styled';
 import { HealthBar } from '../../components/HealthBar';
 import { EffectContainer } from '../EffectContainer';
 import { registerTileNode } from '../../tilesNodesMap';
+import { getCharacterByType } from '../../helpers/getCharacterByType';
 
 type CharacterProps = Pick<
   Trooper,
@@ -29,7 +28,9 @@ type CharacterProps = Pick<
   | 'health'
   | 'appearance'
   | 'equipment'
->;
+> & {
+  containerNode: HTMLElement;
+};
 
 export const TileContainer = ({
   id,
@@ -39,7 +40,8 @@ export const TileContainer = ({
   currentHealth,
   health,
   equipment,
-  appearance
+  appearance,
+  containerNode
 }: CharacterProps) => {
   const dispatch = useDispatch();
   const hoveredElement = useSelector(hoveredElementSelector);
@@ -86,6 +88,8 @@ export const TileContainer = ({
   const active = id === activeTrooper?.id;
   const hovered = id === hoveredElement?.id;
 
+  const CharacterComponent = getCharacterByType(type);
+
   return (
     <Tile
       ref={tileRef}
@@ -107,12 +111,11 @@ export const TileContainer = ({
           $active={active}
           $hovered={hovered}
         >
-          <CharacterAnimation
-            {...getCharacterProps({
-              type,
-              appearance,
-              equipment
-            })}
+          <CharacterComponent
+            containerNode={containerNode}
+            type={type}
+            appearance={appearance}
+            equipment={equipment}
             id={id}
             team={team}
             onLoad={handleLoad}

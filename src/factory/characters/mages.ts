@@ -2,6 +2,7 @@ import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE } from 'common/constants';
 import { waterMageStaff } from 'factory/weapons';
+import { ATTACK_ID_KRAKEN } from 'modules/battlefield/characters/WaterMage/constants';
 
 export const waterMage = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -18,6 +19,6 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     currentHealth: 50,
     initiative: 6,
     attackType: ATTACK_TYPE.SPLASH,
-    attackId: 'kraken',
+    attackId: ATTACK_ID_KRAKEN,
     defence: 0
   }) as Trooper;

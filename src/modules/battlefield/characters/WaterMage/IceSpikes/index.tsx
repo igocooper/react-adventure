@@ -1,11 +1,17 @@
 import React, { Component, createRef } from 'react';
+import { createPortal } from 'react-dom';
 import { IceSpike } from './IceSpike';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { wait } from 'common/helpers';
 import type { Coordinates } from 'modules/battlefield/types';
+import { ATTACK_ID_ICE_SPIKES } from '../constants';
 
 type State = {
   coordinates: Coordinates;
+};
+
+type Props = {
+  containerNode: HTMLElement;
 };
 
 const FRAME_WIDTH = 256;
@@ -20,11 +26,11 @@ const prepareCoordinates = (coordinates: Coordinates) =>
     };
   });
 
-export class IceSpikes extends Component<unknown, State> {
+export class IceSpikes extends Component<Props, State> {
   // ts-ignore
   spikesRefs: Array<React.RefObject<any>>;
 
-  constructor(props: undefined) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -34,7 +40,7 @@ export class IceSpikes extends Component<unknown, State> {
   }
 
   componentDidMount() {
-    registerAreaEffect('ice-spikes', this);
+    registerAreaEffect(ATTACK_ID_ICE_SPIKES, this);
   }
 
   async play(coordinates: Coordinates | undefined) {
@@ -58,15 +64,21 @@ export class IceSpikes extends Component<unknown, State> {
 
   render() {
     const { coordinates } = this.state;
+    const { containerNode } = this.props;
 
-    return coordinates.map((spikeCoords, index) => {
-      return (
-        <IceSpike
-          key={`${index}-${spikeCoords.x}-${spikeCoords.y}`}
-          position={spikeCoords}
-          ref={this.spikesRefs[index]}
-        />
-      );
-    });
+    if (!containerNode) return null;
+
+    return createPortal(
+      coordinates.map((spikeCoords, index) => {
+        return (
+          <IceSpike
+            key={`${index}-${spikeCoords.x}-${spikeCoords.y}`}
+            position={spikeCoords}
+            ref={this.spikesRefs[index]}
+          />
+        );
+      }),
+      containerNode
+    );
   }
 }
