@@ -17,7 +17,7 @@ type ApplyDamagePayload = {
   id: number;
   damage: number;
   team: Team;
-  isEvading?: boolean;
+  hasMissed?: boolean;
   isCriticalDamage?: boolean;
   isPoison?: boolean;
 };

@@ -39,33 +39,36 @@ function* getEnemyCoordinates(id: Trooper['id']) {
 }
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
-  const { criticalChance, criticalMultiplier } = activeTrooper;
+  const { criticalChance, criticalMultiplier, hitChance } = activeTrooper;
   const { evadeChance } = selectedTrooper;
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
   let isDying = false;
-  let isEvading = false;
+  const successHit =
+    getRandomNumberInRange(1, 100) <= hitChance - (evadeChance || 0);
+  const hasMissed = !successHit;
+
   let isCriticalDamage = false;
   let damage = getRandomNumberInRange(
     parseInt(minDamage!, 10),
     parseInt(maxDamage!, 10)
   );
 
+  // Apply critical chance
   if (criticalChance) {
-    isCriticalDamage = criticalChance >= getRandomNumberInRange(1, 100);
+    isCriticalDamage = getRandomNumberInRange(1, 100) <= criticalChance;
     if (isCriticalDamage && criticalMultiplier) {
       damage = Math.round(damage * criticalMultiplier);
     }
   }
 
+  // Apply DEFENCE
   if (selectedTrooper.defence) {
     damage = damage - Math.floor((damage / 100) * selectedTrooper.defence);
   }
 
-  if (evadeChance) {
-    isEvading = evadeChance >= getRandomNumberInRange(1, 100);
-    if (isEvading) {
-      damage = 0;
-    }
+  // Apply hit chance
+  if (hasMissed) {
+    damage = 0;
   }
 
   if (damage >= selectedTrooper.currentHealth) {
@@ -73,7 +76,7 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
     isDying = true;
   }
 
-  return { damage, isDying, isEvading, isCriticalDamage };
+  return { damage, isDying, hasMissed, isCriticalDamage };
 };
 
 function* playRangeAttackAnimation({
@@ -81,13 +84,13 @@ function* playRangeAttackAnimation({
   selectedTrooperId,
   attackId,
   isDying,
-  isEvading
+  hasMissed
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperId: Trooper['id'];
   attackId: string;
   isDying: boolean;
-  isEvading: boolean;
+  hasMissed: boolean;
 }) {
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
@@ -107,7 +110,7 @@ function* playRangeAttackAnimation({
     return;
   }
 
-  if (!isEvading) {
+  if (!hasMissed) {
     yield* fork([attackedTrooperAnimationInstance!, 'hurt']);
   }
 }
@@ -117,14 +120,14 @@ function* playAttackAnimation({
   selectedTrooperInfo,
   damage,
   isDying,
-  isEvading,
+  hasMissed,
   isCriticalDamage
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperInfo: Pick<Trooper, 'id' | 'team'>;
   damage: number;
   isDying: boolean;
-  isEvading: boolean;
+  hasMissed: boolean;
   isCriticalDamage: boolean;
 }) {
   const activeTrooperAnimationInstance = yield* call(
@@ -164,7 +167,7 @@ function* playAttackAnimation({
           damage,
           team: selectedTrooperInfo.team,
           id: selectedTrooperInfo.id,
-          isEvading,
+          hasMissed,
           isCriticalDamage
         })
       ),
@@ -176,13 +179,13 @@ function* playAttackAnimation({
     return;
   }
 
-  if (isEvading) {
+  if (hasMissed) {
     yield* put(
       applyDamage({
         damage,
         team: selectedTrooperInfo.team,
         id: selectedTrooperInfo.id,
-        isEvading,
+        hasMissed,
         isCriticalDamage
       })
     );
@@ -200,7 +203,7 @@ function* playAttackAnimation({
         damage,
         team: selectedTrooperInfo.team,
         id: selectedTrooperInfo.id,
-        isEvading,
+        hasMissed,
         isCriticalDamage
       })
     ),
@@ -217,7 +220,7 @@ function* handleEnemyTrooperDamage({
   enemyTrooper: Trooper;
   activeTrooper: Trooper;
 }) {
-  const { damage, isCriticalDamage, isEvading, isDying } = calculateDamage(
+  const { damage, isCriticalDamage, hasMissed, isDying } = calculateDamage(
     enemyTrooper,
     activeTrooper
   );
@@ -234,14 +237,14 @@ function* handleEnemyTrooperDamage({
         damage,
         team: enemyTrooper.team,
         id: enemyTrooper.id,
-        isEvading,
+        hasMissed,
         isCriticalDamage
       })
     );
     return;
   }
 
-  if (!isEvading) {
+  if (!hasMissed) {
     yield* fork([attackedTrooperAnimationInstance!, 'hurt']);
   }
 
@@ -250,7 +253,7 @@ function* handleEnemyTrooperDamage({
       damage,
       team: enemyTrooper.team,
       id: enemyTrooper.id,
-      isEvading,
+      hasMissed,
       isCriticalDamage
     })
   );
@@ -265,7 +268,7 @@ function* attack({
   const selectedTrooper = yield* select(
     makeCharacterByIdSelector(selectedTrooperInfo.id)
   );
-  const { damage, isDying, isEvading, isCriticalDamage } = calculateDamage(
+  const { damage, isDying, hasMissed, isCriticalDamage } = calculateDamage(
     selectedTrooper!,
     activeTrooper!
   );
@@ -320,7 +323,7 @@ function* attack({
         selectedTrooperId: selectedTrooperInfo.id,
         attackId: activeTrooper.attackId,
         isDying,
-        isEvading
+        hasMissed
       });
     }
 
@@ -331,7 +334,7 @@ function* attack({
           damage,
           team: selectedTrooperInfo.team,
           id: selectedTrooperInfo.id,
-          isEvading,
+          hasMissed,
           isCriticalDamage
         })
       )
@@ -344,7 +347,7 @@ function* attack({
       selectedTrooperInfo,
       damage,
       isDying,
-      isEvading,
+      hasMissed,
       isCriticalDamage
     });
   }

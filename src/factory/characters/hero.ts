@@ -23,6 +23,7 @@ export const hero = (overrides: Partial<Trooper>) =>
     type: 'hero',
     baseDamage: '3-3',
     damage: '3-3',
+    hitChance: 95,
     health: 50,
     currentHealth: 50,
     initiative: 3,

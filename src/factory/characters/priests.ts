@@ -21,6 +21,7 @@ export const priest1 = (overrides: Partial<Trooper>) =>
     type: 'priest-1',
     baseDamage: '1-3',
     damage: '1-3',
+    hitChance: 95,
     health: 50,
     currentHealth: 50,
     initiative: 1,

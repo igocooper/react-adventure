@@ -26,20 +26,13 @@ const blow = keyframes`
 `;
 
 type DamageItemProps = {
-  $isCriticalDamage?: boolean;
-  $isPoison?: boolean;
+  $color: string;
   $position: { x: number; y: number };
-  $miss?: boolean;
 };
 
 export const DamageItem = styled.span<DamageItemProps>`
   opacity: 0;
-  color: ${({ theme, $isCriticalDamage, $miss, $isPoison }) =>
-    $isPoison
-      ? theme.color.poison
-      : $isCriticalDamage && !$miss
-      ? theme.color.critical
-      : theme.color.white};
+  color: ${({ $color }) => $color};
   font-size: 42px;
   font-weight: 600;
   position: absolute;
