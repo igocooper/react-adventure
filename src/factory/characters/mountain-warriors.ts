@@ -49,7 +49,7 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
 export const mountainArcher = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: mountainBow
+      bow: mountainBow
     },
     abilities: [],
     effects: [],

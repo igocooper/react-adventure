@@ -94,23 +94,31 @@ export type Character = {
   evadeChance?: number;
   defence: number;
   resistance?: Resistance;
-  poisonResistance?: number;
-  waterResistance?: number;
-  fireResistance?: number;
-  earthResistance?: number;
-  windResistance?: number;
-  bloodResistance?: number;
-  darkResistance?: number;
-  lightResistance?: number;
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];
   effects: Effect[];
 };
 
+export type ArmorStats = {
+  defence: number;
+  resistance?: Resistance;
+  evadeChance?: number;
+  criticalChance?: number;
+};
+
+export type WeaponStats = {
+  damage: string;
+  hitChance?: number;
+  power?: number;
+  criticalChance?: number;
+  criticalMultiplier?: number;
+  abilities?: [Ability];
+};
+
 export type Armor = {
   name: string;
-  defence: number;
+  stats: ArmorStats;
   imageUrls: {
     body: string;
     leftArm: string;
@@ -129,23 +137,30 @@ export type Helmet = {
   type: HelmetType;
   large?: boolean;
   imageSrc: string;
-  defence: number;
+  stats: ArmorStats;
+};
+
+export type Bow = {
+  name: string;
+  imageUrls: {
+    bow: string;
+    bowString: string;
+    drawnBowString: string;
+    quiver: string;
+    arrow: string;
+  };
+  stats: WeaponStats;
 };
 
 export type Weapon = {
   name: string;
   imageSrc: string;
-  damage: string;
-  power?: number;
-  criticalChance?: number;
-  criticalMultiplier?: number;
-  attackType: AttackType;
-  abilities?: [Ability];
+  stats: WeaponStats;
 };
 
 export type Shield = {
   name: string;
-  defence: number;
+  stats: ArmorStats;
   imageSrc: string;
 };
 
@@ -153,5 +168,7 @@ export type Equipment = {
   helmet?: Helmet;
   armor?: Armor;
   leftHand?: Weapon;
-  rightHand?: Weapon | Shield;
+  rightHand?: Weapon;
+  shield?: Shield;
+  bow?: Bow;
 };

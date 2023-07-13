@@ -119,7 +119,9 @@ export const Info = ({
           Defence: <Value>{defence} %</Value>
         </Item>
       )}
-      {resistance && <Item>Resistance:</Item>}
+      {resistance && Object.keys(resistance).length > 0 && (
+        <Item>Resistance:</Item>
+      )}
       {resistance?.fire && (
         <Item>
           - Fire: {getDamageTypeIcon(DAMAGE_TYPE.FIRE)}{' '}

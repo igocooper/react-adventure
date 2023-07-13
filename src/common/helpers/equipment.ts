@@ -3,15 +3,35 @@ import type {
   Armor,
   Equipment,
   Helmet,
+  Bow,
   Shield,
   Weapon,
-  Character
+  Character,
+  Resistance,
+  ArmorStats,
+  WeaponStats
 } from 'common/types';
 import { getDamage } from 'common/helpers';
-import { isWeapon, isShield } from 'common/typeGuards';
+import { isWeapon } from 'common/typeGuards';
 import { CHARACTER_IMAGE_SLOT, HELMET_TYPE } from '../constants';
 
 type AppearanceUrls = Record<string, string>;
+
+const applyResistanceStats = (
+  resistance: Resistance,
+  itemResistance: Resistance
+) => {
+  return Object.entries(itemResistance).reduce(
+    (result, [resistanceName, value]) => {
+      const currentValue = result[resistanceName as keyof Resistance];
+      return {
+        ...result,
+        [resistanceName]: currentValue! + value
+      };
+    },
+    resistance
+  );
+};
 
 export const equipHelmet = ({
   appearance,
@@ -115,6 +135,23 @@ export const equipArmor = ({
   };
 };
 
+export const equipBow = ({
+  appearance,
+  bow
+}: {
+  bow: Bow;
+  appearance: AppearanceUrls;
+}): AppearanceUrls => {
+  return {
+    ...appearance,
+    [CHARACTER_IMAGE_SLOT.BOW]: bow.imageUrls.bow,
+    [CHARACTER_IMAGE_SLOT.BOWSTRING]: bow.imageUrls.bowString,
+    [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: bow.imageUrls.drawnBowString,
+    [CHARACTER_IMAGE_SLOT.QUIVER]: bow.imageUrls.quiver,
+    [CHARACTER_IMAGE_SLOT.ARROW]: bow.imageUrls.arrow
+  };
+};
+
 export const equipLeftHandWeapon = ({
   appearance,
   weapon
@@ -176,6 +213,13 @@ export const applyEquipment = ({
     });
   }
 
+  if (equipment.bow) {
+    appearance = equipBow({
+      appearance,
+      bow: equipment.bow
+    });
+  }
+
   if (equipment.rightHand) {
     appearance = equipRightHandWeapon({
       appearance,
@@ -186,82 +230,112 @@ export const applyEquipment = ({
   return appearance;
 };
 
+const applyWeaponStats = <T>(
+  itemStats: WeaponStats,
+  stats: T & WeaponStats
+): T => {
+  return Object.entries(itemStats).reduce((result, [propertyName, value]) => {
+    const currentValue = result[propertyName as keyof WeaponStats];
+    // TODO: add abilities
+
+    if (
+      propertyName === 'damage' &&
+      typeof currentValue === 'string' &&
+      typeof value === 'string'
+    ) {
+      const [currentMinDamage, currentMaxDamage] = getDamage(currentValue);
+      const [minDamage, maxDamage] = getDamage(value);
+
+      return {
+        ...result,
+        [propertyName]: `${currentMinDamage + minDamage}-${
+          currentMaxDamage + maxDamage
+        }`
+      };
+    }
+
+    if (typeof currentValue === 'number' && typeof value === 'number') {
+      if (propertyName === 'criticalMultiplier') {
+        return {
+          ...result,
+          [propertyName]: currentValue < value ? value : currentValue
+        };
+      }
+
+      return {
+        ...result,
+        [propertyName]: currentValue ? currentValue + value : value
+      };
+    }
+
+    return result;
+  }, stats);
+};
+
+const applyArmorStats = <T>(
+  itemStats: ArmorStats,
+  stats: T & ArmorStats
+): T => {
+  return Object.entries(itemStats).reduce((result, [propertyName, value]) => {
+    const currentValue = result[propertyName as keyof ArmorStats];
+
+    if (propertyName === 'resistance') {
+      return {
+        ...result,
+        [propertyName]: applyResistanceStats(
+          currentValue as Resistance,
+          value as Resistance
+        )
+      };
+    }
+
+    if (typeof currentValue === 'number' && typeof value === 'number') {
+      return {
+        ...result,
+        [propertyName]: currentValue ? currentValue + value : value
+      };
+    }
+
+    return result;
+  }, stats);
+};
+
 export const applyCharacterEquipmentStats = (props: Character) => {
   const { equipment } = props;
-  const { leftHand, rightHand, armor, helmet } = equipment;
+  const { leftHand, rightHand, armor, helmet, bow } = equipment;
 
-  let damage = props.damage;
-  let attackType = props.attackType;
-  let criticalChance = props.criticalChance;
-  let criticalMultiplier = props.criticalMultiplier;
-  let defence = props.defence;
-  let power = props.power;
+  let equipmentStats = {
+    damage: props.damage,
+    criticalChance: props.criticalChance,
+    criticalMultiplier: props.criticalMultiplier,
+    defence: props.defence,
+    power: props.power,
+    evadeChance: props.evadeChance,
+    resistance: props.resistance || {}
+  };
 
   if (leftHand) {
-    attackType = leftHand.attackType;
-    damage = leftHand.damage;
+    equipmentStats = applyWeaponStats(leftHand.stats, equipmentStats);
+  }
 
-    if (leftHand.criticalMultiplier) {
-      criticalMultiplier =
-        criticalMultiplier && leftHand.criticalMultiplier < criticalMultiplier
-          ? criticalMultiplier
-          : leftHand.criticalMultiplier;
-    }
-
-    if (leftHand.criticalChance) {
-      criticalChance = criticalChance
-        ? criticalChance + leftHand.criticalChance
-        : leftHand.criticalChance;
-    }
-
-    if (leftHand.power) {
-      power = power ? power + leftHand.power : leftHand.power;
-    }
+  if (bow) {
+    equipmentStats = applyWeaponStats(bow.stats, equipmentStats);
   }
 
   if (leftHand && rightHand && isWeapon(rightHand)) {
-    const [leftHandMinDamage, leftHandMaxDamage] = getDamage(leftHand.damage);
-    const [rightHandMinDamage, rightHandMaxDamage] = getDamage(
-      rightHand.damage
-    );
-
-    damage = `${leftHandMinDamage + rightHandMinDamage}-${
-      leftHandMaxDamage + rightHandMaxDamage
-    }`;
-
-    if (rightHand.criticalMultiplier) {
-      criticalMultiplier =
-        criticalMultiplier && rightHand.criticalMultiplier < criticalMultiplier
-          ? criticalMultiplier
-          : rightHand.criticalMultiplier;
-    }
-
-    if (rightHand.criticalChance) {
-      criticalChance = criticalChance
-        ? criticalChance + rightHand.criticalChance
-        : rightHand.criticalChance;
-    }
-  }
-
-  if (rightHand && isShield(rightHand)) {
-    defence = defence ? defence + rightHand.defence : rightHand.defence;
+    equipmentStats = applyWeaponStats(rightHand.stats, equipmentStats);
   }
 
   if (armor) {
-    defence = defence ? defence + armor.defence : armor.defence;
+    equipmentStats = applyArmorStats(armor.stats, equipmentStats);
   }
 
   if (helmet) {
-    defence = defence ? defence + helmet.defence : helmet.defence;
+    equipmentStats = applyArmorStats(helmet.stats, equipmentStats);
   }
 
   return {
     ...props,
-    damage,
-    attackType,
-    criticalChance,
-    criticalMultiplier,
-    defence,
-    power
+    ...equipmentStats
   };
 };

@@ -1,32 +1,29 @@
 import type { Weapon } from 'common/types';
 
-enum ATTACK_TYPE {
-  RANGE = 'range',
-  MELEE = 'melee',
-  SPLASH = 'splash'
-}
-
 export const golemSword: Weapon = {
   name: 'Golem Sword',
   imageSrc: '/images/golem-3/Left Hand Weapon.png',
-  damage: '5-16',
-  attackType: ATTACK_TYPE.MELEE
+  stats: {
+    damage: '5-16'
+  }
 };
 
 export const rustyBastardSword: Weapon = {
   name: 'Rusty Bastard Sword',
   imageSrc: '/images/hero/Left Hand Weapon.png',
-  damage: '5-10',
-  attackType: ATTACK_TYPE.MELEE,
-  criticalChance: 10,
-  criticalMultiplier: 2
+  stats: {
+    damage: '5-10',
+    criticalChance: 10,
+    criticalMultiplier: 2
+  }
 };
 
 export const meatCutter: Weapon = {
   name: 'Meat Cutter',
   imageSrc: '/images/weapons/swords/meat-cutter.png',
-  damage: '5-8',
-  attackType: ATTACK_TYPE.MELEE,
-  criticalChance: 10,
-  criticalMultiplier: 2
+  stats: {
+    damage: '5-8',
+    criticalChance: 10,
+    criticalMultiplier: 2
+  }
 };
