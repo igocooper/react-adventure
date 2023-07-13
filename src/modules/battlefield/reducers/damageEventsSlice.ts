@@ -4,9 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export type DamageEvent = {
   id: number;
   value: number | string;
-  isEvading?: boolean;
-  isCriticalDamage?: boolean;
-  isPoison?: boolean;
+  color: string;
   position: {
     x: number;
     y: number;

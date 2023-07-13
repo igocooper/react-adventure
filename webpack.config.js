@@ -19,7 +19,8 @@ module.exports = {
       modules: paths.modulesDir,
       common: paths.commonDir,
       config: paths.configDir,
-      factory: paths.factoryDir
+      factory: paths.factoryDir,
+      theme: paths.themeDir
     },
     extensions: ['.tsx', '.ts', '.js']
   },

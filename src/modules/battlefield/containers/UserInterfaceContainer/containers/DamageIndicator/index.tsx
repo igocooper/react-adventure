@@ -12,23 +12,13 @@ export const DamageIndicatorContainer = () => {
 
   return (
     <DamageIndicator>
-      {damageEvents.map(
-        ({ id, value, position, isCriticalDamage, isEvading, isPoison }) => {
-          return (
-            <DamageItem
-              key={id}
-              $position={position}
-              $isCriticalDamage={isCriticalDamage}
-              $miss={isEvading}
-              $isPoison={isPoison}
-            >
-              {isCriticalDamage && !isEvading && 'Crit: '}
-              {!isEvading && value}
-              {isEvading && 'Miss'}
-            </DamageItem>
-          );
-        }
-      )}
+      {damageEvents.map(({ id, value, position, color }) => {
+        return (
+          <DamageItem key={id} $position={position} $color={color}>
+            {value}
+          </DamageItem>
+        );
+      })}
     </DamageIndicator>
   );
 };

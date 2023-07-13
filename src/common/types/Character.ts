@@ -67,6 +67,7 @@ export type Character = {
   supportType?: SupportType;
   power?: number;
   attackId?: string;
+  hitChance: number;
   criticalChance?: number;
   criticalMultiplier?: number;
   evadeChance?: number;
