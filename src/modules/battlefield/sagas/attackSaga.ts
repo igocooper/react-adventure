@@ -21,12 +21,13 @@ import {
   getRandomNumberInRange
 } from 'common/helpers';
 import { AREA_CONTAINER_ID, TROOPER_TEAM } from '../constants';
-import { ATTACK_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getTrooperNode } from '../troopersNodesMap';
 import { applyCurses } from './abilitiesSaga';
 import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
+import type { DamageType } from 'common/types';
 
 function* getEnemyCoordinates(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -84,13 +85,15 @@ function* playRangeAttackAnimation({
   selectedTrooperId,
   attackId,
   isDying,
-  hasMissed
+  hasMissed,
+  damageType
 }: {
   activeTrooperId: Trooper['id'];
   selectedTrooperId: Trooper['id'];
   attackId: string;
   isDying: boolean;
   hasMissed: boolean;
+  damageType: DamageType;
 }) {
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
@@ -100,10 +103,17 @@ function* playRangeAttackAnimation({
     getTrooperAnimationInstance,
     selectedTrooperId
   );
-  const archerAnimation = yield* call(getAreaEffectAnimationInstance, attackId);
+  const rangeAttackAnimation = yield* call(
+    getAreaEffectAnimationInstance,
+    attackId
+  );
 
-  yield* call([activeTrooperAnimationInstance!, 'shoot']);
-  yield* call([archerAnimation!, 'play']);
+  if (damageType === DAMAGE_TYPE.PHYSICAL) {
+    yield* call([activeTrooperAnimationInstance!, 'shoot']);
+  } else {
+    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+  }
+  yield* call([rangeAttackAnimation!, 'play']);
 
   if (isDying) {
     yield* fork([attackedTrooperAnimationInstance!, 'die']);
@@ -323,7 +333,8 @@ function* attack({
         selectedTrooperId: selectedTrooperInfo.id,
         attackId: activeTrooper.attackId,
         isDying,
-        hasMissed
+        hasMissed,
+        damageType: activeTrooper.damageType
       });
     }
 

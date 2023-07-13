@@ -133,5 +133,10 @@ export enum DAMAGE_TYPE {
   PHYSICAL = 'physical',
   POISON = 'poison',
   WATER = 'water',
-  FIRE = 'fire'
+  FIRE = 'fire',
+  WIND = 'wind',
+  EARTH = 'earth',
+  LIGHT = 'light',
+  DARK = 'dark',
+  BLOOD = 'blood'
 }

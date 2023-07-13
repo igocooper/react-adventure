@@ -29,5 +29,11 @@ export const hero = (overrides: Partial<Trooper>) =>
     currentHealth: 50,
     initiative: 3,
     attackType: ATTACK_TYPE.MELEE,
-    defence: 0
+    defence: 10,
+    resistance: {
+      fire: 10,
+      water: 10,
+      blood: 10,
+      poison: 10
+    }
   }) as Trooper;

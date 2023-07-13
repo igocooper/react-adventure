@@ -17,7 +17,7 @@ import { checkMeleeAttackConstraints } from '../helpers/checkMeleeAttackConstrai
 
 import type { Element } from '../reducers/hoveredElementSlice';
 import type { Trooper } from '../types';
-import { CURSOR, ATTACK_TYPE } from 'common/constants';
+import { CURSOR, ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
 import { HOVERED_ELEMENT_TYPE } from '../constants';
 
 type Props = {
@@ -48,7 +48,11 @@ const detectCharacterCursor = ({
 
   if (isEnemySelected) {
     if (activeTrooper.attackType === ATTACK_TYPE.RANGE) {
-      return CURSOR.BOW;
+      if (activeTrooper.damageType === DAMAGE_TYPE.PHYSICAL) {
+        return CURSOR.BOW;
+      }
+
+      return CURSOR.WAND;
     }
 
     if (activeTrooper.attackType === ATTACK_TYPE.SPLASH) {

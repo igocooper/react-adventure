@@ -1,8 +1,16 @@
 import type { Trooper } from 'modules/battlefield/types';
 import type { CallEffect } from 'redux-saga/effects';
-
 export type AttackType = 'melee' | 'range' | 'splash';
-export type DamageType = 'physical' | 'fire' | 'water' | 'poison';
+export type DamageType =
+  | 'physical'
+  | 'fire'
+  | 'water'
+  | 'wind'
+  | 'earth'
+  | 'light'
+  | 'dark'
+  | 'blood'
+  | 'poison';
 export type SupportType = 'heal' | 'buff';
 export type Team = 'attackers' | 'defenders';
 export type AbilityName = 'poison' | 'might' | 'anchor' | 'heal';
@@ -57,6 +65,17 @@ export type Appearance = {
   headEarless: string;
 };
 
+export type Resistance = {
+  fire?: number;
+  water?: number;
+  earth?: number;
+  wind?: number;
+  light?: number;
+  dark?: number;
+  poison?: number;
+  blood?: number;
+};
+
 export type Character = {
   type: string;
   health: number;
@@ -74,9 +93,15 @@ export type Character = {
   criticalMultiplier?: number;
   evadeChance?: number;
   defence: number;
+  resistance?: Resistance;
   poisonResistance?: number;
   waterResistance?: number;
   fireResistance?: number;
+  earthResistance?: number;
+  windResistance?: number;
+  bloodResistance?: number;
+  darkResistance?: number;
+  lightResistance?: number;
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];

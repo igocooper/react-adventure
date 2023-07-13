@@ -69,10 +69,13 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
         currentHealth={activeTrooper.currentHealth}
         health={activeTrooper.health}
         damage={activeTrooper.damage}
+        damageType={activeTrooper.damageType}
         attackType={activeTrooper.attackType}
-        initiative={activeTrooper.initiative}
+        hitChance={activeTrooper.hitChance}
         criticalChance={activeTrooper.criticalChance}
         evadeChance={activeTrooper.evadeChance}
+        defence={activeTrooper.defence}
+        resistance={activeTrooper.resistance}
       />
       <Effects>
         {activeTrooper.effects.map(({ name, iconSrc, duration }, index) => {
