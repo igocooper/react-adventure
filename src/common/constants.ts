@@ -128,3 +128,10 @@ export enum SUPPORT_TYPE {
   HEAL = 'heal',
   BUFF = 'buff'
 }
+
+export enum DAMAGE_TYPE {
+  PHYSICAL = 'physical',
+  POISON = 'poison',
+  WATER = 'water',
+  FIRE = 'fire'
+}

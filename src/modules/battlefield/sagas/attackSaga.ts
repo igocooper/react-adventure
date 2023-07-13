@@ -26,6 +26,7 @@ import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimation
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getTrooperNode } from '../troopersNodesMap';
 import { applyCurses } from './abilitiesSaga';
+import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
 
 function* getEnemyCoordinates(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -39,7 +40,8 @@ function* getEnemyCoordinates(id: Trooper['id']) {
 }
 
 const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
-  const { criticalChance, criticalMultiplier, hitChance } = activeTrooper;
+  const { criticalChance, criticalMultiplier, hitChance, damageType } =
+    activeTrooper;
   const { evadeChance } = selectedTrooper;
   const [minDamage, maxDamage] = activeTrooper.damage.split('-');
   let isDying = false;
@@ -61,10 +63,8 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
     }
   }
 
-  // Apply DEFENCE
-  if (selectedTrooper.defence) {
-    damage = damage - Math.floor((damage / 100) * selectedTrooper.defence);
-  }
+  // Apply DEFENCE and RESISTANCE
+  damage = applyDefenceAndResistance(damage, damageType, selectedTrooper);
 
   // Apply hit chance
   if (hasMissed) {

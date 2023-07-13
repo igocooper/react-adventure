@@ -7,8 +7,9 @@ import {
 } from 'modules/battlefield/actions';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import poisonIcon from './icons/poison.png';
-import { CHARACTER_IMAGE_SLOT } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE } from 'common/constants';
 import { updateCharacterImages } from 'common/helpers';
+import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
 
 export const createPoisonEffect = ({
   duration,
@@ -45,7 +46,11 @@ export const createPoisonEffect = ({
     yield* put(
       applyDamage({
         id: activeTrooper.id,
-        damage,
+        damage: applyDefenceAndResistance(
+          damage,
+          DAMAGE_TYPE.POISON,
+          activeTrooper
+        ),
         team: activeTrooper.team,
         isPoison: true
       })
