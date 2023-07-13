@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
 import { mountainBow, mountainStaff } from 'factory/weapons';
 import { ATTACK_ID } from 'modules/battlefield/characters/MoutainArcher/constants';
 import { ATTACK_ID_LAVA_GEYSER } from 'modules/battlefield/characters/MountainMage/constants';
@@ -14,6 +14,7 @@ export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
     type: 'mountain-warrior-1',
     baseDamage: '1-3',
     damage: '1-3',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     hitChance: 95,
     health: 25,
     currentHealth: 25,
@@ -33,6 +34,7 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     type: 'mountain-mage',
     baseDamage: '1-3',
     damage: '1-3',
+    damageType: DAMAGE_TYPE.FIRE,
     hitChance: 95,
     health: 25,
     currentHealth: 25,
@@ -55,6 +57,7 @@ export const mountainArcher = (overrides: Partial<Trooper>) =>
     type: 'mountain-archer',
     baseDamage: '1-3',
     damage: '1-3',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     hitChance: 95,
     health: 25,
     currentHealth: 25,

@@ -9,7 +9,7 @@ enum ATTACK_TYPE {
 export const mountainStaff: Weapon = {
   name: 'Mountain Wand',
   imageSrc: '/images/mountain-mage/Left Hand Weapon.png',
-  damage: '5-12',
+  damage: '12-12',
   attackType: ATTACK_TYPE.SPLASH
 };
 

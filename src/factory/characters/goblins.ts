@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, SUPPORT_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SUPPORT_TYPE } from 'common/constants';
 import {
   crookedStaff,
   rustyAxe,
@@ -21,6 +21,7 @@ export const goblin1 = (overrides: Partial<Trooper>) =>
     type: 'goblin-1',
     baseDamage: '1-3',
     damage: '1-3',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     hitChance: 95,
     health: 25,
     currentHealth: 25,
@@ -40,6 +41,7 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
     type: 'goblin-2',
     baseDamage: '2-3',
     damage: '2-3',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     health: 30,
     currentHealth: 30,
     initiative: 1,
@@ -61,6 +63,7 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
     type: 'goblin-3',
     baseDamage: '3-4',
     damage: '3-4',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     health: 30,
     currentHealth: 30,
     initiative: 2,
@@ -83,6 +86,7 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     type: 'armored-goblin',
     baseDamage: '3-4',
     damage: '3-4',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
     initiative: 3,
@@ -110,6 +114,7 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     type: 'goblin-buffer',
     baseDamage: '3-4',
     damage: '3-4',
+    damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
     initiative: 6,

@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
 import { waterMageStaff } from 'factory/weapons';
 import { ATTACK_ID_KRAKEN } from 'modules/battlefield/characters/WaterMage/constants';
 
@@ -19,6 +19,7 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     currentHealth: 50,
     initiative: 6,
     hitChance: 95,
+    damageType: DAMAGE_TYPE.WATER,
     attackType: ATTACK_TYPE.SPLASH,
     attackId: ATTACK_ID_KRAKEN,
     defence: 0
