@@ -242,18 +242,6 @@ export class CharacterAnimation extends Component<Props> {
   async attack() {
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    // const attacks = [
-    //   'slashing_with_left_hand',
-    //   'slashing_with_both_hands',
-    //   'slashing_two_handed_weapon',
-    //   'slashing_with_both_hands_sequence',
-    //   'stabbing_with_left_hand',
-    //   'stabbing_with_both_hands',
-    //   'cast_with_wand'
-    // ];
-    // const attackIndex = getRandomNumberInRange(0, attacks.length - 1);
-
-    // this.setAnimation(attacks[attackIndex]!);
     this.setAnimation(animationMap?.attack || 'slashing_with_left_hand');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 

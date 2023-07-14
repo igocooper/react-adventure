@@ -135,6 +135,19 @@ export const equipArmor = ({
   };
 };
 
+export const equipShield = ({
+  appearance,
+  shield
+}: {
+  shield: Shield;
+  appearance: AppearanceUrls;
+}): AppearanceUrls => {
+  return {
+    ...appearance,
+    [CHARACTER_IMAGE_SLOT.SHIELD]: shield.imageSrc
+  };
+};
+
 export const equipBow = ({
   appearance,
   bow
@@ -220,6 +233,13 @@ export const applyEquipment = ({
     });
   }
 
+  if (equipment.shield) {
+    appearance = equipShield({
+      appearance,
+      shield: equipment.shield
+    });
+  }
+
   if (equipment.rightHand) {
     appearance = equipRightHandWeapon({
       appearance,
@@ -302,7 +322,7 @@ const applyArmorStats = <T>(
 
 export const applyCharacterEquipmentStats = (props: Character) => {
   const { equipment } = props;
-  const { leftHand, rightHand, armor, helmet, bow } = equipment;
+  const { leftHand, rightHand, armor, helmet, bow, shield } = equipment;
 
   let equipmentStats = {
     damage: props.damage,
@@ -328,6 +348,10 @@ export const applyCharacterEquipmentStats = (props: Character) => {
 
   if (armor) {
     equipmentStats = applyArmorStats(armor.stats, equipmentStats);
+  }
+
+  if (shield) {
+    equipmentStats = applyArmorStats(shield.stats, equipmentStats);
   }
 
   if (helmet) {
