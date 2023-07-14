@@ -9,11 +9,13 @@ import {
   spikeMace
 } from 'factory/weapons';
 import { createMightAbility } from '../../modules/battlefield/sagas/abilitiesSaga/abilities';
+import { woodenRoundShield } from '../shields';
 
 export const goblin1 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: rustyAxe
+      leftHand: spikeMace,
+      shield: woodenRoundShield
     },
     abilities: [],
     effects: [],
@@ -33,7 +35,7 @@ export const goblin1 = (overrides: Partial<Trooper>) =>
 export const goblin2 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: rustyMace
+        leftHand: rustyMace
     },
     abilities: [],
     effects: [],
@@ -55,7 +57,7 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
 export const goblin3 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: spikeMace
+      rightHand: rustyAxe,
     },
     abilities: [],
     effects: [],
@@ -78,7 +80,8 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
 export const armoredGoblin = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: skullSmasher
+      rightHand: skullSmasher,
+      shield: woodenRoundShield
     },
     abilities: [],
     effects: [],

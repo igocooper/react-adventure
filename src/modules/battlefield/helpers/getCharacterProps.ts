@@ -61,7 +61,7 @@ const applyCharacterAppearance = (
   };
 };
 
-const getAnimationMap = (props: Props) => {
+const getAnimationMap = (props: Props): Record<string, string> => {
   const { leftHand, rightHand, bow, shield } = props.equipment;
 
   if (bow) {
@@ -76,11 +76,12 @@ const getAnimationMap = (props: Props) => {
 
   if (leftHand && rightHand) {
     return {
-      attack: 'slashing_with_both_hands',
-      idle: 'idle_with_both_hands',
-      hurt: 'hurt_with_both_hands',
+      attack: 'slashing_with_both_hands_style',
+      idle: 'idle_with_both_hands_style',
+      hurt: 'hurt_with_both_hands_style',
       die: 'dying_with_both_hands',
-      effected: 'effected_with_both_hands'
+      effected: 'effected_with_both_hands_style',
+      running: 'running_with_both_hands_style'
     };
   }
 
@@ -90,7 +91,8 @@ const getAnimationMap = (props: Props) => {
       idle: 'idle_with_left_hand_shield',
       hurt: 'hurt_with_left_hand_shield',
       die: 'dying_with_left_hand_shield',
-      effected: 'effected_with_left_hand_shield'
+      effected: 'effected_with_left_hand_shield',
+      running: 'running_with_left_hand_shield',
     };
   }
 
@@ -100,20 +102,31 @@ const getAnimationMap = (props: Props) => {
       idle: 'idle_with_right_hand_shield',
       hurt: 'hurt_with_right_hand_shield',
       die: 'dying_with_right_hand_shield',
-      effected: 'effected_with_right_hand_shield'
+      effected: 'effected_with_right_hand_shield',
+      running: 'running_with_right_hand_shield',
     };
   }
 
   if (rightHand && !leftHand) {
     return {
       attack: 'slashing_with_right_hand',
-      idle: 'idle_with_right_hand',
-      hurt: 'hurt_with_right_hand',
-      die: 'dying_with_right_hand',
-      effected: 'effected_with_right'
+      idle: 'idle_with_right_hand_weapon',
+      hurt: 'hurt_with_right_hand_weapon',
+      die: 'dying_with_right_hand_weapon',
+      effected: 'effected_with_right_hand_weapon',
+      running: 'running_with_right_hand_weapon',
     };
   }
+
   // default case is attack with left hand
+  return  {
+    attack: 'slashing_with_left_hand',
+    idle: 'idle_with_left_hand_weapon',
+    hurt: 'hurt_with_left_hand_weapon',
+    die: 'dying_with_left_hand_weapon',
+    effected: 'effected_with_left_hand_weapon',
+    running: 'running_with_left_hand_weapon',
+  }
 };
 
 const getAppearance = (props: Props): AppearanceUrls => {

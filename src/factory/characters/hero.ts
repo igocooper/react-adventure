@@ -6,7 +6,8 @@ import { rustyBastardSword } from 'factory/weapons';
 export const hero = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: rustyBastardSword
+      leftHand: rustyBastardSword,
+      rightHand: rustyBastardSword,
     },
     abilities: [],
     effects: [],
