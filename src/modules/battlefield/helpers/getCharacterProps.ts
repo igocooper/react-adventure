@@ -61,6 +61,61 @@ const applyCharacterAppearance = (
   };
 };
 
+const getAnimationMap = (props: Props) => {
+  const { leftHand, rightHand, bow, shield } = props.equipment;
+
+  if (bow) {
+    return {
+      attack: 'shoot_with_bow',
+      idle: 'idle_with_bow',
+      hurt: 'hurt_with_bow',
+      die: 'dying_with_bow',
+      effected: 'effected_with_bow'
+    };
+  }
+
+  if (leftHand && rightHand) {
+    return {
+      attack: 'slashing_with_both_hands',
+      idle: 'idle_with_both_hands',
+      hurt: 'hurt_with_both_hands',
+      die: 'dying_with_both_hands',
+      effected: 'effected_with_both_hands'
+    };
+  }
+
+  if (rightHand && shield && !leftHand) {
+    return {
+      attack: 'slashing_with_left_hand_shield',
+      idle: 'idle_with_left_hand_shield',
+      hurt: 'hurt_with_left_hand_shield',
+      die: 'dying_with_left_hand_shield',
+      effected: 'effected_with_left_hand_shield'
+    };
+  }
+
+  if (leftHand && shield && !rightHand) {
+    return {
+      attack: 'slashing_with_right_hand_shield',
+      idle: 'idle_with_right_hand_shield',
+      hurt: 'hurt_with_right_hand_shield',
+      die: 'dying_with_right_hand_shield',
+      effected: 'effected_with_right_hand_shield'
+    };
+  }
+
+  if (rightHand && !leftHand) {
+    return {
+      attack: 'slashing_with_right_hand',
+      idle: 'idle_with_right_hand',
+      hurt: 'hurt_with_right_hand',
+      die: 'dying_with_right_hand',
+      effected: 'effected_with_right'
+    };
+  }
+  // default case is attack with left hand
+};
+
 const getAppearance = (props: Props): AppearanceUrls => {
   const { type, appearance: characterAppearance, equipment } = props;
   let appearance = getDefaultAppearance(type);
@@ -79,12 +134,13 @@ const getAppearance = (props: Props): AppearanceUrls => {
 type ReturnType = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
+  animationMap?: Record<string, string>;
 };
 
 type Props = {
   type: string;
-  equipment: Equipment;
   appearance?: Appearance;
+  equipment: Equipment;
 };
 
 export const getCharacterProps = (props: Props): ReturnType => {
@@ -92,6 +148,7 @@ export const getCharacterProps = (props: Props): ReturnType => {
 
   return {
     imagesUrls: getAppearance(props),
-    sconFileUrl: getSconFile(type)
+    sconFileUrl: getSconFile(type),
+    animationMap: getAnimationMap(props)
   };
 };

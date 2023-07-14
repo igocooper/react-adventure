@@ -27,13 +27,6 @@ export const MountainArcher = ({
           appearance,
           equipment
         })}
-        animationMap={{
-          attack: 'shoot_with_bow',
-          idle: 'idle_with_bow',
-          hurt: 'hurt_with_bow',
-          die: 'dying_with_bow',
-          effected: 'effected_with_bow'
-        }}
         id={id}
         team={team}
         onLoad={onLoad}

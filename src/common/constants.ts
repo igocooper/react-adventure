@@ -26,7 +26,8 @@ export enum CHARACTER_IMAGE_SLOT {
   DRAWN_BOWSTRING = 'Drawn Bowstring.png',
   ARROW = 'Arrow.png',
   QUIVER = 'Quiver.png',
-  EFFECT = 'Effect.png'
+  EFFECT = 'Effect.png',
+  SHIELD = 'Shield.png'
 }
 
 export const BODY_BLOOD_URLS = [
