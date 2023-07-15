@@ -28,6 +28,7 @@ export const RangeAttackImage = styled.div<RangeAttackImageProps>`
     height: 100%;
 
     background-image: ${({ $src }) => `url(${$src})`};
+    background-repeat: no-repeat;
   }
 
   .defenders &::before {

@@ -3,6 +3,7 @@ import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimat
 import { getCharacterProps } from '../../helpers/getCharacterProps';
 import type { Trooper } from '../../types';
 import { MagmaGeysers } from './MagmaGeysers';
+import { FireBall } from './FireBall';
 
 type Props = Pick<
   Trooper,
@@ -36,6 +37,7 @@ export const MountainMage = ({
         onLoad={onLoad}
       />
       <MagmaGeysers containerNode={containerNode} />
+      <FireBall id={id} />
     </>
   );
 };
