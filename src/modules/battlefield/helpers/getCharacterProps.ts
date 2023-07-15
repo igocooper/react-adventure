@@ -1,4 +1,4 @@
-import { CHARACTER_IMAGE_SLOT } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE } from 'common/constants';
 import type { Appearance, Equipment } from 'common/types';
 import { applyEquipment } from 'common/helpers/equipment';
 
@@ -59,6 +59,21 @@ const applyCharacterAppearance = (
     [CHARACTER_IMAGE_SLOT.HEAD]: characterAppearance.head,
     [CHARACTER_IMAGE_SLOT.HEAD_HAIR]: characterAppearance.headHair
   };
+};
+
+const getAppearance = (props: Props): AppearanceUrls => {
+  const { type, appearance: characterAppearance, equipment } = props;
+  let appearance = getDefaultAppearance(type);
+
+  if (characterAppearance) {
+    appearance = applyCharacterAppearance(appearance, characterAppearance);
+  }
+
+  return applyEquipment({
+    equipment,
+    appearance,
+    characterAppearance: characterAppearance!
+  });
 };
 
 const getAnimationMap = (props: Props): Record<string, string> => {
@@ -128,31 +143,30 @@ const getAnimationMap = (props: Props): Record<string, string> => {
   };
 };
 
-const getAppearance = (props: Props): AppearanceUrls => {
-  const { type, appearance: characterAppearance, equipment } = props;
-  let appearance = getDefaultAppearance(type);
-
-  if (characterAppearance) {
-    appearance = applyCharacterAppearance(appearance, characterAppearance);
+const getCastEffectImageUrl = ({ damageType }: Props) => {
+  switch (damageType) {
+    case DAMAGE_TYPE.FIRE: {
+      return '/images/effects/fire.png';
+    }
+    case DAMAGE_TYPE.WATER: {
+      return '/images/effects/water.png';
+    }
+    default:
   }
-
-  return applyEquipment({
-    equipment,
-    appearance,
-    characterAppearance: characterAppearance!
-  });
 };
 
 type ReturnType = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
   animationMap?: Record<string, string>;
+  castEffectImageUrl?: string;
 };
 
 type Props = {
   type: string;
   appearance?: Appearance;
   equipment: Equipment;
+  damageType: string;
 };
 
 export const getCharacterProps = (props: Props): ReturnType => {
@@ -161,6 +175,7 @@ export const getCharacterProps = (props: Props): ReturnType => {
   return {
     imagesUrls: getAppearance(props),
     sconFileUrl: getSconFile(type),
-    animationMap: getAnimationMap(props)
+    animationMap: getAnimationMap(props),
+    castEffectImageUrl: getCastEffectImageUrl(props)
   };
 };

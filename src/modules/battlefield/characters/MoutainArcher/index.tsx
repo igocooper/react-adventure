@@ -6,7 +6,7 @@ import { MountainArcherArrow } from './MountainArcherArrow';
 
 type Props = Pick<
   Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type'
+  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
   onLoad: (id: number) => void;
 };
@@ -17,7 +17,8 @@ export const MountainArcher = ({
   id,
   type,
   appearance,
-  equipment
+  equipment,
+  damageType
 }: Props) => {
   return (
     <>
@@ -25,7 +26,8 @@ export const MountainArcher = ({
         {...getCharacterProps({
           type,
           appearance,
-          equipment
+          equipment,
+          damageType
         })}
         id={id}
         team={team}

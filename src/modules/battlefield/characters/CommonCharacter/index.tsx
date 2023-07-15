@@ -5,7 +5,7 @@ import type { Trooper } from '../../types';
 
 type Props = Pick<
   Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type'
+  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
   onLoad: (id: number) => void;
 };
@@ -16,14 +16,16 @@ export const CommonCharacter = ({
   id,
   type,
   appearance,
-  equipment
+  equipment,
+  damageType
 }: Props) => {
   return (
     <CharacterAnimation
       {...getCharacterProps({
         type,
         appearance,
-        equipment
+        equipment,
+        damageType
       })}
       id={id}
       team={team}

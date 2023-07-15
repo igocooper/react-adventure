@@ -16,6 +16,7 @@ import { TROOPER_TEAM } from '../../battlefield/constants';
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
+  castEffectImageUrl?: string;
   meleeAttackTransitionTime?: number;
   onLoad?: (id: Trooper['id']) => void;
   animationMap?: Record<string, string>;
@@ -167,7 +168,10 @@ export class CharacterAnimation extends Component<Props> {
   idle() {
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation(animationMap?.idle || 'idle_with_left_hand_weapon', Infinity);
+    this.setAnimation(
+      animationMap?.idle || 'idle_with_left_hand_weapon',
+      Infinity
+    );
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
@@ -217,7 +221,10 @@ export class CharacterAnimation extends Component<Props> {
   run() {
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation(animationMap?.running || 'running_with_left_hand_weapon', Infinity);
+    this.setAnimation(
+      animationMap?.running || 'running_with_left_hand_weapon',
+      Infinity
+    );
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
   }
 
@@ -251,6 +258,16 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async cast() {
+    const { castEffectImageUrl } = this.props;
+    if (castEffectImageUrl) {
+      try {
+        this.images[CHARACTER_IMAGE_SLOT.EFFECT] = await loadImage(
+          castEffectImageUrl
+        );
+      } catch (err) {
+        console.log(`error loading image: ${castEffectImageUrl}`);
+      }
+    }
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation('cast_with_wand');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
@@ -274,7 +291,9 @@ export class CharacterAnimation extends Component<Props> {
   async effected() {
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation(animationMap?.effected || 'effected_with_left_hand_weapon');
+    this.setAnimation(
+      animationMap?.effected || 'effected_with_left_hand_weapon'
+    );
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
     await wait(this.anim_length);
     this.idle();

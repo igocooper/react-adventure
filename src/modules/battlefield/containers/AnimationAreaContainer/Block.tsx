@@ -13,7 +13,7 @@ export const Block = (props: Props) => {
   const effectRef = useRef(null);
 
   useEffect(() => {
-    registerAreaEffect(EFFECT.ANCHOR, effectRef.current!);
+    registerAreaEffect(EFFECT.BLOCK, effectRef.current!);
   }, []);
 
   return (

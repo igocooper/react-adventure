@@ -7,7 +7,7 @@ import { Kraken } from './Kraken';
 
 type Props = Pick<
   Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type'
+  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
   onLoad: (id: number) => void;
   containerNode: HTMLElement;
@@ -20,7 +20,8 @@ export const WaterMage = ({
   type,
   appearance,
   equipment,
-  containerNode
+  containerNode,
+  damageType
 }: Props) => {
   return (
     <>
@@ -28,7 +29,8 @@ export const WaterMage = ({
         {...getCharacterProps({
           type,
           appearance,
-          equipment
+          equipment,
+          damageType
         })}
         id={id}
         team={team}

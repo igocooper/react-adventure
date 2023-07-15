@@ -17,7 +17,7 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 50,
     currentHealth: 50,
-    initiative: 3,
+    initiative: 13,
     hitChance: 95,
     damageType: DAMAGE_TYPE.WATER,
     attackType: ATTACK_TYPE.SPLASH,

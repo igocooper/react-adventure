@@ -6,7 +6,7 @@ import { MagmaGeysers } from './MagmaGeysers';
 
 type Props = Pick<
   Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type'
+  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
   onLoad: (id: number) => void;
   containerNode: HTMLElement;
@@ -19,7 +19,8 @@ export const MountainMage = ({
   type,
   appearance,
   equipment,
-  containerNode
+  containerNode,
+  damageType
 }: Props) => {
   return (
     <>
@@ -27,7 +28,8 @@ export const MountainMage = ({
         {...getCharacterProps({
           type,
           appearance,
-          equipment
+          equipment,
+          damageType
         })}
         id={id}
         team={team}

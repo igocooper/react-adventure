@@ -62,7 +62,8 @@ export const BattlefieldContainer = () => {
               currentHealth,
               health,
               equipment,
-              appearance
+              appearance,
+              damageType
             }: Trooper) => (
               <TileContainer
                 key={id}
@@ -74,6 +75,7 @@ export const BattlefieldContainer = () => {
                 team={team}
                 equipment={equipment}
                 appearance={appearance}
+                damageType={damageType}
               />
             )
           )}
@@ -86,7 +88,8 @@ export const BattlefieldContainer = () => {
               currentHealth,
               health,
               equipment,
-              appearance
+              appearance,
+              damageType
             }: Trooper) => (
               <TileContainer
                 key={id}
@@ -98,6 +101,7 @@ export const BattlefieldContainer = () => {
                 team={team}
                 equipment={equipment}
                 appearance={appearance}
+                damageType={damageType}
               />
             )
           )}
