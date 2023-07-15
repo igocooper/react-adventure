@@ -12,7 +12,6 @@ import type {
   WeaponStats
 } from 'common/types';
 import { getDamage } from 'common/helpers';
-import { isWeapon } from 'common/typeGuards';
 import { CHARACTER_IMAGE_SLOT, HELMET_TYPE } from '../constants';
 
 type AppearanceUrls = Record<string, string>;
@@ -338,12 +337,12 @@ export const applyCharacterEquipmentStats = (props: Character) => {
     equipmentStats = applyWeaponStats(leftHand.stats, equipmentStats);
   }
 
-  if (bow) {
-    equipmentStats = applyWeaponStats(bow.stats, equipmentStats);
+  if (rightHand) {
+    equipmentStats = applyWeaponStats(rightHand.stats, equipmentStats);
   }
 
-  if (leftHand && rightHand && isWeapon(rightHand)) {
-    equipmentStats = applyWeaponStats(rightHand.stats, equipmentStats);
+  if (bow) {
+    equipmentStats = applyWeaponStats(bow.stats, equipmentStats);
   }
 
   if (armor) {

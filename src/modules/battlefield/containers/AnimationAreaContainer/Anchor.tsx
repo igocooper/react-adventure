@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { EffectAnimation } from 'modules/animation/containers/EffectAnimation';
-import type { Trooper } from '../../types';
+import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { EFFECT } from 'common/constants';
-
+import type { Trooper } from '../../types';
 interface Props {
   containerNode: HTMLDivElement;
   trooperId?: Trooper['id'];
 }
 
 export const Anchor = (props: Props) => {
+  const effectRef = useRef(null);
+
+  useEffect(() => {
+    registerAreaEffect(EFFECT.ANCHOR, effectRef.current!);
+  }, []);
+
   return (
     <EffectAnimation
-      imageWidth={120}
-      imageHeight={120}
+      ref={effectRef}
       attackId={EFFECT.ANCHOR}
-      animationDuration={500}
+      imageWidth={80}
+      imageHeight={80}
+      animationDuration={700}
       imageUrl="/images/effects/anchor.png"
       {...props}
     />

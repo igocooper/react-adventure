@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { EffectAnimation } from 'modules/animation/containers/EffectAnimation';
-import type { Trooper } from '../../types';
+import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { EFFECT } from 'common/constants';
+import type { Trooper } from '../../types';
 
 type Props = {
   containerNode: HTMLDivElement;
@@ -9,8 +10,15 @@ type Props = {
 };
 
 export const Heal = (props: Props) => {
+  const effectRef = useRef(null);
+
+  useEffect(() => {
+    registerAreaEffect(EFFECT.HEAL, effectRef.current!);
+  }, []);
+
   return (
     <EffectAnimation
+      ref={effectRef}
       imageWidth={100}
       imageHeight={100}
       attackId={EFFECT.HEAL}

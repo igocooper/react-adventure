@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import type { Trooper, EffectName } from 'modules/battlefield/types';
 import { getElementBoundsWithinContainer } from 'common/helpers';
 import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
-import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
+import { wait } from 'common/helpers/wait';
 import { EffectImage } from './styled';
 
 type Props = {
@@ -15,81 +15,58 @@ type Props = {
   imageUrl: string;
 };
 
-type State = {
-  isPlaying: boolean;
-};
+export const EffectAnimation = forwardRef((props: Props, ref) => {
+  const {
+    attackId,
+    animationDuration,
+    containerNode,
+    trooperId,
+    imageUrl,
+    imageWidth,
+    imageHeight
+  } = props;
+  const [isPlaying, setIsPlaying] = useState(false);
 
-export class EffectAnimation extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      isPlaying: false
-    };
-
-    this.play = this.play.bind(this);
-  }
-
-  componentDidMount() {
-    const { attackId } = this.props;
-    registerAreaEffect(attackId, this);
-  }
-
-  async play() {
-    const { animationDuration } = this.props;
-    await new Promise<void>((resolve) => {
-      this.setState(
-        {
-          isPlaying: true
-        },
-        () => {
-          setTimeout(() => {
-            this.setState({
-              isPlaying: false
-            });
-            resolve();
-          }, animationDuration);
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        play: async function () {
+          setIsPlaying(true);
+          await wait(animationDuration);
+          setIsPlaying(false);
         }
-      );
-    });
+      };
+    },
+    [animationDuration, setIsPlaying]
+  );
+
+  if (!trooperId) {
+    return null;
   }
 
-  render() {
-    const { isPlaying } = this.state;
-    const {
-      containerNode,
-      trooperId,
-      animationDuration,
-      imageUrl,
-      imageWidth,
-      imageHeight,
-      attackId
-    } = this.props;
+  const targetNode = getTrooperNode(trooperId);
+  const targetBounds = getElementBoundsWithinContainer(
+    targetNode!,
+    containerNode
+  );
+  const x = targetBounds.left + targetBounds.width / 2;
+  const y = targetBounds.top + targetBounds.height / 2;
 
-    if (!trooperId) {
-      return null;
-    }
+  return (
+    <EffectImage
+      $attackId={attackId}
+      $active={isPlaying}
+      $src={imageUrl}
+      $width={imageWidth}
+      $height={imageHeight}
+      $animationDuration={animationDuration}
+      $position={{
+        x,
+        y
+      }}
+    />
+  );
+});
 
-    const targetNode = getTrooperNode(trooperId);
-    const targetBounds = getElementBoundsWithinContainer(
-      targetNode!,
-      containerNode
-    );
-    const x = targetBounds.left + targetBounds.width / 2;
-    const y = targetBounds.top + targetBounds.height / 2;
-
-    return (
-      <EffectImage
-        $attackId={attackId}
-        $active={isPlaying}
-        $src={imageUrl}
-        $width={imageWidth}
-        $height={imageHeight}
-        $animationDuration={animationDuration}
-        $position={{
-          x,
-          y
-        }}
-      />
-    );
-  }
-}
+EffectAnimation.displayName = 'EffectAnimation';

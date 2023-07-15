@@ -7,6 +7,7 @@ import { EFFECT } from 'common/constants';
 import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/reducers/damageEventsSlice';
 import { getTileNode } from 'modules/battlefield/tilesNodesMap';
 import { getEffectNode } from '../../../effectsNodesMap';
+import theme from 'theme/defaultTheme';
 
 function* publishDamageEvent(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -19,7 +20,8 @@ function* publishDamageEvent(id: Trooper['id']) {
     position: {
       x,
       y
-    }
+    },
+    color: theme.color.black
   };
 
   yield* put(addDamageEventAction(damageEvent));
@@ -52,7 +54,7 @@ export const createAnchorEffect = ({
     cancelEffect: function* ({ activeTrooper }) {
       const effectNode = getEffectNode(activeTrooper.id);
 
-      effectNode!.style.removeProperty('filter');
+      effectNode!.classList.remove(EFFECT.ANCHOR);
     },
     iconSrc: anchorIcon
   };

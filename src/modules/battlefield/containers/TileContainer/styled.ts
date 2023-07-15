@@ -22,35 +22,35 @@ export const Tile = styled.div.attrs(
           &.tile-1 {
             top: 150px;
             left: 640px;
-            z-index: 2;
+            z-index: 1;
           }
 
           &.tile-2 {
             top: 270px;
             left: 580px;
-            z-index: 4;
+            z-index: 3;
           }
 
           &.tile-3 {
             left: 510px;
             top: 390px;
-            z-index: 6;
+            z-index: 5;
           }
 
           &.tile-4 {
             top: 140px;
             left: 790px;
-            z-index: 1;
+            z-index: 2;
           }
 
           &.tile-5 {
             top: 260px;
             left: 730px;
-            z-index: 3;
+            z-index: 4;
           }
 
           &.tile-6 {
-            z-index: 5;
+            z-index: 6;
             top: 380px;
             left: 660px;
           }

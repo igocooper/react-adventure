@@ -1,4 +1,4 @@
-import type { Armor } from '../common/types';
+import type { Armor } from 'common/types';
 
 export const torugArmor: Armor = {
   name: 'Torug Armor',
@@ -11,5 +11,7 @@ export const torugArmor: Armor = {
     leftHand: '/images/torug/Left Hand.png',
     leftLeg: '/images/torug/Left Leg.png'
   },
-  defence: 10
+  stats: {
+    defence: 10
+  }
 };

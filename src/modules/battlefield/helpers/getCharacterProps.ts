@@ -92,7 +92,7 @@ const getAnimationMap = (props: Props): Record<string, string> => {
       hurt: 'hurt_with_left_hand_shield',
       die: 'dying_with_left_hand_shield',
       effected: 'effected_with_left_hand_shield',
-      running: 'running_with_left_hand_shield',
+      running: 'running_with_left_hand_shield'
     };
   }
 
@@ -103,7 +103,7 @@ const getAnimationMap = (props: Props): Record<string, string> => {
       hurt: 'hurt_with_right_hand_shield',
       die: 'dying_with_right_hand_shield',
       effected: 'effected_with_right_hand_shield',
-      running: 'running_with_right_hand_shield',
+      running: 'running_with_right_hand_shield'
     };
   }
 
@@ -114,19 +114,18 @@ const getAnimationMap = (props: Props): Record<string, string> => {
       hurt: 'hurt_with_right_hand_weapon',
       die: 'dying_with_right_hand_weapon',
       effected: 'effected_with_right_hand_weapon',
-      running: 'running_with_right_hand_weapon',
+      running: 'running_with_right_hand_weapon'
     };
   }
 
-  // default case is attack with left hand
-  return  {
+  return {
     attack: 'slashing_with_left_hand',
     idle: 'idle_with_left_hand_weapon',
     hurt: 'hurt_with_left_hand_weapon',
     die: 'dying_with_left_hand_weapon',
     effected: 'effected_with_left_hand_weapon',
-    running: 'running_with_left_hand_weapon',
-  }
+    running: 'running_with_left_hand_weapon'
+  };
 };
 
 const getAppearance = (props: Props): AppearanceUrls => {

@@ -10,6 +10,7 @@ import { getTileNode } from 'modules/battlefield/tilesNodesMap';
 import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/reducers/damageEventsSlice';
 import { createAnchorEffect } from '../../effectsSaga/effects';
 import { ABILITY_TYPE, ABILITY } from 'common/constants';
+import theme from 'theme/defaultTheme';
 
 function* publishDamageEvent(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -22,7 +23,8 @@ function* publishDamageEvent(id: Trooper['id']) {
     position: {
       x,
       y
-    }
+    },
+    color: theme.color.black
   };
 
   yield* put(addDamageEventAction(damageEvent));
@@ -42,8 +44,7 @@ export const createAnchorAbility = ({
 
     const effectNode = getEffectNode(targetTrooper.id);
 
-    effectNode!.style.transition = 'filter 500ms linear';
-    effectNode!.style.filter = 'grayscale(1)';
+    effectNode!.classList.add(ABILITY.ANCHOR);
 
     yield* call(publishDamageEvent, targetTrooper.id);
 

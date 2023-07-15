@@ -24,16 +24,16 @@ export function* applyEffects(activeTrooper: Trooper) {
       continue;
     }
 
-    if (!effect.done) {
-      yield* put(
-        setEffectDuration({
-          team,
-          id,
-          name: effect.name,
-          duration: effect.duration - 1
-        })
-      );
+    yield* put(
+      setEffectDuration({
+        team,
+        id,
+        name: effect.name,
+        duration: effect.duration - 1
+      })
+    );
 
+    if (!effect.done) {
       if (effect.once) {
         yield* put(
           setEffectDone({

@@ -8,8 +8,8 @@ import {
   skullSmasher,
   spikeMace
 } from 'factory/weapons';
-import { createMightAbility } from '../../modules/battlefield/sagas/abilitiesSaga/abilities';
-import { woodenRoundShield } from '../shields';
+import { createMightAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
+import { woodenRoundShield } from 'factory/armors';
 
 export const goblin1 = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -35,7 +35,7 @@ export const goblin1 = (overrides: Partial<Trooper>) =>
 export const goblin2 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-        leftHand: rustyMace
+      leftHand: rustyMace
     },
     abilities: [],
     effects: [],
@@ -57,7 +57,7 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
 export const goblin3 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      rightHand: rustyAxe,
+      rightHand: rustyAxe
     },
     abilities: [],
     effects: [],
@@ -92,7 +92,7 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
-    initiative: 3,
+    initiative: 6,
     attackType: ATTACK_TYPE.MELEE,
     hitChance: 95,
     criticalChance: 5,
@@ -120,11 +120,11 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
-    initiative: 6,
+    initiative: 7,
     attackType: ATTACK_TYPE.MELEE,
     supportType: SUPPORT_TYPE.BUFF,
     hitChance: 95,
-    criticalChance: 5,
+    criticalChance: 7,
     criticalMultiplier: 2,
     defence: 20,
     evadeChance: 5

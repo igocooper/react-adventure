@@ -38,7 +38,7 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     health: 25,
     currentHealth: 25,
-    initiative: 9,
+    initiative: 3,
     attackType: ATTACK_TYPE.SPLASH,
     attackId: ATTACK_ID_LAVA_GEYSER,
     defence: 0,

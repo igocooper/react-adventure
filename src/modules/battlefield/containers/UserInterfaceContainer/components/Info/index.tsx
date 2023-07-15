@@ -1,8 +1,8 @@
 import React from 'react';
-import type { AttackType, Trooper } from 'modules/battlefield/types';
+import type { Trooper } from 'modules/battlefield/types';
 import { Container, Value, Item } from './styled';
-import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
-import type { DamageType } from 'common/types';
+import { getAttackTypeIcon } from '../../helpers/getAttackTypeIcon';
+import { Resistance } from '../Resistance';
 
 type Props = {
   criticalChance?: Trooper['criticalChance'];
@@ -18,60 +18,6 @@ type Props = {
   | 'defence'
   | 'resistance'
 >;
-
-const getDamageTypeIcon = (damageType: DamageType) => {
-  switch (damageType) {
-    case DAMAGE_TYPE.FIRE: {
-      return '🔥';
-    }
-
-    case DAMAGE_TYPE.WATER: {
-      return '💧';
-    }
-
-    case DAMAGE_TYPE.EARTH: {
-      return '🍃';
-    }
-
-    case DAMAGE_TYPE.WIND: {
-      return '🌪';
-    }
-
-    case DAMAGE_TYPE.LIGHT: {
-      return '🌕';
-    }
-
-    case DAMAGE_TYPE.DARK: {
-      return '🌑';
-    }
-
-    case DAMAGE_TYPE.POISON: {
-      return '☠️';
-    }
-
-    case DAMAGE_TYPE.BLOOD: {
-      return '🩸️';
-    }
-  }
-
-  return '💩';
-};
-
-const getAttackTypeIcon = (attackType: AttackType, damageType: DamageType) => {
-  switch (attackType) {
-    case ATTACK_TYPE.RANGE:
-      if (damageType === DAMAGE_TYPE.PHYSICAL) {
-        return '🏹';
-      }
-      return `🪄:${getDamageTypeIcon(damageType)}`;
-    case ATTACK_TYPE.SPLASH:
-      return `💥:${getDamageTypeIcon(damageType)}`;
-    case ATTACK_TYPE.MELEE:
-      return '🗡';
-    default:
-      return '👊🏼';
-  }
-};
 
 export const Info = ({
   currentHealth,
@@ -119,27 +65,7 @@ export const Info = ({
           Defence: <Value>{defence} %</Value>
         </Item>
       )}
-      {resistance && Object.keys(resistance).length > 0 && (
-        <Item>Resistance:</Item>
-      )}
-      {resistance?.fire && (
-        <Item>
-          - Fire: {getDamageTypeIcon(DAMAGE_TYPE.FIRE)}{' '}
-          <Value>{resistance.fire} %</Value>
-        </Item>
-      )}
-      {resistance?.water && (
-        <Item>
-          - Water: {getDamageTypeIcon(DAMAGE_TYPE.WATER)}{' '}
-          <Value>{resistance?.water} %</Value>
-        </Item>
-      )}
-      {resistance?.poison && (
-        <Item>
-          - Poison: {getDamageTypeIcon(DAMAGE_TYPE.POISON)}{' '}
-          <Value>{resistance?.poison} %</Value>
-        </Item>
-      )}
+      <Resistance resistance={resistance} />
     </Container>
   );
 };

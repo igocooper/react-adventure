@@ -1,4 +1,11 @@
-import { takeLatest, put, all, call, select } from 'typed-redux-saga/macro';
+import {
+  takeLatest,
+  put,
+  all,
+  call,
+  fork,
+  select
+} from 'typed-redux-saga/macro';
 import { supportStarted, supportFinished } from '../actions';
 import { applyBuffs } from './abilitiesSaga';
 import type { Trooper } from '../types';
@@ -17,7 +24,10 @@ function* support({
     makeCharacterByIdSelector(selectedTrooperInfo.id)
   );
 
-  if (!activeTrooper?.supportType) return;
+  if (!activeTrooper?.supportType) {
+    yield* put(supportFinished(selectedTrooperInfo));
+    return;
+  }
 
   if (activeTrooper.supportType === SUPPORT_TYPE.HEAL) {
     const healEffect = createHealEffect({
@@ -38,7 +48,15 @@ function* support({
     yield* call(applyBuffs, { id: selectedTrooperInfo.id });
   }
 
-  yield* call(applyBuffs, { id: selectedTrooperInfo.id });
+  if (activeTrooper.supportType === SUPPORT_TYPE.BUFF) {
+    const activeTrooperAnimationInstance = yield* call(
+      getTrooperAnimationInstance,
+      activeTrooper.id
+    );
+
+    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+    yield* call(applyBuffs, { id: selectedTrooperInfo.id });
+  }
 
   yield* put(supportFinished(selectedTrooperInfo));
 }

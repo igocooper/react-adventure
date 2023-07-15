@@ -11,7 +11,10 @@ import {
   priest1,
   goblinBuffer
 } from 'factory/characters';
-import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
+import {
+  createAnchorAbility,
+  createPoisonAbility
+} from './sagas/abilitiesSaga/abilities';
 
 export enum TROOPER_TEAM {
   ATTACKERS = 'attackers',
@@ -101,6 +104,9 @@ const DEFENDERS_TROOPS: Trooper[] = [
         duration: 1,
         damage: 10,
         hitChance: 75
+      }),
+      createAnchorAbility({
+        duration: 1
       })
     ]
   }),

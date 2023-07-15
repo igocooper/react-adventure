@@ -1,5 +1,5 @@
-import { HELMET_TYPE } from '../common/constants';
-import type { Helmet } from '../common/types';
+import { HELMET_TYPE } from 'common/constants';
+import type { Helmet } from 'common/types';
 
 export const deathKnightHelmet: Helmet = {
   name: 'Death Knight Helmet',

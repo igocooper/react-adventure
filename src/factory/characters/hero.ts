@@ -7,7 +7,7 @@ export const hero = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
       leftHand: rustyBastardSword,
-      rightHand: rustyBastardSword,
+      rightHand: rustyBastardSword
     },
     abilities: [],
     effects: [],
@@ -28,7 +28,7 @@ export const hero = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     health: 50,
     currentHealth: 50,
-    initiative: 13,
+    initiative: 3,
     attackType: ATTACK_TYPE.MELEE,
     defence: 10,
     resistance: {
