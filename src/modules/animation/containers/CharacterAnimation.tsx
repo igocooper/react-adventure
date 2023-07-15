@@ -81,6 +81,7 @@ export class CharacterAnimation extends Component<Props> {
     };
 
     this.renderAnimationLoop = this.renderAnimationLoop.bind(this);
+    this.blink = this.blink.bind(this);
   }
 
   initCanvasCtx() {
@@ -165,7 +166,23 @@ export class CharacterAnimation extends Component<Props> {
     this.anim_time = 0;
   }
 
-  idle() {
+  async blink() {
+    if (
+      this.images[CHARACTER_IMAGE_SLOT.FACE_01] &&
+      this.images[CHARACTER_IMAGE_SLOT.FACE_02]
+    ) {
+      const originalFace = this.images[CHARACTER_IMAGE_SLOT.FACE_01];
+      this.images[CHARACTER_IMAGE_SLOT.FACE_01] =
+        this.images[CHARACTER_IMAGE_SLOT.FACE_02];
+
+      await wait(200);
+      this.images[CHARACTER_IMAGE_SLOT.FACE_01] = originalFace;
+
+      setTimeout(this.blink, getRandomNumberInRange(3000, 10000));
+    }
+  }
+
+  async idle() {
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation(
@@ -173,6 +190,8 @@ export class CharacterAnimation extends Component<Props> {
       Infinity
     );
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
+
+    setTimeout(this.blink, getRandomNumberInRange(100, 10000));
   }
 
   async meleeAttack({
