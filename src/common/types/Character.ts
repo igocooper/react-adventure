@@ -90,6 +90,7 @@ export type Character = {
   attackId?: string;
   hitChance: number;
   criticalChance?: number;
+  counterAttackChance?: number;
   criticalMultiplier?: number;
   evadeChance?: number;
   defence: number;
@@ -105,6 +106,7 @@ export type ArmorStats = {
   resistance?: Resistance;
   evadeChance?: number;
   criticalChance?: number;
+  counterAttackChance?: number;
 };
 
 export type WeaponStats = {
@@ -113,6 +115,7 @@ export type WeaponStats = {
   power?: number;
   criticalChance?: number;
   criticalMultiplier?: number;
+  counterAttackChance?: number;
   abilities?: [Ability];
 };
 

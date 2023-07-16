@@ -80,6 +80,77 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
   return { damage, isDying, hasMissed, isCriticalDamage };
 };
 
+function* playCounterAttackAnimation({
+  activeTrooper,
+  enemyTrooper,
+  counterAttackDamage
+}: {
+  activeTrooper: Trooper;
+  enemyTrooper: Trooper;
+  counterAttackDamage: ReturnType<typeof calculateDamage>;
+}) {
+  const { isDying, damage, hasMissed, isCriticalDamage } = counterAttackDamage;
+  const tileNode = getTileNode(activeTrooper.id);
+  const activeTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    activeTrooper.id
+  );
+  const attackedTrooperAnimationInstance = yield* call(
+    getTrooperAnimationInstance,
+    enemyTrooper.id
+  );
+
+  if (isDying) {
+    yield* all([
+      call([attackedTrooperAnimationInstance!, 'attack']),
+      call([activeTrooperAnimationInstance!, 'die']),
+      put(
+        applyDamage({
+          damage,
+          team: activeTrooper?.team,
+          id: activeTrooper?.id,
+          hasMissed,
+          isCriticalDamage
+        })
+      )
+    ]);
+    if (tileNode) {
+      tileNode.style.zIndex = '-1';
+    }
+    return;
+  }
+
+  if (hasMissed) {
+    yield* all([
+      call([attackedTrooperAnimationInstance!, 'attack']),
+      put(
+        applyDamage({
+          damage,
+          team: activeTrooper?.team,
+          id: activeTrooper?.id,
+          hasMissed,
+          isCriticalDamage
+        })
+      )
+    ]);
+    return;
+  }
+
+  yield* all([
+    call([attackedTrooperAnimationInstance!, 'attack']),
+    call([activeTrooperAnimationInstance!, 'hurt']),
+    put(
+      applyDamage({
+        damage: counterAttackDamage.damage,
+        team: activeTrooper?.team,
+        id: activeTrooper?.id,
+        hasMissed: counterAttackDamage.hasMissed,
+        isCriticalDamage: counterAttackDamage.isCriticalDamage
+      })
+    )
+  ]);
+}
+
 function* playRangeAttackAnimation({
   activeTrooperId,
   selectedTrooperId,
@@ -140,6 +211,15 @@ function* playAttackAnimation({
   hasMissed: boolean;
   isCriticalDamage: boolean;
 }) {
+  const activeTrooper = yield* select(activeTrooperSelector);
+  const enemyTrooper = yield* select(
+    makeCharacterByIdSelector(selectedTrooperInfo.id)
+  );
+
+  if (!enemyTrooper || !activeTrooper) {
+    return;
+  }
+
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
     activeTrooperId
@@ -170,7 +250,6 @@ function* playAttackAnimation({
 
   if (isDying) {
     yield* all([
-      call(applyCurses, { id: selectedTrooperInfo.id }),
       call([attackedTrooperAnimationInstance!, 'die']),
       put(
         applyDamage({
@@ -189,6 +268,10 @@ function* playAttackAnimation({
     return;
   }
 
+  const counterAttacked =
+    enemyTrooper.attackType === ATTACK_TYPE.MELEE &&
+    getRandomNumberInRange(1, 100) <= (enemyTrooper.counterAttackChance || 0);
+
   if (hasMissed) {
     yield* put(
       applyDamage({
@@ -200,9 +283,54 @@ function* playAttackAnimation({
       })
     );
 
-    yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
-      tileNode
-    });
+    const counterAttackDamage = calculateDamage(activeTrooper, enemyTrooper);
+    if (counterAttacked) {
+      yield* call(playCounterAttackAnimation, {
+        activeTrooper,
+        enemyTrooper,
+        counterAttackDamage
+      });
+    }
+
+    if (!counterAttackDamage.isDying) {
+      yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
+        tileNode
+      });
+    }
+
+    return;
+  }
+
+  if (counterAttacked) {
+    yield* all([
+      call([attackedTrooperAnimationInstance!, 'hurt']),
+      call(applyCurses, { id: selectedTrooperInfo.id }),
+      put(
+        applyDamage({
+          damage,
+          team: selectedTrooperInfo.team,
+          id: selectedTrooperInfo.id,
+          hasMissed,
+          isCriticalDamage
+        })
+      )
+    ]);
+
+    const counterAttackDamage = calculateDamage(activeTrooper, enemyTrooper);
+    if (counterAttacked) {
+      yield* call(playCounterAttackAnimation, {
+        activeTrooper,
+        enemyTrooper,
+        counterAttackDamage
+      });
+    }
+
+    if (!counterAttackDamage.isDying) {
+      yield* call([activeTrooperAnimationInstance!, 'meleeGoBack'], {
+        tileNode
+      });
+    }
+    return;
   }
 
   yield* all([
