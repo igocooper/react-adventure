@@ -52,11 +52,9 @@ export const FireBallAnimation = forwardRef((props: Props, ref) => {
 
   useImperativeHandle(
     ref,
-    () => {
-      return {
-        play
-      };
-    },
+    () => ({
+      play
+    }),
     [play]
   );
 

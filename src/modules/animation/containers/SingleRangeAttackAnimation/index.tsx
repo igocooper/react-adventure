@@ -55,11 +55,9 @@ export const SingleRangeAttackAnimation = forwardRef((props: Props, ref) => {
 
   useImperativeHandle(
     ref,
-    () => {
-      return {
-        play
-      };
-    },
+    () => ({
+      play
+    }),
     [play]
   );
 

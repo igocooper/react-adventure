@@ -29,15 +29,13 @@ export const EffectAnimation = forwardRef((props: Props, ref) => {
 
   useImperativeHandle(
     ref,
-    () => {
-      return {
-        play: async function () {
-          setIsPlaying(true);
-          await wait(animationDuration);
-          setIsPlaying(false);
-        }
-      };
-    },
+    () => ({
+      play: async function () {
+        setIsPlaying(true);
+        await wait(animationDuration);
+        setIsPlaying(false);
+      }
+    }),
     [animationDuration, setIsPlaying]
   );
 

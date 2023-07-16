@@ -1,10 +1,10 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { AREA_CONTAINER_ID } from 'modules/battlefield/constants';
-import { ATTACK_ID_FIRE_BALL } from './constants';
+import { ATTACK_ID_FIRE_BALL } from '../constants';
 import { useSelector } from 'store/hooks';
 import { FireBallAnimation } from './FireBallAnimation';
-import { hoveredElementSelector } from '../../selectors';
+import { hoveredElementSelector } from 'modules/battlefield/selectors';
 import type { Trooper } from 'modules/battlefield/types';
 
 type Props = {
