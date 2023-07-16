@@ -1,4 +1,11 @@
-import React, { Component } from 'react';
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  forwardRef,
+  useImperativeHandle
+} from 'react';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { MagicEffect } from './styled';
 import type { Frames } from '../../helpers/animate';
@@ -25,57 +32,59 @@ type State = {
   height: number;
 };
 
-export class SpriteAnimation extends Component<Props, State> {
-  animationStateRef: React.MutableRefObject<boolean | null>;
+export const SpriteAnimation = forwardRef((props: Props, ref) => {
+  const { frames, fps, attackId } = props;
+  const animationStateRef = useRef(false);
+  const [bgPosition, setBgPosition] = useState<State>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0
+  });
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0
-    };
+  const play = useCallback(async () => {
+    animationStateRef.current = true;
 
-    this.play = this.play.bind(this);
-    this.animationStateRef = React.createRef();
-  }
+    await animate(frames, setBgPosition, fps || FPS);
 
-  componentDidMount() {
-    const { attackId } = this.props;
+    animationStateRef.current = false;
+  }, [setBgPosition]);
 
+  useEffect(() => {
     if (attackId) {
-      registerAreaEffect(attackId, this);
+      registerAreaEffect(attackId, {
+        play
+      });
     }
-  }
+  }, []);
 
-  async play() {
-    const { frames, fps } = this.props;
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        play
+      };
+    },
+    [play]
+  );
 
-    this.animationStateRef.current = true;
+  const { x, y, width, height } = bgPosition;
+  const { src, position, className } = props;
 
-    await animate(frames, this.setState.bind(this), fps || FPS);
+  return (
+    <MagicEffect
+      className={className}
+      $active={animationStateRef.current}
+      $src={src}
+      $width={width}
+      $height={height}
+      $bgPosition={{
+        x,
+        y
+      }}
+      $position={position}
+    />
+  );
+});
 
-    this.animationStateRef.current = false;
-  }
-
-  render() {
-    const { x, y, width, height } = this.state;
-    const { src, position, className } = this.props;
-
-    return (
-      <MagicEffect
-        className={className}
-        $active={this.animationStateRef.current!}
-        $src={src}
-        $width={width}
-        $height={height}
-        $bgPosition={{
-          x,
-          y
-        }}
-        $position={position}
-      />
-    );
-  }
-}
+SpriteAnimation.displayName = 'SpriteAnimation';

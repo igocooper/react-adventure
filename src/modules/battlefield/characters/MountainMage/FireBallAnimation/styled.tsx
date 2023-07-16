@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 type AttackImageConrainerProps = {
   $active?: boolean;
@@ -14,15 +14,15 @@ type AttackImageConrainerProps = {
   $targetBounds?: DOMRect;
 };
 
-const blinking = keyframes`
+const moving = keyframes`
   0% {
-    transform: translateY(0px);
+    transform: translate(0);
   }
   25% {
     transform: translateY(5px);
   }
   50% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
   75% {
     transform: translateY(-5px);
@@ -32,7 +32,7 @@ const blinking = keyframes`
   }
 `;
 
-const rotate = keyframes`
+const rotateAndPulse = keyframes`
   0% {
     transform: rotate(0deg) scale(1);
   }
@@ -83,13 +83,14 @@ export const AttackImageContainer = styled.div.attrs(
 
 type AttackImageProps = {
   $src: string;
+  $active: boolean;
 };
 
 export const AttackImage = styled.div<AttackImageProps>`
   position: absolute;
   width: 100%;
   height: 100%;
-  animation: ${blinking} 800ms linear infinite;
+  animation: ${moving} 800ms linear infinite;
 
   &:before {
     content: '';
@@ -100,10 +101,17 @@ export const AttackImage = styled.div<AttackImageProps>`
     right: 0;
     width: 100%;
     height: 100%;
-    animation: ${rotate} 2s linear infinite;
+    animation: ${rotateAndPulse} 2s linear infinite;
 
     background-image: ${({ $src }) => `url(${$src})`};
     background-repeat: no-repeat;
     background-size: contain;
+
+    ${({ $active }) =>
+      $active
+        ? css`
+            animation: ${rotateAndPulse} 200ms linear infinite;
+          `
+        : ''}
   }
 `;

@@ -35,11 +35,15 @@ export const FireBallAnimation = forwardRef((props: Props, ref) => {
     imageHeight
   } = props;
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isSpinning, sertIsSpinning] = useState(false);
 
   const play = useCallback(async () => {
+    sertIsSpinning(true);
+    await wait(200);
     setIsPlaying(true);
     await wait(animationDuration);
     setIsPlaying(false);
+    sertIsSpinning(false);
   }, [animationDuration, setIsPlaying]);
 
   useEffect(() => {
@@ -85,7 +89,7 @@ export const FireBallAnimation = forwardRef((props: Props, ref) => {
       }}
       $targetBounds={targetBounds}
     >
-      <AttackImage $src={imageUrl} />
+      <AttackImage $src={imageUrl} $active={isSpinning} />
     </AttackImageContainer>
   );
 });

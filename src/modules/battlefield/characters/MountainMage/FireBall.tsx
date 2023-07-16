@@ -19,10 +19,10 @@ export const FireBall = ({ id }: Props) => {
 
   return createPortal(
     <FireBallAnimation
-      imageWidth={65}
-      imageHeight={60}
+      imageWidth={55}
+      imageHeight={50}
       attackId={ATTACK_ID_FIRE_BALL}
-      animationDuration={300}
+      animationDuration={400}
       imageUrl="/images/rangeAttackItems/fireball.png"
       trooperId={id}
       targetTrooperId={hoveredElement?.id}

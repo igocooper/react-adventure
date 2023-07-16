@@ -6,6 +6,11 @@ type RangeAttackImageProps = {
   $height: number;
   $width: number;
   $src: string;
+  $position: {
+    x: number;
+    y: number;
+  };
+  $targetBounds?: DOMRect;
 };
 
 export const RangeAttackImage = styled.div<RangeAttackImageProps>`
@@ -13,9 +18,28 @@ export const RangeAttackImage = styled.div<RangeAttackImageProps>`
   width: ${({ $width }) => $width}px;
   height: ${({ $height }) => $height}px;
   position: absolute;
+  top: ${({ $position }) => $position.y}px;
+  left: ${({ $position }) => $position.x}px;
+  pointer-events: none;
   transition: ${({ $animationDuration }) =>
     `transform ${$animationDuration / 1000}s ease-out`};
-  pointer-events: none;
+
+  z-index: 99;
+  transform: ${({ $targetBounds, $width, $height, $position, $active }) => {
+    if (!$targetBounds || !$active) return 'initial';
+
+    const targetLeftCenter =
+      $targetBounds.left + $targetBounds.width / 2 - $width / 2;
+    const targetTopCenter =
+      $targetBounds.top + $targetBounds.height / 2 - $height / 2;
+
+    const { x, y } = $position;
+
+    const transformX = targetLeftCenter - x;
+    const transformY = targetTopCenter - y;
+
+    return `translate(${transformX}px,${transformY}px) scale(2)`;
+  }};
 
   &:before {
     content: '';

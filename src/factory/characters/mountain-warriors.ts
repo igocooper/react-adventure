@@ -38,7 +38,7 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     health: 25,
     currentHealth: 25,
-    initiative: 33,
+    initiative: 3,
     attackType: ATTACK_TYPE.RANGE,
     attackId: ATTACK_ID_FIRE_BALL,
     defence: 0,
