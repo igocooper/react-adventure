@@ -30,6 +30,8 @@ export class CharacterAnimation extends Component<Props> {
   renderCtx: Nullable<RenderCtx2D>;
   spriter_data: Nullable<Data>;
   spriter_pose: Nullable<Pose>;
+  originalFaceImage: Nullable<HTMLImageElement>;
+  blinkingFaceImage: Nullable<HTMLImageElement>;
   images: Record<string, HTMLImageElement>;
   entity_index: number;
   anim_time: number;
@@ -73,6 +75,8 @@ export class CharacterAnimation extends Component<Props> {
     this.animationRequestId = 0;
     this.meleeAttackTransitionTime = props.meleeAttackTransitionTime || 700;
     this.canvasRef = React.createRef();
+    this.originalFaceImage = null;
+    this.blinkingFaceImage = null;
     this.bloodSlots = {
       [BODY_BLOOD]: false,
       [BODY_CUT]: false,
@@ -103,25 +107,28 @@ export class CharacterAnimation extends Component<Props> {
 
   async loadImages() {
     const { imagesUrls } = this.props;
-    if (!this.spriter_data || !this.renderCtx) return;
+    if (!this.renderCtx) return;
 
-    for (const folder of this.spriter_data.folder_array) {
-      for (const file of folder.file_array) {
-        if (file.type === 'image') {
-          const imageKey: string = file.name;
-          let image: Nullable<HTMLImageElement> = null;
-          try {
-            if (imagesUrls[imageKey]) {
-              image = await loadImage(imagesUrls[imageKey]!);
-            }
-          } catch (err) {
-            console.log(err);
-          }
+    for (const imageSlot in imagesUrls) {
+      const imageUrl = imagesUrls[imageSlot];
+      let image: Nullable<HTMLImageElement> = null;
 
-          if (image) {
-            this.images[imageKey] = image;
-          }
-        }
+      try {
+        image = await loadImage(imageUrl!);
+      } catch (err) {
+        console.log(err);
+      }
+
+      if (image) {
+        this.images[imageSlot] = image;
+      }
+
+      if (image && imageSlot === CHARACTER_IMAGE_SLOT.FACE_01) {
+        this.originalFaceImage = image;
+      }
+
+      if (image && imageSlot === CHARACTER_IMAGE_SLOT.FACE_02) {
+        this.blinkingFaceImage = image;
       }
     }
 
@@ -168,15 +175,14 @@ export class CharacterAnimation extends Component<Props> {
 
   async blink() {
     if (
-      this.images[CHARACTER_IMAGE_SLOT.FACE_01] &&
-      this.images[CHARACTER_IMAGE_SLOT.FACE_02]
+      this.blinkingFaceImage &&
+      this.originalFaceImage &&
+      this.images[CHARACTER_IMAGE_SLOT.FACE_01]
     ) {
-      const originalFace = this.images[CHARACTER_IMAGE_SLOT.FACE_01];
-      this.images[CHARACTER_IMAGE_SLOT.FACE_01] =
-        this.images[CHARACTER_IMAGE_SLOT.FACE_02];
+      this.images[CHARACTER_IMAGE_SLOT.FACE_01] = this.blinkingFaceImage;
 
       await wait(200);
-      this.images[CHARACTER_IMAGE_SLOT.FACE_01] = originalFace;
+      this.images[CHARACTER_IMAGE_SLOT.FACE_01] = this.originalFaceImage;
 
       setTimeout(this.blink, getRandomNumberInRange(3000, 10000));
     }
