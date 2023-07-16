@@ -81,7 +81,8 @@ const getAnimationMap = (props: Props): Record<string, string> => {
 
   if (bow) {
     return {
-      attack: 'shoot_with_bow',
+      // attack: 'shoot_with_bow',
+      attack: 'shoot_with_bow_up',
       idle: 'idle_with_bow',
       hurt: 'hurt_with_bow',
       die: 'dying_with_bow',

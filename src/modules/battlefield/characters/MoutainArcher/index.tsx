@@ -3,6 +3,7 @@ import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimat
 import { getCharacterProps } from '../../helpers/getCharacterProps';
 import type { Trooper } from '../../types';
 import { MountainArcherArrow } from './MountainArcherArrow';
+import { MountainArcherArrowUp } from './MountainArcherArrowUp';
 
 type Props = Pick<
   Trooper,
@@ -34,6 +35,7 @@ export const MountainArcher = ({
         onLoad={onLoad}
       />
       <MountainArcherArrow />
+      <MountainArcherArrowUp />
     </>
   );
 };

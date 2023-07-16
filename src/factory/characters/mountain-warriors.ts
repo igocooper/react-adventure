@@ -2,8 +2,8 @@ import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
 import { mountainBow, mountainStaff } from 'factory/weapons';
-import { ATTACK_ID } from 'modules/battlefield/characters/MoutainArcher/constants';
 import { ATTACK_ID_FIRE_BALL } from 'modules/battlefield/characters/MountainMage/constants';
+import { ATTACK_ID_UP } from 'modules/battlefield/characters/MoutainArcher/constants';
 
 export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -61,9 +61,9 @@ export const mountainArcher = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     health: 25,
     currentHealth: 25,
-    initiative: 5,
+    initiative: 15,
     attackType: ATTACK_TYPE.RANGE,
-    attackId: ATTACK_ID,
+    attackId: ATTACK_ID_UP,
     defence: 0,
     criticalChance: 10,
     criticalMultiplier: 2

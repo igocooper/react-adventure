@@ -294,7 +294,8 @@ export class CharacterAnimation extends Component<Props> {
       }
     }
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('cast_with_wand');
+    const { animationMap } = this.props;
+    this.setAnimation(animationMap?.attack || 'cast_with_wand');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     await wait(this.anim_length);
@@ -303,7 +304,8 @@ export class CharacterAnimation extends Component<Props> {
 
   async shoot() {
     cancelAnimationFrame(this.animationRequestId);
-    this.setAnimation('shoot_with_bow');
+    const { animationMap } = this.props;
+    this.setAnimation(animationMap?.attack || 'shoot_with_bow');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
     // We want to start animate arrow earlier for smoother effect
