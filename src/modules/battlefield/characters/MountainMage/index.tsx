@@ -3,11 +3,18 @@ import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimat
 import { getCharacterProps } from '../../helpers/getCharacterProps';
 import type { Trooper } from '../../types';
 import { MagmaGeysers } from './MagmaGeysers';
-import { FireBall } from './FireBall';
+import { FireBall } from './SpinningFireBall';
 
 type Props = Pick<
   Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
+  | 'id'
+  | 'appearance'
+  | 'team'
+  | 'equipment'
+  | 'type'
+  | 'damageType'
+  | 'attackId'
+  | 'position'
 > & {
   onLoad: (id: number) => void;
   containerNode: HTMLElement;
@@ -21,7 +28,9 @@ export const MountainMage = ({
   appearance,
   equipment,
   containerNode,
-  damageType
+  damageType,
+  attackId,
+  position
 }: Props) => {
   return (
     <>
@@ -37,7 +46,7 @@ export const MountainMage = ({
         onLoad={onLoad}
       />
       <MagmaGeysers containerNode={containerNode} />
-      <FireBall id={id} />
+      <FireBall attackId={attackId!} id={id} position={position} />
     </>
   );
 };

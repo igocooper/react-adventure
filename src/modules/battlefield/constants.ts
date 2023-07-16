@@ -11,10 +11,7 @@ import {
   priest1,
   goblinBuffer
 } from 'factory/characters';
-import {
-  createAnchorAbility,
-  createPoisonAbility
-} from './sagas/abilitiesSaga/abilities';
+import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 
 export enum TROOPER_TEAM {
   ATTACKERS = 'attackers',
@@ -75,17 +72,17 @@ const ATTACKERS_TROOPS: Trooper[] = [
   mountainArcher({
     id: 3,
     team: 'attackers',
-    position: 5
+    position: 1
   }),
   mountainMage({
     id: 5,
     team: 'attackers',
-    position: 1
+    position: 6
   }),
   waterMage({
     id: 4,
     team: 'attackers',
-    position: 6
+    position: 5
   })
 ];
 
@@ -104,9 +101,6 @@ const DEFENDERS_TROOPS: Trooper[] = [
         duration: 1,
         damage: 10,
         hitChance: 75
-      }),
-      createAnchorAbility({
-        duration: 1
       })
     ]
   }),

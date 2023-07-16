@@ -29,6 +29,7 @@ type CharacterProps = Pick<
   | 'appearance'
   | 'equipment'
   | 'damageType'
+  | 'attackId'
 > & {
   containerNode?: HTMLElement;
 };
@@ -43,7 +44,8 @@ export const TileContainer = ({
   equipment,
   appearance,
   containerNode,
-  damageType
+  damageType,
+  attackId
 }: CharacterProps) => {
   const dispatch = useDispatch();
   const hoveredElement = useSelector(hoveredElementSelector);
@@ -119,6 +121,8 @@ export const TileContainer = ({
             appearance={appearance}
             equipment={equipment}
             damageType={damageType}
+            position={position}
+            attackId={attackId}
             id={id}
             team={team}
             onLoad={handleLoad}

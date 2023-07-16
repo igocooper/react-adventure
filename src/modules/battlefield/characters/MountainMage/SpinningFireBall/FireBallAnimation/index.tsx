@@ -11,6 +11,7 @@ import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
 import { wait } from 'common/helpers/wait';
 import { AttackImage, AttackImageContainer } from './styled';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
+import theme from 'theme/defaultTheme';
 
 type Props = {
   containerNode: HTMLElement;
@@ -21,6 +22,7 @@ type Props = {
   imageWidth: number;
   imageHeight: number;
   imageUrl: string;
+  team: Trooper['team'];
   position: number;
 };
 
@@ -33,7 +35,9 @@ export const FireBallAnimation = forwardRef((props: Props, ref) => {
     targetTrooperId,
     imageUrl,
     imageWidth,
-    imageHeight
+    imageHeight,
+    team,
+    position
   } = props;
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpinning, sertIsSpinning] = useState(false);
@@ -71,8 +75,13 @@ export const FireBallAnimation = forwardRef((props: Props, ref) => {
   const targetBounds =
     targetNode && getElementBoundsWithinContainer(targetNode, containerNode);
 
-  const x = (characterBounds?.left || 0) + 20;
-  const y = (characterBounds?.top || 0) + 20;
+  const x =
+    team === 'attackers'
+      ? (characterBounds?.left || 0) + 10
+      : (characterBounds?.left || 0) + 30;
+  const y = (characterBounds?.top || 0) + 40;
+
+  const zIndex = theme.zIndex[team][position];
 
   return (
     <AttackImageContainer
@@ -86,9 +95,22 @@ export const FireBallAnimation = forwardRef((props: Props, ref) => {
         x,
         y
       }}
+      $zIndex={zIndex!}
       $targetBounds={targetBounds}
     >
-      <AttackImage $src={imageUrl} $active={isSpinning} />
+      <AttackImage
+        $src={imageUrl}
+        $active={isPlaying}
+        $isSpinning={isSpinning}
+        $width={imageWidth}
+        $height={imageHeight}
+        $animationDuration={animationDuration}
+        $position={{
+          x,
+          y
+        }}
+        $targetBounds={targetBounds}
+      />
     </AttackImageContainer>
   );
 });

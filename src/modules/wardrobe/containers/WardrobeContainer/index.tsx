@@ -1,7 +1,7 @@
 import React from 'react';
-import { getCharacterProps } from '../../../battlefield/helpers/getCharacterProps';
-import { CharacterAnimation } from '../../../animation/containers/CharacterAnimation';
-import { getTrooperAnimationInstance } from '../../../animation/troopersAnimationInstances';
+import { getCharacterProps } from 'modules/battlefield/helpers/getCharacterProps';
+import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
+import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { updateCharacterImages } from 'common/helpers';
 import {
   HEADS,
@@ -12,7 +12,8 @@ import {
   BEARDS,
   HAIRS
 } from '../../constants';
-import { TROOPER_TEAM } from '../../../battlefield/constants';
+import { TROOPER_TEAM } from 'modules/battlefield/constants';
+import { DAMAGE_TYPE } from 'common/constants';
 
 export const WardrobeContainer = () => {
   return (
@@ -73,7 +74,8 @@ export const WardrobeContainer = () => {
             {...getCharacterProps({
               type: CHARACTER.type,
               equipment: CHARACTER.equipment,
-              appearance: CHARACTER.appearance
+              appearance: CHARACTER.appearance,
+              damageType: DAMAGE_TYPE.PHYSICAL
             })}
             id={CHARACTER.id}
             team={TROOPER_TEAM.ATTACKERS}

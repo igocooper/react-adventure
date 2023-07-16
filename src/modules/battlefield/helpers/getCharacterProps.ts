@@ -152,6 +152,7 @@ const getCastEffectImageUrl = ({ damageType }: Props) => {
       return '/images/effects/water.png';
     }
     default:
+      return undefined;
   }
 };
 
