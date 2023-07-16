@@ -11,7 +11,12 @@ type Props = {
 };
 
 export const MagmaGeyser = forwardRef(
-  (props: Props, ref: ForwardedRef<SpriteAnimation>) => {
+  (
+    props: Props,
+    ref: ForwardedRef<{
+      play: CallableFunction;
+    }>
+  ) => {
     return (
       <SpriteAnimation
         className="magma-geyser"

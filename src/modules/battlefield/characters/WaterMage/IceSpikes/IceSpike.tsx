@@ -11,7 +11,12 @@ type Props = {
 };
 
 export const IceSpike = forwardRef(
-  (props: Props, ref: ForwardedRef<SpriteAnimation>) => {
+  (
+    props: Props,
+    ref: ForwardedRef<{
+      play: CallableFunction;
+    }>
+  ) => {
     return (
       <SpriteAnimation
         className="ice-spike"

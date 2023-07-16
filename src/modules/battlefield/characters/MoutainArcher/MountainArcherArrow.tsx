@@ -30,8 +30,8 @@ export const MountainArcherArrow = () => {
       imageUrl="/images/rangeAttackItems/mountainArcherArrow.png"
       imageAdjustmentY={22}
       imageAdjustmentX={0}
-      activeTrooperId={activeTrooper?.id}
-      selectedTrooperId={selectedTrooper?.id}
+      trooperId={activeTrooper?.id}
+      targetTrooperId={selectedTrooper?.id}
       team={team}
       containerNode={containerNode}
     />,
