@@ -25,6 +25,7 @@ export type Ability = {
   type: AbilityType;
   hitChance?: number;
   applyAbility: (props: ApplyAbilityProps) => void;
+  iconSrc: string;
 };
 
 export type EffectName =

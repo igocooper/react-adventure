@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import slotBackgroundImg from './images/slot-background.png';
 
 export const Overlay = styled.div.attrs({
   className: 'overlay'
@@ -108,6 +109,7 @@ export const BorderInner = styled.div.attrs({
   height: calc(100% - (var(--border-size) * 2));
   border: var(--border-size) inset var(--border-inner-color);
   transform: rotate3d(0, 1, 0, 180deg);
+  overflow-y: scroll;
 
   & > *:not(${HeaderContainer}) {
     transform: rotate3d(0, 1, 0, 180deg);
@@ -118,6 +120,7 @@ export const Content = styled.div`
   padding: 60px 24px 24px;
   color: #fff;
   font-family: fantasy;
+  overflow-y: scroll;
 `;
 
 type SpotProps = {
@@ -145,4 +148,57 @@ export const SpotsWrapper = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
+`;
+
+type SlotProps = {
+  width?: string | number;
+  height?: string | number;
+  padding?: string;
+};
+
+export const Slot = styled.div<SlotProps>`
+  color: #fff;
+  font-family: fantasy;
+  box-sizing: border-box;
+  background: url('${slotBackgroundImg}'), #533025;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.4) -2px 23px 7px -15px inset,
+    rgb(144, 83, 65) 0px 5px 3px 0px;
+  padding: ${({ padding }) => padding || '0'};
+  width: ${({ width }) => {
+    if (typeof width === 'string') {
+      return width;
+    }
+
+    if (typeof width === 'number') {
+      return `${width}px`;
+    }
+
+    return '100%';
+  }};
+
+  height: ${({ height }) => {
+    if (typeof height === 'string') {
+      return height;
+    }
+
+    if (typeof height === 'number') {
+      return `${height}px`;
+    }
+
+    return 'auto';
+  }};
+`;
+
+export const ItemSlot = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 75px;
+  width: 75px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 6px;
+  font-family: fantasy;
+  font-size: 36px;
 `;

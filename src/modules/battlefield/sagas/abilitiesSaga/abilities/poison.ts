@@ -5,6 +5,7 @@ import { createPoisonEffect } from '../../effectsSaga/effects';
 import { getRandomNumberInRange } from 'common/helpers';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { EFFECT, ABILITY_TYPE, ABILITY } from 'common/constants';
+import poisonIcon from './icons/poison.png';
 
 export const createPoisonAbility = ({
   duration,
@@ -15,6 +16,7 @@ export const createPoisonAbility = ({
   damage: number;
   hitChance: number;
 }): Ability => ({
+  iconSrc: poisonIcon,
   type: ABILITY_TYPE.CURSE,
   name: ABILITY.POISON,
   hitChance,

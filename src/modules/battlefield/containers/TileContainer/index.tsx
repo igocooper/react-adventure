@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'store/hooks';
 import {
   setHoveredElement,
   trooperClicked,
-  setTrooperLoadedStatus,
+  setTrooperLoadedStatus
 } from '../../actions';
 import type { Trooper } from '../../types';
 import { HOVERED_ELEMENT_TYPE } from '../../constants';
@@ -84,7 +84,12 @@ export const TileContainer = ({
     (event: MouseEvent) => {
       event.preventDefault();
       if (id) {
-        dispatch(openDialog({ type: dialogTypes.INVENTORY }));
+        dispatch(
+          openDialog({
+            type: dialogTypes.CHARACTER_DETAILS,
+            dialogProps: { id }
+          })
+        );
       }
     },
     [dispatch, id, team]
@@ -130,7 +135,7 @@ export const TileContainer = ({
           $hovered={hovered}
         >
           <CharacterComponent
-            containerNode={containerNode!}
+            containerNode={containerNode}
             type={type}
             appearance={appearance}
             equipment={equipment}

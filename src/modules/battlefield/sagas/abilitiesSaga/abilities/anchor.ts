@@ -11,6 +11,7 @@ import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/redu
 import { createAnchorEffect } from '../../effectsSaga/effects';
 import { ABILITY_TYPE, ABILITY } from 'common/constants';
 import theme from 'theme/defaultTheme';
+import icon from './icons/anchor.png';
 
 function* publishDamageEvent(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -35,6 +36,7 @@ export const createAnchorAbility = ({
 }: {
   duration: number;
 }): Ability => ({
+  iconSrc: icon,
   type: ABILITY_TYPE.CURSE,
   name: ABILITY.ANCHOR,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {

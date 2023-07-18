@@ -5,5 +5,9 @@ import { useDialogActions } from 'common/hooks/useDialogActions';
 export const InventoryDialogContainer = () => {
   const { closeDialog } = useDialogActions();
 
-  return <Dialog header="Inventory" onClose={closeDialog} />;
+  return (
+    <Dialog header="Inventory" onClose={closeDialog}>
+      This is content inside dialog example
+    </Dialog>
+  );
 };

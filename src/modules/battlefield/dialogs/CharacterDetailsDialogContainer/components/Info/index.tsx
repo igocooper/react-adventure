@@ -3,10 +3,7 @@ import type { Trooper } from 'modules/battlefield/types';
 import { Container, Value, Item } from './styled';
 import { getAttackTypeIcon } from 'common/helpers/getAttackTypeIcon';
 
-type Props = {
-  criticalChance?: Trooper['criticalChance'];
-  evadeChance?: Trooper['evadeChance'];
-} & Pick<
+type Props = Pick<
   Trooper,
   | 'currentHealth'
   | 'health'
@@ -15,6 +12,13 @@ type Props = {
   | 'attackType'
   | 'hitChance'
   | 'defence'
+  | 'resistance'
+  | 'counterAttackChance'
+  | 'criticalChance'
+  | 'criticalMultiplier'
+  | 'evadeChance'
+  | 'supportType'
+  | 'initiative'
 >;
 
 export const Info = ({
@@ -26,7 +30,11 @@ export const Info = ({
   criticalChance,
   evadeChance,
   defence,
-  damageType
+  damageType,
+  counterAttackChance,
+  supportType,
+  criticalMultiplier,
+  initiative
 }: Props) => {
   return (
     <Container>
@@ -42,22 +50,42 @@ export const Info = ({
           {getAttackTypeIcon(attackType, damageType)} {damage}
         </Value>
       </Item>
-      {Boolean(hitChance) && (
+      {hitChance && (
         <Item>
           Accuracy: <Value>{hitChance} %</Value>
         </Item>
       )}
-      {Boolean(criticalChance) && (
+      {supportType && (
+        <Item>
+          Support: <Value>{supportType}</Value>
+        </Item>
+      )}
+      {initiative && (
+        <Item>
+          Initiative: <Value>{initiative}</Value>
+        </Item>
+      )}
+      {criticalChance && (
         <Item>
           Critical: <Value>{criticalChance} %</Value>
         </Item>
       )}
-      {Boolean(evadeChance) && (
+      {criticalMultiplier && (
+        <Item>
+          Critical Power: <Value>{criticalMultiplier}</Value>
+        </Item>
+      )}
+      {evadeChance && (
         <Item>
           Evade: <Value>{evadeChance} %</Value>
         </Item>
       )}
-      {Boolean(defence) && (
+      {counterAttackChance && (
+        <Item>
+          Counter Attack: <Value>{counterAttackChance} %</Value>
+        </Item>
+      )}
+      {defence && (
         <Item>
           Defence: <Value>{defence} %</Value>
         </Item>
