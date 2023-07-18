@@ -13,7 +13,5 @@ export const useLocation = () => {
 
   const location = searchParams.get('location');
 
-  return location && isLocationGuard(location)
-    ? location
-    : LOCATION.FOREST_ROAD;
+  return location && isLocationGuard(location) ? location : LOCATION.ICE_ARENA;
 };
