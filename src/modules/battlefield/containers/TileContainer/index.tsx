@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'store/hooks';
 import {
   setHoveredElement,
   trooperClicked,
-  setTrooperLoadedStatus
+  setTrooperLoadedStatus,
 } from '../../actions';
 import type { Trooper } from '../../types';
 import { HOVERED_ELEMENT_TYPE } from '../../constants';

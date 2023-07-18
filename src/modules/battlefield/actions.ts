@@ -68,4 +68,8 @@ export const waitClicked =
 export const blockClicked =
   createAction<Pick<Trooper, 'id' | 'team'>>('block_clicked');
 
+export const openCharacterInfo = createAction<Pick<Trooper, 'id' | 'team'>>(
+  'open_character_info'
+);
+
 export const startBattle = createAction<TroopsState>('start_battle');
