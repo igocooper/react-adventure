@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import type { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'store/hooks';
 import {
   setHoveredElement,
@@ -17,6 +18,8 @@ import { HealthBar } from '../../components/HealthBar';
 import { EffectContainer } from '../EffectContainer';
 import { registerTileNode } from '../../tilesNodesMap';
 import { getCharacterByType } from '../../helpers/getCharacterByType';
+import { dialogTypes } from 'modules/dialogs/constants';
+import { openDialog } from 'modules/dialogs/actions';
 
 type CharacterProps = Pick<
   Trooper,
@@ -77,6 +80,16 @@ export const TileContainer = ({
     [dispatch]
   );
 
+  const handleRightClick = useCallback(
+    (event: MouseEvent) => {
+      event.preventDefault();
+      if (id) {
+        dispatch(openDialog({ type: dialogTypes.INVENTORY }));
+      }
+    },
+    [dispatch, id, team]
+  );
+
   const handleClick = useCallback(() => {
     if (!isBattlefieldDisabled && currentHealth > 0) {
       dispatch(
@@ -102,6 +115,7 @@ export const TileContainer = ({
       $position={position}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onContextMenu={handleRightClick}
       onClick={handleClick}
     >
       {hovered && <HealthBar currentHealth={currentHealth} health={health} />}
