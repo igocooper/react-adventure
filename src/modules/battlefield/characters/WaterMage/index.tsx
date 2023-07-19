@@ -9,8 +9,8 @@ type Props = Pick<
   Trooper,
   'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
-  onLoad: (id: number) => void;
-  containerNode: HTMLElement;
+  onLoad?: (id: number) => void;
+  containerNode?: HTMLElement;
 };
 
 export const WaterMage = ({
@@ -36,8 +36,8 @@ export const WaterMage = ({
         team={team}
         onLoad={onLoad}
       />
-      <IceSpikes containerNode={containerNode} />
-      <Kraken containerNode={containerNode} />
+      <IceSpikes containerNode={containerNode || document.body} />
+      <Kraken containerNode={containerNode || document.body} />
     </>
   );
 };

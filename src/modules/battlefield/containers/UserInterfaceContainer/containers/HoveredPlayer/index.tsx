@@ -29,12 +29,14 @@ export const HoveredPlayer = ({ imageSrc }: Props) => {
         <>
           <Effects>
             {hoveredTrooper.effects.map(
-              ({ name, iconSrc, duration }, index) => {
+              ({ name, iconSrc, duration, description }, index) => {
                 return (
                   <Effect
                     iconSrc={iconSrc}
                     key={`${name}_${index}`}
                     duration={duration}
+                    name={name}
+                    description={description}
                   />
                 );
               }

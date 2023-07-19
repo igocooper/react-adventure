@@ -16,8 +16,8 @@ type Props = Pick<
   | 'attackId'
   | 'position'
 > & {
-  onLoad: (id: number) => void;
-  containerNode: HTMLElement;
+  onLoad?: (id: number) => void;
+  containerNode?: HTMLElement;
 };
 
 export const MountainMage = ({
@@ -45,7 +45,7 @@ export const MountainMage = ({
         team={team}
         onLoad={onLoad}
       />
-      <MagmaGeysers containerNode={containerNode} />
+      <MagmaGeysers containerNode={containerNode || document.body} />
       <FireBall attackId={attackId!} id={id} position={position} />
     </>
   );

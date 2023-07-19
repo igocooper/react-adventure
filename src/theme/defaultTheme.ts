@@ -1,9 +1,11 @@
 import colors from './colors';
 import zIndex from './zIndex';
+import dialog from './dialog';
 
 const defaultTheme = {
-  color: colors,
-  zIndex
+  colors,
+  zIndex,
+  dialog
 };
 
 export default defaultTheme;

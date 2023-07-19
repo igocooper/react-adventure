@@ -119,15 +119,15 @@ export const Character = styled(Center).attrs((props: CharacterProps) => ({
   pointer-events: none;
 
   &.attackers {
-    --shadow-color: ${({ theme }) => theme.color.attackers};
+    --shadow-color: ${({ theme }) => theme.colors.attackers};
   }
 
   &.defenders {
-    --shadow-color: ${({ theme }) => theme.color.defenders};
+    --shadow-color: ${({ theme }) => theme.colors.defenders};
   }
 
   &.enemy {
-    --shadow-color: ${({ theme }) => theme.color.enemy};
+    --shadow-color: ${({ theme }) => theme.colors.enemy};
   }
 
   &.hovered {

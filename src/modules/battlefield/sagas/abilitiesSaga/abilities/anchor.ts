@@ -11,6 +11,8 @@ import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/redu
 import { createAnchorEffect } from '../../effectsSaga/effects';
 import { ABILITY_TYPE, ABILITY } from 'common/constants';
 import theme from 'theme/defaultTheme';
+import icon from './icons/anchor.png';
+import { getRandomNumberInRange } from 'common/helpers';
 
 function* publishDamageEvent(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -24,36 +26,49 @@ function* publishDamageEvent(id: Trooper['id']) {
       x,
       y
     },
-    color: theme.color.black
+    color: theme.colors.black
   };
 
   yield* put(addDamageEventAction(damageEvent));
 }
 
 export const createAnchorAbility = ({
-  duration
+  duration,
+  hitChance
 }: {
   duration: number;
+  hitChance?: number;
 }): Ability => ({
+  iconSrc: icon,
   type: ABILITY_TYPE.CURSE,
   name: ABILITY.ANCHOR,
+  hitChance: hitChance || 100,
+  description: `${
+    hitChance ? `Has a ${hitChance}% chance to apply` : 'Applies'
+  } "${
+    ABILITY.ANCHOR
+  }" effect. Forcing target to skip his turn for ${duration} rounds.`,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
-    const anchorEffect = createAnchorEffect({
-      duration
-    });
+    const roll = getRandomNumberInRange(1, 100);
 
-    const effectNode = getEffectNode(targetTrooper.id);
+    if (roll <= (hitChance || 100)) {
+      const anchorEffect = createAnchorEffect({
+        duration
+      });
 
-    effectNode!.classList.add(ABILITY.ANCHOR);
+      const effectNode = getEffectNode(targetTrooper.id);
 
-    yield* call(publishDamageEvent, targetTrooper.id);
+      effectNode!.classList.add(ABILITY.ANCHOR);
 
-    yield* put(
-      addEffect({
-        id: targetTrooper.id,
-        team: targetTrooper.team,
-        effect: anchorEffect
-      })
-    );
+      yield* call(publishDamageEvent, targetTrooper.id);
+
+      yield* put(
+        addEffect({
+          id: targetTrooper.id,
+          team: targetTrooper.team,
+          effect: anchorEffect
+        })
+      );
+    }
   }
 });

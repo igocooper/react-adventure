@@ -1,5 +1,6 @@
 const dialogTypes = {
-  INVENTORY: 'inventory'
+  INVENTORY: 'inventory',
+  CHARACTER_DETAILS: 'character_details'
 };
 
 export default dialogTypes;

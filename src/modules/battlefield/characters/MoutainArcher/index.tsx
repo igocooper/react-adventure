@@ -8,7 +8,7 @@ type Props = Pick<
   Trooper,
   'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
-  onLoad: (id: number) => void;
+  onLoad?: (id: number) => void;
 };
 
 export const MountainArcher = ({

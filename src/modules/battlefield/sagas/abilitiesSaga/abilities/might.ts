@@ -6,6 +6,7 @@ import { getEffectNode } from '../../../effectsNodesMap';
 import { updateCharacterImages } from 'common/helpers';
 import { ABILITY, ABILITY_TYPE, CHARACTER_IMAGE_SLOT } from 'common/constants';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
+import icon from './icons/might.png';
 
 export const createMightAbility = ({
   duration,
@@ -14,6 +15,8 @@ export const createMightAbility = ({
   duration: number;
   multiplier: number;
 }): Ability => ({
+  iconSrc: icon,
+  description: `Increase ally damage ${multiplier} times for ${duration} rounds.`,
   type: ABILITY_TYPE.BUFF,
   name: ABILITY.MIGHT,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {

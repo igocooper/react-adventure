@@ -84,7 +84,12 @@ export const TileContainer = ({
     (event: MouseEvent) => {
       event.preventDefault();
       if (id) {
-        dispatch(openDialog({ type: dialogTypes.INVENTORY }));
+        dispatch(
+          openDialog({
+            type: dialogTypes.CHARACTER_DETAILS,
+            dialogProps: { id }
+          })
+        );
       }
     },
     [dispatch, id, team]
@@ -130,7 +135,7 @@ export const TileContainer = ({
           $hovered={hovered}
         >
           <CharacterComponent
-            containerNode={containerNode!}
+            containerNode={containerNode}
             type={type}
             appearance={appearance}
             equipment={equipment}

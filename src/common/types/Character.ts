@@ -1,20 +1,22 @@
 import type { Trooper } from 'modules/battlefield/types';
 import type { CallEffect } from 'redux-saga/effects';
-export type AttackType = 'melee' | 'range' | 'splash';
-export type DamageType =
-  | 'physical'
-  | 'fire'
-  | 'water'
-  | 'wind'
-  | 'earth'
-  | 'light'
-  | 'dark'
-  | 'blood'
-  | 'poison';
-export type SupportType = 'heal' | 'buff';
+import type {
+  EFFECT,
+  ABILITY,
+  SUPPORT_TYPE,
+  ATTACK_TYPE,
+  ABILITY_TYPE,
+  DAMAGE_TYPE
+} from '../constants';
+
+// UNION types generation inspired by this article https://bobbyhadz.com/blog/typescript-convert-enum-to-union
 export type Team = 'attackers' | 'defenders';
-export type AbilityName = 'poison' | 'might' | 'anchor' | 'heal';
-export type AbilityType = 'curse' | 'buff';
+export type AttackType = `${ATTACK_TYPE}`;
+export type DamageType = `${DAMAGE_TYPE}`;
+export type SupportType = `${SUPPORT_TYPE}`;
+export type AbilityName = `${ABILITY}`;
+export type AbilityType = `${ABILITY_TYPE}`;
+export type EffectName = `${EFFECT}`;
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -23,17 +25,11 @@ export type ApplyAbilityProps = {
 export type Ability = {
   name: AbilityName;
   type: AbilityType;
+  description: string;
   hitChance?: number;
   applyAbility: (props: ApplyAbilityProps) => void;
+  iconSrc: string;
 };
-
-export type EffectName =
-  | 'poison'
-  | 'anchor'
-  | 'might'
-  | 'hex'
-  | 'block'
-  | 'heal';
 
 export type ApplyEffectProps = {
   activeTrooper: Trooper;
@@ -47,6 +43,7 @@ type ApplyEffect = (props: ApplyEffectProps) => void;
 
 export type Effect = {
   name: EffectName;
+  description: string;
   duration: number;
   once?: boolean;
   done: boolean;

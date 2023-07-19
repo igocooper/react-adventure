@@ -6,6 +6,8 @@ import { store } from './store';
 import { GlobalStyle } from './GlobalStyle';
 import { Router } from './modules/router';
 
+import 'react-tooltip/dist/react-tooltip.css';
+
 export const App = () => (
   <ThemeProvider theme={defaultTheme}>
     <Provider store={store}>

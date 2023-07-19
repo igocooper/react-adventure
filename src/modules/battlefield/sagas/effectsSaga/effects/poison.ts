@@ -7,7 +7,7 @@ import {
 } from 'modules/battlefield/actions';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import poisonIcon from './icons/poison.png';
-import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE, EFFECT } from 'common/constants';
 import { updateCharacterImages } from 'common/helpers';
 import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
 
@@ -18,7 +18,9 @@ export const createPoisonEffect = ({
   duration: number;
   damage: number;
 }): Effect => ({
-  name: 'poison',
+  name: EFFECT.POISON,
+  description: `"${EFFECT.POISON}" effect. Inflicts ${damage} poison damage at the
+   beginning target.`,
   duration,
   done: false,
   applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
