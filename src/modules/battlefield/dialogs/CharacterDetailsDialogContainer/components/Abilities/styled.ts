@@ -5,3 +5,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   gap: 8px;
 `;
+
+export const Heading = styled.p`
+  margin-top: 8px;
+`;

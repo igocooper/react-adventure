@@ -28,7 +28,7 @@ export const TrooperImage = styled.div<ImageProps>`
     width: 100%;
     height: 100%;
     top: ${({ $health }) => ($health ? `${$health}%` : 0)};
-    background: ${({ theme }) => theme.color.blood};
+    background: ${({ theme }) => theme.colors.blood};
   }
 `;
 
@@ -112,7 +112,7 @@ export const ActiveContainer = styled(Container)`
   }
 
   & ${TrooperImage} {
-    border: ${({ theme, $teamName }) => theme.color[$teamName]} 2px solid;
+    border: ${({ theme, $teamName }) => theme.colors[$teamName]} 2px solid;
   }
 `;
 
@@ -123,7 +123,7 @@ export const HoveredContainer = styled(Container)<
     order: ${({ $teamName }) =>
       $teamName === TROOPER_TEAM.DEFENDERS ? -1 : 0};
     border: ${({ theme, $teamName, $enemy }) =>
-        $enemy ? theme.color.enemy : theme.color[$teamName]}
+        $enemy ? theme.colors.enemy : theme.colors[$teamName]}
       2px solid;
   }
 

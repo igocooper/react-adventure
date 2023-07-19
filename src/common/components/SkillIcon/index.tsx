@@ -5,9 +5,9 @@ type Props = {
   src: string;
 };
 
-export const SkillIcon = ({ src }: Props) => {
+export const SkillIcon = ({ src, ...props }: Props) => {
   return (
-    <Border>
+    <Border {...props}>
       <Icon src={src} />
     </Border>
   );

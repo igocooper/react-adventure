@@ -18,12 +18,12 @@ export const Overlay = styled.div.attrs({
 export const HeaderContainer = styled.div.attrs({
   className: 'header'
 })`
-  --header-background-color: #b7a49d;
+  --header-background-color: ${({ theme }) => theme.dialog.headerBgColor};
   position: absolute;
   background: var(--header-background-color);
   border: 5px solid var(--border-outer-color);
   border-radius: 10px;
-  outline: 1px solid #000;
+  outline: 1px solid ${({ theme }) => theme.colors.black};
   left: 50%;
   top: 0;
   transform: translate(-50%, -50%);
@@ -37,7 +37,7 @@ export const HeaderContent = styled.div`
   box-sizing: border-box;
   min-height: 50px;
   min-width: 200px;
-  border: 1px solid #000;
+  border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 6px;
 
   font-family: fantasy;
@@ -52,8 +52,8 @@ export const HeaderContent = styled.div`
 export const BorderOuter = styled.div.attrs({
   className: 'border-outer'
 })`
-  --border-outer-color: #504c45;
-  --background-color: #734333;
+  --border-outer-color: ${({ theme }) => theme.dialog.borderOuter};
+  --background-color: ${({ theme }) => theme.dialog.background};
 
   background: var(--background-color);
   position: relative;
@@ -61,7 +61,7 @@ export const BorderOuter = styled.div.attrs({
   height: 500px;
   border: 5px solid var(--border-outer-color);
   border-radius: 10px;
-  outline: 1px solid #000;
+  outline: 1px solid ${({ theme }) => theme.colors.black};
   box-shadow: 1px 7px 13px -2px rgba(0, 0, 0, 0.5);
 `;
 
@@ -80,36 +80,34 @@ export const CornerLeft = styled(Corner)`
   left: -5px;
   top: -5px;
 
-  box-shadow: 3px 2px 1px 0 #593529;
+  box-shadow: 3px 2px 1px 0 ${({ theme }) => theme.dialog.cornerShadowColor};
 `;
 
 export const CornerRight = styled(Corner)`
   right: -5px;
   top: -5px;
 
-  box-shadow: -3px 2px 1px 0 #593529;
+  box-shadow: -3px 2px 1px 0 ${({ theme }) => theme.dialog.cornerShadowColor};
 `;
 
 export const CornerInner = styled.div`
-  --color: #a39896;
   width: 40%;
   height: 40%;
   border-radius: 50%;
-  background: var(--color);
-  border: 1px solid #000;
+  background: ${({ theme }) => theme.dialog.headerBgColor};
+  border: 1px solid ${({ theme }) => theme.colors.black};
 `;
 
 export const BorderInner = styled.div.attrs({
   className: 'border-inner'
 })`
-  --border-inner-color: #935846;
+  --border-inner-color: ${({ theme }) => theme.dialog.borderInner};
   --border-size: 3px;
 
   width: calc(100% - (var(--border-size) * 2));
   height: calc(100% - (var(--border-size) * 2));
   border: var(--border-size) inset var(--border-inner-color);
   transform: rotate3d(0, 1, 0, 180deg);
-  overflow-y: scroll;
 
   & > *:not(${HeaderContainer}) {
     transform: rotate3d(0, 1, 0, 180deg);
@@ -117,8 +115,10 @@ export const BorderInner = styled.div.attrs({
 `;
 
 export const Content = styled.div`
+  box-sizing: border-box;
+  height: 100%;
   padding: 60px 24px 24px;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.white};
   font-family: fantasy;
   overflow-y: scroll;
 `;
@@ -160,10 +160,9 @@ export const Slot = styled.div<SlotProps>`
   color: #fff;
   font-family: fantasy;
   box-sizing: border-box;
-  background: url('${slotBackgroundImg}'), #533025;
+  background: url('${slotBackgroundImg}'), ${({ theme }) => theme.dialog.slotBg};
   border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.4) -2px 23px 7px -15px inset,
-    rgb(144, 83, 65) 0px 5px 3px 0px;
+  box-shadow: ${({ theme }) => theme.dialog.slotShadow};
   padding: ${({ padding }) => padding || '0'};
   width: ${({ width }) => {
     if (typeof width === 'string') {
@@ -188,17 +187,4 @@ export const Slot = styled.div<SlotProps>`
 
     return 'auto';
   }};
-`;
-
-export const ItemSlot = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  height: 75px;
-  width: 75px;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 6px;
-  font-family: fantasy;
-  font-size: 36px;
 `;

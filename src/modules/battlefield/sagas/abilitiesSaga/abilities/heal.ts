@@ -19,6 +19,7 @@ export const createHealAbility = ({
   iconSrc: icon,
   type: ABILITY_TYPE.BUFF,
   name: ABILITY.HEAL,
+  description: `Has a ${hitChance}% chance to apply "${EFFECT.HEAL}" effect. Healing target trooper for ${heal} HP right before its' turn starts for ${duration} rounds.`,
   hitChance,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
     const roll = getRandomNumberInRange(1, 100);

@@ -7,8 +7,8 @@ export const Border = styled.div.attrs({
   border: 5px solid var(--border-outer-color);
   border-radius: 10px;
   outline: 1px solid #000;
-  height: 75px;
-  width: 75px;
+  height: 70px;
+  width: 70px;
 `;
 
 type IconProps = {

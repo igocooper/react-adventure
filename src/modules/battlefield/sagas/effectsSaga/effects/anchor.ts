@@ -21,7 +21,7 @@ function* publishDamageEvent(id: Trooper['id']) {
       x,
       y
     },
-    color: theme.color.black
+    color: theme.colors.black
   };
 
   yield* put(addDamageEventAction(damageEvent));
@@ -33,7 +33,8 @@ export const createAnchorEffect = ({
   duration: number;
 }): Effect => {
   return {
-    name: 'might',
+    name: EFFECT.ANCHOR,
+    description: `${EFFECT.ANCHOR} effect. Skips target turn.`,
     duration,
     once: true,
     done: false,

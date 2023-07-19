@@ -16,6 +16,7 @@ export const createMightAbility = ({
   multiplier: number;
 }): Ability => ({
   iconSrc: icon,
+  description: `Increase ally damage ${multiplier} times for ${duration} rounds.`,
   type: ABILITY_TYPE.BUFF,
   name: ABILITY.MIGHT,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {

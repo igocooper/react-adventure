@@ -75,18 +75,21 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
         criticalChance={activeTrooper.criticalChance}
         evadeChance={activeTrooper.evadeChance}
         defence={activeTrooper.defence}
-        resistance={activeTrooper.resistance}
       />
       <Effects>
-        {activeTrooper.effects.map(({ name, iconSrc, duration }, index) => {
-          return (
-            <Effect
-              iconSrc={iconSrc}
-              key={`${name}-${index}`}
-              duration={duration}
-            />
-          );
-        })}
+        {activeTrooper.effects.map(
+          ({ name, iconSrc, duration, description }, index) => {
+            return (
+              <Effect
+                iconSrc={iconSrc}
+                key={`${name}-${index}`}
+                duration={duration}
+                description={description}
+                name={name}
+              />
+            );
+          }
+        )}
       </Effects>
     </ActiveContainer>
   );

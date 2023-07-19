@@ -5,6 +5,7 @@ import { multiplyDamage } from 'modules/battlefield/helpers/multiplyDamage';
 import { divideDamage } from 'modules/battlefield/helpers/divideDamage';
 import mightIcon from './icons/might.png';
 import { getEffectNode } from '../../../effectsNodesMap';
+import { EFFECT } from 'common/constants';
 
 export const createMightEffect = ({
   multiplier,
@@ -14,7 +15,8 @@ export const createMightEffect = ({
   duration: number;
 }): Effect => {
   return {
-    name: 'might',
+    name: EFFECT.MIGHT,
+    description: `"${EFFECT.MIGHT}" effect. Increase target damage ${multiplier} times.`,
     duration,
     once: true,
     done: false,

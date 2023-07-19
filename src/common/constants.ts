@@ -104,19 +104,20 @@ export enum ABILITY_TYPE {
 }
 
 export enum ABILITY {
-  POISON = 'poison',
-  ANCHOR = 'anchor',
-  HEAL = 'heal',
-  MIGHT = 'might'
+  POISON = 'Poison',
+  ANCHOR = 'Anchor',
+  HEAL = 'Heal',
+  MIGHT = 'Might'
 }
 
 export enum EFFECT {
-  POISON = 'poison',
-  ANCHOR = 'anchor',
-  MIGHT = 'might',
-  HEX = 'hex',
-  BLOCK = 'block',
-  HEAL = 'heal'
+  POISON = 'Poison',
+  ANCHOR = 'Anchor',
+  MIGHT = 'Might',
+  HEX = 'Hex',
+  WEAKNESS = 'Weakness',
+  BLOCK = 'Block',
+  HEAL = 'Continues Heal'
 }
 
 export enum ATTACK_TYPE {

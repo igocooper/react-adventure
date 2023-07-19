@@ -19,6 +19,8 @@ export const createPoisonAbility = ({
   iconSrc: poisonIcon,
   type: ABILITY_TYPE.CURSE,
   name: ABILITY.POISON,
+  description: `Has ${hitChance}% chance to poison an enemy during attack. Inflicting ${damage} poison damage at the
+   beginning of its' turn for ${duration} rounds.`,
   hitChance,
   applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
     const roll = getRandomNumberInRange(1, 100);

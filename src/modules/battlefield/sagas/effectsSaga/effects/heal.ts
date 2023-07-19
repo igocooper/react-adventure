@@ -3,7 +3,7 @@ import { call, put } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import healIcon from './icons/heal.png';
-import { CHARACTER_IMAGE_SLOT } from 'common/constants';
+import { CHARACTER_IMAGE_SLOT, EFFECT } from 'common/constants';
 import { updateCharacterImages } from 'common/helpers';
 
 export const createHealEffect = ({
@@ -13,7 +13,8 @@ export const createHealEffect = ({
   duration: number;
   heal: number;
 }): Effect => ({
-  name: 'heal',
+  name: EFFECT.HEAL,
+  description: `"${EFFECT.HEAL}" effect. Heal target by ${heal} HP on each turn.`,
   duration,
   done: false,
   applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
