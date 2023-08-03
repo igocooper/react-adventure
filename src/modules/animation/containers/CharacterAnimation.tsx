@@ -5,20 +5,24 @@ import type { Data, Pose } from '../helpers/spriter';
 import { RenderCtx2D } from '../helpers/render-ctx2d';
 import { wait, loadImage, getRandomNumberInRange } from 'common/helpers';
 import { CHARACTER_IMAGE_SLOT } from 'common/constants';
-import { register } from '../troopersAnimationInstances';
 import type { Trooper } from 'modules/battlefield/types';
-import { registerTrooperNode } from '../../battlefield/troopersNodesMap';
 import { Canvas } from './styled';
 import { TROOPER_TEAM } from '../../battlefield/constants';
 
 /* eslint-disable @typescript-eslint/naming-convention */
+
+export type OnLoadArgs = {
+  id: Trooper['id'];
+  instance: CharacterAnimation;
+  canvasNode: HTMLCanvasElement;
+};
 
 type Props = {
   imagesUrls: Record<string, string>;
   sconFileUrl: string;
   castEffectImageUrl?: string;
   meleeAttackTransitionTime?: number;
-  onLoad?: (id: Trooper['id']) => void;
+  onLoad?: (props: OnLoadArgs) => void;
   animationMap?: Record<string, string>;
 } & Pick<Trooper, 'id' | 'team'>;
 
@@ -146,16 +150,17 @@ export class CharacterAnimation extends Component<Props> {
 
     this.loading = false;
 
-    register(id, this);
-    registerTrooperNode(id, this.canvasRef.current!);
-
     await wait(getRandomNumberInRange(0, 500));
     this.idle();
 
     // we need delay onload a bit so canvas could play animation
     if (onLoad) {
       await wait(10);
-      onLoad(id);
+      onLoad({
+        id,
+        instance: this,
+        canvasNode: this.canvasRef.current!
+      });
     }
   }
 

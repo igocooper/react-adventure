@@ -20,6 +20,9 @@ import { registerTileNode } from '../../tilesNodesMap';
 import { getCharacterByType } from '../../helpers/getCharacterByType';
 import { dialogTypes } from 'modules/dialogs/constants';
 import { openDialog } from 'modules/dialogs/actions';
+import { register } from 'modules/animation/troopersAnimationInstances';
+import { registerTrooperNode } from '../../troopersNodesMap';
+import type { OnLoadArgs } from 'modules/animation/containers/CharacterAnimation';
 
 type CharacterProps = Pick<
   Trooper,
@@ -72,10 +75,10 @@ export const TileContainer = ({
   }, [dispatch, isBattlefieldDisabled]);
 
   const handleLoad = useCallback(
-    (id: Trooper['id']) => {
-      if (id) {
-        dispatch(setTrooperLoadedStatus(id));
-      }
+    ({ id, canvasNode, instance }: OnLoadArgs) => {
+      dispatch(setTrooperLoadedStatus(id));
+      register(id, instance);
+      registerTrooperNode(id, canvasNode);
     },
     [dispatch]
   );

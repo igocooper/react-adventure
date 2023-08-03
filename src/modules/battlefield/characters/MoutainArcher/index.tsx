@@ -1,25 +1,16 @@
 import React from 'react';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
 import { getCharacterProps } from '../../helpers/getCharacterProps';
-import type { Trooper } from '../../types';
 import { MountainArcherArrow } from './MountainArcherArrow';
-
-type Props = Pick<
-  Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
-> & {
-  onLoad?: (id: number) => void;
-};
+import type { CommonCharacterProps } from '../CommonCharacter';
 
 export const MountainArcher = ({
-  onLoad,
-  team,
-  id,
   type,
   appearance,
   equipment,
-  damageType
-}: Props) => {
+  damageType,
+  ...restProps
+}: CommonCharacterProps) => {
   return (
     <>
       <CharacterAnimation
@@ -29,9 +20,7 @@ export const MountainArcher = ({
           equipment,
           damageType
         })}
-        id={id}
-        team={team}
-        onLoad={onLoad}
+        {...restProps}
       />
       <MountainArcherArrow />
     </>

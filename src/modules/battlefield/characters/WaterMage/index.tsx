@@ -1,27 +1,21 @@
 import React from 'react';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
 import { getCharacterProps } from '../../helpers/getCharacterProps';
-import type { Trooper } from '../../types';
 import { IceSpikes } from './IceSpikes';
 import { Kraken } from './Kraken';
+import type { CommonCharacterProps } from '../CommonCharacter';
 
-type Props = Pick<
-  Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
-> & {
-  onLoad?: (id: number) => void;
+type Props = CommonCharacterProps & {
   containerNode?: HTMLElement;
 };
 
 export const WaterMage = ({
-  onLoad,
-  team,
-  id,
   type,
   appearance,
   equipment,
   containerNode,
-  damageType
+  damageType,
+  ...restProps
 }: Props) => {
   return (
     <>
@@ -32,9 +26,7 @@ export const WaterMage = ({
           equipment,
           damageType
         })}
-        id={id}
-        team={team}
-        onLoad={onLoad}
+        {...restProps}
       />
       <IceSpikes containerNode={containerNode || document.body} />
       <Kraken containerNode={containerNode || document.body} />

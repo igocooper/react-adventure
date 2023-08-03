@@ -116,7 +116,7 @@ export const AttackImage = styled.div<AttackImageProps>`
   width: 100%;
   height: 100%;
   transition: ${({ $animationDuration }) =>
-    `transform ${$animationDuration / 1000}s ease-in`};
+    `transform ${$animationDuration / 1000}s linear`};
   transform: ${({ $targetBounds, $width, $height, $position, $active }) => {
     if (!$targetBounds || !$active) return 'initial';
 

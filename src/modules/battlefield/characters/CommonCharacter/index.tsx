@@ -1,24 +1,23 @@
 import React from 'react';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
+import type { OnLoadArgs } from 'modules/animation/containers/CharacterAnimation';
 import { getCharacterProps } from '../../helpers/getCharacterProps';
 import type { Trooper } from '../../types';
 
-type Props = Pick<
+export type CommonCharacterProps = Pick<
   Trooper,
   'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
 > & {
-  onLoad?: (id: number) => void;
+  onLoad?: (props: OnLoadArgs) => void;
 };
 
 export const CommonCharacter = ({
-  onLoad,
-  team,
-  id,
   type,
   appearance,
   equipment,
-  damageType
-}: Props) => {
+  damageType,
+  ...restProps
+}: CommonCharacterProps) => {
   return (
     <CharacterAnimation
       {...getCharacterProps({
@@ -27,9 +26,7 @@ export const CommonCharacter = ({
         equipment,
         damageType
       })}
-      id={id}
-      team={team}
-      onLoad={onLoad}
+      {...restProps}
     />
   );
 };

@@ -4,33 +4,23 @@ import { getCharacterProps } from '../../helpers/getCharacterProps';
 import type { Trooper } from '../../types';
 import { MagmaGeysers } from './MagmaGeysers';
 import { FireBall } from './SpinningFireBall';
+import type { CommonCharacterProps } from '../CommonCharacter';
 
-type Props = Pick<
-  Trooper,
-  | 'id'
-  | 'appearance'
-  | 'team'
-  | 'equipment'
-  | 'type'
-  | 'damageType'
-  | 'attackId'
-  | 'position'
-> & {
-  onLoad?: (id: number) => void;
-  containerNode?: HTMLElement;
-};
+type Props = CommonCharacterProps &
+  Pick<Trooper, 'attackId' | 'position'> & {
+    containerNode?: HTMLElement;
+  };
 
 export const MountainMage = ({
-  onLoad,
-  team,
-  id,
   type,
   appearance,
   equipment,
   containerNode,
   damageType,
   attackId,
-  position
+  position,
+  id,
+  ...restProps
 }: Props) => {
   return (
     <>
@@ -42,8 +32,7 @@ export const MountainMage = ({
           damageType
         })}
         id={id}
-        team={team}
-        onLoad={onLoad}
+        {...restProps}
       />
       <MagmaGeysers containerNode={containerNode || document.body} />
       <FireBall attackId={attackId!} id={id} position={position} />
