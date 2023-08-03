@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE, SUPPORT_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
 import { rustyBastardSword } from 'factory/weapons';
 
 export const hero = (overrides: Partial<Trooper>) =>
@@ -30,7 +30,6 @@ export const hero = (overrides: Partial<Trooper>) =>
     currentHealth: 50,
     initiative: 3,
     attackType: ATTACK_TYPE.MELEE,
-    supportType: SUPPORT_TYPE.BUFF,
     counterAttackChance: 20,
     criticalChance: 20,
     criticalMultiplier: 2,

@@ -44,7 +44,7 @@ export const Info = ({
       </Item>
       {Boolean(hitChance) && (
         <Item>
-          Accuracy: <Value>{hitChance} %</Value>
+          Boolean(Accuracy: <Value>{hitChance} %</Value>
         </Item>
       )}
       {Boolean(criticalChance) && (

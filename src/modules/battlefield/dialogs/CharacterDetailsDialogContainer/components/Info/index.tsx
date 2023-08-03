@@ -50,42 +50,42 @@ export const Info = ({
           {getAttackTypeIcon(attackType, damageType)} {damage}
         </Value>
       </Item>
-      {hitChance && (
+      {Boolean(hitChance) && (
         <Item>
           Accuracy: <Value>{hitChance} %</Value>
         </Item>
       )}
-      {supportType && (
+      {Boolean(supportType) && (
         <Item>
           Support: <Value>{supportType}</Value>
         </Item>
       )}
-      {initiative && (
+      {Boolean(initiative) && (
         <Item>
           Initiative: <Value>{initiative}</Value>
         </Item>
       )}
-      {criticalChance && (
+      {Boolean(criticalChance) && (
         <Item>
           Critical: <Value>{criticalChance} %</Value>
         </Item>
       )}
-      {criticalMultiplier && (
+      {Boolean(criticalMultiplier) && (
         <Item>
           Critical Power: <Value>{criticalMultiplier}</Value>
         </Item>
       )}
-      {evadeChance && (
+      {Boolean(evadeChance) && (
         <Item>
           Evade: <Value>{evadeChance} %</Value>
         </Item>
       )}
-      {counterAttackChance && (
+      {Boolean(counterAttackChance) && (
         <Item>
           Counter Attack: <Value>{counterAttackChance} %</Value>
         </Item>
       )}
-      {defence && (
+      {Boolean(defence) && (
         <Item>
           Defence: <Value>{defence} %</Value>
         </Item>
