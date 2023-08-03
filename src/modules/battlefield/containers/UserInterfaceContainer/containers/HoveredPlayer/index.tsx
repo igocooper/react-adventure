@@ -52,7 +52,6 @@ export const HoveredPlayer = ({ imageSrc }: Props) => {
             criticalChance={hoveredTrooper.criticalChance}
             evadeChance={hoveredTrooper.evadeChance}
             defence={hoveredTrooper.defence}
-            resistance={hoveredTrooper.resistance}
           />
         </>
       )}

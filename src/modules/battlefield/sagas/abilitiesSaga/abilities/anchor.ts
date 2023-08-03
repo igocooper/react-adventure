@@ -1,37 +1,15 @@
-import type {
-  Ability,
-  ApplyAbilityProps,
-  Trooper
-} from 'modules/battlefield/types';
+import type { Ability, ApplyAbilityProps } from 'modules/battlefield/types';
 import { call, put } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
-import { getTileNode } from 'modules/battlefield/tilesNodesMap';
-import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/reducers/damageEventsSlice';
+import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { createAnchorEffect } from '../../effectsSaga/effects';
 import { ABILITY_TYPE, ABILITY } from 'common/constants';
 import theme from 'theme/defaultTheme';
 import icon from './icons/anchor.png';
-import { getRandomNumberInRange } from 'common/helpers';
+import { getRandomNumberInRange, wait } from 'common/helpers';
 
-function* publishDamageEvent(id: Trooper['id']) {
-  const tileNode = getTileNode(id);
-
-  const { x, y } = tileNode!.getBoundingClientRect();
-  const eventId = Date.now();
-  const damageEvent = {
-    id: eventId,
-    value: 'Anchored',
-    position: {
-      x,
-      y
-    },
-    color: theme.colors.black
-  };
-
-  yield* put(addDamageEventAction(damageEvent));
-}
-
+export const ANCHOR_EFFECT_DURATION = 1500;
 export const createAnchorAbility = ({
   duration,
   hitChance
@@ -58,9 +36,15 @@ export const createAnchorAbility = ({
 
       const effectNode = getEffectNode(targetTrooper.id);
 
-      effectNode!.classList.add(ABILITY.ANCHOR);
+      yield* call(publishDamageEvent, {
+        id: targetTrooper.id,
+        value: 'Anchored',
+        color: theme.colors.black,
+        delay: 900
+      });
 
-      yield* call(publishDamageEvent, targetTrooper.id);
+      effectNode!.classList.add(ABILITY.ANCHOR.toLowerCase());
+      yield* call(wait, ANCHOR_EFFECT_DURATION);
 
       yield* put(
         addEffect({

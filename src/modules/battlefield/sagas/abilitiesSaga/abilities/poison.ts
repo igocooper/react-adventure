@@ -6,6 +6,8 @@ import { getRandomNumberInRange } from 'common/helpers';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { EFFECT, ABILITY_TYPE, ABILITY } from 'common/constants';
 import poisonIcon from './icons/poison.png';
+import { publishDamageEvent } from '../../damageEventsSaga';
+import theme from 'theme/defaultTheme';
 
 export const createPoisonAbility = ({
   duration,
@@ -29,6 +31,13 @@ export const createPoisonAbility = ({
       const poisonEffect = createPoisonEffect({
         damage,
         duration
+      });
+
+      yield* call(publishDamageEvent, {
+        id: targetTrooper.id,
+        value: 'Poisoned',
+        color: theme.colors.poison,
+        delay: 900
       });
 
       const poisonAnimation = yield* call(

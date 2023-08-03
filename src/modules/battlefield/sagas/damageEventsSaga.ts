@@ -1,19 +1,22 @@
-import { takeLatest, put } from 'typed-redux-saga/macro';
+import { takeLatest, put, call } from 'typed-redux-saga/macro';
 import {
   applyDamage,
   addDamageEvent as addDamageEventAction
 } from '../actions';
-import type { Trooper } from '../types';
 import { getTileNode } from '../tilesNodesMap';
-import { getRandomNumberInRange } from 'common/helpers';
+import { getRandomNumberInRange, wait } from 'common/helpers';
 import colors from 'theme/colors';
+import { DAMAGE_TYPE } from 'common/constants';
+
+import type { Trooper } from '../types';
+import type { DamageType } from 'common/types';
 
 const getColor = ({
-  isPoison,
+  damageType,
   isCriticalDamage,
   hasMissed
 }: {
-  isPoison?: boolean;
+  damageType: DamageType;
   isCriticalDamage?: boolean;
   hasMissed?: boolean;
 }) => {
@@ -25,8 +28,12 @@ const getColor = ({
     return colors.critical;
   }
 
-  if (isPoison) {
+  if (damageType === DAMAGE_TYPE.POISON) {
     return colors.poison;
+  }
+
+  if (damageType === DAMAGE_TYPE.BLOOD) {
+    return colors.blood;
   }
 
   return colors.white;
@@ -52,42 +59,64 @@ const getValue = ({
   return `-${value}`;
 };
 
+export function* publishDamageEvent({
+  id,
+  value,
+  delay,
+  color
+}: {
+  id: Trooper['id'];
+  value: string | number;
+  delay?: number;
+  color: string;
+}) {
+  const tileNode = getTileNode(id);
+
+  const { x, y } = tileNode!.getBoundingClientRect();
+  const eventId = Date.now() + getRandomNumberInRange(1, 1000);
+  const damageEvent = {
+    id: eventId,
+    value,
+    position: {
+      x,
+      y
+    },
+    color
+  };
+
+  if (delay) {
+    yield* call(wait, delay);
+  }
+
+  yield* put(addDamageEventAction(damageEvent));
+}
+
 function* addDamageEvent({
   payload
 }: {
   payload: {
     id: Trooper['id'];
     damage: number | string;
+    damageType: DamageType;
     isCriticalDamage?: boolean;
     hasMissed?: boolean;
-    isPoison?: boolean;
   };
 }) {
-  const { damage, id, isCriticalDamage, hasMissed, isPoison } = payload;
-  const tileNode = getTileNode(id);
+  const { damage, id, isCriticalDamage, hasMissed, damageType } = payload;
 
-  if (!tileNode) return;
-
-  const { x, y } = tileNode.getBoundingClientRect();
-  const eventId = Date.now() + getRandomNumberInRange(1, 1000);
-  const damageEvent = {
-    id: eventId,
+  yield* call(publishDamageEvent, {
+    id,
     value: getValue({
       value: damage,
       isCriticalDamage,
       hasMissed
     }),
     color: getColor({
-      isPoison,
-      isCriticalDamage
-    }),
-    position: {
-      x,
-      y
-    }
-  };
-
-  yield* put(addDamageEventAction(damageEvent));
+      damageType,
+      isCriticalDamage,
+      hasMissed
+    })
+  });
 }
 
 export function* damageEventsSagaWatcher() {

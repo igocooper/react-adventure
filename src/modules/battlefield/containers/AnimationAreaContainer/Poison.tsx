@@ -22,7 +22,7 @@ export const Poison = (props: Props) => {
       imageWidth={65}
       imageHeight={65}
       attackId={EFFECT.POISON}
-      animationDuration={500}
+      animationDuration={800}
       imageUrl="/images/effects/poison.png"
       {...props}
     />

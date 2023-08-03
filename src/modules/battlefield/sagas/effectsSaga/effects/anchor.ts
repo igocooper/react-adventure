@@ -1,31 +1,12 @@
-import type { Effect, Trooper } from 'modules/battlefield/types';
-import { call, put } from 'typed-redux-saga';
+import type { Effect } from 'modules/battlefield/types';
+import { call } from 'typed-redux-saga';
 import { finishTrooperTurn } from 'modules/battlefield/sagas/roundSaga';
 import anchorIcon from './icons/anchor.png';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { EFFECT } from 'common/constants';
-import { addDamageEvent as addDamageEventAction } from 'modules/battlefield/reducers/damageEventsSlice';
-import { getTileNode } from 'modules/battlefield/tilesNodesMap';
+import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { getEffectNode } from '../../../effectsNodesMap';
 import theme from 'theme/defaultTheme';
-
-function* publishDamageEvent(id: Trooper['id']) {
-  const tileNode = getTileNode(id);
-
-  const { x, y } = tileNode!.getBoundingClientRect();
-  const eventId = Date.now();
-  const damageEvent = {
-    id: eventId,
-    value: 'Skipped',
-    position: {
-      x,
-      y
-    },
-    color: theme.colors.black
-  };
-
-  yield* put(addDamageEventAction(damageEvent));
-}
 
 export const createAnchorEffect = ({
   duration
@@ -40,7 +21,12 @@ export const createAnchorEffect = ({
     done: false,
     applyEffect: function* ({ activeTrooper }) {
       return function* () {
-        yield* call(publishDamageEvent, activeTrooper.id);
+        yield* call(publishDamageEvent, {
+          id: activeTrooper.id,
+          value: 'Skipped',
+          color: theme.colors.black,
+          delay: 900
+        });
 
         const anchorAnimation = yield* call(
           getAreaEffectAnimationInstance,

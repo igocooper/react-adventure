@@ -7,6 +7,7 @@ import type {
   Effect
 } from 'modules/battlefield/types';
 import { ATTACKERS, DEFENDERS } from 'modules/battlefield/constants';
+import type { DamageType } from 'common/types';
 
 export type TroopsState = {
   attackers: Trooper[];
@@ -16,10 +17,10 @@ export type TroopsState = {
 type ApplyDamagePayload = {
   id: number;
   damage: number;
+  damageType: DamageType;
   team: Team;
   hasMissed?: boolean;
   isCriticalDamage?: boolean;
-  isPoison?: boolean;
 };
 
 type ApplyHealPayload = {

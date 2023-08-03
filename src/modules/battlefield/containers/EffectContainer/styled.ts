@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-
+import { ANCHOR_EFFECT_DURATION } from 'modules/battlefield/sagas/abilitiesSaga/abilities/anchor';
 const anchor = keyframes`
   0% {
     filter: invert(0);
@@ -19,6 +19,6 @@ export const Effect = styled.div.attrs({
   height: 100%;
 
   &.anchor {
-    animation: ${anchor} 1.5s ease-in-out 1;
+    animation: ${anchor} ${ANCHOR_EFFECT_DURATION}ms ease-in-out 1;
   }
 `;

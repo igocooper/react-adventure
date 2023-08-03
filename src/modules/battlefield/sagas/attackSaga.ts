@@ -77,7 +77,7 @@ const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
     isDying = true;
   }
 
-  return { damage, isDying, hasMissed, isCriticalDamage };
+  return { damage, isDying, hasMissed, isCriticalDamage, damageType };
 };
 
 function* playCounterAttackAnimation({
@@ -107,6 +107,7 @@ function* playCounterAttackAnimation({
       put(
         applyDamage({
           damage,
+          damageType: enemyTrooper.damageType,
           team: activeTrooper?.team,
           id: activeTrooper?.id,
           hasMissed,
@@ -126,6 +127,7 @@ function* playCounterAttackAnimation({
       put(
         applyDamage({
           damage,
+          damageType: enemyTrooper.damageType,
           team: activeTrooper?.team,
           id: activeTrooper?.id,
           hasMissed,
@@ -142,6 +144,7 @@ function* playCounterAttackAnimation({
     put(
       applyDamage({
         damage: counterAttackDamage.damage,
+        damageType: enemyTrooper.damageType,
         team: activeTrooper?.team,
         id: activeTrooper?.id,
         hasMissed: counterAttackDamage.hasMissed,
@@ -200,6 +203,7 @@ function* playAttackAnimation({
   activeTrooperId,
   selectedTrooperInfo,
   damage,
+  damageType,
   isDying,
   hasMissed,
   isCriticalDamage
@@ -207,6 +211,7 @@ function* playAttackAnimation({
   activeTrooperId: Trooper['id'];
   selectedTrooperInfo: Pick<Trooper, 'id' | 'team'>;
   damage: number;
+  damageType: DamageType;
   isDying: boolean;
   hasMissed: boolean;
   isCriticalDamage: boolean;
@@ -254,6 +259,7 @@ function* playAttackAnimation({
       put(
         applyDamage({
           damage,
+          damageType,
           team: selectedTrooperInfo.team,
           id: selectedTrooperInfo.id,
           hasMissed,
@@ -276,6 +282,7 @@ function* playAttackAnimation({
     yield* put(
       applyDamage({
         damage,
+        damageType,
         team: selectedTrooperInfo.team,
         id: selectedTrooperInfo.id,
         hasMissed,
@@ -308,6 +315,7 @@ function* playAttackAnimation({
       put(
         applyDamage({
           damage,
+          damageType,
           team: selectedTrooperInfo.team,
           id: selectedTrooperInfo.id,
           hasMissed,
@@ -339,6 +347,7 @@ function* playAttackAnimation({
     put(
       applyDamage({
         damage,
+        damageType,
         team: selectedTrooperInfo.team,
         id: selectedTrooperInfo.id,
         hasMissed,
@@ -373,6 +382,7 @@ function* handleEnemyTrooperDamage({
     yield* put(
       applyDamage({
         damage,
+        damageType: activeTrooper.damageType,
         team: enemyTrooper.team,
         id: enemyTrooper.id,
         hasMissed,
@@ -389,6 +399,7 @@ function* handleEnemyTrooperDamage({
   yield* put(
     applyDamage({
       damage,
+      damageType: activeTrooper.damageType,
       team: enemyTrooper.team,
       id: enemyTrooper.id,
       hasMissed,
@@ -471,6 +482,7 @@ function* attack({
       put(
         applyDamage({
           damage,
+          damageType: activeTrooper.damageType,
           team: selectedTrooperInfo.team,
           id: selectedTrooperInfo.id,
           hasMissed,
@@ -485,6 +497,7 @@ function* attack({
       activeTrooperId: activeTrooper.id,
       selectedTrooperInfo,
       damage,
+      damageType: activeTrooper.damageType,
       isDying,
       hasMissed,
       isCriticalDamage

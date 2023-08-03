@@ -20,7 +20,7 @@ export const createPoisonEffect = ({
 }): Effect => ({
   name: EFFECT.POISON,
   description: `"${EFFECT.POISON}" effect. Inflicts ${damage} poison damage at the
-   beginning target.`,
+   beginning of target trooper turn.`,
   duration,
   done: false,
   applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
@@ -53,8 +53,8 @@ export const createPoisonEffect = ({
           DAMAGE_TYPE.POISON,
           activeTrooper
         ),
-        team: activeTrooper.team,
-        isPoison: true
+        damageType: DAMAGE_TYPE.POISON,
+        team: activeTrooper.team
       })
     );
 

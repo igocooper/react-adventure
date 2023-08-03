@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type DialogProps = {
   header?: string;
+  id?: number;
 };
 
 type DialogState = {
