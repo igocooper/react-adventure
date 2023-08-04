@@ -14,8 +14,8 @@ export const Abilities = ({ abilities }: Props) => {
     <>
       <Heading>Abilities:</Heading>
       <Container>
-        {Object.values(abilities).map((ability) => (
-          <>
+        {Object.values(abilities).map((ability, index) => (
+          <div key={`${ability.name}-${index}`}>
             <SkillIcon
               src={ability.iconSrc}
               key={ability.name}
@@ -24,12 +24,13 @@ export const Abilities = ({ abilities }: Props) => {
             />
             <Tooltip
               id={ability.name}
+              key={`${ability.name}-${index}-tooltip`}
               positionStrategy="fixed"
               style={{
                 maxWidth: '300px'
               }}
             />
-          </>
+          </div>
         ))}
       </Container>
     </>

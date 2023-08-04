@@ -3,6 +3,7 @@ import cursorDefaultImg from '../../images/cursors/cursor-default.png';
 import cursorWandImg from '../../images/cursors/cursor-wand.png';
 import cursorBowImg from '../../images/cursors/cursor-bow.png';
 import cursorSwordImg from '../../images/cursors/cursor-sword.png';
+import cursorHandImg from '../../images/cursors/cursor-hand.png';
 import type { LocationName } from 'modules/battlefield/types';
 
 type BattlefieldProps = {
@@ -54,6 +55,10 @@ export const Location = styled.div.attrs((props: LocationProps) => ({
 
   &.cursor-bow {
     cursor: url(${cursorBowImg}), auto;
+  }
+
+  &.cursor-hand {
+    cursor: url(${cursorHandImg}), auto;
   }
 `;
 

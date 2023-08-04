@@ -4,7 +4,8 @@ import { createAction } from '@reduxjs/toolkit';
 export {
   setInitiative,
   setRound,
-  setActivePlayer
+  setActivePlayer,
+  setActiveSkill
 } from './reducers/roundSlice';
 export {
   setTroopers,

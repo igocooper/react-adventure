@@ -2,7 +2,7 @@ import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SUPPORT_TYPE } from 'common/constants';
 import { oldWoodenStaff } from 'factory/weapons';
-import { createHealAbility } from '../../modules/battlefield/sagas/abilitiesSaga/abilities/heal';
+import { createHealAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities/heal';
 
 export const priest1 = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -17,6 +17,7 @@ export const priest1 = (overrides: Partial<Trooper>) =>
       })
     ],
     effects: [],
+    skills: {},
     ...overrides,
     type: 'priest-1',
     baseDamage: '1-3',

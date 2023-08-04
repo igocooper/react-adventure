@@ -11,6 +11,7 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
+    skills: {},
     ...overrides,
     type: 'water-mage',
     baseDamage: '1-3',

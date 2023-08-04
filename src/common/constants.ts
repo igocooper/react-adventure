@@ -92,6 +92,7 @@ export enum HELMET_TYPE {
 
 export enum CURSOR {
   DEFAULT = 'default',
+  HAND = 'hand',
   BOW = 'bow',
   DISABLED = 'disabled',
   WAND = 'wand',
@@ -118,6 +119,10 @@ export enum EFFECT {
   WEAKNESS = 'Weakness',
   BLOCK = 'Block',
   HEAL = 'Continues Heal'
+}
+
+export enum SKILL {
+  HEMORRHAGE_HACK = 'Hemorrhage Hack'
 }
 
 export enum ATTACK_TYPE {

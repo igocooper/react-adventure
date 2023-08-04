@@ -10,6 +10,7 @@ import { Info } from './components/Info';
 import { Abilities } from './components/Abilities';
 import { getCharacterProps } from '../../helpers/getCharacterProps';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
+import { Skills } from './components/Skills';
 
 export const CharacterDetailsDialogContainer = ({ id }: { id: number }) => {
   const { closeDialog } = useDialogActions();
@@ -43,6 +44,7 @@ export const CharacterDetailsDialogContainer = ({ id }: { id: number }) => {
           <Resistance resistance={character.resistance} />
         </Slot>
         <Abilities abilities={character.abilities} />
+        <Skills skills={character.skills} />
       </Content>
     </Dialog>
   );

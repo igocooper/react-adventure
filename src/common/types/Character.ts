@@ -3,6 +3,7 @@ import type { CallEffect } from 'redux-saga/effects';
 import type {
   EFFECT,
   ABILITY,
+  SKILL,
   SUPPORT_TYPE,
   ATTACK_TYPE,
   ABILITY_TYPE,
@@ -19,6 +20,7 @@ export type AbilityName = `${ABILITY}`;
 export type AbilityType = `${ABILITY_TYPE}`;
 export type EffectName = `${EFFECT}`;
 export type HelmetType = `${HELMET_TYPE}`;
+export type SkillName = `${SKILL}`;
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -53,6 +55,22 @@ export type Effect = {
   cancelEffect?: (props: ApplyEffectProps) => void;
   iconSrc: string;
 };
+
+export type ApplySkillProps = {
+  targetTrooper: Trooper;
+};
+
+type ApplySkill = (props: ApplySkillProps) => void;
+
+export type Skill = {
+  name: SkillName;
+  description: string;
+  coolDown: number;
+  applySkill: ApplySkill;
+  iconSrc: string;
+};
+
+export type Skills = Record<string, Skill>;
 
 export type Appearance = {
   head: string;
@@ -97,6 +115,7 @@ export type Character = {
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];
+  skills: Skills;
   effects: Effect[];
 };
 

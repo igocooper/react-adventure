@@ -27,7 +27,8 @@ import {
   blockClicked as blockClickedAction,
   addEffect,
   setTroopers,
-  startBattle as startBattleAction
+  startBattle as startBattleAction,
+  setActiveSkill
 } from '../actions';
 import { pushNextUrl } from 'modules/router/actions';
 import {
@@ -130,6 +131,7 @@ export function* finishTrooperTurn() {
   const nextActivePlayer = updatedInitiative[0];
 
   if (nextActivePlayer) {
+    yield* put(setActiveSkill(null));
     yield* put(setActivePlayer(nextActivePlayer));
     yield* put(setInitiative(updatedInitiative));
     yield* put(startTrooperTurnAction());

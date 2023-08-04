@@ -3,9 +3,11 @@ import {
   finishTrooperTurn as finishTrooperTurnAction,
   setCursor as setCursorAction,
   setHoveredElement as setHoveredElementAction,
-  setActivePlayer as setActivePlayerAction
+  setActivePlayer as setActivePlayerAction,
+  setActiveSkill as setActiveSkillAction
 } from '../actions';
 import {
+  activeSkillSelector,
   activeTrooperSelector,
   attackersSelector,
   battlefieldDisabledStatusSelector,
@@ -91,6 +93,13 @@ function* updateCursor(hoveredElement: Element) {
   );
   if (isBattleFieldDisabled) return;
 
+  const activeSkill = yield* select(activeSkillSelector);
+
+  if (activeSkill) {
+    yield* put(setCursorAction(CURSOR.HAND));
+    return;
+  }
+
   if (!hoveredElement) {
     yield* put(setCursorAction(CURSOR.DEFAULT));
     return;
@@ -126,7 +135,12 @@ function* setCursorOnHover({ payload: hoveredElement }: { payload: Element }) {
   yield* call(updateCursor, hoveredElement);
 }
 
+function* setCursorOnSkill() {
+  yield* call(updateCursor, null);
+}
+
 export function* cursorSagaWatcher() {
-  yield takeLatest(setHoveredElementAction, setCursorOnHover);
-  yield takeLatest(finishTrooperTurnAction, setCursorOnFinishTurn);
+  yield* takeLatest(setActiveSkillAction, setCursorOnSkill);
+  yield* takeLatest(setHoveredElementAction, setCursorOnHover);
+  yield* takeLatest(finishTrooperTurnAction, setCursorOnFinishTurn);
 }

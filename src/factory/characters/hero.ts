@@ -1,7 +1,8 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
 import { rustyBastardSword } from 'factory/weapons';
+import { createHemorrhageAbility } from 'modules/battlefield/sagas/skillsSaga/skills/hemorrhage';
 
 export const hero = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -11,6 +12,12 @@ export const hero = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
+    skills: {
+      [SKILL.HEMORRHAGE_HACK]: createHemorrhageAbility({
+        damage: 4,
+        coolDown: 2
+      })
+    },
     ...overrides,
     appearance: {
       headEarless: '/images/hero/Head Earless.png',
@@ -28,7 +35,7 @@ export const hero = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     health: 50,
     currentHealth: 50,
-    initiative: 3,
+    initiative: 13,
     attackType: ATTACK_TYPE.MELEE,
     counterAttackChance: 20,
     criticalChance: 20,
