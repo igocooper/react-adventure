@@ -40,7 +40,10 @@ function* getEnemyCoordinates(id: Trooper['id']) {
   return { x: x + width / 2, y: y + height / 2 };
 }
 
-const calculateDamage = (selectedTrooper: Trooper, activeTrooper: Trooper) => {
+export const calculateDamage = (
+  selectedTrooper: Trooper,
+  activeTrooper: Trooper
+) => {
   const { criticalChance, criticalMultiplier, hitChance, damageType } =
     activeTrooper;
   const { evadeChance } = selectedTrooper;
@@ -199,7 +202,7 @@ function* playRangeAttackAnimation({
   }
 }
 
-function* playAttackAnimation({
+export function* playMeleeAttackAnimation({
   activeTrooperId,
   selectedTrooperInfo,
   damage,
@@ -493,7 +496,7 @@ function* attack({
   }
 
   if (activeTrooper?.attackType === ATTACK_TYPE.MELEE) {
-    yield* call(playAttackAnimation, {
+    yield* call(playMeleeAttackAnimation, {
       activeTrooperId: activeTrooper.id,
       selectedTrooperInfo,
       damage,

@@ -2,7 +2,10 @@ import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
 import { rustyBastardSword } from 'factory/weapons';
-import { createHemorrhageAbility } from 'modules/battlefield/sagas/skillsSaga/skills/hemorrhage';
+import {
+  createHemorrhageSkill,
+  createRageSkill
+} from 'modules/battlefield/sagas/skillsSaga/skills';
 
 export const hero = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -13,9 +16,13 @@ export const hero = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.HEMORRHAGE_HACK]: createHemorrhageAbility({
+      [SKILL.HEMORRHAGE_HACK]: createHemorrhageSkill({
         damage: 4,
         coolDown: 2
+      }),
+      [SKILL.RAGE]: createRageSkill({
+        duration: 2,
+        coolDown: 6
       })
     },
     ...overrides,

@@ -2,6 +2,8 @@ export { createMightEffect } from './might';
 
 export { createPoisonEffect } from './poison';
 
+export { createBleedingEffect } from './bleeding';
+
 export { createWeaknessEffect } from './weakness';
 
 export { createHexEffect } from './hex';

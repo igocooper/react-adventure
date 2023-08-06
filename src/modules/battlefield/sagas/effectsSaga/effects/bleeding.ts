@@ -1,24 +1,24 @@
 import type { Effect } from 'modules/battlefield/types';
-import poisonIcon from './icons/poison.png';
+import icon from './icons/bleeding.png';
 import { DAMAGE_TYPE, EFFECT } from 'common/constants';
 import { createApplyDamageEffect } from './generators/createApplyDamageEffect';
 
-export const createPoisonEffect = ({
+export const createBleedingEffect = ({
   duration,
   damage
 }: {
   duration: number;
   damage: number;
 }): Effect => ({
-  name: EFFECT.POISON,
-  description: `"${EFFECT.POISON}" effect. Inflicts ${damage} poison damage at the
+  name: EFFECT.BLEEDING,
+  description: `"${EFFECT.BLEEDING}" effect. Inflicts ${damage} blood damage at the
    beginning of target trooper turn.`,
   duration,
   done: false,
   applyEffect: createApplyDamageEffect({
     damage,
-    damageType: DAMAGE_TYPE.POISON,
-    characterEffectImgSrc: '/images/effects/poison.png'
+    damageType: DAMAGE_TYPE.BLOOD,
+    characterEffectImgSrc: '/images/effects/bleeding.png'
   }),
-  iconSrc: poisonIcon
+  iconSrc: icon
 });

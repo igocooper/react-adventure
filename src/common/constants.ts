@@ -113,6 +113,7 @@ export enum ABILITY {
 
 export enum EFFECT {
   POISON = 'Poison',
+  BLEEDING = 'Bleeding',
   ANCHOR = 'Anchor',
   MIGHT = 'Might',
   HEX = 'Hex',
@@ -122,7 +123,14 @@ export enum EFFECT {
 }
 
 export enum SKILL {
-  HEMORRHAGE_HACK = 'Hemorrhage Hack'
+  HEMORRHAGE_HACK = 'Hemorrhage Hack',
+  RAGE = 'Rage'
+}
+
+export enum TARGET {
+  SELF = 'self',
+  ALLY = 'ally',
+  ENEMY = 'enemy'
 }
 
 export enum ATTACK_TYPE {

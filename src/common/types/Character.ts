@@ -8,7 +8,8 @@ import type {
   ATTACK_TYPE,
   ABILITY_TYPE,
   DAMAGE_TYPE,
-  HELMET_TYPE
+  HELMET_TYPE,
+  TARGET
 } from '../constants';
 
 // UNION types generation inspired by this article https://bobbyhadz.com/blog/typescript-convert-enum-to-union
@@ -21,6 +22,7 @@ export type AbilityType = `${ABILITY_TYPE}`;
 export type EffectName = `${EFFECT}`;
 export type HelmetType = `${HELMET_TYPE}`;
 export type SkillName = `${SKILL}`;
+export type SkillTarget = `${TARGET}`;
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -64,6 +66,8 @@ type ApplySkill = (props: ApplySkillProps) => void;
 
 export type Skill = {
   name: SkillName;
+  target: SkillTarget;
+  attackType: ATTACK_TYPE;
   description: string;
   coolDown: number;
   applySkill: ApplySkill;

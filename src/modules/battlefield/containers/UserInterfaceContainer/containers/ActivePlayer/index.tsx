@@ -23,7 +23,7 @@ import {
   Skills,
   ContainerInner
 } from '../styled';
-import type { SkillName } from 'common/types';
+import type { Skill as SkillType } from 'common/types';
 
 type Props = {
   imageSrc?: string;
@@ -59,12 +59,8 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
   }, [dispatch, id, team]);
 
   const handleSkillClick = useCallback(
-    (name: SkillName) => {
-      dispatch(
-        setActiveSkill({
-          name
-        })
-      );
+    (skill: SkillType) => {
+      dispatch(setActiveSkill(skill));
     },
     [dispatch, id, team]
   );
@@ -117,15 +113,13 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
       <Skills>
         {Object.entries(activeTrooper.skills || {}).map(
           ([skillName, skill], index) => {
-            const { name, iconSrc, description } = skill;
+            const { name } = skill;
             return (
               <Skill
-                iconSrc={iconSrc}
                 key={`${name}-${index}`}
-                description={description}
-                name={skillName as SkillName}
                 active={activeSkill?.name === skillName}
                 onClick={handleSkillClick}
+                {...skill}
               />
             );
           }

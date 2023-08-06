@@ -38,13 +38,15 @@ import {
   defendersSelector,
   battlefieldDisabledStatusSelector,
   activeTrooperSelector,
+  activeSkillSelector,
   makeCanMeleeTrooperAttackSelector,
   makeCharacterByIdSelector
 } from '../selectors';
 
 import type { Trooper } from '../types';
-import { ATTACK_TYPE, EFFECT } from 'common/constants';
+import { ATTACK_TYPE, EFFECT, TARGET } from 'common/constants';
 import { applyEffects } from './effectsSaga';
+import { applySkill } from './skillsSaga';
 import { createBlockEffect } from './effectsSaga/effects/block';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
 import type { TroopsState } from '../reducers/troopsSlice';
@@ -167,6 +169,7 @@ function* handleTrooperClick({
 
   const { team, id } = clickedTrooperInfo;
   const activeTrooper = yield* select(activeTrooperSelector);
+  const activeSkill = yield* select(activeSkillSelector);
   const isEnemySelected = activeTrooper && activeTrooper.team !== team;
   const canMeleeTrooperAttack = yield* select(
     makeCanMeleeTrooperAttackSelector(id)
@@ -178,11 +181,26 @@ function* handleTrooperClick({
 
   if (isEnemySelected) {
     if (
+      (activeSkill?.target === TARGET.ENEMY &&
+        activeSkill?.attackType === ATTACK_TYPE.MELEE &&
+        !canMeleeTrooperAttack &&
+        !canMeleeTrooperAttack) ||
       (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
         !canMeleeTrooperAttack) ||
       isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
     ) {
       yield* put(setBattlefieldStatus(false));
+      return;
+    }
+
+    if (activeSkill?.target === TARGET.ENEMY) {
+      yield* call(applySkill, {
+        skill: activeSkill,
+        targetTrooper: selectedTrooper!
+      });
+
+      yield* put(setBattlefieldStatus(false));
+      yield* put(finishTrooperTurnAction());
       return;
     }
 

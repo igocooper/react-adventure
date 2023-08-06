@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { SkillName } from 'common/types';
+import type { Skill } from 'common/types';
 
 type PlayerInfo = {
   id: number;
 };
 
-export type ActiveSkill = Nullable<{
-  name: SkillName;
-}>;
+export type ActiveSkill = Nullable<Skill>;
 
 type State = {
   round: number;

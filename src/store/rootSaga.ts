@@ -8,6 +8,7 @@ import { AISagaWatcher } from '../modules/battlefield/sagas/AISaga';
 import { initSagaWatcher } from '../modules/battlefield/sagas/initSaga';
 import { damageEventsSagaWatcher } from '../modules/battlefield/sagas/damageEventsSaga';
 import { bloodSagaWatcher } from '../modules/battlefield/sagas/bloodSaga';
+import { skillsSagaWatcher } from '../modules/battlefield/sagas/skillsSaga';
 
 export function* rootSaga() {
   yield* all([
@@ -19,6 +20,7 @@ export function* rootSaga() {
     fork(AISagaWatcher),
     fork(initSagaWatcher),
     fork(damageEventsSagaWatcher),
-    fork(bloodSagaWatcher)
+    fork(bloodSagaWatcher),
+    fork(skillsSagaWatcher)
   ]);
 }

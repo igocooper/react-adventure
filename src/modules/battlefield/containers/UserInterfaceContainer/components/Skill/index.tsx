@@ -1,24 +1,20 @@
 import React from 'react';
 import { SkillIcon } from './styled';
-import type { SkillName } from 'common/types';
+import type { Skill as SkillType } from 'common/types';
 
-type SkillProps = {
-  iconSrc: string;
-  name: SkillName;
-  description: string;
+type SkillProps = SkillType & {
   active?: boolean;
-  onClick: (name: SkillName) => void;
+  onClick: (skill: SkillType) => void;
 };
 
-export const Skill = ({ name, iconSrc, active, onClick }: SkillProps) => {
+export const Skill = ({ active, onClick, ...skill }: SkillProps) => {
   return (
     <SkillIcon
-      src={iconSrc}
-      key={name}
+      src={skill.iconSrc}
       active={active}
       onClick={(event: MouseEvent) => {
         event.stopPropagation();
-        onClick(name);
+        onClick(skill);
       }}
     />
   );
