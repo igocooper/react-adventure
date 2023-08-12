@@ -32,3 +32,9 @@ export const crookedStaff: Weapon = {
     damage: '3-5'
   }
 };
+export const staffs = [
+  mountainStaff,
+  oldWoodenStaff,
+  waterMageStaff,
+  crookedStaff
+];

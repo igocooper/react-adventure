@@ -143,7 +143,7 @@ export type Helmet = {
 export type Bow = {
   name: string;
   imageUrls: {
-    bow: string;
+    bowStem: string;
     bowString: string;
     drawnBowString: string;
     quiver: string;

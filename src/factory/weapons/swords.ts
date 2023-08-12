@@ -27,3 +27,5 @@ export const meatCutter: Weapon = {
     criticalMultiplier: 2
   }
 };
+
+export const swords = [golemSword, rustyBastardSword, meatCutter];

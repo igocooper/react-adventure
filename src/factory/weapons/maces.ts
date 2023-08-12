@@ -9,9 +9,11 @@ export const spikeMace: Weapon = {
 };
 
 export const rustyMace: Weapon = {
-  name: 'Spike Mace',
+  name: 'Rusty Mace',
   imageSrc: '/images/weapons/maces/rusty-mace.png',
   stats: {
     damage: '5-7'
   }
 };
+
+export const maces = [spikeMace, rustyMace];
