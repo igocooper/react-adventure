@@ -19,7 +19,7 @@ export const createLavaGeyserSkill = ({
   name: SKILL.LAVA_GEYSER,
   attackType: ATTACK_TYPE.SPLASH,
   target: TARGET.ENEMY,
-  coolDown: coolDown,
+  coolDown,
   description: `${
     SKILL.LAVA_GEYSER
   }: Erupt geyser of lava upon all enemies, deals ${
@@ -39,8 +39,8 @@ export const createLavaGeyserSkill = ({
       damage: activeTrooper.damage
     };
 
-    const [minDamge, maxDamage] = getDamage(activeTrooper.damage);
-    const damage = `${minDamge * damageMod}-${maxDamage * damageMod}`;
+    const [minDamage, maxDamage] = getDamage(activeTrooper.damage);
+    const damage = `${minDamage * damageMod}-${maxDamage * damageMod}`;
 
     yield* put(
       modifyTrooperAction({

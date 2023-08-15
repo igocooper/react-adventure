@@ -19,7 +19,7 @@ export const createKrakenSkill = ({
   name: SKILL.KRAKEN,
   attackType: ATTACK_TYPE.SPLASH,
   target: TARGET.ENEMY,
-  coolDown: coolDown,
+  coolDown,
   description: `${SKILL.KRAKEN}: Water Beast attacks all enemies for ${
     damageMod * 100
   }% of base trooper damage. Inflicts ${

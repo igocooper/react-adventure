@@ -1,13 +1,14 @@
 import type { ApplySkillProps, Skill } from 'common/types';
-import { ATTACK_TYPE, SKILL, TARGET } from 'common/constants';
+import { ATTACK_TYPE, EFFECT, SKILL, TARGET } from 'common/constants';
 import icon from './icons/hemorrhage.png';
-import { call, put, select } from 'typed-redux-saga';
+import { call, put, select, fork } from 'typed-redux-saga';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import theme from 'theme/defaultTheme';
 import { createBleedingEffect } from '../../effectsSaga/effects';
 import { publishDamageEvent } from '../../damageEventsSaga';
 import { playMeleeAttackAnimation, calculateDamage } from '../../attackSaga';
+import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 
 export const createHemorrhageSkill = ({
   duration = 2,
@@ -22,7 +23,7 @@ export const createHemorrhageSkill = ({
   name: SKILL.HEMORRHAGE_HACK,
   attackType: ATTACK_TYPE.MELEE,
   target: TARGET.ENEMY,
-  coolDown: coolDown,
+  coolDown,
   description: `${SKILL.HEMORRHAGE_HACK}: Open enemy vein during attack. Inflicting ${damage} blood damage at the
    beginning of its' turn. Duration ${duration} rounds. CoolDown: ${coolDown} `,
   applySkill: function* ({ targetTrooper }: ApplySkillProps) {
@@ -55,19 +56,28 @@ export const createHemorrhageSkill = ({
       isCriticalDamage
     });
 
-    yield* call(publishDamageEvent, {
-      id: targetTrooper.id,
-      value: 'Bleeding',
-      color: theme.colors.blood,
-      delay: 900
-    });
-
-    yield* put(
-      addEffect({
+    if (!isDying) {
+      yield* fork(publishDamageEvent, {
         id: targetTrooper.id,
-        team: targetTrooper.team,
-        effect: bleedEffect
-      })
-    );
+        value: 'Bleeding',
+        color: theme.colors.blood,
+        delay: 900
+      });
+
+      const bleedingAnimation = yield* call(
+        getAreaEffectAnimationInstance,
+        EFFECT.BLEEDING
+      );
+
+      yield* call(bleedingAnimation!.play);
+
+      yield* put(
+        addEffect({
+          id: targetTrooper.id,
+          team: targetTrooper.team,
+          effect: bleedEffect
+        })
+      );
+    }
   }
 });

@@ -28,7 +28,8 @@ export const TrooperImage = styled.div<ImageProps>`
     width: 100%;
     height: 100%;
     top: ${({ $health }) => ($health ? `${$health}%` : 0)};
-    background: ${({ theme }) => theme.colors.blood};
+    background: ${({ theme }) => theme.colors.enemy};
+    opacity: 0.5;
   }
 `;
 

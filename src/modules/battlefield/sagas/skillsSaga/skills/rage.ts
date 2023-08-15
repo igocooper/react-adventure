@@ -17,8 +17,8 @@ export const createRageSkill = ({
   name: SKILL.RAGE,
   attackType: ATTACK_TYPE.MELEE,
   target: TARGET.SELF,
-  coolDown: coolDown,
-  description: `${SKILL.RAGE}: Increase attack, but decrease evade and defence. Duration ${duration} rounds. CoolDown: ${coolDown}`,
+  coolDown,
+  description: `${SKILL.RAGE}: Increase trooper attack. Duration ${duration} rounds. CoolDown: ${coolDown}`,
   applySkill: function* () {
     const activeTrooper = yield* select(activeTrooperSelector);
 
