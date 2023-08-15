@@ -84,10 +84,10 @@ export const FACE_CUT_URLS = [
 ];
 
 export enum HELMET_TYPE {
-  FULL_FACE = 'full-face',
-  LARGE = 'large',
-  MEDIUM = 'medium',
-  SMALL = 'small'
+  FULL_FACE = 'FULL_FACE',
+  LARGE = 'LARGE',
+  MEDIUM = 'MEDIUM',
+  SMALL = 'SMALL'
 }
 
 export enum CURSOR {

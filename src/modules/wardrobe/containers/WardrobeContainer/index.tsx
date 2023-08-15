@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { getCharacterProps } from 'modules/battlefield/helpers/getCharacterProps';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
-import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
+import type { OnLoadArgs } from 'modules/animation/containers/CharacterAnimation';
+import {
+  getTrooperAnimationInstance,
+  register
+} from 'modules/animation/troopersAnimationInstances';
 import { updateCharacterImages } from 'common/helpers';
 import {
   HEADS,
@@ -14,8 +18,21 @@ import {
 } from '../../constants';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
 import { DAMAGE_TYPE } from 'common/constants';
+import { setTrooperLoadedStatus } from 'modules/battlefield/reducers/battlefieldLoadedStatusSlice';
+import { registerTrooperNode } from 'modules/battlefield/troopersNodesMap';
+import { useDispatch } from 'store/hooks';
 
 export const WardrobeContainer = () => {
+  const dispatch = useDispatch();
+  const handleLoad = useCallback(
+    ({ id, canvasNode, instance }: OnLoadArgs) => {
+      dispatch(setTrooperLoadedStatus(id));
+      register(id, instance);
+      registerTrooperNode(id, canvasNode);
+    },
+    [dispatch]
+  );
+
   return (
     <div>
       <div
@@ -79,6 +96,7 @@ export const WardrobeContainer = () => {
             })}
             id={CHARACTER.id}
             team={TROOPER_TEAM.ATTACKERS}
+            onLoad={handleLoad}
           />
         </div>
         <div>

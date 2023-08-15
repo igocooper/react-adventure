@@ -6,7 +6,8 @@ import type {
   SUPPORT_TYPE,
   ATTACK_TYPE,
   ABILITY_TYPE,
-  DAMAGE_TYPE
+  DAMAGE_TYPE,
+  HELMET_TYPE
 } from '../constants';
 
 // UNION types generation inspired by this article https://bobbyhadz.com/blog/typescript-convert-enum-to-union
@@ -17,6 +18,7 @@ export type SupportType = `${SUPPORT_TYPE}`;
 export type AbilityName = `${ABILITY}`;
 export type AbilityType = `${ABILITY_TYPE}`;
 export type EffectName = `${EFFECT}`;
+export type HelmetType = `${HELMET_TYPE}`;
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -129,8 +131,6 @@ export type Armor = {
     rightLeg: string;
   };
 };
-
-export type HelmetType = 'full-face' | 'large' | 'medium' | 'small';
 
 export type Helmet = {
   name: string;
