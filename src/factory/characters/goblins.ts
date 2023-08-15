@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE, SUPPORT_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
 import {
   crookedStaff,
   rustyAxe,
@@ -8,7 +8,7 @@ import {
   skullSmasher,
   spikeMace
 } from 'factory/weapons';
-import { createMightAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
+import { createMightSkill } from 'modules/battlefield/sagas/skillsSaga/skills';
 import { woodenRoundShield } from 'factory/armors';
 
 export const goblin1 = (overrides: Partial<Trooper>) =>
@@ -110,14 +110,14 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     equipment: {
       leftHand: crookedStaff
     },
-    abilities: [
-      createMightAbility({
+    abilities: [],
+    effects: [],
+    skills: {
+      [SKILL.MIGHT]: createMightSkill({
         duration: 2,
         multiplier: 1.5
       })
-    ],
-    effects: [],
-    skills: {},
+    },
     ...overrides,
     type: 'goblin-buffer',
     baseDamage: '3-4',
@@ -127,7 +127,6 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     currentHealth: 60,
     initiative: 7,
     attackType: ATTACK_TYPE.MELEE,
-    supportType: SUPPORT_TYPE.BUFF,
     hitChance: 95,
     criticalChance: 7,
     criticalMultiplier: 2,

@@ -44,11 +44,19 @@ type ContainerProps = {
   $teamName: Team;
 };
 
-export const Skills = styled.div`
+export const Skills = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 0 24px;
+  padding: 0 24px;
+  width: 100%;
+
+  ${({ $teamName }) =>
+    $teamName === TROOPER_TEAM.DEFENDERS
+      ? css`
+          align-items: flex-end;
+        `
+      : ''}
 `;
 
 export const ContainerInner = styled.div`

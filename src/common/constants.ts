@@ -107,7 +107,7 @@ export enum ABILITY_TYPE {
 export enum ABILITY {
   POISON = 'Poison',
   ANCHOR = 'Anchor',
-  HEAL = 'Heal',
+  CONTINUES_HEAL = 'Continues Heal',
   MIGHT = 'Might'
 }
 
@@ -119,12 +119,14 @@ export enum EFFECT {
   HEX = 'Hex',
   WEAKNESS = 'Weakness',
   BLOCK = 'Block',
-  HEAL = 'Continues Heal'
+  CONTINUES_HEAL = 'Continues Heal'
 }
 
 export enum SKILL {
   HEMORRHAGE_HACK = 'Hemorrhage Hack',
   KRAKEN = 'Kraken',
+  HEAL = 'Heal',
+  MIGHT = 'Might',
   LAVA_GEYSER = 'Lava Geyser',
   RAGE = 'Rage'
 }
@@ -139,11 +141,6 @@ export enum ATTACK_TYPE {
   RANGE = 'range',
   MELEE = 'melee',
   SPLASH = 'splash'
-}
-
-export enum SUPPORT_TYPE {
-  HEAL = 'heal',
-  BUFF = 'buff'
 }
 
 export enum DAMAGE_TYPE {

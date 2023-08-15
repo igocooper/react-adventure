@@ -4,7 +4,6 @@ import type {
   EFFECT,
   ABILITY,
   SKILL,
-  SUPPORT_TYPE,
   ATTACK_TYPE,
   ABILITY_TYPE,
   DAMAGE_TYPE,
@@ -16,7 +15,6 @@ import type {
 export type Team = 'attackers' | 'defenders';
 export type AttackType = `${ATTACK_TYPE}`;
 export type DamageType = `${DAMAGE_TYPE}`;
-export type SupportType = `${SUPPORT_TYPE}`;
 export type AbilityName = `${ABILITY}`;
 export type AbilityType = `${ABILITY_TYPE}`;
 export type EffectName = `${EFFECT}`;
@@ -67,9 +65,10 @@ type ApplySkill = (props: ApplySkillProps) => void;
 export type Skill = {
   name: SkillName;
   target: SkillTarget;
-  attackType: ATTACK_TYPE;
+  attackType?: ATTACK_TYPE;
   description: string;
   coolDown: number;
+  currentCoolDown?: number;
   applySkill: ApplySkill;
   iconSrc: string;
 };
@@ -106,8 +105,7 @@ export type Character = {
   damageType: DamageType;
   baseDamage: string;
   attackType: AttackType;
-  supportType?: SupportType;
-  power?: number;
+  healPower?: number;
   attackId?: string;
   hitChance: number;
   criticalChance?: number;
@@ -134,7 +132,7 @@ export type ArmorStats = {
 export type WeaponStats = {
   damage: string;
   hitChance?: number;
-  power?: number;
+  healPower?: number;
   criticalChance?: number;
   criticalMultiplier?: number;
   counterAttackChance?: number;

@@ -10,4 +10,4 @@ export { createHexEffect } from './hex';
 
 export { createAnchorEffect } from './anchor';
 
-export { createHealEffect } from './heal';
+export { createContinuesHealEffect } from './continuesHeal';

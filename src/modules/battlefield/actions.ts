@@ -5,7 +5,11 @@ export {
   setInitiative,
   setRound,
   setActivePlayer,
-  setActiveSkill
+  setActiveSkill,
+  addUsedSkills,
+  resetUsedSkills,
+  addAddedEffects,
+  resetAddedEffects
 } from './reducers/roundSlice';
 export {
   setTroopers,
@@ -16,6 +20,7 @@ export {
   removeEffect,
   removeAllEffects,
   addEffect,
+  setSkillCoolDown,
   modifyTrooper,
   setEffectDone
 } from './reducers/troopsSlice';

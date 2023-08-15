@@ -25,6 +25,17 @@ export const activePlayerSelector = createSelector(
   roundStateSelector,
   (state) => state.activePlayer
 );
+
+export const usedSkillsSelector = createSelector(
+  roundStateSelector,
+  (state) => state.usedSkills
+);
+
+export const addedEffectsSelector = createSelector(
+  roundStateSelector,
+  (state) => state.addedEffects
+);
+
 export const activeSkillSelector = createSelector(
   roundStateSelector,
   (state) => state.activeSkill

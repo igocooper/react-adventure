@@ -2,19 +2,19 @@ import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
 import { call, put } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
-import healIcon from './icons/heal.png';
+import healIcon from './icons/continues-heal.png';
 import { CHARACTER_IMAGE_SLOT, EFFECT } from 'common/constants';
 import { updateCharacterImages } from 'common/helpers';
 
-export const createHealEffect = ({
+export const createContinuesHealEffect = ({
   duration,
   heal
 }: {
   duration: number;
   heal: number;
 }): Effect => ({
-  name: EFFECT.HEAL,
-  description: `"${EFFECT.HEAL}" effect. Heal target by ${heal} HP on each turn.`,
+  name: EFFECT.CONTINUES_HEAL,
+  description: `"${EFFECT.CONTINUES_HEAL}" effect. Heal target by ${heal} HP on each turn.`,
   duration,
   done: false,
   applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {

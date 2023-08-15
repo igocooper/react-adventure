@@ -110,7 +110,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
           )}
         </Effects>
       </ContainerInner>
-      <Skills>
+      <Skills $teamName={activeTrooperTeamName}>
         {Object.entries(activeTrooper.skills || {}).map(
           ([skillName, skill], index) => {
             const { name } = skill;

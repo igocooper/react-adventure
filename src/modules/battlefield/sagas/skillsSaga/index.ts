@@ -6,7 +6,9 @@ import type { Skill } from 'common/types';
 import { TARGET } from 'common/constants';
 import {
   finishTrooperTurn as finishTrooperTurnAction,
-  setActiveSkill as setActiveSkillAction
+  setActiveSkill as setActiveSkillAction,
+  setSkillCoolDown as setSkillCoolDownAction,
+  addUsedSkills as addUsedSkillsAction
 } from '../../actions';
 
 type ApplySkillProps = {
@@ -14,9 +16,27 @@ type ApplySkillProps = {
   targetTrooper: Trooper;
 };
 export function* applySkill({ skill, targetTrooper }: ApplySkillProps) {
+  const activeTrooper = yield* select(activeTrooperSelector);
+
+  if (!activeTrooper) {
+    return;
+  }
+
   yield* call(skill.applySkill, {
     targetTrooper
   });
+
+  yield* put(
+    setSkillCoolDownAction({
+      id: activeTrooper.id,
+      team: activeTrooper.team,
+      name: skill.name,
+      value: skill.coolDown
+    })
+  );
+
+  // skill encoded in string with format id-skillName
+  yield* put(addUsedSkillsAction(`${activeTrooper.id}-${skill.name}`));
 }
 
 function* handleSkillClick({ payload: skill }: PayloadAction<Nullable<Skill>>) {
@@ -27,11 +47,11 @@ function* handleSkillClick({ payload: skill }: PayloadAction<Nullable<Skill>>) {
   }
 
   if (skill?.target === TARGET.SELF) {
-    yield* call(skill.applySkill, {
+    yield* call(applySkill, {
+      skill,
       targetTrooper: activeTrooper
     });
 
-    yield* put(setActiveSkillAction(null));
     yield* put(finishTrooperTurnAction());
   }
 }
