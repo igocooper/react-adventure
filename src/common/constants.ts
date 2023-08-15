@@ -124,6 +124,8 @@ export enum EFFECT {
 
 export enum SKILL {
   HEMORRHAGE_HACK = 'Hemorrhage Hack',
+  KRAKEN = 'Kraken',
+  LAVA_GEYSER = 'Lava Geyser',
   RAGE = 'Rage'
 }
 

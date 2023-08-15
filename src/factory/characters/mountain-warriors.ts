@@ -1,9 +1,10 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
 import { mountainBow, mountainStaff } from 'factory/weapons';
 import { ATTACK_ID } from 'modules/battlefield/characters/MoutainArcher/constants';
 import { ATTACK_ID_FIRE_BALL } from 'modules/battlefield/characters/MountainMage/constants';
+import { createLavaGeyserSkill } from 'modules/battlefield/sagas/skillsSaga/skills/lavaGeyser';
 
 export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -31,7 +32,12 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
-    skills: {},
+    skills: {
+      [SKILL.LAVA_GEYSER]: createLavaGeyserSkill({
+        damageMod: 1,
+        coolDown: 3
+      })
+    },
     attackId: ATTACK_ID_FIRE_BALL,
     ...overrides,
     type: 'mountain-mage',

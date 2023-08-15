@@ -411,7 +411,7 @@ function* handleEnemyTrooperDamage({
   );
 }
 
-function* attack({
+export function* attack({
   payload: selectedTrooperInfo
 }: {
   payload: Pick<Trooper, 'id' | 'team'>;

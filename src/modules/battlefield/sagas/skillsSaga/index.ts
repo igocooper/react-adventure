@@ -4,7 +4,10 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { activeTrooperSelector } from '../../selectors';
 import type { Skill } from 'common/types';
 import { TARGET } from 'common/constants';
-import { setActiveSkill } from '../../actions';
+import {
+  finishTrooperTurn as finishTrooperTurnAction,
+  setActiveSkill as setActiveSkillAction
+} from '../../actions';
 
 type ApplySkillProps = {
   skill: Skill;
@@ -28,10 +31,11 @@ function* handleSkillClick({ payload: skill }: PayloadAction<Nullable<Skill>>) {
       targetTrooper: activeTrooper
     });
 
-    yield* put(setActiveSkill(null));
+    yield* put(setActiveSkillAction(null));
+    yield* put(finishTrooperTurnAction());
   }
 }
 
 export function* skillsSagaWatcher() {
-  yield* takeLatest(setActiveSkill, handleSkillClick);
+  yield* takeLatest(setActiveSkillAction, handleSkillClick);
 }
