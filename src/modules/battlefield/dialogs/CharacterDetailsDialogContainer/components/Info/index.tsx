@@ -17,7 +17,6 @@ type Props = Pick<
   | 'criticalChance'
   | 'criticalMultiplier'
   | 'evadeChance'
-  | 'supportType'
   | 'initiative'
 >;
 
@@ -32,7 +31,6 @@ export const Info = ({
   defence,
   damageType,
   counterAttackChance,
-  supportType,
   criticalMultiplier,
   initiative
 }: Props) => {
@@ -53,11 +51,6 @@ export const Info = ({
       {Boolean(hitChance) && (
         <Item>
           Accuracy: <Value>{hitChance} %</Value>
-        </Item>
-      )}
-      {Boolean(supportType) && (
-        <Item>
-          Support: <Value>{supportType}</Value>
         </Item>
       )}
       {Boolean(initiative) && (

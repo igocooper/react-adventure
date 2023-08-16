@@ -328,7 +328,7 @@ export const applyCharacterEquipmentStats = (props: Character) => {
     criticalChance: props.criticalChance,
     criticalMultiplier: props.criticalMultiplier,
     defence: props.defence,
-    power: props.power,
+    healPower: props.healPower,
     evadeChance: props.evadeChance,
     resistance: props.resistance || {}
   };
