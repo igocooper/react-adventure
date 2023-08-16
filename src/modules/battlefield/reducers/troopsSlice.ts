@@ -60,6 +60,13 @@ type AddEffectPayload = {
   team: Team;
 };
 
+type SetSkillCoolDownPayload = {
+  id: number;
+  team: Team;
+  name: string;
+  value: number;
+};
+
 type ModifyTrooperPayload = {
   id: number;
   team: Team;
@@ -183,6 +190,31 @@ export const troopsSlice = createSlice({
       };
     },
 
+    setSkillCoolDown: (
+      state,
+      action: PayloadAction<SetSkillCoolDownPayload>
+    ) => {
+      const { id, team, value, name } = action.payload;
+
+      return {
+        ...state,
+        [team]: state[team].map((trooper) => {
+          if (trooper.id === id) {
+            return {
+              ...trooper,
+              skills: {
+                ...trooper.skills,
+                [name]: {
+                  ...trooper.skills[name],
+                  currentCoolDown: value
+                }
+              }
+            };
+          }
+          return trooper;
+        })
+      };
+    },
     addEffect: (state, action: PayloadAction<AddEffectPayload>) => {
       const { team, id, effect } = action.payload;
 
@@ -237,7 +269,8 @@ export const {
   addEffect,
   setEffectDuration,
   modifyTrooper,
-  setEffectDone
+  setEffectDone,
+  setSkillCoolDown
 } = troopsSlice.actions;
 
 export const troopsReducer = troopsSlice.reducer;

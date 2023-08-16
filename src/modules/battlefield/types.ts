@@ -1,4 +1,5 @@
 import type { Character, Team } from 'common/types';
+import type { CURSOR } from 'common/constants';
 
 export type {
   Ability,
@@ -10,7 +11,7 @@ export type {
   ApplyEffectProps
 } from 'common/types';
 
-export type Cursor = 'default' | 'bow' | 'disabled' | 'wand' | 'sword';
+export type Cursor = `${CURSOR}`;
 
 export type HoveredElementType = 'default' | 'character';
 

@@ -156,7 +156,7 @@ export const equipBow = ({
 }): AppearanceUrls => {
   return {
     ...appearance,
-    [CHARACTER_IMAGE_SLOT.BOW]: bow.imageUrls.bow,
+    [CHARACTER_IMAGE_SLOT.BOW]: bow.imageUrls.bowStem,
     [CHARACTER_IMAGE_SLOT.BOWSTRING]: bow.imageUrls.bowString,
     [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: bow.imageUrls.drawnBowString,
     [CHARACTER_IMAGE_SLOT.QUIVER]: bow.imageUrls.quiver,

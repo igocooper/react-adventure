@@ -1,11 +1,13 @@
-import { put, select, takeLatest, call, take } from 'typed-redux-saga/macro';
+import { call, put, select, take, takeLatest } from 'typed-redux-saga/macro';
 import {
   finishTrooperTurn as finishTrooperTurnAction,
+  setActivePlayer as setActivePlayerAction,
+  setActiveSkill as setActiveSkillAction,
   setCursor as setCursorAction,
-  setHoveredElement as setHoveredElementAction,
-  setActivePlayer as setActivePlayerAction
+  setHoveredElement as setHoveredElementAction
 } from '../actions';
 import {
+  activeSkillSelector,
   activeTrooperSelector,
   attackersSelector,
   battlefieldDisabledStatusSelector,
@@ -17,7 +19,8 @@ import { checkMeleeAttackConstraints } from '../helpers/checkMeleeAttackConstrai
 
 import type { Element } from '../reducers/hoveredElementSlice';
 import type { Trooper } from '../types';
-import { CURSOR, ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
+import type { Skill } from 'common/types';
+import { ATTACK_TYPE, CURSOR, DAMAGE_TYPE, TARGET } from 'common/constants';
 import { HOVERED_ELEMENT_TYPE } from '../constants';
 
 type Props = {
@@ -26,13 +29,15 @@ type Props = {
   selectedTrooper?: Trooper;
   attackers: Trooper[];
   defenders: Trooper[];
+  activeSkill: Nullable<Skill>;
 };
 
 const detectCharacterCursor = ({
   activeTrooper,
   selectedTrooper,
   attackers,
-  defenders
+  defenders,
+  activeSkill
 }: Props) => {
   if (!activeTrooper || !selectedTrooper) {
     return CURSOR.DEFAULT;
@@ -47,6 +52,41 @@ const detectCharacterCursor = ({
   }
 
   if (isEnemySelected) {
+    if (activeSkill !== null && activeSkill.target === TARGET.ALLY) {
+      return CURSOR.DISABLED;
+    }
+
+    if (activeSkill !== null && activeSkill.target === TARGET.ENEMY) {
+      if (activeSkill?.attackType === ATTACK_TYPE.MELEE) {
+        if (
+          checkMeleeAttackConstraints({
+            attackers,
+            defenders,
+            targetHero: selectedTrooper,
+            activePlayer: activeTrooper
+          })
+        ) {
+          return CURSOR.SWORD;
+        } else {
+          return CURSOR.DISABLED;
+        }
+      }
+
+      if (activeSkill?.attackType === ATTACK_TYPE.RANGE) {
+        if (activeSkill?.damageType === DAMAGE_TYPE.PHYSICAL) {
+          return CURSOR.BOW;
+        }
+
+        return CURSOR.WAND;
+      }
+
+      if (activeSkill?.attackType === ATTACK_TYPE.SPLASH) {
+        return CURSOR.WAND;
+      }
+
+      return CURSOR.HAND;
+    }
+
     if (activeTrooper.attackType === ATTACK_TYPE.RANGE) {
       if (activeTrooper.damageType === DAMAGE_TYPE.PHYSICAL) {
         return CURSOR.BOW;
@@ -76,9 +116,14 @@ const detectCharacterCursor = ({
   }
 
   if (isAllySelected) {
-    if (activeTrooper.supportType !== undefined) {
+    if (activeSkill !== null && activeSkill.target === TARGET.ALLY) {
       return CURSOR.WAND;
     }
+
+    if (activeSkill !== null && activeSkill.target === TARGET.ENEMY) {
+      return CURSOR.DISABLED;
+    }
+
     return CURSOR.DISABLED;
   }
 
@@ -90,6 +135,13 @@ function* updateCursor(hoveredElement: Element) {
     battlefieldDisabledStatusSelector
   );
   if (isBattleFieldDisabled) return;
+
+  const activeSkill = yield* select(activeSkillSelector);
+
+  if (activeSkill && !hoveredElement) {
+    yield* put(setCursorAction(CURSOR.HAND));
+    return;
+  }
 
   if (!hoveredElement) {
     yield* put(setCursorAction(CURSOR.DEFAULT));
@@ -109,7 +161,8 @@ function* updateCursor(hoveredElement: Element) {
       activeTrooper,
       selectedTrooper,
       attackers,
-      defenders
+      defenders,
+      activeSkill
     });
 
     yield* put(setCursorAction(nextCursor));
@@ -126,7 +179,12 @@ function* setCursorOnHover({ payload: hoveredElement }: { payload: Element }) {
   yield* call(updateCursor, hoveredElement);
 }
 
+function* setCursorOnSkill() {
+  yield* call(updateCursor, null);
+}
+
 export function* cursorSagaWatcher() {
-  yield takeLatest(setHoveredElementAction, setCursorOnHover);
-  yield takeLatest(finishTrooperTurnAction, setCursorOnFinishTurn);
+  yield* takeLatest(setActiveSkillAction, setCursorOnSkill);
+  yield* takeLatest(setHoveredElementAction, setCursorOnHover);
+  yield* takeLatest(finishTrooperTurnAction, setCursorOnFinishTurn);
 }

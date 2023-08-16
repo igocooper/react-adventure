@@ -3,22 +3,24 @@ import type { CallEffect } from 'redux-saga/effects';
 import type {
   EFFECT,
   ABILITY,
-  SUPPORT_TYPE,
+  SKILL,
   ATTACK_TYPE,
   ABILITY_TYPE,
   DAMAGE_TYPE,
-  HELMET_TYPE
+  HELMET_TYPE,
+  TARGET
 } from '../constants';
 
 // UNION types generation inspired by this article https://bobbyhadz.com/blog/typescript-convert-enum-to-union
 export type Team = 'attackers' | 'defenders';
 export type AttackType = `${ATTACK_TYPE}`;
 export type DamageType = `${DAMAGE_TYPE}`;
-export type SupportType = `${SUPPORT_TYPE}`;
 export type AbilityName = `${ABILITY}`;
 export type AbilityType = `${ABILITY_TYPE}`;
 export type EffectName = `${EFFECT}`;
 export type HelmetType = `${HELMET_TYPE}`;
+export type SkillName = `${SKILL}`;
+export type SkillTarget = `${TARGET}`;
 
 export type ApplyAbilityProps = {
   targetTrooper: Trooper;
@@ -54,6 +56,26 @@ export type Effect = {
   iconSrc: string;
 };
 
+export type ApplySkillProps = {
+  targetTrooper: Trooper;
+};
+
+type ApplySkill = (props: ApplySkillProps) => void;
+
+export type Skill = {
+  name: SkillName;
+  target: SkillTarget;
+  attackType?: ATTACK_TYPE;
+  damageType?: DAMAGE_TYPE;
+  description: string;
+  coolDown: number;
+  currentCoolDown?: number;
+  applySkill: ApplySkill;
+  iconSrc: string;
+};
+
+export type Skills = Record<string, Skill>;
+
 export type Appearance = {
   head: string;
   headHair: string;
@@ -84,8 +106,7 @@ export type Character = {
   damageType: DamageType;
   baseDamage: string;
   attackType: AttackType;
-  supportType?: SupportType;
-  power?: number;
+  healPower?: number;
   attackId?: string;
   hitChance: number;
   criticalChance?: number;
@@ -97,6 +118,7 @@ export type Character = {
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];
+  skills: Skills;
   effects: Effect[];
 };
 
@@ -111,7 +133,7 @@ export type ArmorStats = {
 export type WeaponStats = {
   damage: string;
   hitChance?: number;
-  power?: number;
+  healPower?: number;
   criticalChance?: number;
   criticalMultiplier?: number;
   counterAttackChance?: number;

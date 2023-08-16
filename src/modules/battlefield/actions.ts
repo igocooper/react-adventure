@@ -4,7 +4,12 @@ import { createAction } from '@reduxjs/toolkit';
 export {
   setInitiative,
   setRound,
-  setActivePlayer
+  setActivePlayer,
+  setActiveSkill,
+  addUsedSkills,
+  resetUsedSkills,
+  addAddedEffects,
+  resetAddedEffects
 } from './reducers/roundSlice';
 export {
   setTroopers,
@@ -15,6 +20,7 @@ export {
   removeEffect,
   removeAllEffects,
   addEffect,
+  setSkillCoolDown,
   modifyTrooper,
   setEffectDone
 } from './reducers/troopsSlice';

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatchAction } from 'store/hooks';
 import {
   startRound as startRoundAction,
   setTroopersToLoad as setTroopersToLoadAction,
-  resetBattlefieldLoadedStatus
+  resetBattlefieldLoadedStatus,
+  setActiveSkill as setActiveSkillAction
 } from '../../actions';
 import {
   attackersSelector,
@@ -28,12 +29,17 @@ export const BattlefieldContainer = () => {
   const troopersToLoad = useSelector(battleFieldTroopersToLoadSelector);
   const battleFieldLoaded = useSelector(battlefieldLoadedStatusSelector);
   const startRound = useDispatchAction(startRoundAction);
+  const setActiveSkill = useDispatchAction(setActiveSkillAction);
   const setTroopersToLoad = useDispatchAction(setTroopersToLoadAction);
   const resetBattleFieldLoadedStatus = useDispatchAction(
     resetBattlefieldLoadedStatus
   );
 
   const location = useLocation();
+
+  const resetActiveSkill = useCallback(() => {
+    setActiveSkill(null);
+  }, [setActiveSkill]);
 
   useEffect(() => {
     setTroopersToLoad(troopersToLoad);
@@ -50,7 +56,7 @@ export const BattlefieldContainer = () => {
   }, [battleFieldLoaded]);
 
   return (
-    <Battlefield $disabled={isBattleFieldDisabled}>
+    <Battlefield $disabled={isBattleFieldDisabled} onClick={resetActiveSkill}>
       <Location $cursor={cursor} $location={location}>
         <AnimationAreaContainer>
           {attackers.map(

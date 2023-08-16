@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE, SUPPORT_TYPE } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
 import {
   crookedStaff,
   rustyAxe,
@@ -8,7 +8,7 @@ import {
   skullSmasher,
   spikeMace
 } from 'factory/weapons';
-import { createMightAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
+import { createMightSkill } from 'modules/battlefield/sagas/skillsSaga/skills';
 import { woodenRoundShield } from 'factory/armors';
 
 export const goblin1 = (overrides: Partial<Trooper>) =>
@@ -19,6 +19,7 @@ export const goblin1 = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
+    skills: {},
     ...overrides,
     type: 'goblin-1',
     baseDamage: '1-3',
@@ -39,6 +40,7 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
+    skills: {},
     ...overrides,
     type: 'goblin-2',
     baseDamage: '2-3',
@@ -61,6 +63,7 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
+    skills: {},
     ...overrides,
     type: 'goblin-3',
     baseDamage: '3-4',
@@ -85,6 +88,7 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     },
     abilities: [],
     effects: [],
+    skills: {},
     ...overrides,
     type: 'armored-goblin',
     baseDamage: '3-4',
@@ -92,7 +96,7 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
-    initiative: 3,
+    initiative: 12,
     attackType: ATTACK_TYPE.MELEE,
     hitChance: 95,
     criticalChance: 5,
@@ -106,13 +110,14 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     equipment: {
       leftHand: crookedStaff
     },
-    abilities: [
-      createMightAbility({
+    abilities: [],
+    effects: [],
+    skills: {
+      [SKILL.MIGHT]: createMightSkill({
         duration: 2,
         multiplier: 1.5
       })
-    ],
-    effects: [],
+    },
     ...overrides,
     type: 'goblin-buffer',
     baseDamage: '3-4',
@@ -122,7 +127,6 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     currentHealth: 60,
     initiative: 7,
     attackType: ATTACK_TYPE.MELEE,
-    supportType: SUPPORT_TYPE.BUFF,
     hitChance: 95,
     criticalChance: 7,
     criticalMultiplier: 2,

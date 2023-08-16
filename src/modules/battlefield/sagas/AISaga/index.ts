@@ -15,6 +15,7 @@ import { randomAI } from './randomAI';
 import { determinedAI } from './determinedAI';
 import { strategicAI } from './strategicAI';
 import { supportRandomAI } from './supportRandomAI';
+import { healerRandomAI } from './healerRandomAI';
 
 export function* clickOnTrooper({ id, team }: Pick<Trooper, 'id' | 'team'>) {
   yield* put(
@@ -60,6 +61,10 @@ function* performAITurn() {
     }
     case AI_TYPE.SUPPORT_RANDOM: {
       yield* call(supportRandomAI);
+      break;
+    }
+    case AI_TYPE.HEALER_RANDOM: {
+      yield* call(healerRandomAI);
       break;
     }
     default:

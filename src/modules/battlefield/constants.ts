@@ -11,10 +11,7 @@ import {
   priest1,
   goblinBuffer
 } from 'factory/characters';
-import {
-  createPoisonAbility,
-  createAnchorAbility
-} from './sagas/abilitiesSaga/abilities';
+import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 
 export enum TROOPER_TEAM {
   ATTACKERS = 'attackers',
@@ -30,7 +27,8 @@ export enum AI_TYPE {
   RANDOM = 'random',
   DETERMINED = 'determined',
   STRATEGIC = 'strategic',
-  SUPPORT_RANDOM = 'support_random'
+  SUPPORT_RANDOM = 'support_random',
+  HEALER_RANDOM = 'healer_random'
 }
 
 export enum LOCATION {
@@ -66,17 +64,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 1,
     team: 'attackers',
     position: 2,
-    abilities: [
-      createPoisonAbility({
-        duration: 1,
-        damage: 10,
-        hitChance: 100
-      }),
-      createAnchorAbility({
-        duration: 1,
-        hitChance: 100
-      })
-    ]
+    abilities: []
   }),
   priest1({
     id: 2,

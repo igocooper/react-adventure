@@ -13,7 +13,7 @@ export const oldWoodenStaff: Weapon = {
   imageSrc: '/images/weapons/staffs/old-wooden-staff.png',
   stats: {
     damage: '3-5',
-    power: 10
+    healPower: 10
   }
 };
 

@@ -92,6 +92,7 @@ export enum HELMET_TYPE {
 
 export enum CURSOR {
   DEFAULT = 'default',
+  HAND = 'hand',
   BOW = 'bow',
   DISABLED = 'disabled',
   WAND = 'wand',
@@ -106,29 +107,40 @@ export enum ABILITY_TYPE {
 export enum ABILITY {
   POISON = 'Poison',
   ANCHOR = 'Anchor',
-  HEAL = 'Heal',
+  CONTINUES_HEAL = 'Continues Heal',
   MIGHT = 'Might'
 }
 
 export enum EFFECT {
   POISON = 'Poison',
+  BLEEDING = 'Bleeding',
   ANCHOR = 'Anchor',
   MIGHT = 'Might',
   HEX = 'Hex',
   WEAKNESS = 'Weakness',
   BLOCK = 'Block',
-  HEAL = 'Continues Heal'
+  CONTINUES_HEAL = 'Continues Heal'
+}
+
+export enum SKILL {
+  HEMORRHAGE_HACK = 'Hemorrhage Hack',
+  KRAKEN = 'Kraken',
+  HEAL = 'Heal',
+  MIGHT = 'Might',
+  LAVA_GEYSER = 'Lava Geyser',
+  RAGE = 'Rage'
+}
+
+export enum TARGET {
+  SELF = 'self',
+  ALLY = 'ally',
+  ENEMY = 'enemy'
 }
 
 export enum ATTACK_TYPE {
   RANGE = 'range',
   MELEE = 'melee',
   SPLASH = 'splash'
-}
-
-export enum SUPPORT_TYPE {
-  HEAL = 'heal',
-  BUFF = 'buff'
 }
 
 export enum DAMAGE_TYPE {

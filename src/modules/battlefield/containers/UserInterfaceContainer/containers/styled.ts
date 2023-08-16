@@ -28,7 +28,8 @@ export const TrooperImage = styled.div<ImageProps>`
     width: 100%;
     height: 100%;
     top: ${({ $health }) => ($health ? `${$health}%` : 0)};
-    background: ${({ theme }) => theme.colors.blood};
+    background: ${({ theme }) => theme.colors.enemy};
+    opacity: 0.5;
   }
 `;
 
@@ -43,10 +44,32 @@ type ContainerProps = {
   $teamName: Team;
 };
 
-export const Container = styled.div<ContainerProps>`
+export const Skills = styled.div<ContainerProps>`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 24px;
+  width: 100%;
+
+  ${({ $teamName }) =>
+    $teamName === TROOPER_TEAM.DEFENDERS
+      ? css`
+          align-items: flex-end;
+        `
+      : ''}
+`;
+
+export const ContainerInner = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 16px;
+`;
+
+export const Container = styled.div<ContainerProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
 `;
 
 export const Wrapper = styled.div`
@@ -65,7 +88,6 @@ export const Icon = styled.img<IconProps>`
   display: block;
   border: #573000 solid 2px;
   background: rgba(29, 20, 8, 0.9);
-  z-index: 1;
   filter: drop-shadow(2px 4px 6px black);
 
   ${({ disabled }) => {

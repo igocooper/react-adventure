@@ -70,3 +70,8 @@ Battle ends when one of the team is defeated.
 - add character object in /src/factory/characters describing your character properties
 - add weapon object in /src/factory/[weapon-type].ts describing weapon properties
 - [optional] add character component to /src/modules/battlefield/[Character] (you need it if you want him to use custom range attack animation or to overwrite his default character animation map)
+
+
+### Computer Playing Algorithm
+
+There are several computer strategies. All of them are described in this [diagram](https://app.diagrams.net/#G1AP6X6KvWfRAQYf2Jd2qq6EX7U34gY7NV)

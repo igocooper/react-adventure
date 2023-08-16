@@ -98,16 +98,20 @@ export const TileContainer = ({
     [dispatch, id, team]
   );
 
-  const handleClick = useCallback(() => {
-    if (!isBattlefieldDisabled && currentHealth > 0) {
-      dispatch(
-        trooperClicked({
-          id,
-          team
-        })
-      );
-    }
-  }, [dispatch, id, team, isBattlefieldDisabled]);
+  const handleClick = useCallback(
+    (event: MouseEvent) => {
+      event.stopPropagation();
+      if (!isBattlefieldDisabled && currentHealth > 0) {
+        dispatch(
+          trooperClicked({
+            id,
+            team
+          })
+        );
+      }
+    },
+    [dispatch, id, team, isBattlefieldDisabled]
+  );
 
   const activeTrooper = useSelector(activeTrooperSelector);
   const active = id === activeTrooper?.id;

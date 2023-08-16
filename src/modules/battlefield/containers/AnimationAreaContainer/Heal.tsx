@@ -13,7 +13,7 @@ export const Heal = (props: Props) => {
   const effectRef = useRef(null);
 
   useEffect(() => {
-    registerAreaEffect(EFFECT.HEAL, effectRef.current!);
+    registerAreaEffect(EFFECT.CONTINUES_HEAL, effectRef.current!);
   }, []);
 
   return (
@@ -21,7 +21,7 @@ export const Heal = (props: Props) => {
       ref={effectRef}
       imageWidth={100}
       imageHeight={100}
-      attackId={EFFECT.HEAL}
+      attackId={EFFECT.CONTINUES_HEAL}
       animationDuration={500}
       imageUrl="/images/effects/heal.png"
       {...props}

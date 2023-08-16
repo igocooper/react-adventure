@@ -19,15 +19,16 @@ import {
   trooperClicked,
   attackStarted,
   attackFinished,
-  supportStarted,
-  supportFinished,
   setBattlefieldStatus,
   resetDamageEvents,
   modifyTrooper,
   blockClicked as blockClickedAction,
   addEffect,
   setTroopers,
-  startBattle as startBattleAction
+  startBattle as startBattleAction,
+  setActiveSkill,
+  setSkillCoolDown as setSkillCoolDownAction,
+  resetUsedSkills as resetUsedSkillsAction
 } from '../actions';
 import { pushNextUrl } from 'modules/router/actions';
 import {
@@ -37,13 +38,16 @@ import {
   defendersSelector,
   battlefieldDisabledStatusSelector,
   activeTrooperSelector,
+  activeSkillSelector,
   makeCanMeleeTrooperAttackSelector,
-  makeCharacterByIdSelector
+  makeCharacterByIdSelector,
+  usedSkillsSelector
 } from '../selectors';
 
 import type { Trooper } from '../types';
-import { ATTACK_TYPE, EFFECT } from 'common/constants';
+import { ATTACK_TYPE, EFFECT, TARGET } from 'common/constants';
 import { applyEffects } from './effectsSaga';
+import { applySkill } from './skillsSaga';
 import { createBlockEffect } from './effectsSaga/effects/block';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
 import type { TroopsState } from '../reducers/troopsSlice';
@@ -97,8 +101,9 @@ function* initInitiative() {
     .sort((character1, character2) => {
       return character2.initiative - character1.initiative;
     })
-    .map(({ id }) => ({
-      id
+    .map(({ id }, index) => ({
+      id,
+      index
     }));
 }
 
@@ -130,6 +135,7 @@ export function* finishTrooperTurn() {
   const nextActivePlayer = updatedInitiative[0];
 
   if (nextActivePlayer) {
+    yield* put(setActiveSkill(null));
     yield* put(setActivePlayer(nextActivePlayer));
     yield* put(setInitiative(updatedInitiative));
     yield* put(startTrooperTurnAction());
@@ -142,12 +148,40 @@ function* startRound({ payload }: { payload: number }) {
   const initiative = yield* call(initInitiative);
   const activePlayer = initiative[0];
   yield* put(setRound(payload));
+
   yield* put(setInitiative(initiative));
 
   if (activePlayer) {
     yield* put(setActivePlayer(activePlayer));
     yield* put(startTrooperTurnAction());
   }
+}
+function* updateSkillsCoolDown() {
+  const attackers = yield* select(attackersSelector);
+  const defenders = yield* select(defendersSelector);
+  const usedSkills = yield* select(usedSkillsSelector);
+
+  const troopers = [...attackers, ...defenders];
+
+  for (const trooper of troopers) {
+    for (const entry of Object.entries(trooper.skills)) {
+      const [skillName, skill] = entry;
+      const usedInPrevRound = usedSkills.includes(`${trooper.id}-${skillName}`);
+
+      if (skill.currentCoolDown && !usedInPrevRound) {
+        yield* put(
+          setSkillCoolDownAction({
+            id: trooper.id,
+            team: trooper.team,
+            name: skillName,
+            value: skill.currentCoolDown - 1
+          })
+        );
+      }
+    }
+  }
+
+  yield* put(resetUsedSkillsAction());
 }
 
 function* handleTrooperClick({
@@ -165,6 +199,7 @@ function* handleTrooperClick({
 
   const { team, id } = clickedTrooperInfo;
   const activeTrooper = yield* select(activeTrooperSelector);
+  const activeSkill = yield* select(activeSkillSelector);
   const isEnemySelected = activeTrooper && activeTrooper.team !== team;
   const canMeleeTrooperAttack = yield* select(
     makeCanMeleeTrooperAttackSelector(id)
@@ -176,11 +211,26 @@ function* handleTrooperClick({
 
   if (isEnemySelected) {
     if (
+      (activeSkill?.target === TARGET.ENEMY &&
+        activeSkill?.attackType === ATTACK_TYPE.MELEE &&
+        !canMeleeTrooperAttack &&
+        !canMeleeTrooperAttack) ||
       (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
         !canMeleeTrooperAttack) ||
       isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
     ) {
       yield* put(setBattlefieldStatus(false));
+      return;
+    }
+
+    if (activeSkill?.target === TARGET.ENEMY) {
+      yield* call(applySkill, {
+        skill: activeSkill,
+        targetTrooper: selectedTrooper!
+      });
+
+      yield* put(setBattlefieldStatus(false));
+      yield* put(finishTrooperTurnAction());
       return;
     }
 
@@ -190,11 +240,15 @@ function* handleTrooperClick({
     yield* put(finishTrooperTurnAction());
   }
 
-  if (!isEnemySelected && activeTrooper?.supportType !== undefined) {
-    yield* put(supportStarted(clickedTrooperInfo));
+  if (activeSkill?.target === TARGET.ALLY) {
+    yield* call(applySkill, {
+      skill: activeSkill,
+      targetTrooper: selectedTrooper!
+    });
 
-    yield* take(supportFinished);
+    yield* put(setBattlefieldStatus(false));
     yield* put(finishTrooperTurnAction());
+    return;
   }
 
   yield* put(setBattlefieldStatus(false));
@@ -263,6 +317,7 @@ export function* roundSagaWatcher() {
   yield takeLatest(finishTrooperTurnAction, finishTrooperTurn);
   yield takeLatest(startTrooperTurnAction, startTrooperTurn);
   yield takeLatest(startRoundAction, startRound);
+  yield takeLatest(startRoundAction, updateSkillsCoolDown);
   yield takeEvery(trooperClicked, handleTrooperClick);
   yield takeLatest(waitClickedAction, handleWaitClick);
   yield takeLatest(blockClickedAction, handleBlockClick);
