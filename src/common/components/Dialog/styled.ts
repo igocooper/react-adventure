@@ -58,7 +58,7 @@ export const BorderOuter = styled.div.attrs({
   background: var(--background-color);
   position: relative;
   width: 500px;
-  height: 500px;
+  height: 600px;
   border: 5px solid var(--border-outer-color);
   border-radius: 10px;
   outline: 1px solid ${({ theme }) => theme.colors.black};

@@ -14,7 +14,7 @@ export const Abilities = ({ abilities }: Props) => {
     <>
       <Heading>Abilities:</Heading>
       <Container>
-        {Object.values(abilities).map((ability, index) => (
+        {abilities.map((ability, index) => (
           <div key={`${ability.name}-${index}`}>
             <SkillIcon
               src={ability.iconSrc}

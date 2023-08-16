@@ -4,7 +4,7 @@ import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import { multiplyDamage } from 'modules/battlefield/helpers/multiplyDamage';
 import { divideDamage } from 'modules/battlefield/helpers/divideDamage';
 import hexIcon from './icons/hex.png';
-import { EFFECT } from 'common/constants';
+import { EFFECT, EFFECT_TYPE } from 'common/constants';
 
 export const createHexEffect = ({
   multiplier,
@@ -15,6 +15,7 @@ export const createHexEffect = ({
 }): Effect => {
   return {
     name: EFFECT.HEX,
+    type: EFFECT_TYPE.CURSE,
     description: `"${EFFECT.HEX}" effect. Decrease target damage ${multiplier} times.`,
     duration,
     once: true,
