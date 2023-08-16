@@ -66,18 +66,25 @@ const detectCharacterCursor = ({
             activePlayer: activeTrooper
           })
         ) {
-          return CURSOR.HAND;
+          return CURSOR.SWORD;
         } else {
           return CURSOR.DISABLED;
         }
       }
 
-      if (
-        activeSkill?.attackType === ATTACK_TYPE.RANGE ||
-        activeSkill?.attackType === ATTACK_TYPE.SPLASH
-      ) {
-        return CURSOR.HAND;
+      if (activeSkill?.attackType === ATTACK_TYPE.RANGE) {
+        if (activeSkill?.damageType === DAMAGE_TYPE.PHYSICAL) {
+          return CURSOR.BOW;
+        }
+
+        return CURSOR.WAND;
       }
+
+      if (activeSkill?.attackType === ATTACK_TYPE.SPLASH) {
+        return CURSOR.WAND;
+      }
+
+      return CURSOR.HAND;
     }
 
     if (activeTrooper.attackType === ATTACK_TYPE.RANGE) {
@@ -110,16 +117,13 @@ const detectCharacterCursor = ({
 
   if (isAllySelected) {
     if (activeSkill !== null && activeSkill.target === TARGET.ALLY) {
-      return CURSOR.HAND;
+      return CURSOR.WAND;
     }
 
     if (activeSkill !== null && activeSkill.target === TARGET.ENEMY) {
       return CURSOR.DISABLED;
     }
 
-    if (activeTrooper.supportType !== undefined) {
-      return CURSOR.WAND;
-    }
     return CURSOR.DISABLED;
   }
 

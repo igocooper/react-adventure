@@ -1,5 +1,11 @@
 import type { ApplySkillProps, Skill } from 'common/types';
-import { ATTACK_TYPE, EFFECT, SKILL, TARGET } from 'common/constants';
+import {
+  ATTACK_TYPE,
+  DAMAGE_TYPE,
+  EFFECT,
+  SKILL,
+  TARGET
+} from 'common/constants';
 import icon from './icons/hemorrhage.png';
 import { call, put, select, fork } from 'typed-redux-saga';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
@@ -22,6 +28,7 @@ export const createHemorrhageSkill = ({
   iconSrc: icon,
   name: SKILL.HEMORRHAGE_HACK,
   attackType: ATTACK_TYPE.MELEE,
+  damageType: DAMAGE_TYPE.PHYSICAL,
   target: TARGET.ENEMY,
   coolDown,
   description: `${SKILL.HEMORRHAGE_HACK}: Open enemy vein during attack. Inflicting ${damage} blood damage at the
@@ -30,11 +37,6 @@ export const createHemorrhageSkill = ({
     const activeTrooper = yield* select(activeTrooperSelector);
 
     if (!activeTrooper) return;
-
-    const bleedEffect = createBleedingEffect({
-      damage,
-      duration
-    });
 
     const {
       damage: characterDamage,
@@ -56,7 +58,12 @@ export const createHemorrhageSkill = ({
       isCriticalDamage
     });
 
-    if (!isDying) {
+    if (!isDying && !hasMissed) {
+      const bleedEffect = createBleedingEffect({
+        damage,
+        duration
+      });
+
       yield* fork(publishDamageEvent, {
         id: targetTrooper.id,
         value: 'Bleeding',

@@ -1,5 +1,5 @@
 import type { Skill } from 'common/types';
-import { ATTACK_TYPE, SKILL, TARGET } from 'common/constants';
+import { SKILL, TARGET } from 'common/constants';
 import icon from './icons/rage.png';
 import { put, select } from 'typed-redux-saga';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
@@ -15,7 +15,6 @@ export const createRageSkill = ({
 }): Skill => ({
   iconSrc: icon,
   name: SKILL.RAGE,
-  attackType: ATTACK_TYPE.MELEE,
   target: TARGET.SELF,
   coolDown,
   description: `${SKILL.RAGE}: Increase trooper attack. Duration ${duration} rounds. CoolDown: ${coolDown}`,

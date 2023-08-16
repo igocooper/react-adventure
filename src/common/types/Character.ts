@@ -66,6 +66,7 @@ export type Skill = {
   name: SkillName;
   target: SkillTarget;
   attackType?: ATTACK_TYPE;
+  damageType?: DAMAGE_TYPE;
   description: string;
   coolDown: number;
   currentCoolDown?: number;

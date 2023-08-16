@@ -26,9 +26,10 @@ export const CoolDown = styled.div<CoolDownProps>`
   font-weight: 700;
   font-family: sans-serif;
   color: rgba(255, 255, 255, 0.8);
+  cursor: not-allowed;
 
-  width: 85%;
-  height: 85%;
+  width: 65%;
+  height: 65%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: conic-gradient(
@@ -41,7 +42,7 @@ export const SkillIcon = styled(SkillIconBase).attrs(({ disabled }: Props) => ({
   className: `skill ${disabled ? 'disabled' : ''}`
 }))<Props>`
   &.disabled {
-    filter: blur(2px) grayscale(1);
+    filter: blur(1px) grayscale(1);
     cursor: not-allowed;
   }
 

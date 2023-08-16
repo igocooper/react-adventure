@@ -54,6 +54,7 @@ export const BleedingEffect = styled.div<
   --cut-animation-speed: 300ms;
   --bleed-animation-speed: 800ms;
   --bleed-timing-function: ease-out;
+  --bleed-animation-delay: 250ms;
   overflow: hidden;
   width: 100px;
   height: 100px;
@@ -89,8 +90,7 @@ export const LeftCut = styled.div<Props>`
       ? css`
           animation: ${leftCut} var(--cut-animation-speed) ease-in 0s 1,
             ${bleed} calc(var(--cut-animation-speed) * 1.5)
-              var(--bleed-timing-function)
-              calc(var(--bleed-animation-speed) - 200ms) 1;
+              var(--bleed-timing-function) var(--bleed-animation-delay) 1;
           animation-fill-mode: forwards;
         `
       : css``};
@@ -118,8 +118,7 @@ export const RightCut = styled.div<Props>`
           animation: ${rightCut} var(--cut-animation-speed) ease-in
               calc(var(--cut-animation-speed) / 2) 1,
             ${bleed} calc(var(--cut-animation-speed) * 2)
-              var(--bleed-timing-function)
-              calc(var(--bleed-animation-speed) - 200ms) 1;
+              var(--bleed-timing-function) var(--bleed-animation-delay) 1;
           animation-fill-mode: forwards;
         `
       : css``};
