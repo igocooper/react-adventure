@@ -98,7 +98,7 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     currentHealth: 60,
     initiative: 12,
     attackType: ATTACK_TYPE.MELEE,
-    hitChance: 95,
+    hitChance: 5,
     criticalChance: 5,
     criticalMultiplier: 2,
     defence: 20,

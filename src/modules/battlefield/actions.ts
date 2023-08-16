@@ -7,9 +7,7 @@ export {
   setActivePlayer,
   setActiveSkill,
   addUsedSkills,
-  resetUsedSkills,
-  addAddedEffects,
-  resetAddedEffects
+  resetUsedSkills
 } from './reducers/roundSlice';
 export {
   setTroopers,
@@ -54,12 +52,6 @@ export const attackStarted =
 
 export const attackFinished =
   createAction<Pick<Trooper, 'id' | 'team'>>('attack_finished');
-
-export const supportStarted =
-  createAction<Pick<Trooper, 'id' | 'team'>>('support_started');
-
-export const supportFinished =
-  createAction<Pick<Trooper, 'id' | 'team'>>('support_finished');
 
 export const finishRound = createAction<number>('finish_round');
 

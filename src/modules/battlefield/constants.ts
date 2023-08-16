@@ -100,7 +100,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
     team: 'defenders',
     abilities: [
       createPoisonAbility({
-        duration: 1,
+        duration: 2,
         damage: 10,
         hitChance: 75
       })

@@ -15,14 +15,12 @@ type State = {
   activePlayer: PlayerInfo;
   activeSkill: ActiveSkill;
   usedSkills: string[];
-  addedEffects: string[];
 };
 
 const initialState = {
   round: 0,
   initiative: [] as PlayerInfo[],
   usedSkills: [] as string[],
-  addedEffects: [] as string[],
   activePlayer: { id: 0, index: 0 },
   activeSkill: null as ActiveSkill
 };
@@ -51,15 +49,6 @@ export const roundSlice = createSlice({
         ...state,
         usedSkills: [] as string[]
       };
-    },
-    addAddedEffects: (state: State, action: PayloadAction<string>) => {
-      state.addedEffects.push(action.payload);
-    },
-    resetAddedEffects: (state: State) => {
-      return {
-        ...state,
-        addedEffects: [] as string[]
-      };
     }
   }
 });
@@ -70,9 +59,7 @@ export const {
   setActivePlayer,
   setActiveSkill,
   addUsedSkills,
-  resetUsedSkills,
-  addAddedEffects,
-  resetAddedEffects
+  resetUsedSkills
 } = roundSlice.actions;
 
 export const roundReducer = roundSlice.reducer;
