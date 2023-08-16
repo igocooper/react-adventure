@@ -3,7 +3,7 @@ import { call } from 'typed-redux-saga';
 import { finishTrooperTurn } from 'modules/battlefield/sagas/roundSaga';
 import anchorIcon from './icons/anchor.png';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
-import { EFFECT } from 'common/constants';
+import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { getEffectNode } from '../../../effectsNodesMap';
 import theme from 'theme/defaultTheme';
@@ -15,6 +15,7 @@ export const createAnchorEffect = ({
 }): Effect => {
   return {
     name: EFFECT.ANCHOR,
+    type: EFFECT_TYPE.CURSE,
     description: `${EFFECT.ANCHOR} effect. Skips target turn.`,
     duration,
     once: true,

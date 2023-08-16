@@ -8,6 +8,7 @@ import { Resistance } from 'common/components/Resistance';
 import { Content, Row } from './styled';
 import { Info } from './components/Info';
 import { Abilities } from './components/Abilities';
+import { Effects } from './components/Effects';
 import { getCharacterProps } from '../../helpers/getCharacterProps';
 import { CharacterAnimation } from 'modules/animation/containers/CharacterAnimation';
 import { Skills } from './components/Skills';
@@ -45,6 +46,7 @@ export const CharacterDetailsDialogContainer = ({ id }: { id: number }) => {
         </Slot>
         <Abilities abilities={character.abilities} />
         <Skills skills={character.skills} />
+        <Effects effects={character.effects} />
       </Content>
     </Dialog>
   );

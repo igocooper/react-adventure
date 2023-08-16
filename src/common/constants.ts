@@ -103,6 +103,10 @@ export enum ABILITY_TYPE {
   CURSE = 'curse',
   BUFF = 'buff'
 }
+export enum EFFECT_TYPE {
+  CURSE = 'curse',
+  BUFF = 'buff'
+}
 
 export enum ABILITY {
   POISON = 'Poison',

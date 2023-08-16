@@ -6,6 +6,7 @@ import type {
   SKILL,
   ATTACK_TYPE,
   ABILITY_TYPE,
+  EFFECT_TYPE,
   DAMAGE_TYPE,
   HELMET_TYPE,
   TARGET
@@ -17,6 +18,7 @@ export type AttackType = `${ATTACK_TYPE}`;
 export type DamageType = `${DAMAGE_TYPE}`;
 export type AbilityName = `${ABILITY}`;
 export type AbilityType = `${ABILITY_TYPE}`;
+export type EffectType = `${EFFECT_TYPE}`;
 export type EffectName = `${EFFECT}`;
 export type HelmetType = `${HELMET_TYPE}`;
 export type SkillName = `${SKILL}`;
@@ -47,6 +49,7 @@ type ApplyEffect = (props: ApplyEffectProps) => void;
 
 export type Effect = {
   name: EffectName;
+  type: EffectType;
   description: string;
   duration: number;
   once?: boolean;
