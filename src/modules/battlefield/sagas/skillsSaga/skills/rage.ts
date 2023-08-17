@@ -1,11 +1,15 @@
 import type { Skill } from 'common/types';
 import { SKILL, TARGET } from 'common/constants';
+import { wait } from 'common/helpers';
 import icon from './icons/rage.png';
-import { put, select } from 'typed-redux-saga';
+import { fork, call, put, select } from 'typed-redux-saga';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
+import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { createMightEffect } from '../../effectsSaga/effects';
+import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 
+export const RAGE_EFFECT_DURATION = 1200;
 export const createRageSkill = ({
   duration = 2,
   coolDown
@@ -27,6 +31,17 @@ export const createRageSkill = ({
       duration,
       multiplier: 1.2
     });
+
+    const effectNode = getEffectNode(activeTrooper.id);
+    const rageAnimation = yield* call(
+      getAreaEffectAnimationInstance,
+      SKILL.RAGE
+    );
+
+    yield* fork(rageAnimation!.play);
+    // yield* call(wait, 200);
+    effectNode!.classList.add(SKILL.RAGE.toLowerCase());
+    yield* call(wait, RAGE_EFFECT_DURATION);
 
     yield* put(
       addEffect({
