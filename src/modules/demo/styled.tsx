@@ -73,3 +73,12 @@ export const Hero = styled.div<HeroProps>`
 
   transition: ${({ $time }) => `left ${$time}ms linear, top ${$time}ms linear`};
 `;
+
+export const Sword = styled.img.attrs({
+  src: '/images/weapons/swords/meat-cutter.png',
+})`
+  position: absolute;
+  top: 500px;
+  left: 1890px;
+  width: 120px;
+`

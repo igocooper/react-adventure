@@ -5,7 +5,8 @@ import {
   Hero,
   Viewport,
   Border,
-  Foreground
+  Foreground,
+  Sword
 } from './styled';
 import { useLocation } from 'common/hooks/useLocation';
 import { getCharacterProps } from '../battlefield/helpers/getCharacterProps';
@@ -23,6 +24,7 @@ import {
 } from '../battlefield/troopersNodesMap';
 import { useDispatch } from 'store/hooks';
 import { wait } from 'common/helpers/wait';
+import { updateCharacterImages } from '../../common/helpers';
 
 type Position = {
   x: number;
@@ -44,6 +46,7 @@ export const Demo = () => {
   });
   const [bgPositionX, setBgPositionX] = useState(0);
   const [forwardDirection, setDirection] = useState(true);
+  const [isRunning, setIsRunning] = useState(false);
   const timeRef = useRef(1000);
   const scrollTimeRef = useRef(1000);
 
@@ -56,6 +59,10 @@ export const Demo = () => {
   );
 
   const handleClick = async (event) => {
+    if (isRunning) {
+      return;
+    }
+    setIsRunning(true);
     const { width: viewportWidth } =
       viewportRef.current!.getBoundingClientRect();
     const { width: locationWidth } =
@@ -111,6 +118,7 @@ export const Demo = () => {
 
     await wait(timeRef.current);
     void characterRef.current.idle();
+    setIsRunning(false);
   };
 
   return (
@@ -123,6 +131,22 @@ export const Demo = () => {
           $positionX={bgPositionX}
           $location={location}
         >
+          <Sword
+            onClick={(e) => {
+              const url = e.target.src;
+              e.target.remove();
+
+              updateCharacterImages(
+                [
+                  {
+                    url,
+                    itemSlot: 'Left Hand Weapon.png'
+                  }
+                ],
+                CHARACTER.id
+              )
+            }}
+          />
           <Hero
             $forwardDirection={forwardDirection}
             $time={timeRef.current}
@@ -142,8 +166,8 @@ export const Demo = () => {
             />
           </Hero>
         </Location>
-        <Border style={{ zIndex: 1 }} />
-        <Border style={{ right: 0, left: 'initial' }} />
+        {/*<Border style={{ zIndex: 1 }} />*/}
+        {/*<Border style={{ right: 0, left: 'initial' }} />*/}
       </Viewport>
     </Container>
   );
