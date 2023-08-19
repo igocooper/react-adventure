@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import cursorDefaultImg from '../battlefield/images/cursors/cursor-default.png';
 import { LocationName } from '../battlefield/types';
+import wallSrc from './images/wall.png';
 
 export const Container = styled.div`
   display: flex;
@@ -15,20 +16,44 @@ export const Container = styled.div`
 
 type LocationProps = {
   $location: LocationName;
+  $positionX: number;
+  $time: number;
+  $scrollTime: number;
 };
 
-export const Location = styled.div<LocationProps>`
+export const Viewport = styled.div`
+  position: relative;
   width: 100vw;
   height: 100vh;
-  background-size: cover;
-  background-position: 0;
+  cursor: url(${cursorDefaultImg}), auto;
+`
+export const Border = styled.div`
+  width: 33%;
+  border: 1px solid red;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`
+
+export const Foreground = styled.img.attrs({
+  src: wallSrc,
+})`
+  width: 100%;
+`
+
+export const Location = styled.div<LocationProps>`
+  position: absolute;
+  top: 0;
+  left: ${({ $positionX }) => `${$positionX}px`};
+  width: 2940px;
+  height: 100%;
+  background-size: contain;
+  background-position: 0 center;
   background-repeat: repeat;
-  display: flex;
-  justify-content: center;
-  transition: background-position 200ms linear;
+  transition: ${({ $scrollTime }) => `left ${$scrollTime}ms linear`};
   background-image: url(${({ $location }) =>
     `/images/locations/${$location}.png`});
-  cursor: url(${cursorDefaultImg}), auto;
 `;
 
 type HeroProps = {
@@ -36,8 +61,6 @@ type HeroProps = {
     x: number;
     y: number;
   };
-  $speedX?: number;
-  $speedY?: number;
   $forwardDirection: boolean;
   $time: number;
 };
@@ -50,6 +73,3 @@ export const Hero = styled.div<HeroProps>`
 
   transition: ${({ $time }) => `left ${$time}ms linear, top ${$time}ms linear`};
 `;
-
-// transition: ${({ $speedX, $speedY }) =>
-// `left ${$speedX}ms linear, top ${$speedY}ms linear`};

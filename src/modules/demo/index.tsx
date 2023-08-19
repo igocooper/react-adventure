@@ -1,5 +1,12 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { Container, Location, Hero } from './styled';
+import {
+  Container,
+  Location,
+  Hero,
+  Viewport,
+  Border,
+  Foreground
+} from './styled';
 import { useLocation } from 'common/hooks/useLocation';
 import { getCharacterProps } from '../battlefield/helpers/getCharacterProps';
 import { CHARACTER } from '../wardrobe/constants';
@@ -15,7 +22,6 @@ import {
   getTrooperNode
 } from '../battlefield/troopersNodesMap';
 import { useDispatch } from 'store/hooks';
-import { useKeyPress } from 'common/hooks/useKeyPress';
 import { wait } from 'common/helpers/wait';
 
 type Position = {
@@ -23,22 +29,23 @@ type Position = {
   y: number;
 };
 
-const STEP_X = 200;
-const STEP_Y = 50;
-const SPEED_X = 800;
-const SPEED_Y = 400;
-const SPEED_BASE = .6;
+const SPEED_BASE = 0.3;
+const BG_SCROLL_STEP = 500;
 
 export const Demo = () => {
   const location = useLocation();
   const characterRef = useRef<CharacterAnimation>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const locationRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const [position, setPosition] = useState<Position>({
     x: 0,
     y: 400
   });
+  const [bgPositionX, setBgPositionX] = useState(0);
   const [forwardDirection, setDirection] = useState(true);
   const timeRef = useRef(1000);
+  const scrollTimeRef = useRef(1000);
 
   const handleLoad = useCallback(
     ({ id, canvasNode, instance }: OnLoadArgs) => {
@@ -49,124 +56,95 @@ export const Demo = () => {
   );
 
   const handleClick = async (event) => {
-    if (!characterRef.current) return;
-    characterRef.current.run();
-
+    const { width: viewportWidth } =
+      viewportRef.current!.getBoundingClientRect();
+    const { width: locationWidth } =
+      locationRef.current!.getBoundingClientRect();
     const heroNode = getTrooperNode(CHARACTER.id);
+    const heroBounds = heroNode!.getBoundingClientRect();
 
-    const {
-      x: currentHeroX,
-      y: currentHeroY,
-      width,
-      height
-    } = heroNode!.getBoundingClientRect();
+    const maxBgPosition = 0;
+    const minBgPosition = viewportWidth - locationWidth;
+    const leftScrollArea = viewportWidth / 3;
+    const rightScrollArea = (viewportWidth / 3) * 2;
 
-    if (currentHeroX > event.clientX) {
+    const x = event.clientX - heroBounds.width / 2;
+    const y = event.clientY - heroBounds.height / 2;
+
+    // check X instead of heroBounds.x to turn hero and disable back tracking
+    if (heroBounds.x + heroBounds.width / 2 > event.clientX) {
       setDirection(false);
     } else {
       setDirection(true);
     }
 
-    const x = event.clientX - width / 2;
-    const y = event.clientY - height / 2;
+    if (!characterRef.current) return;
+    characterRef.current.run();
 
+    if (event.clientX >= rightScrollArea) {
+      setBgPositionX((state) =>
+        Math.max(state - BG_SCROLL_STEP, minBgPosition)
+      );
+    }
+
+    if (event.clientX <= leftScrollArea) {
+      setBgPositionX((state) =>
+        Math.min(state + BG_SCROLL_STEP, maxBgPosition)
+      );
+    }
+
+    // hypotenuse a^2 + b^2 = c^2
     const distance = Math.floor(
       Math.sqrt(
-        Math.pow(Math.abs(currentHeroX - x), 2) +
-          Math.pow(Math.abs(currentHeroY - y), 2)
+        Math.pow(Math.abs(heroBounds.x - x), 2) +
+          Math.pow(Math.abs(heroBounds.y - y), 2)
       )
     );
 
     timeRef.current = distance / SPEED_BASE;
-
-    console.log('time', timeRef.current);
-    console.log('distance', distance);
-    console.log('speed', SPEED_BASE);
+    scrollTimeRef.current = BG_SCROLL_STEP / SPEED_BASE;
 
     setPosition(() => ({
       y,
-      x
+      x: x - bgPositionX
     }));
 
     await wait(timeRef.current);
     void characterRef.current.idle();
   };
 
-  const onMoveRight = async () => {
-    if (!characterRef.current) return;
-    characterRef.current.run();
-    setPosition((state) => ({
-      y: state.y,
-      x: state.x + STEP_X
-    }));
-    setDirection(true);
-    await wait(SPEED_X);
-    void characterRef.current.idle();
-  };
-
-  const onMoveLeft = async () => {
-    if (!characterRef.current) return;
-    characterRef.current.run();
-    setPosition((state) => ({
-      y: state.y,
-      x: state.x - STEP_X
-    }));
-    setDirection(false);
-    await wait(SPEED_X);
-    void characterRef.current.idle();
-  };
-
-  const onMoveUp = async () => {
-    if (!characterRef.current) return;
-    characterRef.current.run();
-    setPosition((state) => ({
-      y: state.y - STEP_Y,
-      x: state.x
-    }));
-    await wait(SPEED_Y);
-    void characterRef.current.idle();
-  };
-
-  const onMoveDown = async () => {
-    if (!characterRef.current) return;
-    characterRef.current.run();
-    setPosition((state) => ({
-      y: state.y + STEP_Y,
-      x: state.x
-    }));
-    await wait(SPEED_Y);
-    void characterRef.current.idle();
-  };
-
-  useKeyPress('ArrowRight', onMoveRight);
-  useKeyPress('ArrowLeft', onMoveLeft);
-  useKeyPress('ArrowUp', onMoveUp);
-  useKeyPress('ArrowDown', onMoveDown);
-
   return (
     <Container>
-      <Location $location={location} onClick={handleClick}>
-        <Hero
-          $forwardDirection={forwardDirection}
-          // $speedX={SPEED_X}
-          // $speedY={SPEED_Y}
+      <Viewport ref={viewportRef} onClick={handleClick}>
+        <Location
+          ref={locationRef}
           $time={timeRef.current}
-          $position={position}
+          $scrollTime={scrollTimeRef.current}
+          $positionX={bgPositionX}
+          $location={location}
         >
-          <CharacterAnimation
-            ref={characterRef}
-            {...getCharacterProps({
-              type: CHARACTER.type,
-              equipment: CHARACTER.equipment,
-              appearance: CHARACTER.appearance,
-              damageType: DAMAGE_TYPE.PHYSICAL
-            })}
-            id={CHARACTER.id}
-            team={TROOPER_TEAM.ATTACKERS}
-            onLoad={handleLoad}
-          />
-        </Hero>
-      </Location>
+          <Hero
+            $forwardDirection={forwardDirection}
+            $time={timeRef.current}
+            $position={position}
+          >
+            <CharacterAnimation
+              ref={characterRef}
+              {...getCharacterProps({
+                type: CHARACTER.type,
+                equipment: CHARACTER.equipment,
+                appearance: CHARACTER.appearance,
+                damageType: DAMAGE_TYPE.PHYSICAL
+              })}
+              id={CHARACTER.id}
+              team={TROOPER_TEAM.ATTACKERS}
+              onLoad={handleLoad}
+            />
+          </Hero>
+        </Location>
+        <Border style={{ zIndex: 1 }} />
+        <Border style={{ right: 0, left: 'initial' }} />
+      </Viewport>
     </Container>
   );
 };
