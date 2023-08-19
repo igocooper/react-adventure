@@ -9,7 +9,7 @@ export const Area = styled.div.attrs(({ $team }: AreaProps) => ({
   className: `${$team || ''}`
 }))<AreaProps>`
   display: flex;
-  top: 60%;
+  top: 50%;
   width: 800px;
   height: 500px;
   position: absolute;

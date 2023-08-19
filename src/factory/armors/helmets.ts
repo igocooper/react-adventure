@@ -10,6 +10,15 @@ export const deathKnightHelmet: Helmet = {
   }
 };
 
+export const destroyerHelmet: Helmet = {
+  name: 'Destroyer Helmet',
+  imageSrc: '/images/helmets/Destroyer Helmet.png',
+  type: HELMET_TYPE.LARGE,
+  stats: {
+    defence: 10
+  }
+};
+
 export const gladiatorFullHelmet: Helmet = {
   name: 'Gladiator Full Helmet',
   imageSrc: '/images/helmets/Gladiator Full Helmet.png',
