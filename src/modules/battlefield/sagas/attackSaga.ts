@@ -105,7 +105,7 @@ function* playCounterAttackAnimation({
 
   if (isDying) {
     yield* all([
-      call([attackedTrooperAnimationInstance!, 'attack']),
+      call([attackedTrooperAnimationInstance!, 'attack'], { hasMissed }),
       call([activeTrooperAnimationInstance!, 'die']),
       put(
         applyDamage({
@@ -126,7 +126,7 @@ function* playCounterAttackAnimation({
 
   if (hasMissed) {
     yield* all([
-      call([attackedTrooperAnimationInstance!, 'attack']),
+      call([attackedTrooperAnimationInstance!, 'attack'], { hasMissed }),
       put(
         applyDamage({
           damage,
@@ -142,7 +142,7 @@ function* playCounterAttackAnimation({
   }
 
   yield* all([
-    call([attackedTrooperAnimationInstance!, 'attack']),
+    call([attackedTrooperAnimationInstance!, 'attack'], { hasMissed }),
     call([activeTrooperAnimationInstance!, 'hurt']),
     put(
       applyDamage({
@@ -253,7 +253,8 @@ export function* playMeleeAttackAnimation({
   yield* call([activeTrooperAnimationInstance!, 'meleeAttack'], {
     characterBounds: activeTrooperBounds,
     targetBounds: attackedTrooperBounds,
-    tileNode
+    tileNode,
+    hasMissed
   });
 
   if (isDying) {

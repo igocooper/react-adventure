@@ -8,6 +8,7 @@ import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 import type { Trooper } from 'modules/battlefield/types';
 import { Canvas } from './styled';
 import { TROOPER_TEAM } from '../../battlefield/constants';
+import SFX from 'modules/sounds';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -208,11 +209,13 @@ export class CharacterAnimation extends Component<Props> {
   async meleeAttack({
     characterBounds,
     targetBounds,
-    tileNode
+    tileNode,
+    hasMissed
   }: {
     characterBounds: DOMRect;
     targetBounds: DOMRect;
     tileNode: HTMLDivElement;
+    hasMissed: boolean;
   }) {
     this.run();
     const styles = this.getTargetStyles(
@@ -226,7 +229,9 @@ export class CharacterAnimation extends Component<Props> {
 
     await wait(this.meleeAttackTransitionTime);
     tileNode.style.zIndex = '7';
-    await this.attack();
+    await this.attack({
+      hasMissed
+    });
   }
 
   async meleeGoBack({ tileNode }: { tileNode: HTMLDivElement }) {
@@ -269,6 +274,7 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async die() {
+    void SFX.humanDie.play();
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation(animationMap?.dying || 'dying_with_left_hand_weapon');
@@ -277,7 +283,12 @@ export class CharacterAnimation extends Component<Props> {
     await wait(this.anim_length);
   }
 
-  async attack() {
+  async attack({ hasMissed }: { hasMissed: boolean }) {
+    if (hasMissed) {
+      void SFX.miss.play();
+    } else {
+      void SFX.swordHit.play();
+    }
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation(animationMap?.attack || 'slashing_with_left_hand');
@@ -288,6 +299,7 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async cast() {
+    void SFX.fireBall.play();
     const { castEffectImageUrl } = this.props;
     if (castEffectImageUrl) {
       try {
@@ -307,6 +319,7 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async shoot() {
+    void SFX.shoot.play();
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation('shoot_with_bow');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
