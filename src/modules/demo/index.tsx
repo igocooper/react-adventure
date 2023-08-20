@@ -6,12 +6,14 @@ import {
   Viewport,
   Border,
   Foreground,
-  Sword
+  Sword,
+  DestroyerArmor,
+  DestroyerHelmet
 } from './styled';
 import { useLocation } from 'common/hooks/useLocation';
 import { getCharacterProps } from '../battlefield/helpers/getCharacterProps';
 import { CHARACTER } from '../wardrobe/constants';
-import { DAMAGE_TYPE } from '../../common/constants';
+import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE } from '../../common/constants';
 import { TROOPER_TEAM } from '../battlefield/constants';
 import {
   CharacterAnimation,
@@ -25,6 +27,7 @@ import {
 import { useDispatch } from 'store/hooks';
 import { wait } from 'common/helpers/wait';
 import { updateCharacterImages } from '../../common/helpers';
+import { destroyerArmor } from '../../factory/armors';
 
 type Position = {
   x: number;
@@ -44,6 +47,7 @@ export const Demo = () => {
     x: 0,
     y: 400
   });
+  const [equipment, setEquipment] = useState({});
   const [bgPositionX, setBgPositionX] = useState(0);
   const [forwardDirection, setDirection] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
@@ -120,7 +124,7 @@ export const Demo = () => {
     void characterRef.current.idle();
     setIsRunning(false);
   };
-
+  
   return (
     <Container>
       <Viewport ref={viewportRef} onClick={handleClick}>
@@ -144,9 +148,69 @@ export const Demo = () => {
                   }
                 ],
                 CHARACTER.id
-              )
+              );
             }}
           />
+          <DestroyerArmor
+            onClick={(e) => {
+              e.target.remove();
+
+              updateCharacterImages(
+                [
+                  {
+                    url: '/images/armors/destroyer/Body.png',
+                    itemSlot: 'Body.png'
+                  },
+                  {
+                    url: '/images/armors/destroyer/Right Arm.png',
+                    itemSlot: 'Right Arm.png'
+                  },
+                  {
+                    url: '/images/armors/destroyer/Right Hand.png',
+                    itemSlot: 'Right Hand.png'
+                  },
+                  {
+                    url: '/images/armors/destroyer/Right Leg.png',
+                    itemSlot: 'Right Leg.png'
+                  },
+                  {
+                    url: '/images/armors/destroyer/Left Arm.png',
+                    itemSlot: 'Left Arm.png'
+                  },
+                  {
+                    url: '/images/armors/destroyer/Left Hand.png',
+                    itemSlot: 'Left Hand.png'
+                  },
+                  {
+                    url: '/images/armors/destroyer/Left Leg.png',
+                    itemSlot: 'Left Leg.png'
+                  }
+                ],
+                CHARACTER.id
+              );
+
+              // setEquipment({
+              //   armor: destroyerArmor
+              // });
+            }}
+          />
+          <DestroyerHelmet onClick={(e) => {
+            e.target.remove();
+
+            updateCharacterImages(
+              [
+                { url: '/images/helmets/Destroyer Helmet.png', itemSlot: 'Head Armor High.png' },
+                { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_01 },
+                { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_02 },
+                { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_03 },
+                { url: '', itemSlot: CHARACTER_IMAGE_SLOT.HEAD },
+                { url: '', itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR },
+                { url: '', itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD },
+              ],
+              CHARACTER.id
+            );
+
+          }}/>
           <Hero
             $forwardDirection={forwardDirection}
             $time={timeRef.current}
@@ -156,7 +220,7 @@ export const Demo = () => {
               ref={characterRef}
               {...getCharacterProps({
                 type: CHARACTER.type,
-                equipment: CHARACTER.equipment,
+                equipment,
                 appearance: CHARACTER.appearance,
                 damageType: DAMAGE_TYPE.PHYSICAL
               })}

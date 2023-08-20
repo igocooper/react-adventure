@@ -82,3 +82,21 @@ export const Sword = styled.img.attrs({
   left: 1890px;
   width: 120px;
 `
+
+export const DestroyerArmor = styled.img.attrs({
+  src: '/images/armors/destroyer/Body.png',
+})`
+  position: absolute;
+  top: 300px;
+  left: 1490px;
+  width: 100px;
+`
+
+export const DestroyerHelmet = styled.img.attrs({
+  src: '/images/helmets/Destroyer Helmet.png',
+})`
+  position: absolute;
+  top: 350px;
+  left: 1390px;
+  width: 100px;
+`
