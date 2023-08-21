@@ -4,11 +4,11 @@ import { WEAPON_TYPE } from 'common/constants';
 
 const detectSFXBasedOnType = (type: WeaponType) => {
   if (type === WEAPON_TYPE.WOODEN_STAFF) {
-    return SFX.stickHitFlesh;
+    return SFX.stickHit;
   }
 
   if (type === WEAPON_TYPE.MACE || type === WEAPON_TYPE.AXE) {
-    return SFX.axeHitFlash;
+    return SFX.axeHit;
   }
 
   return SFX.swordHit;

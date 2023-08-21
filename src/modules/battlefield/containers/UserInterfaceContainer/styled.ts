@@ -8,4 +8,5 @@ export const Interface = styled.div.attrs({
   top: 0;
   display: flex;
   justify-content: space-between;
+  pointer-events: none;
 `;

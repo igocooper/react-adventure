@@ -38,6 +38,10 @@ export const Effects = styled.div`
   gap: 8px;
   margin-top: 24px;
   flex-wrap: wrap;
+
+  & > * {
+    pointer-events: initial;
+  }
 `;
 
 type ContainerProps = {
@@ -57,6 +61,10 @@ export const Skills = styled.div<ContainerProps>`
           align-items: flex-end;
         `
       : ''}
+
+  & > * {
+    pointer-events: initial;
+  }
 `;
 
 export const ContainerInner = styled.div`
@@ -89,6 +97,7 @@ export const Icon = styled.img<IconProps>`
   border: #573000 solid 2px;
   background: rgba(29, 20, 8, 0.9);
   filter: drop-shadow(2px 4px 6px black);
+  pointer-events: initial;
 
   ${({ disabled }) => {
     if (!disabled) {

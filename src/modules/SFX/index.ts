@@ -5,10 +5,11 @@ import battleTheme2 from './music/battleTheme2.aac';
 import click from './sounds/click.aac';
 import hover from './sounds/hover.aac';
 import swordHit from './sounds/swordHit.m4a';
-import axeHitFlash from './sounds/axeHitFlesh.aac';
+import swordHitFullPlate from './sounds/swordHitFullplate.aac';
+import axeHit from './sounds/axeHitFlesh.aac';
 import axeHitFullPlate from './sounds/axeHitFullPlate.aac';
-import stickHitFlesh from './sounds/stickHitFullPlate.aac';
-import stickHitFullPlate from './sounds/stickHitFlesh.aac';
+import stickHitFullPlate from './sounds/stickHitFullPlate.aac';
+import stickHit from './sounds/stickHitFlesh.aac';
 
 import maleDie from './sounds/maleDie.m4a';
 import femaleGrunt from './sounds/femaleGrunt.aac';
@@ -37,10 +38,11 @@ export default {
   click: createAudio(click, { volume: 0.2 }),
   hover: createAudio(hover, { volume: 0.05 }),
   swordHit: createAudio(swordHit),
-  axeHitFlash: createAudio(axeHitFlash),
+  swordHitFullPlate: createAudio(swordHitFullPlate),
+  axeHit: createAudio(axeHit),
   axeHitFullPlate: createAudio(axeHitFullPlate),
   stickHitFullPlate: createAudio(stickHitFullPlate),
-  stickHitFlesh: createAudio(stickHitFlesh),
+  stickHit: createAudio(stickHit),
   bowShoot: createAudio(bowShoot),
   maleDie: createAudio(maleDie, { volume: 0.2 }),
   femaleDie: createAudio(femaleDie, { volume: 0.2 }),

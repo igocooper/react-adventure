@@ -238,7 +238,7 @@ function* handleTrooperClick({
     yield* put(attackStarted(clickedTrooperInfo));
 
     yield* take(attackFinished);
-    // yield* put(finishTrooperTurnAction());
+    yield* put(finishTrooperTurnAction());
   }
 
   if (activeSkill?.target === TARGET.ALLY) {
