@@ -23,7 +23,7 @@ export const MagmaGeyser = forwardRef(
         ref={ref}
         src="/images/sprites/magma-geyser.png"
         frames={frames}
-        fps={15}
+        fps={13}
         {...props}
       />
     );

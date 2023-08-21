@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
 import {
   crookedStaff,
   rustyAxe,
@@ -22,6 +22,7 @@ export const goblin1 = (overrides: Partial<Trooper>) =>
     skills: {},
     ...overrides,
     type: 'goblin-1',
+    sex: SEX.MALE,
     baseDamage: '1-3',
     damage: '1-3',
     damageType: DAMAGE_TYPE.PHYSICAL,
@@ -43,6 +44,7 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
     skills: {},
     ...overrides,
     type: 'goblin-2',
+    sex: SEX.MALE,
     baseDamage: '2-3',
     damage: '2-3',
     damageType: DAMAGE_TYPE.PHYSICAL,
@@ -66,6 +68,7 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
     skills: {},
     ...overrides,
     type: 'goblin-3',
+    sex: SEX.MALE,
     baseDamage: '3-4',
     damage: '3-4',
     damageType: DAMAGE_TYPE.PHYSICAL,
@@ -91,14 +94,15 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     skills: {},
     ...overrides,
     type: 'armored-goblin',
+    sex: SEX.MALE,
     baseDamage: '3-4',
     damage: '3-4',
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
-    initiative: 12,
+    initiative: 5,
     attackType: ATTACK_TYPE.MELEE,
-    hitChance: 5,
+    hitChance: 95,
     criticalChance: 5,
     criticalMultiplier: 2,
     defence: 20,
@@ -120,6 +124,7 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     type: 'goblin-buffer',
+    sex: SEX.FEMALE,
     baseDamage: '3-4',
     damage: '3-4',
     damageType: DAMAGE_TYPE.PHYSICAL,

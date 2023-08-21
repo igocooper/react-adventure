@@ -7,6 +7,7 @@ import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { getEffectNode } from '../../../effectsNodesMap';
 import theme from 'theme/defaultTheme';
+import SFX from 'modules/SFX';
 
 export const createAnchorEffect = ({
   duration
@@ -22,6 +23,7 @@ export const createAnchorEffect = ({
     done: false,
     applyEffect: function* ({ activeTrooper }) {
       return function* () {
+        void SFX.skipTurn.play();
         yield* call(publishDamageEvent, {
           id: activeTrooper.id,
           value: 'Skipped',

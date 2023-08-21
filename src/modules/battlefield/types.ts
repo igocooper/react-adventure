@@ -55,6 +55,7 @@ export type Trooper = Character & {
   AIType?: string;
   currentTargetId?: number;
   hasWaited?: boolean;
+  castSFX?: HTMLAudioElement;
 };
 
 export type Coordinate = {

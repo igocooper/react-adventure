@@ -1,10 +1,13 @@
 import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
 import { call, put } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
+import SFX from 'modules/SFX';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import healIcon from './icons/continues-heal.png';
 import { CHARACTER_IMAGE_SLOT, EFFECT, EFFECT_TYPE } from 'common/constants';
 import { updateCharacterImages } from 'common/helpers';
+import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
+import theme from 'theme/defaultTheme';
 
 export const createContinuesHealEffect = ({
   duration,
@@ -41,6 +44,13 @@ export const createContinuesHealEffect = ({
       activeTrooper.id
     );
 
+    yield* call(publishDamageEvent, {
+      id: activeTrooper.id,
+      value: `+${heal}`,
+      color: theme.colors.heal,
+      delay: 400
+    });
+
     yield* put(
       applyHeal({
         id: activeTrooper.id,
@@ -48,6 +58,7 @@ export const createContinuesHealEffect = ({
         team: activeTrooper.team
       })
     );
+    void SFX.healed.play();
     yield* call([activeTrooperAnimationInstance!, 'effected']);
   },
   iconSrc: healIcon

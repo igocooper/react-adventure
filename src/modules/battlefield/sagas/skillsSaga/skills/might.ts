@@ -6,6 +6,7 @@ import { addEffect } from 'modules/battlefield/actions';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
+import SFX from 'modules/SFX';
 import { applyBuffs } from '../../abilitiesSaga';
 import { createMightEffect } from '../../effectsSaga/effects';
 
@@ -54,7 +55,9 @@ export const createMightSkill = ({
     }
 
     // Visualise active trooper cast and apply buffs
-    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+    yield* fork([activeTrooperAnimationInstance!, 'cast'], {
+      castSFX: SFX.buff
+    });
     yield* call(applyBuffs, { id: targetTrooper.id });
 
     // Visualise enlarge effect

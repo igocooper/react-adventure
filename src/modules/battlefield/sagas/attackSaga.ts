@@ -18,7 +18,8 @@ import {
 } from '../selectors';
 import {
   getElementBoundsWithinContainer,
-  getRandomNumberInRange
+  getRandomNumberInRange,
+  wait
 } from 'common/helpers';
 import { AREA_CONTAINER_ID, TROOPER_TEAM } from '../constants';
 import { ATTACK_TYPE, DAMAGE_TYPE } from 'common/constants';
@@ -28,6 +29,7 @@ import { getTrooperNode } from '../troopersNodesMap';
 import { applyCurses } from './abilitiesSaga';
 import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
 import type { DamageType } from 'common/types';
+import { detectHitSFX } from 'modules/SFX/helpers/detectHitSFX';
 
 function* getEnemyCoordinates(id: Trooper['id']) {
   const tileNode = getTileNode(id);
@@ -105,7 +107,9 @@ function* playCounterAttackAnimation({
 
   if (isDying) {
     yield* all([
-      call([attackedTrooperAnimationInstance!, 'attack'], { hasMissed }),
+      call([attackedTrooperAnimationInstance!, 'attack'], {
+        sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+      }),
       call([activeTrooperAnimationInstance!, 'die']),
       put(
         applyDamage({
@@ -126,7 +130,9 @@ function* playCounterAttackAnimation({
 
   if (hasMissed) {
     yield* all([
-      call([attackedTrooperAnimationInstance!, 'attack'], { hasMissed }),
+      call([attackedTrooperAnimationInstance!, 'attack'], {
+        sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+      }),
       put(
         applyDamage({
           damage,
@@ -142,7 +148,9 @@ function* playCounterAttackAnimation({
   }
 
   yield* all([
-    call([attackedTrooperAnimationInstance!, 'attack'], { hasMissed }),
+    call([attackedTrooperAnimationInstance!, 'attack'], {
+      sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+    }),
     call([activeTrooperAnimationInstance!, 'hurt']),
     put(
       applyDamage({
@@ -172,6 +180,7 @@ function* playRangeAttackAnimation({
   hasMissed: boolean;
   damageType: DamageType;
 }) {
+  const activeTrooper = yield* select(activeTrooperSelector);
   const activeTrooperAnimationInstance = yield* call(
     getTrooperAnimationInstance,
     activeTrooperId
@@ -188,7 +197,9 @@ function* playRangeAttackAnimation({
   if (damageType === DAMAGE_TYPE.PHYSICAL) {
     yield* call([activeTrooperAnimationInstance!, 'shoot']);
   } else {
-    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+    yield* fork([activeTrooperAnimationInstance!, 'cast'], {
+      castSFX: activeTrooper!.castSFX
+    });
   }
   yield* call([rangeAttackAnimation!, 'play']);
 
@@ -254,7 +265,7 @@ export function* playMeleeAttackAnimation({
     characterBounds: activeTrooperBounds,
     targetBounds: attackedTrooperBounds,
     tileNode,
-    hasMissed
+    sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
   });
 
   if (isDying) {
@@ -415,9 +426,12 @@ function* handleEnemyTrooperDamage({
 export function* attack({
   payload: selectedTrooperInfo
 }: {
-  payload: Pick<Trooper, 'id' | 'team'>;
+  payload: Pick<Trooper, 'id' | 'team'> & {
+    effectAnimationDelay?: number;
+  };
 }) {
   const activeTrooper = yield* select(activeTrooperSelector);
+  const { effectAnimationDelay } = selectedTrooperInfo;
   const selectedTrooper = yield* select(
     makeCharacterByIdSelector(selectedTrooperInfo.id)
   );
@@ -438,7 +452,9 @@ export function* attack({
       activeTrooper.id
     );
 
-    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+    yield* fork([activeTrooperAnimationInstance!, 'cast'], {
+      castSFX: activeTrooper.castSFX
+    });
 
     const tasks = [];
     const coordinates = [];
@@ -463,6 +479,10 @@ export function* attack({
       getAreaEffectAnimationInstance,
       activeTrooper.attackId!
     );
+
+    if (effectAnimationDelay) {
+      yield* call(wait, effectAnimationDelay);
+    }
 
     yield* call([attackAnimation!, 'play'], coordinates);
 

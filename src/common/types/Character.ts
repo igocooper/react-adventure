@@ -9,6 +9,8 @@ import type {
   EFFECT_TYPE,
   DAMAGE_TYPE,
   HELMET_TYPE,
+  WEAPON_TYPE,
+  SEX,
   TARGET
 } from '../constants';
 
@@ -21,7 +23,9 @@ export type AbilityType = `${ABILITY_TYPE}`;
 export type EffectType = `${EFFECT_TYPE}`;
 export type EffectName = `${EFFECT}`;
 export type HelmetType = `${HELMET_TYPE}`;
+export type WeaponType = `${WEAPON_TYPE}`;
 export type SkillName = `${SKILL}`;
+export type Sex = `${SEX}`;
 export type SkillTarget = `${TARGET}`;
 
 export type ApplyAbilityProps = {
@@ -122,7 +126,9 @@ export type Character = {
   equipment: Equipment;
   abilities: Ability[];
   skills: Skills;
+  sex: Sex;
   effects: Effect[];
+  castSFX?: HTMLAudioElement;
 };
 
 export type ArmorStats = {
@@ -179,6 +185,7 @@ export type Bow = {
 
 export type Weapon = {
   name: string;
+  type: WeaponType;
   imageSrc: string;
   stats: WeaponStats;
 };

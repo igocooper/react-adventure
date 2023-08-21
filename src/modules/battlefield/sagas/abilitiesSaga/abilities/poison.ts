@@ -8,6 +8,7 @@ import { EFFECT, ABILITY_TYPE, ABILITY } from 'common/constants';
 import poisonIcon from './icons/poison.png';
 import { publishDamageEvent } from '../../damageEventsSaga';
 import theme from 'theme/defaultTheme';
+import SFX from 'modules/SFX';
 
 export const createPoisonAbility = ({
   duration,
@@ -45,6 +46,7 @@ export const createPoisonAbility = ({
         EFFECT.POISON
       );
 
+      void SFX.poison.play();
       yield* call(poisonAnimation!.play);
 
       yield* put(

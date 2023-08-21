@@ -86,7 +86,7 @@ export const troopsSlice = createSlice({
       return payload;
     },
     setTrooperCurrentTargetId: (
-      state: TroopsState,
+      state,
       {
         payload: { currentTargetId, activeTrooperId, team }
       }: PayloadAction<{
@@ -104,7 +104,7 @@ export const troopsSlice = createSlice({
       }
     },
     applyDamage: (
-      state: TroopsState,
+      state,
       {
         payload: { team, damage, id: targetId }
       }: PayloadAction<ApplyDamagePayload>
@@ -118,7 +118,7 @@ export const troopsSlice = createSlice({
       }
     },
     applyHeal: (
-      state: TroopsState,
+      state,
       { payload: { team, heal, id: targetId } }: PayloadAction<ApplyHealPayload>
     ) => {
       state[team] = state[team].map((troop) => {
@@ -131,7 +131,7 @@ export const troopsSlice = createSlice({
       });
     },
     setEffectDuration: (
-      state: TroopsState,
+      state,
       action: PayloadAction<SetEffectDurationPayload>
     ) => {
       const { team, id, name, duration } = action.payload;
@@ -142,10 +142,7 @@ export const troopsSlice = createSlice({
         effect.duration = duration;
       }
     },
-    setEffectDone: (
-      state: TroopsState,
-      action: PayloadAction<SetEffectDonePayload>
-    ) => {
+    setEffectDone: (state, action: PayloadAction<SetEffectDonePayload>) => {
       const { team, id, name, value } = action.payload;
       const trooper = state[team]?.find((target) => target.id === id);
       const effect = trooper!.effects.find((target) => target.name === name);

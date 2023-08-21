@@ -2,6 +2,7 @@ import type { Effect } from 'modules/battlefield/types';
 import icon from './icons/bleeding.png';
 import { DAMAGE_TYPE, EFFECT, EFFECT_TYPE } from 'common/constants';
 import { createApplyDamageEffect } from './generators/createApplyDamageEffect';
+import SFX from 'modules/SFX';
 
 export const createBleedingEffect = ({
   duration,
@@ -19,7 +20,10 @@ export const createBleedingEffect = ({
   applyEffect: createApplyDamageEffect({
     damage,
     damageType: DAMAGE_TYPE.BLOOD,
-    characterEffectImgSrc: '/images/effects/bleeding.png'
+    characterEffectImgSrc: '/images/effects/bleeding.png',
+    sfx: () => {
+      void SFX.bleed.play();
+    }
   }),
   iconSrc: icon
 });

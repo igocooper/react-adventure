@@ -1,9 +1,10 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
 import { waterMageStaff } from 'factory/weapons';
 import { ATTACK_ID_ICE_SPIKES } from 'modules/battlefield/characters/WaterMage/constants';
 import { createKrakenSkill } from 'modules/battlefield/sagas/skillsSaga/skills/kraken';
+import SFX from 'modules/SFX';
 
 export const waterMage = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -20,6 +21,7 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     type: 'water-mage',
+    sex: SEX.MALE,
     baseDamage: '1-3',
     damage: '1-3',
     health: 50,
@@ -29,5 +31,6 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     damageType: DAMAGE_TYPE.WATER,
     attackType: ATTACK_TYPE.SPLASH,
     attackId: ATTACK_ID_ICE_SPIKES,
+    castSFX: SFX.iceSpikes,
     defence: 0
   }) as Trooper;

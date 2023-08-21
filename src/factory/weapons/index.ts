@@ -5,7 +5,7 @@ import { staffs } from './staffs';
 
 export * from './swords';
 export * from './staffs';
-export * from './bows';
+export * from '../bows';
 export * from './axes';
 export * from './maces';
 

@@ -2,6 +2,7 @@ import type { Effect } from 'modules/battlefield/types';
 import poisonIcon from './icons/poison.png';
 import { DAMAGE_TYPE, EFFECT, EFFECT_TYPE } from 'common/constants';
 import { createApplyDamageEffect } from './generators/createApplyDamageEffect';
+import SFX from '../../../../SFX';
 
 export const createPoisonEffect = ({
   duration,
@@ -19,7 +20,10 @@ export const createPoisonEffect = ({
   applyEffect: createApplyDamageEffect({
     damage,
     damageType: DAMAGE_TYPE.POISON,
-    characterEffectImgSrc: '/images/effects/poison.png'
+    characterEffectImgSrc: '/images/effects/poison.png',
+    sfx: () => {
+      void SFX.poison.play();
+    }
   }),
   iconSrc: poisonIcon
 });

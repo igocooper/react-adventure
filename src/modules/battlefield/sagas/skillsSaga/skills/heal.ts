@@ -6,7 +6,10 @@ import { applyHeal } from 'modules/battlefield/actions';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { updateCharacterImages } from 'common/helpers';
+import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
+import theme from 'theme/defaultTheme';
 import { applyBuffs } from '../../abilitiesSaga';
+import SFX from 'modules/SFX';
 
 export const createHealSkill = (): Skill => ({
   iconSrc: icon,
@@ -46,7 +49,16 @@ export const createHealSkill = (): Skill => ({
       targetTrooper.id
     );
 
-    yield* fork([activeTrooperAnimationInstance!, 'cast']);
+    yield* fork([activeTrooperAnimationInstance!, 'cast'], {
+      castSFX: SFX.heal
+    });
+
+    yield* call(publishDamageEvent, {
+      id: targetTrooper.id,
+      value: `+${heal}`,
+      color: theme.colors.heal,
+      delay: 400
+    });
 
     yield* put(
       applyHeal({
