@@ -15,6 +15,7 @@ import { createBleedingEffect } from '../../effectsSaga/effects';
 import { publishDamageEvent } from '../../damageEventsSaga';
 import { playMeleeAttackAnimation, calculateDamage } from '../../attackSaga';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
+import SFX from 'modules/SFX';
 
 export const createHemorrhageSkill = ({
   duration = 2,
@@ -76,6 +77,7 @@ export const createHemorrhageSkill = ({
         EFFECT.BLEEDING
       );
 
+      void SFX.bleed.play();
       yield* call(bleedingAnimation!.play);
 
       yield* put(

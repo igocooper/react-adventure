@@ -24,6 +24,7 @@ import {
   ContainerInner
 } from '../styled';
 import type { Skill as SkillType } from 'common/types';
+import SFX from 'modules/SFX';
 
 type Props = {
   imageSrc?: string;
@@ -37,6 +38,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
   const { id, team, hasWaited } = activeTrooper || {};
 
   const handleBlock = useCallback(() => {
+    void SFX.click.play();
     if (id && team) {
       dispatch(
         blockClicked({
@@ -48,6 +50,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
   }, [dispatch, id, team]);
 
   const handleWait = useCallback(() => {
+    void SFX.click.play();
     if (id && team && !hasWaited) {
       dispatch(
         waitClicked({
@@ -60,6 +63,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
 
   const handleSkillClick = useCallback(
     (skill: SkillType) => {
+      void SFX.click.play();
       dispatch(setActiveSkill(skill));
     },
     [dispatch, id, team]
@@ -79,8 +83,15 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
         {imageSrc && (
           <Wrapper>
             <TrooperImage $src={imageSrc} $health={healthLeft} />
-            <WaitIcon onClick={handleWait} disabled={hasWaited} />
-            <BlockIcon onClick={handleBlock} />
+            <WaitIcon
+              onClick={handleWait}
+              disabled={hasWaited}
+              onMouseOver={SFX.hover.play.bind(SFX.hover)}
+            />
+            <BlockIcon
+              onClick={handleBlock}
+              onMouseOver={SFX.hover.play.bind(SFX.hover)}
+            />
           </Wrapper>
         )}
         <Info

@@ -6,7 +6,8 @@ const colors = {
   poison: '#1f7713',
   critical: '#c20606',
   black: '#000',
-  white: '#fff'
+  white: '#fff',
+  heal: '#32a265'
 };
 
 export default colors;

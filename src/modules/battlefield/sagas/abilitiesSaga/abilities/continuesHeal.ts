@@ -6,6 +6,7 @@ import { getRandomNumberInRange } from 'common/helpers';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { ABILITY, ABILITY_TYPE, EFFECT } from 'common/constants';
 import icon from './icons/continues-heal.png';
+import SFX from 'modules/SFX';
 
 export const createContinuesHealAbility = ({
   duration,
@@ -35,6 +36,7 @@ export const createContinuesHealAbility = ({
         EFFECT.CONTINUES_HEAL
       );
 
+      void SFX.continuesHeal.play();
       yield* call(healAnimation!.play);
 
       yield* put(

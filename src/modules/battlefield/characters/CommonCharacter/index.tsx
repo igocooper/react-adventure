@@ -6,7 +6,7 @@ import type { Trooper } from '../../types';
 
 export type CommonCharacterProps = Pick<
   Trooper,
-  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType'
+  'id' | 'appearance' | 'team' | 'equipment' | 'type' | 'damageType' | 'sex'
 > & {
   onLoad?: (props: OnLoadArgs) => void;
 };

@@ -39,6 +39,10 @@ module.exports = {
     '@typescript-eslint/promise-function-async': 'off',
     '@typescript-eslint/no-dynamic-delete': 'off',
     'space-before-function-paren': 'off',
+    '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/return-await': 'off',
     semi: 'off'
   }
 };

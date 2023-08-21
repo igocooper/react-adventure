@@ -19,7 +19,7 @@ export const torugArmor: Armor = {
 export const destroyerArmor: Armor = {
   name: 'Destroyer Armor',
   imageUrls: {
-    body: '/images/armor/Body.png',
+    body: '/images/armors/destroyer/Body.png',
     rightHand: '/images/armors/destroyer/Right Hand.png',
     rightArm: '/images/armors/destroyer/Right Arm.png',
     rightLeg: '/images/armors/destroyer/Right Leg.png',

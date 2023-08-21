@@ -13,11 +13,13 @@ import { finishTrooperTurn } from 'modules/battlefield/actions';
 export const createApplyDamageEffect = ({
   damage,
   damageType,
-  characterEffectImgSrc
+  characterEffectImgSrc,
+  sfx
 }: {
   damage: number;
   damageType: DamageType;
   characterEffectImgSrc: string;
+  sfx?: () => void;
 }) =>
   function* ({ activeTrooper }: ApplyEffectProps) {
     const isDying = damage >= activeTrooper.currentHealth;
@@ -51,6 +53,9 @@ export const createApplyDamageEffect = ({
     );
 
     if (isDying) {
+      if (sfx) {
+        yield* call(sfx);
+      }
       yield* call([activeTrooperAnimationInstance!, 'effected']);
       yield* fork([activeTrooperAnimationInstance!, 'die']);
       yield* put(
@@ -61,6 +66,9 @@ export const createApplyDamageEffect = ({
       );
       yield* put(finishTrooperTurn());
     } else {
+      if (sfx) {
+        yield* call(sfx);
+      }
       yield* call([activeTrooperAnimationInstance!, 'effected']);
     }
   };

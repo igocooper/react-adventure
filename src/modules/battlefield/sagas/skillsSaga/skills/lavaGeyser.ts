@@ -7,6 +7,7 @@ import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { modifyTrooper as modifyTrooperAction } from 'modules/battlefield/actions';
 import { ATTACK_ID_LAVA_GEYSER } from 'modules/battlefield/characters/MountainMage/constants';
 import { attack } from '../../attackSaga';
+import SFX from 'modules/SFX';
 
 export const createLavaGeyserSkill = ({
   damageMod,
@@ -37,7 +38,8 @@ export const createLavaGeyserSkill = ({
       attackId: activeTrooper.attackId,
       attackType: activeTrooper.attackType,
       damageType: activeTrooper.damageType,
-      damage: activeTrooper.damage
+      damage: activeTrooper.damage,
+      castSFX: activeTrooper.castSFX
     };
 
     const [minDamage, maxDamage] = getDamage(activeTrooper.damage);
@@ -51,7 +53,8 @@ export const createLavaGeyserSkill = ({
           attackId: ATTACK_ID_LAVA_GEYSER,
           attackType: ATTACK_TYPE.SPLASH,
           damageType: DAMAGE_TYPE.FIRE,
-          damage
+          damage,
+          castSFX: SFX.lavaGeyser
         }
       })
     );
@@ -59,7 +62,8 @@ export const createLavaGeyserSkill = ({
     yield* call(attack, {
       payload: {
         id: targetTrooper.id,
-        team: targetTrooper.team
+        team: targetTrooper.team,
+        effectAnimationDelay: 400
       }
     });
 

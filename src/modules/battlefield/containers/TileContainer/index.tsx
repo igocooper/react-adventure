@@ -23,6 +23,7 @@ import { openDialog } from 'modules/dialogs/actions';
 import { register } from 'modules/animation/troopersAnimationInstances';
 import { registerTrooperNode } from '../../troopersNodesMap';
 import type { OnLoadArgs } from 'modules/animation/containers/CharacterAnimation';
+import SFX from 'modules/SFX';
 
 type CharacterProps = Pick<
   Trooper,
@@ -36,6 +37,7 @@ type CharacterProps = Pick<
   | 'equipment'
   | 'damageType'
   | 'attackId'
+  | 'sex'
 > & {
   containerNode?: HTMLElement;
 };
@@ -51,7 +53,8 @@ export const TileContainer = ({
   appearance,
   containerNode,
   damageType,
-  attackId
+  attackId,
+  sex
 }: CharacterProps) => {
   const dispatch = useDispatch();
   const hoveredElement = useSelector(hoveredElementSelector);
@@ -64,6 +67,7 @@ export const TileContainer = ({
 
   const handleMouseEnter = useCallback(() => {
     if (!isBattlefieldDisabled) {
+      void SFX.hover.play();
       dispatch(setHoveredElement({ id, type: HOVERED_ELEMENT_TYPE.CHARACTER }));
     }
   }, [dispatch, isBattlefieldDisabled]);
@@ -86,6 +90,7 @@ export const TileContainer = ({
   const handleRightClick = useCallback(
     (event: MouseEvent) => {
       event.preventDefault();
+      void SFX.click.play();
       if (id) {
         dispatch(
           openDialog({
@@ -152,6 +157,7 @@ export const TileContainer = ({
             id={id}
             team={team}
             onLoad={handleLoad}
+            sex={sex}
           />
         </Character>
       </EffectContainer>

@@ -8,6 +8,8 @@ import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 import type { Trooper } from 'modules/battlefield/types';
 import { Canvas } from './styled';
 import { TROOPER_TEAM } from '../../battlefield/constants';
+import SFX from 'modules/SFX';
+import { detectDieSFX } from 'modules/SFX/helpers/detectDieSFX';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -24,7 +26,9 @@ type Props = {
   meleeAttackTransitionTime?: number;
   onLoad?: (props: OnLoadArgs) => void;
   animationMap?: Record<string, string>;
-} & Pick<Trooper, 'id' | 'team'>;
+} & Pick<Trooper, 'id' | 'team'> & {
+    sex?: Trooper['sex'];
+  };
 
 const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = CHARACTER_IMAGE_SLOT;
 
@@ -208,13 +212,16 @@ export class CharacterAnimation extends Component<Props> {
   async meleeAttack({
     characterBounds,
     targetBounds,
-    tileNode
+    tileNode,
+    sfx
   }: {
     characterBounds: DOMRect;
     targetBounds: DOMRect;
     tileNode: HTMLDivElement;
+    sfx: HTMLAudioElement;
   }) {
     this.run();
+    SFX.run.play();
     const styles = this.getTargetStyles(
       characterBounds,
       targetBounds,
@@ -226,11 +233,15 @@ export class CharacterAnimation extends Component<Props> {
 
     await wait(this.meleeAttackTransitionTime);
     tileNode.style.zIndex = '7';
-    await this.attack();
+    SFX.run.pause();
+    await this.attack({
+      sfx
+    });
   }
 
   async meleeGoBack({ tileNode }: { tileNode: HTMLDivElement }) {
     this.run();
+    SFX.run.play();
     this.canvasRef.current!.style.transform =
       this.props.team === 'attackers' ? 'rotate3d(0, 1, 0, 180deg)' : 'initial';
     tileNode.style.transform = 'translate(0, 0)';
@@ -241,6 +252,7 @@ export class CharacterAnimation extends Component<Props> {
     tileNode.style.removeProperty('transform');
     tileNode.style.removeProperty('transition');
 
+    SFX.run.pause();
     this.idle();
   }
 
@@ -269,7 +281,10 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async die() {
-    const { animationMap } = this.props;
+    const { animationMap, sex } = this.props;
+    const sfx = detectDieSFX(sex!);
+
+    void sfx.play();
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation(animationMap?.dying || 'dying_with_left_hand_weapon');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
@@ -277,7 +292,10 @@ export class CharacterAnimation extends Component<Props> {
     await wait(this.anim_length);
   }
 
-  async attack() {
+  async attack({ sfx }: { sfx?: HTMLAudioElement } = {}) {
+    if (sfx) {
+      void sfx.play();
+    }
     const { animationMap } = this.props;
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation(animationMap?.attack || 'slashing_with_left_hand');
@@ -287,7 +305,10 @@ export class CharacterAnimation extends Component<Props> {
     this.idle();
   }
 
-  async cast() {
+  async cast({ castSFX }: { castSFX?: HTMLAudioElement } = {}) {
+    if (castSFX) {
+      void castSFX.play();
+    }
     const { castEffectImageUrl } = this.props;
     if (castEffectImageUrl) {
       try {
@@ -307,6 +328,7 @@ export class CharacterAnimation extends Component<Props> {
   }
 
   async shoot() {
+    void SFX.bowShoot.play();
     cancelAnimationFrame(this.animationRequestId);
     this.setAnimation('shoot_with_bow');
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SkillIcon, Container, CoolDown } from './styled';
 import type { Skill as SkillType } from 'common/types';
+import SFX from 'modules/SFX';
 
 type SkillProps = SkillType & {
   active?: boolean;
@@ -13,7 +14,7 @@ export const Skill = ({ active, onClick, ...skill }: SkillProps) => {
     ? (skill.currentCoolDown / skill.coolDown) * 100
     : 100;
   return (
-    <Container>
+    <Container onMouseOver={SFX.hover.play.bind(SFX.hover)}>
       <SkillIcon
         src={skill.iconSrc}
         active={active}

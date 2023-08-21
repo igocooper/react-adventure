@@ -7,6 +7,7 @@ import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { modifyTrooper as modifyTrooperAction } from 'modules/battlefield/actions';
 import { ATTACK_ID_KRAKEN } from 'modules/battlefield/characters/WaterMage/constants';
 import { attack } from '../../attackSaga';
+import SFX from 'modules/SFX';
 
 export const createKrakenSkill = ({
   damageMod,
@@ -35,7 +36,8 @@ export const createKrakenSkill = ({
       attackId: activeTrooper.attackId,
       attackType: activeTrooper.attackType,
       damageType: activeTrooper.damageType,
-      damage: activeTrooper.damage
+      damage: activeTrooper.damage,
+      castSFX: activeTrooper.castSFX
     };
 
     const [minDamge, maxDamage] = getDamage(activeTrooper.damage);
@@ -47,6 +49,7 @@ export const createKrakenSkill = ({
         team: activeTrooper.team,
         updates: {
           attackId: ATTACK_ID_KRAKEN,
+          castSFX: SFX.kraken,
           attackType: ATTACK_TYPE.SPLASH,
           damageType: DAMAGE_TYPE.WATER,
           damage

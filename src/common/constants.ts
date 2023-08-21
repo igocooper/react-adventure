@@ -83,6 +83,14 @@ export const FACE_CUT_URLS = [
   '/images/blood/Face Cut 09.png'
 ];
 
+export enum WEAPON_TYPE {
+  SWORD = 'sword',
+  MACE = 'mace',
+  AXE = 'axe',
+  STAFF = 'staff',
+  WOODEN_STAFF = 'wooden staff'
+}
+
 export enum HELMET_TYPE {
   FULL_FACE = 'FULL_FACE',
   LARGE = 'LARGE',
@@ -126,6 +134,10 @@ export enum EFFECT {
   CONTINUES_HEAL = 'Continues Heal'
 }
 
+export enum SEX {
+  MALE = 'male',
+  FEMALE = 'female'
+}
 export enum SKILL {
   HEMORRHAGE_HACK = 'Hemorrhage Hack',
   KRAKEN = 'Kraken',

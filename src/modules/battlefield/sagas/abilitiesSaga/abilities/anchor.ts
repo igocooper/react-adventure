@@ -8,8 +8,9 @@ import { ABILITY_TYPE, ABILITY } from 'common/constants';
 import theme from 'theme/defaultTheme';
 import icon from './icons/anchor.png';
 import { getRandomNumberInRange, wait } from 'common/helpers';
+import SFX from 'modules/SFX';
 
-export const ANCHOR_EFFECT_DURATION = 1500;
+export const ANCHOR_EFFECT_DURATION = 1200;
 export const createAnchorAbility = ({
   duration,
   hitChance
@@ -40,9 +41,9 @@ export const createAnchorAbility = ({
         id: targetTrooper.id,
         value: 'Anchored',
         color: theme.colors.black,
-        delay: 900
+        delay: 400
       });
-
+      void SFX.anchor.play();
       effectNode!.classList.add(ABILITY.ANCHOR.toLowerCase());
       yield* call(wait, ANCHOR_EFFECT_DURATION);
 

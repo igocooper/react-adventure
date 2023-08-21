@@ -1,6 +1,6 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
-import { ATTACK_TYPE, DAMAGE_TYPE, SKILL } from 'common/constants';
+import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
 import { oldWoodenStaff } from 'factory/weapons';
 import { createContinuesHealAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
 import { createHealSkill } from 'modules/battlefield/sagas/skillsSaga/skills';
@@ -23,6 +23,7 @@ export const priest1 = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     type: 'priest-1',
+    sex: SEX.MALE,
     baseDamage: '1-3',
     damage: '1-3',
     damageType: DAMAGE_TYPE.PHYSICAL,

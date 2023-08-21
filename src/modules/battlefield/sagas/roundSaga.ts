@@ -51,6 +51,7 @@ import { applySkill } from './skillsSaga';
 import { createBlockEffect } from './effectsSaga/effects/block';
 import { getAreaEffectAnimationInstance } from '../../animation/areaEffectsAnimationInstances';
 import type { TroopsState } from '../reducers/troopsSlice';
+import SFX from 'modules/SFX';
 
 function* resetHasWaitedTrooperStatus() {
   const attackers = yield* select(attackersSelector);
@@ -294,6 +295,7 @@ function* handleBlockClick() {
       EFFECT.BLOCK
     );
 
+    void SFX.shield.play();
     yield* call(blockAnimation!.play);
     yield* call(blockEffect.applyEffect, { activeTrooper });
     yield* put(

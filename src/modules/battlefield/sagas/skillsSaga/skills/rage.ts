@@ -8,6 +8,7 @@ import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { createMightEffect } from '../../effectsSaga/effects';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
+import SFX from 'modules/SFX';
 
 export const RAGE_EFFECT_DURATION = 1200;
 export const createRageSkill = ({
@@ -39,6 +40,7 @@ export const createRageSkill = ({
     );
 
     yield* fork(rageAnimation!.play);
+    void SFX.rage.play();
     // yield* call(wait, 200);
     effectNode!.classList.add(SKILL.RAGE.toLowerCase());
     yield* call(wait, RAGE_EFFECT_DURATION);

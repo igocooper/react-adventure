@@ -20,6 +20,7 @@ import { useLocation } from 'common/hooks/useLocation';
 import { TileContainer } from '../TileContainer';
 import { AnimationAreaContainer } from '../AnimationAreaContainer';
 import { UserInterfaceContainer } from '../UserInterfaceContainer';
+import { SoundControl } from '../SoundControl';
 
 export const BattlefieldContainer = () => {
   const attackers = useSelector(attackersSelector);
@@ -57,6 +58,7 @@ export const BattlefieldContainer = () => {
 
   return (
     <Battlefield $disabled={isBattleFieldDisabled} onClick={resetActiveSkill}>
+      <SoundControl />
       <Location $cursor={cursor} $location={location}>
         <AnimationAreaContainer>
           {attackers.map(
@@ -70,7 +72,8 @@ export const BattlefieldContainer = () => {
               equipment,
               appearance,
               damageType,
-              attackId
+              attackId,
+              sex
             }: Trooper) => (
               <TileContainer
                 key={id}
@@ -84,6 +87,7 @@ export const BattlefieldContainer = () => {
                 appearance={appearance}
                 damageType={damageType}
                 attackId={attackId}
+                sex={sex}
               />
             )
           )}
@@ -98,7 +102,8 @@ export const BattlefieldContainer = () => {
               equipment,
               appearance,
               damageType,
-              attackId
+              attackId,
+              sex
             }: Trooper) => (
               <TileContainer
                 key={id}
@@ -112,6 +117,7 @@ export const BattlefieldContainer = () => {
                 appearance={appearance}
                 damageType={damageType}
                 attackId={attackId}
+                sex={sex}
               />
             )
           )}
