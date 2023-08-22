@@ -43,6 +43,7 @@ export type Ability = {
 
 export type ApplyEffectProps = {
   activeTrooper: Trooper;
+  originalProperties?: Partial<Trooper>;
 };
 
 type ApplyDelayedEffect = (

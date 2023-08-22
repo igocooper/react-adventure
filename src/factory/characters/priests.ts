@@ -35,3 +35,5 @@ export const priest1 = (overrides: Partial<Trooper>) =>
     defence: 0,
     healPower: 10
   }) as Trooper;
+
+export const priests = [priest1]

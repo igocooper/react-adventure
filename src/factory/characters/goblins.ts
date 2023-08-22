@@ -138,3 +138,5 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     defence: 20,
     evadeChance: 5
   }) as Trooper;
+
+export const goblins = [goblinBuffer, armoredGoblin, goblin3, goblin2, goblin1];

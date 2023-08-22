@@ -131,7 +131,8 @@ export enum EFFECT {
   HEX = 'Hex',
   WEAKNESS = 'Weakness',
   BLOCK = 'Block',
-  CONTINUES_HEAL = 'Continues Heal'
+  CONTINUES_HEAL = 'Continues Heal',
+  DIVINE_SHIELD = 'Divine Shield',
 }
 
 export enum SEX {
@@ -144,7 +145,8 @@ export enum SKILL {
   HEAL = 'Heal',
   MIGHT = 'Might',
   LAVA_GEYSER = 'Lava Geyser',
-  RAGE = 'Rage'
+  RAGE = 'Rage',
+  DIVINE_SHIELD = 'Divine Shield',
 }
 
 export enum TARGET {

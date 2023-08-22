@@ -11,7 +11,7 @@ export function* applyEffects(activeTrooper: Trooper) {
   for (const effect of effects) {
     if (effect.duration === 0) {
       if (effect.cancelEffect) {
-        yield* call(effect.cancelEffect, { activeTrooper });
+        yield* call(effect.cancelEffect, { activeTrooper, originalProperties: effect.originalProperties });
       }
 
       yield* put(

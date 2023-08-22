@@ -23,6 +23,8 @@ import shield from './sounds/shield.aac';
 import poison from './sounds/poison.aac';
 import bleed from './sounds/bleed.aac';
 import anchor from './sounds/anchor.aac';
+import holyShield from './sounds/holyShield.aac';
+import holyRevive from './sounds/holyRevive.aac';
 import lightAura from './sounds/lightAura.aac';
 import heal from './sounds/heal.aac';
 import continuesHeal from './sounds/continuesHeal.aac';
@@ -54,6 +56,8 @@ export default {
   bleed: createAudio(bleed, { volume: 0.4 }),
   buff: createAudio(lightAura, { volume: 0.2 }),
   anchor: createAudio(anchor, { volume: 0.4 }),
+  holyShield: createAudio(holyShield, { volume: 0.4 }),
+  holyRevive: createAudio(holyRevive, { volume: 0.4 }),
   skipTurn: createAudio(skipTurn, { volume: 0.3 }),
   waterSpell: createAudio(waterSpell),
   heal: createAudio(heal, { volume: 0.4 }),

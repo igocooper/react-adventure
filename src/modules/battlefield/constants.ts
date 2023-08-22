@@ -9,7 +9,10 @@ import {
   mountainMage,
   waterMage,
   priest1,
-  goblinBuffer
+  goblinBuffer,
+  paladin,
+  darkPaladin,
+  paladinChief
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 
@@ -60,40 +63,45 @@ export enum LOCATION {
 }
 
 const ATTACKERS_TROOPS: Trooper[] = [
-  hero({
+  paladinChief({
     id: 1,
     team: 'attackers',
     position: 2,
     abilities: []
   }),
-  priest1({
-    id: 2,
-    team: 'attackers',
-    position: 4
-  }),
-  mountainArcher({
-    id: 3,
-    team: 'attackers',
-    position: 1
-  }),
-  mountainMage({
-    id: 5,
-    team: 'attackers',
-    position: 6
-  }),
-  waterMage({
-    id: 4,
-    team: 'attackers',
-    position: 5
-  })
+  // priest1({
+  //   id: 2,
+  //   team: 'attackers',
+  //   position: 4
+  // }),
+  // darkPaladin({
+  //   id: 3,
+  //   team: 'attackers',
+  //   position: 1
+  // }),
+  // mountainMage({
+  //   id: 5,
+  //   team: 'attackers',
+  //   position: 6
+  // }),
+  // waterMage({
+  //   id: 4,
+  //   team: 'attackers',
+  //   position: 5
+  // }),
+  // paladin({
+  //   id: 6,
+  //   team: 'attackers',
+  //   position: 3
+  // })
 ];
 
 const DEFENDERS_TROOPS: Trooper[] = [
-  goblin1({
-    id: 101,
-    position: 1,
-    team: 'defenders'
-  }),
+  // goblin1({
+  //   id: 101,
+  //   position: 1,
+  //   team: 'defenders'
+  // }),
   armoredGoblin({
     id: 102,
     position: 2,
@@ -106,21 +114,21 @@ const DEFENDERS_TROOPS: Trooper[] = [
       })
     ]
   }),
-  goblin3({
-    id: 103,
-    position: 3,
-    team: 'defenders'
-  }),
-  goblin2({
-    id: 104,
-    position: 4,
-    team: 'defenders'
-  }),
-  goblinBuffer({
-    id: 105,
-    position: 5,
-    team: 'defenders'
-  })
+  // goblin3({
+  //   id: 103,
+  //   position: 3,
+  //   team: 'defenders'
+  // }),
+  // goblin2({
+  //   id: 104,
+  //   position: 4,
+  //   team: 'defenders'
+  // }),
+  // goblinBuffer({
+  //   id: 105,
+  //   position: 5,
+  //   team: 'defenders'
+  // })
 ];
 
 export const ATTACKERS = ATTACKERS_TROOPS;

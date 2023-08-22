@@ -1,8 +1,8 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SKILL, SEX } from 'common/constants';
-import { rustyBastardSword } from 'factory/weapons';
-import { destroyerArmor, destroyerHelmet } from '../armors';
+import { bastardSword } from 'factory/weapons';
+import { paladinArmor } from '../armors';
 import {
   createHemorrhageSkill,
   createRageSkill
@@ -11,10 +11,9 @@ import {
 export const hero = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: rustyBastardSword,
-      rightHand: rustyBastardSword,
-      armor: destroyerArmor,
-      helmet: destroyerHelmet
+      leftHand: bastardSword,
+      rightHand: bastardSword,
+      armor: paladinArmor
     },
     abilities: [],
     effects: [],

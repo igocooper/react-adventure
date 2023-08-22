@@ -82,3 +82,9 @@ export const mountainArcher = (overrides: Partial<Trooper>) =>
     criticalChance: 10,
     criticalMultiplier: 2
   }) as Trooper;
+
+export const mountainWarriors = [
+  mountainArcher,
+  mountainMage,
+  mountainWarrior1,
+]

@@ -34,3 +34,5 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     castSFX: SFX.iceSpikes,
     defence: 0
   }) as Trooper;
+
+export const mages = [waterMage];
