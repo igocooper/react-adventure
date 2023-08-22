@@ -10,4 +10,5 @@ export { updateCharacterImages } from './updateCharacterImages';
 export { getDamage } from './getDamage';
 export { displayDuration } from './displayDuration';
 export { generateId } from './generateId';
+export { calculateMoveAnimationTime } from './calculateMoveAnimationTime';
 export * from './equipment';

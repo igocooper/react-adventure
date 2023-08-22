@@ -24,7 +24,6 @@ const getDefaultAppearance = (type: string): AppearanceUrls => {
     [CHARACTER_IMAGE_SLOT.RIGHT_ARM]: `/images/characters/${type}/Right Arm.png`,
     [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: `/images/characters/${type}/Right Hand.png`,
     [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: `/images/characters/${type}/Right Leg.png`,
-    [CHARACTER_IMAGE_SLOT.SLASH_FX]: `/images/characters/${type}/SlashFX.png`,
     // Archer images
     ...(type.includes('archer')
       ? {

@@ -26,8 +26,9 @@ type Props = {
   meleeAttackTransitionTime?: number;
   onLoad?: (props: OnLoadArgs) => void;
   animationMap?: Record<string, string>;
-} & Pick<Trooper, 'id' | 'team'> & {
+} & Pick<Trooper, 'id'> & {
     sex?: Trooper['sex'];
+    team?: Trooper['team'];
   };
 
 const { BODY_BLOOD, BODY_CUT, FACE_BLOOD, FACE_CUT } = CHARACTER_IMAGE_SLOT;
@@ -236,13 +237,11 @@ export class CharacterAnimation extends Component<Props> {
     tileNode: HTMLDivElement;
     sfx: HTMLAudioElement;
   }) {
+    const { team } = this.props;
+    if (!team) return;
     this.run();
     SFX.run.play();
-    const styles = this.getTargetStyles(
-      characterBounds,
-      targetBounds,
-      this.props.team
-    );
+    const styles = this.getTargetStyles(characterBounds, targetBounds, team);
 
     tileNode.style.transition = `transform ${this.meleeAttackTransitionTime}ms linear`;
     tileNode.style.transform = styles.transform;
@@ -444,7 +443,7 @@ export class CharacterAnimation extends Component<Props> {
   render() {
     return (
       <Canvas
-        $team={this.props.team}
+        team={this.props.team}
         ref={this.canvasRef}
         width="260"
         height="200"
