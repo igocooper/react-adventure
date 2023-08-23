@@ -8,6 +8,7 @@ import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { getEffectNode } from '../../../effectsNodesMap';
 import theme from 'theme/defaultTheme';
 import SFX from 'modules/SFX';
+import { generateId } from 'common/helpers';
 
 export const createAnchorEffect = ({
   duration
@@ -15,12 +16,14 @@ export const createAnchorEffect = ({
   duration: number;
 }): Effect => {
   return {
+    id: generateId(),
     name: EFFECT.ANCHOR,
     type: EFFECT_TYPE.CURSE,
     description: `${EFFECT.ANCHOR} effect. Skips target turn.`,
     duration,
     once: true,
     done: false,
+    stacks: false,
     applyEffect: function* ({ activeTrooper }) {
       return function* () {
         void SFX.skipTurn.play();

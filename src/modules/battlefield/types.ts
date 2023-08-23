@@ -1,4 +1,4 @@
-import type { Character, Team } from 'common/types';
+import type { Character, Resistance, Team } from 'common/types';
 import type { CURSOR } from 'common/constants';
 
 export type {
@@ -56,6 +56,10 @@ export type Trooper = Character & {
   currentTargetId?: number;
   hasWaited?: boolean;
   castSFX?: HTMLAudioElement;
+  baseWeaponDamage?: string;
+  baseHealth?: number;
+  baseDefence?: number;
+  baseResistance?: Resistance;
 };
 
 export type Coordinate = {

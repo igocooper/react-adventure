@@ -95,8 +95,8 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     ...overrides,
     type: 'armored-goblin',
     sex: SEX.MALE,
-    baseDamage: '3-4',
-    damage: '3-4',
+    baseDamage: '10-20',
+    damage: '10-20',
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
@@ -119,7 +119,7 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     skills: {
       [SKILL.MIGHT]: createMightSkill({
         duration: 2,
-        multiplier: 1.5
+        percent: 50
       })
     },
     ...overrides,

@@ -7,6 +7,7 @@ type Props = Pick<Trooper, 'id'> & {
   children: React.ReactNode;
 };
 
+// This is just a wrapper node around Trooper in Battlefield used to apply different transforms to visualise effects, e.g. transform scale in "Might" effect
 export const EffectContainer = ({ id, children }: Props) => {
   const effectNodeRef = useRef<HTMLDivElement>(null);
 

@@ -11,7 +11,7 @@ import {
 } from 'modules/battlefield/actions';
 import { useDispatch, useSelector } from 'store/hooks';
 import { Info } from '../../components/Info';
-import { Effect } from '../../components/Effect';
+import { Effects } from '../../components/Effects';
 import { Skill } from '../../components/Skill';
 import {
   ActiveContainer,
@@ -19,7 +19,6 @@ import {
   Wrapper,
   WaitIcon,
   BlockIcon,
-  Effects,
   Skills,
   ContainerInner
 } from '../styled';
@@ -105,21 +104,7 @@ export const ActivePlayer = ({ imageSrc }: Props) => {
           evadeChance={activeTrooper.evadeChance}
           defence={activeTrooper.defence}
         />
-        <Effects>
-          {activeTrooper.effects.map(
-            ({ name, iconSrc, duration, description }, index) => {
-              return (
-                <Effect
-                  iconSrc={iconSrc}
-                  key={`${name}-${index}`}
-                  duration={duration}
-                  description={description}
-                  name={name}
-                />
-              );
-            }
-          )}
-        </Effects>
+        <Effects effects={activeTrooper.effects} />
       </ContainerInner>
       <Skills $teamName={activeTrooperTeamName}>
         {Object.entries(activeTrooper.skills || {}).map(
