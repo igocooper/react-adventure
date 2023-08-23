@@ -2,16 +2,16 @@ import type { ApplySkillProps, Skill } from 'common/types';
 import { CHARACTER_IMAGE_SLOT, SKILL, TARGET } from 'common/constants';
 import icon from './icons/divineShield.png';
 import { put, select, call, fork } from 'typed-redux-saga';
-import {addEffect, applyHeal} from 'modules/battlefield/actions';
+import { addEffect } from 'modules/battlefield/actions';
 import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
-import { updateCharacterImages } from 'common/helpers';
-import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
-import theme from 'theme/defaultTheme';
+import { updateCharacterImages, wait } from 'common/helpers';
 import { applyBuffs } from '../../abilitiesSaga';
 import SFX from 'modules/SFX';
 import { createDivineShieldEffect } from '../../effectsSaga/effects/divineShield';
+import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 
+export const DIVINE_SHIELD_EFFECT_DURATION = 800;
 export const createDivineShieldSkill = (
   { duration = 3, coolDown = 8 }: { duration?: number; coolDown?: number } = {
     duration: 1,
@@ -33,22 +33,17 @@ export const createDivineShieldSkill = (
     );
 
     // create effect
-
     const divineShieldEffect = createDivineShieldEffect({
-     duration,
-    })
-
+      duration
+    });
 
     // instantly apply effect
-
     yield* call(divineShieldEffect.applyEffect, {
       activeTrooper: targetTrooper
     });
-
     divineShieldEffect.done = true;
 
     // visualise applying effect animation
-
     SFX.holyShield.play();
 
     // update target trooper effect image
@@ -62,9 +57,11 @@ export const createDivineShieldSkill = (
       ],
       targetTrooper.id
     );
+    yield* fork([targetTrooperAnimationInstance!, 'effected']);
+    const effectNode = getEffectNode(targetTrooper.id);
+    effectNode!.classList.add('divine-shield');
 
-    yield* call([targetTrooperAnimationInstance!, 'effected']);
-
+    yield* call(wait, DIVINE_SHIELD_EFFECT_DURATION);
 
     // add effect to trooper
     yield* put(
@@ -74,7 +71,6 @@ export const createDivineShieldSkill = (
         effect: divineShieldEffect
       })
     );
-
 
     // apply passive buffs if trooper has some
     yield* call(applyBuffs, { id: targetTrooper.id });

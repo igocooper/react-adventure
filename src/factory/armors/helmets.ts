@@ -47,11 +47,10 @@ export const paladinHelmet: Helmet = {
     defence: 15,
     resistance: {
       dark: 30,
-      fire: 10,
+      fire: 10
     }
   }
 };
-
 
 export const darkPaladinHelmet: Helmet = {
   name: 'Paladin Helmet',
@@ -61,7 +60,7 @@ export const darkPaladinHelmet: Helmet = {
     defence: 15,
     resistance: {
       dark: 30,
-      fire: 10,
+      fire: 10
     }
   }
 };
@@ -74,7 +73,7 @@ export const paladinChiefHelmet: Helmet = {
     defence: 20,
     resistance: {
       dark: 50,
-      fire: 20,
+      fire: 20
     }
   }
 };
@@ -105,5 +104,5 @@ export const helmets = [
   fullHelmet,
   gladiatorFullHelmet,
   deathKnightHelmet,
-  destroyerHelmet,
-]
+  destroyerHelmet
+];

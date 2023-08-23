@@ -3,13 +3,14 @@ import { put } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/actions';
 import icon from './icons/divineShield.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
-import type { Resistance } from 'common/types';
+import { generateId } from 'common/helpers';
 
 export const createDivineShieldEffect = ({
   duration
 }: {
   duration: number;
 }): Effect => ({
+  id: generateId(),
   name: EFFECT.DIVINE_SHIELD,
   type: EFFECT_TYPE.BUFF,
   description: `"${EFFECT.DIVINE_SHIELD}" absorbs all damage.`,

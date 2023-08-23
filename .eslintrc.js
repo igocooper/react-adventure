@@ -44,6 +44,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/return-await': 'off',
     'react/display-name': 'off',
+    '@typescript-eslint/consistent-type-assertions': 'off',
     semi: 'off'
   }
 };

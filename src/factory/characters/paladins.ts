@@ -4,16 +4,16 @@ import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
 import { longSword, holyMace, knightSword } from 'factory/weapons';
 import {
   darkPaladinArmor,
-  darkPaladinHelmet,
   darkPaladinShield,
   paladinShield,
   paladinArmor,
-  paladinHelmet,
   paladinChiefShield,
-  paladinChiefArmor,
-  paladinChiefHelmet
+  paladinChiefArmor
 } from '../armors';
-import {createDivineShieldSkill} from "../../modules/battlefield/sagas/skillsSaga/skills";
+import {
+  createDivineShieldSkill,
+  createDivineHealSkill
+} from 'modules/battlefield/sagas/skillsSaga/skills';
 
 export const paladin = (overrides: Partial<Trooper>) =>
   createCharacter({
@@ -26,7 +26,8 @@ export const paladin = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
+      [SKILL.DIVINE_HEAL]: createDivineHealSkill()
     },
     ...overrides,
     appearance: {
@@ -62,7 +63,8 @@ export const darkPaladin = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
+      [SKILL.DIVINE_HEAL]: createDivineHealSkill()
     },
     ...overrides,
     appearance: {
@@ -98,7 +100,8 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
+      [SKILL.DIVINE_HEAL]: createDivineHealSkill()
     },
     ...overrides,
     type: 'paladin-chief',

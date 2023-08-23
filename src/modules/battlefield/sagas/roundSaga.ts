@@ -218,6 +218,7 @@ function* handleTrooperClick({
         !canMeleeTrooperAttack) ||
       (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
         !canMeleeTrooperAttack) ||
+      activeSkill?.target === TARGET.ALLY ||
       isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
     ) {
       yield* put(setBattlefieldStatus(false));

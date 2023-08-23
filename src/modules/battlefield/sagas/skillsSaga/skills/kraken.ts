@@ -42,14 +42,19 @@ export const createKrakenSkill = ({
 
     const [minDamge, maxDamage] = getDamage(activeTrooper.damage);
     const damage = `${minDamge * damageMod}-${maxDamage * damageMod}`;
-
+    const castSFX: HTMLAudioElement = {
+      play: async () => {
+        void SFX.kraken.play();
+        void SFX.waterSpell.play();
+      }
+    } as HTMLAudioElement;
     yield* put(
       modifyTrooperAction({
         id: activeTrooper.id,
         team: activeTrooper.team,
         updates: {
           attackId: ATTACK_ID_KRAKEN,
-          castSFX: SFX.kraken,
+          castSFX,
           attackType: ATTACK_TYPE.SPLASH,
           damageType: DAMAGE_TYPE.WATER,
           damage

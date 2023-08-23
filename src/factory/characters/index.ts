@@ -1,12 +1,11 @@
 import { mages } from './mages';
-
-export { createCharacter } from './createCharacter';
 import { goblins } from './goblins';
 import { hero } from './hero';
 import { paladins } from './paladins';
 import { priests } from './priests';
 import { mountainWarriors } from './mountain-warriors';
 
+export { createCharacter } from './createCharacter';
 export * from './hero';
 export * from './priests';
 export * from './goblins';

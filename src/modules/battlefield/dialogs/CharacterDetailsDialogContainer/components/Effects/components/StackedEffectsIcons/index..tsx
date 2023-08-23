@@ -5,7 +5,9 @@ import { EffectIconsStack } from '../EffectIconsStack';
 import { EffectIcon } from '../EffectIcon';
 
 type Props = {
-  stackedEffects: Record<EffectName, Effect | Effect[]>;
+  stackedEffects: {
+    [K in EffectName]?: Effect | Effect[];
+  };
   title: string;
 };
 export const StackedEffectsIcons = ({ stackedEffects, title }: Props) => {
