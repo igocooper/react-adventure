@@ -20,75 +20,75 @@ export const Tile = styled.div.attrs(
       case 'defenders':
         return css`
           &.tile-1 {
-            top: 150px;
+            top: 120px;
             left: 640px;
             z-index: 1;
           }
 
           &.tile-2 {
-            top: 270px;
+            top: 240px;
             left: 580px;
             z-index: 3;
           }
 
           &.tile-3 {
             left: 510px;
-            top: 390px;
+            top: 360px;
             z-index: 5;
           }
 
           &.tile-4 {
-            top: 140px;
+            top: 110px;
             left: 790px;
             z-index: 2;
           }
 
           &.tile-5 {
-            top: 260px;
+            top: 230px;
             left: 730px;
             z-index: 4;
           }
 
           &.tile-6 {
             z-index: 6;
-            top: 380px;
+            top: 350px;
             left: 660px;
           }
         `;
       default:
         return css`
           &.tile-1 {
-            top: 140px;
+            top: 110px;
             left: 280px;
             z-index: 1;
           }
 
           &.tile-2 {
-            top: 260px;
+            top: 230px;
             left: 220px;
             z-index: 3;
           }
 
           &.tile-3 {
             z-index: 5;
-            top: 380px;
+            top: 350px;
             left: 150px;
           }
 
           &.tile-4 {
-            top: 150px;
+            top: 120px;
             left: 130px;
             z-index: 2;
           }
 
           &.tile-5 {
-            top: 270px;
+            top: 240px;
             left: 70px;
             z-index: 4;
           }
 
           &.tile-6 {
-            top: 390px;
+            top: 360px;
             left: 0;
             z-index: 6;
           }

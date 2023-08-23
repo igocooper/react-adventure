@@ -10,7 +10,7 @@ export const Area = styled.div.attrs(({ $team }: AreaProps) => ({
 }))<AreaProps>`
   display: flex;
   top: 50%;
-  width: 800px;
+  width: 880px;
   height: 500px;
   position: absolute;
   transform: translateY(-50%);
