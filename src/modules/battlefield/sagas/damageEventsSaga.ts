@@ -32,6 +32,10 @@ const getColor = ({
     return colors.poison;
   }
 
+  if (damageType === DAMAGE_TYPE.LIGHT) {
+    return colors.light;
+  }
+
   if (damageType === DAMAGE_TYPE.BLOOD) {
     return colors.blood;
   }

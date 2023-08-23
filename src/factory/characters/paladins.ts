@@ -1,6 +1,7 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
+import { createLightningStrikeAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
 import { longSword, holyMace, knightSword } from 'factory/weapons';
 import {
   darkPaladinArmor,
@@ -23,7 +24,12 @@ export const paladin = (overrides: Partial<Trooper>) =>
       // helmet: paladinHelmet,
       shield: paladinShield
     },
-    abilities: [],
+    abilities: [
+      createLightningStrikeAbility({
+        damage: 15,
+        hitChance: 100
+      })
+    ],
     effects: [],
     skills: {
       [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
@@ -45,7 +51,7 @@ export const paladin = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 80,
     currentHealth: 80,
-    initiative: 4,
+    initiative: 400,
     hitChance: 95,
     damageType: DAMAGE_TYPE.PHYSICAL,
     attackType: ATTACK_TYPE.MELEE,

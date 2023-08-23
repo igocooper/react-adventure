@@ -9,6 +9,7 @@ const colors = {
   white: '#fff',
   heal: '#32a265',
   buff: '#e2d213',
+  light: '#e2d213',
   curse: '#9a1111'
 };
 

@@ -13,6 +13,7 @@ import {
   paladinChief
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
+import { addBaseTrooperProperties } from './helpers/addBaseTrooperProperties';
 
 export enum TROOPER_TEAM {
   ATTACKERS = 'attackers',
@@ -129,7 +130,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
   })
 ];
 
-export const ATTACKERS = ATTACKERS_TROOPS;
-export const DEFENDERS = DEFENDERS_TROOPS;
+export const ATTACKERS = addBaseTrooperProperties(ATTACKERS_TROOPS);
+export const DEFENDERS = addBaseTrooperProperties(DEFENDERS_TROOPS);
 
 export const AREA_CONTAINER_ID = 'area-container';

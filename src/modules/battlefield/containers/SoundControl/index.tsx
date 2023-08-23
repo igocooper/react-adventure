@@ -3,7 +3,7 @@ import { Panel, Icon } from './styled';
 import SFX from 'modules/SFX';
 
 export const SoundControl = () => {
-  const [soundSetting, setSoundSetting] = useState(false);
+  const [soundSetting, setSoundSetting] = useState(true);
   const [musicSetting, setMusicSetting] = useState(false);
   useEffect(() => {
     window.config = { sound: soundSetting };

@@ -120,7 +120,8 @@ export enum ABILITY {
   POISON = 'Poison',
   ANCHOR = 'Anchor',
   CONTINUES_HEAL = 'Continues Heal',
-  MIGHT = 'Might'
+  MIGHT = 'Might',
+  LIGHTNING_STRIKE = 'Lightning Strike'
 }
 
 export enum EFFECT {

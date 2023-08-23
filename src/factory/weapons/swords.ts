@@ -46,7 +46,7 @@ export const knightSword: Weapon = {
   type: WEAPON_TYPE.SWORD,
   imageSrc: '/images/weapons/swords/knight-sword.png',
   stats: {
-    damage: '5-8',
+    damage: '5-8'
   }
 };
 

@@ -86,5 +86,5 @@ export const mountainArcher = (overrides: Partial<Trooper>) =>
 export const mountainWarriors = [
   mountainArcher,
   mountainMage,
-  mountainWarrior1,
-]
+  mountainWarrior1
+];
