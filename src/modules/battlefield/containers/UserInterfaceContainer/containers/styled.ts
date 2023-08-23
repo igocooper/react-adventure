@@ -3,6 +3,7 @@ import type { Team } from 'modules/battlefield/types';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
 import waitIcon from '../images/wait-icon.png';
 import blockIcon from '../images/block-icon.png';
+import { Container as Effects } from '../components/Effects/styled';
 
 type ImageProps = {
   $src?: string;
@@ -30,17 +31,6 @@ export const TrooperImage = styled.div<ImageProps>`
     top: ${({ $health }) => ($health ? `${$health}%` : 0)};
     background: ${({ theme }) => theme.colors.enemy};
     opacity: 0.5;
-  }
-`;
-
-export const Effects = styled.div`
-  display: flex;
-  gap: 8px;
-  margin-top: 24px;
-  flex-wrap: wrap;
-
-  & > * {
-    pointer-events: initial;
   }
 `;
 

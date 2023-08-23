@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type {
-  Trooper,
-  Team,
-  EffectName,
-  Effect
-} from 'modules/battlefield/types';
+import type { Trooper, Team, Effect } from 'modules/battlefield/types';
 import { ATTACKERS, DEFENDERS } from 'modules/battlefield/constants';
 import type { DamageType } from 'common/types';
+import { addBaseTrooperProperties } from '../helpers/addBaseTrooperProperties';
 
 export type TroopsState = {
   attackers: Trooper[];
@@ -32,20 +28,20 @@ type ApplyHealPayload = {
 type SetEffectDurationPayload = {
   id: number;
   duration: number;
-  name: EffectName;
+  effectId: number;
   team: Team;
 };
 
 type SetEffectDonePayload = {
   id: number;
   value: boolean;
-  name: EffectName;
+  effectId: number;
   team: Team;
 };
 
 type RemoveEffectPayload = {
   id: number;
-  name: EffectName;
+  effectId: number;
   team: Team;
 };
 
@@ -83,7 +79,10 @@ export const troopsSlice = createSlice({
   initialState,
   reducers: {
     setTroopers: (_, { payload }: PayloadAction<TroopsState>) => {
-      return payload;
+      return {
+        attackers: addBaseTrooperProperties(payload.attackers),
+        defenders: addBaseTrooperProperties(payload.defenders)
+      };
     },
     setTrooperCurrentTargetId: (
       state,
@@ -134,18 +133,18 @@ export const troopsSlice = createSlice({
       state,
       action: PayloadAction<SetEffectDurationPayload>
     ) => {
-      const { team, id, name, duration } = action.payload;
+      const { team, id, effectId, duration } = action.payload;
       const trooper = state[team]?.find((target) => target.id === id);
-      const effect = trooper!.effects.find((target) => target.name === name);
+      const effect = trooper!.effects.find((target) => target.id === effectId);
 
       if (effect) {
         effect.duration = duration;
       }
     },
     setEffectDone: (state, action: PayloadAction<SetEffectDonePayload>) => {
-      const { team, id, name, value } = action.payload;
+      const { team, id, effectId, value } = action.payload;
       const trooper = state[team]?.find((target) => target.id === id);
-      const effect = trooper!.effects.find((target) => target.name === name);
+      const effect = trooper!.effects.find((target) => target.id === effectId);
 
       if (effect) {
         effect.done = value;
@@ -153,14 +152,16 @@ export const troopsSlice = createSlice({
     },
 
     removeEffect: (state, action: PayloadAction<RemoveEffectPayload>) => {
-      const { team, id, name } = action.payload;
+      const { team, id, effectId } = action.payload;
       return {
         ...state,
         [team]: state[team].map((trooper) => {
           if (trooper.id === id) {
             return {
               ...trooper,
-              effects: trooper.effects.filter((effect) => effect.name !== name)
+              effects: trooper.effects.filter(
+                (effect) => effect.id !== effectId
+              )
             };
           }
           return trooper;
@@ -222,9 +223,25 @@ export const troopsSlice = createSlice({
             const existingEffect = trooper.effects.find(
               (target) => target.name === effect.name
             );
-            // TODO: think more about complex effect merging
-            if (existingEffect) {
-              return trooper;
+
+            // new effect should override previous one
+            if (existingEffect && effect.stacks === false) {
+              // cancel effect which will be overwritten
+              if (existingEffect.cancelEffect) {
+                existingEffect.cancelEffect({
+                  activeTrooper: trooper as Trooper
+                });
+              }
+
+              return {
+                ...trooper,
+                effects: [
+                  ...trooper.effects.filter(
+                    (effect) => effect.id !== existingEffect.id
+                  ),
+                  effect
+                ]
+              };
             }
 
             return {

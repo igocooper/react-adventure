@@ -43,6 +43,7 @@ module.exports = {
     '@typescript-eslint/no-confusing-void-expression': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/return-await': 'off',
+    'react/display-name': 'off',
     semi: 'off'
   }
 };

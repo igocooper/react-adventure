@@ -61,66 +61,12 @@ export const BattlefieldContainer = () => {
       <SoundControl />
       <Location $cursor={cursor} $location={location}>
         <AnimationAreaContainer>
-          {attackers.map(
-            ({
-              id,
-              position,
-              type,
-              team,
-              currentHealth,
-              health,
-              equipment,
-              appearance,
-              damageType,
-              attackId,
-              sex
-            }: Trooper) => (
-              <TileContainer
-                key={id}
-                type={type}
-                id={id}
-                currentHealth={currentHealth}
-                health={health}
-                position={position}
-                team={team}
-                equipment={equipment}
-                appearance={appearance}
-                damageType={damageType}
-                attackId={attackId}
-                sex={sex}
-              />
-            )
-          )}
-          {defenders.map(
-            ({
-              id,
-              position,
-              type,
-              team,
-              currentHealth,
-              health,
-              equipment,
-              appearance,
-              damageType,
-              attackId,
-              sex
-            }: Trooper) => (
-              <TileContainer
-                key={id}
-                type={type}
-                id={id}
-                currentHealth={currentHealth}
-                health={health}
-                position={position}
-                team={team}
-                equipment={equipment}
-                appearance={appearance}
-                damageType={damageType}
-                attackId={attackId}
-                sex={sex}
-              />
-            )
-          )}
+          {attackers.map((trooper: Trooper) => (
+            <TileContainer key={trooper.id} {...trooper} />
+          ))}
+          {defenders.map((trooper: Trooper) => (
+            <TileContainer key={trooper.id} {...trooper} />
+          ))}
         </AnimationAreaContainer>
         <UserInterfaceContainer />
       </Location>

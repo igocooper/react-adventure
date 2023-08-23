@@ -7,7 +7,9 @@ const colors = {
   critical: '#c20606',
   black: '#000',
   white: '#fff',
-  heal: '#32a265'
+  heal: '#32a265',
+  buff: '#e2d213',
+  curse: '#9a1111'
 };
 
 export default colors;

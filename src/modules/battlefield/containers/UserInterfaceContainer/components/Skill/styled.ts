@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { SkillIcon as SkillIconBase } from 'common/components/SkillIcon';
-import { Icon } from 'common/components/SkillIcon/styled';
+import { IconSlot } from 'common/components/IconSlot';
+import { Icon } from 'common/components/IconSlot/styled';
 
 type Props = {
   active?: boolean;
@@ -38,7 +38,7 @@ export const CoolDown = styled.div<CoolDownProps>`
   );
 `;
 
-export const SkillIcon = styled(SkillIconBase).attrs(({ disabled }: Props) => ({
+export const SkillIcon = styled(IconSlot).attrs(({ disabled }: Props) => ({
   className: `skill ${disabled ? 'disabled' : ''}`
 }))<Props>`
   &.disabled {

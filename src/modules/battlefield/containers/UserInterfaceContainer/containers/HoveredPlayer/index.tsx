@@ -5,13 +5,8 @@ import {
 } from 'modules/battlefield/selectors';
 import { useSelector } from 'store/hooks';
 import { Info } from '../../components/Info';
-import { Effect } from '../../components/Effect';
-import {
-  Effects,
-  HoveredContainer,
-  TrooperImage,
-  ContainerInner
-} from '../styled';
+import { Effects } from '../../components/Effects';
+import { HoveredContainer, TrooperImage, ContainerInner } from '../styled';
 
 type Props = {
   imageSrc?: string;
@@ -33,21 +28,7 @@ export const HoveredPlayer = ({ imageSrc }: Props) => {
       <ContainerInner>
         {hoveredTrooper && (
           <>
-            <Effects>
-              {hoveredTrooper.effects.map(
-                ({ name, iconSrc, duration, description }, index) => {
-                  return (
-                    <Effect
-                      iconSrc={iconSrc}
-                      key={`${name}_${index}`}
-                      duration={duration}
-                      name={name}
-                      description={description}
-                    />
-                  );
-                }
-              )}
-            </Effects>
+            <Effects effects={hoveredTrooper.effects} />
             <Info
               currentHealth={hoveredTrooper.currentHealth}
               health={hoveredTrooper.health}

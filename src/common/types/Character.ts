@@ -52,11 +52,14 @@ type ApplyDelayedEffect = (
 type ApplyEffect = (props: ApplyEffectProps) => void;
 
 export type Effect = {
+  id: number;
   name: EffectName;
   type: EffectType;
   description: string;
+  stackInfo?: (duration: number) => string; // used to display info about stacked effects
   duration: number;
   once?: boolean;
+  stacks?: boolean; // allows effect to be applied multiple times to single trooper
   done: boolean;
   applyEffect: ApplyEffect | ApplyDelayedEffect;
   cancelEffect?: (props: ApplyEffectProps) => void;

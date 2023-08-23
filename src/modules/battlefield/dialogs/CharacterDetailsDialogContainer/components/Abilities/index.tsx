@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Trooper } from 'modules/battlefield/types';
 import { Container, Heading } from './styled';
-import { SkillIcon } from 'common/components/SkillIcon';
+import { IconSlot } from 'common/components/IconSlot';
 import { Tooltip } from 'react-tooltip';
 
 type Props = Pick<Trooper, 'abilities'>;
@@ -16,7 +16,7 @@ export const Abilities = ({ abilities }: Props) => {
       <Container>
         {abilities.map((ability, index) => (
           <div key={`${ability.name}-${index}`}>
-            <SkillIcon
+            <IconSlot
               src={ability.iconSrc}
               key={ability.name}
               data-tooltip-id={ability.name}

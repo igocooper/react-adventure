@@ -18,7 +18,7 @@ export function* applyEffects(activeTrooper: Trooper) {
         removeEffect({
           team,
           id,
-          name: effect.name
+          effectId: effect.id
         })
       );
       continue;
@@ -28,7 +28,7 @@ export function* applyEffects(activeTrooper: Trooper) {
       setEffectDuration({
         team,
         id,
-        name: effect.name,
+        effectId: effect.id,
         duration: effect.duration - 1
       })
     );
@@ -39,7 +39,7 @@ export function* applyEffects(activeTrooper: Trooper) {
           setEffectDone({
             team,
             id,
-            name: effect.name,
+            effectId: effect.id,
             value: true
           })
         );

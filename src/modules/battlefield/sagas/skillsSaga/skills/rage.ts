@@ -30,7 +30,7 @@ export const createRageSkill = ({
 
     const mightEffect = createMightEffect({
       duration,
-      multiplier: 1.2
+      percent: 20
     });
 
     const effectNode = getEffectNode(activeTrooper.id);

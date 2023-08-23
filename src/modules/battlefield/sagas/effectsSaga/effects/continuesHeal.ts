@@ -5,9 +5,13 @@ import SFX from 'modules/SFX';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import healIcon from './icons/continues-heal.png';
 import { CHARACTER_IMAGE_SLOT, EFFECT, EFFECT_TYPE } from 'common/constants';
-import { updateCharacterImages } from 'common/helpers';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import theme from 'theme/defaultTheme';
+import {
+  displayDuration,
+  generateId,
+  updateCharacterImages
+} from 'common/helpers';
 
 export const createContinuesHealEffect = ({
   duration,
@@ -16,9 +20,12 @@ export const createContinuesHealEffect = ({
   duration: number;
   heal: number;
 }): Effect => ({
+  id: generateId(),
   name: EFFECT.CONTINUES_HEAL,
   type: EFFECT_TYPE.BUFF,
   description: `"${EFFECT.CONTINUES_HEAL}" effect. Heal target by ${heal} HP on each turn.`,
+  stackInfo: (duration) =>
+    `Heals <heal>${heal}</heal> HP. (Duration: ${displayDuration(duration)})`,
   duration,
   done: false,
   applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {

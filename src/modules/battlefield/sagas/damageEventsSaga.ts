@@ -4,7 +4,7 @@ import {
   addDamageEvent as addDamageEventAction
 } from '../actions';
 import { getTileNode } from '../tilesNodesMap';
-import { getRandomNumberInRange, wait } from 'common/helpers';
+import { generateId, wait } from 'common/helpers';
 import colors from 'theme/colors';
 import { DAMAGE_TYPE } from 'common/constants';
 
@@ -73,7 +73,7 @@ export function* publishDamageEvent({
   const tileNode = getTileNode(id);
 
   const { x, y } = tileNode!.getBoundingClientRect();
-  const eventId = Date.now() + getRandomNumberInRange(1, 1000);
+  const eventId = generateId();
   const damageEvent = {
     id: eventId,
     value,

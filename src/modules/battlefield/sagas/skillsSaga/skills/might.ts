@@ -11,11 +11,11 @@ import { applyBuffs } from '../../abilitiesSaga';
 import { createMightEffect } from '../../effectsSaga/effects';
 
 export const createMightSkill = ({
-  multiplier,
+  percent,
   duration,
   coolDown = 0
 }: {
-  multiplier: number;
+  percent: number;
   duration: number;
   coolDown?: number;
 }): Skill => ({
@@ -23,7 +23,7 @@ export const createMightSkill = ({
   name: SKILL.MIGHT,
   target: TARGET.ALLY,
   coolDown,
-  description: `Increase ally damage ${multiplier} times for ${duration} rounds.`,
+  description: `Increase ally damage by ${percent}% for ${duration} rounds.`,
   applySkill: function* ({ targetTrooper }: ApplySkillProps) {
     const activeTrooper = yield* select(activeTrooperSelector);
     if (!activeTrooper) return;
@@ -39,20 +39,15 @@ export const createMightSkill = ({
     );
 
     const mightEffect = createMightEffect({
-      multiplier,
+      percent,
       duration
     });
 
-    // WE DO NOT WANT EFFECT TO STUCK UP
-    if (
-      !targetTrooper.effects.find((effect) => effect.name === mightEffect.name)
-    ) {
-      yield* call(mightEffect.applyEffect, {
-        activeTrooper: targetTrooper
-      });
+    yield* call(mightEffect.applyEffect, {
+      activeTrooper: targetTrooper
+    });
 
-      mightEffect.done = true;
-    }
+    mightEffect.done = true;
 
     // Visualise active trooper cast and apply buffs
     yield* fork([activeTrooperAnimationInstance!, 'cast'], {
