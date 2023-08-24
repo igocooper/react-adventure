@@ -144,7 +144,7 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 100,
     currentHealth: 100,
-    initiative: 12,
+    initiative: 4,
     hitChance: 95,
     counterAttackChance: 35,
     damageType: DAMAGE_TYPE.PHYSICAL,

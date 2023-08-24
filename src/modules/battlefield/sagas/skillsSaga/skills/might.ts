@@ -12,6 +12,7 @@ import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimation
 import SFX from 'modules/SFX';
 import { applyBuffs } from '../../abilitiesSaga';
 import { createMightEffect } from '../../effectsSaga/effects';
+import { playEffectedAnimation } from '../../../helpers/playEffectedAnimation';
 
 export const createMightSkill = ({
   percent,
@@ -37,11 +38,6 @@ export const createMightSkill = ({
     const activeTrooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,
       activeTrooper.id
-    );
-
-    const targetTrooperAnimationInstance = yield* call(
-      getTrooperAnimationInstance,
-      targetTrooper.id
     );
 
     const mightEffect = createMightEffect({
@@ -75,6 +71,10 @@ export const createMightSkill = ({
       })
     );
 
-    yield* call([targetTrooperAnimationInstance!, 'effected']);
+    yield* fork(
+      playEffectedAnimation,
+      targetTrooper.id,
+      '/images/effects/might.png'
+    );
   }
 });
