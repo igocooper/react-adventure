@@ -1,9 +1,10 @@
 import type { Ability, ApplyAbilityProps } from 'modules/battlefield/types';
-import { call, put } from 'typed-redux-saga';
+import { call, put, select } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { createAnchorEffect } from '../../effectsSaga/effects';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import { ABILITY_TYPE, ABILITY } from 'common/constants';
 import theme from 'theme/defaultTheme';
 import icon from './icons/anchor.png';
@@ -27,7 +28,12 @@ export const createAnchorAbility = ({
   } "${
     ABILITY.ANCHOR
   }" effect. Forcing target to skip his turn for ${duration} rounds.`,
-  applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
+  applyAbility: function* ({ targetTrooperId }: ApplyAbilityProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
+    if (!targetTrooper) return;
+
     const roll = getRandomNumberInRange(1, 100);
 
     if (roll <= (hitChance || 100)) {

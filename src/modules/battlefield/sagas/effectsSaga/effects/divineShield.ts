@@ -1,10 +1,11 @@
-import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
-import { put } from 'typed-redux-saga';
+import type { Effect } from 'modules/battlefield/types';
+import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/actions';
+import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import icon from './icons/divineShield.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { generateId } from 'common/helpers';
-import { getEffectNode } from '../../../effectsNodesMap';
+import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 
 const setOrAdd = (currentValue: number | undefined, newValue: number) =>
   currentValue ? currentValue + newValue : newValue;
@@ -21,7 +22,10 @@ export const createDivineShieldEffect = ({
   duration,
   once: true,
   done: false,
-  applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+  applyEffect: function* () {
+    const activeTrooper = yield* select(activeTrooperSelector);
+    if (!activeTrooper) return;
+
     yield* put(
       modifyTrooper({
         id: activeTrooper.id,
@@ -42,7 +46,10 @@ export const createDivineShieldEffect = ({
       })
     );
   },
-  cancelEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+  cancelEffect: function* () {
+    const activeTrooper = yield* select(activeTrooperSelector);
+    if (!activeTrooper) return;
+
     const effectNode = getEffectNode(activeTrooper.id);
     effectNode!.classList.remove('divine-shield');
 

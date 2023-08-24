@@ -29,7 +29,7 @@ export type Sex = `${SEX}`;
 export type SkillTarget = `${TARGET}`;
 
 export type ApplyAbilityProps = {
-  targetTrooper: Trooper;
+  targetTrooperId: Trooper['id'];
 };
 
 export type Ability = {
@@ -41,16 +41,9 @@ export type Ability = {
   iconSrc: string;
 };
 
-export type ApplyEffectProps = {
-  activeTrooper: Trooper;
-  originalProperties?: Partial<Trooper>;
-};
+type ApplyDelayedEffect = () => () => Generator<CallEffect<void>, void, void>;
 
-type ApplyDelayedEffect = (
-  props: ApplyEffectProps
-) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
-
-type ApplyEffect = (props: ApplyEffectProps) => void;
+type ApplyEffect = () => void;
 
 export type Effect = {
   id: number;
@@ -63,12 +56,12 @@ export type Effect = {
   stacks?: boolean; // allows effect to be applied multiple times to single trooper
   done: boolean;
   applyEffect: ApplyEffect | ApplyDelayedEffect;
-  cancelEffect?: (props: ApplyEffectProps) => void;
+  cancelEffect?: () => void;
   iconSrc: string;
 };
 
 export type ApplySkillProps = {
-  targetTrooper: Trooper;
+  targetTrooperId: Trooper['id'];
 };
 
 type ApplySkill = (props: ApplySkillProps) => void;

@@ -1,12 +1,13 @@
-import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
-import { put } from 'typed-redux-saga';
+import type { Effect } from 'modules/battlefield/types';
+import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import { extractDamage } from 'modules/battlefield/helpers/extractDamage';
 import { getPercentOfBaseDamage } from 'modules/battlefield/helpers/getPercentOfBaseDamage';
 import { addDamage } from 'modules/battlefield/helpers/addDamage';
-import hexIcon from './icons/hex.png';
+import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { displayDuration, generateId } from 'common/helpers';
+import hexIcon from './icons/hex.png';
 
 export const createHexEffect = ({
   percent,
@@ -27,7 +28,10 @@ export const createHexEffect = ({
     duration,
     once: true,
     done: false,
-    applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+    applyEffect: function* () {
+      const activeTrooper = yield* select(activeTrooperSelector);
+      if (!activeTrooper) return;
+
       const damageToExtract = getPercentOfBaseDamage(
         activeTrooper.baseWeaponDamage!,
         percent
@@ -42,7 +46,10 @@ export const createHexEffect = ({
         })
       );
     },
-    cancelEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+    cancelEffect: function* () {
+      const activeTrooper = yield* select(activeTrooperSelector);
+      if (!activeTrooper) return;
+
       const damageToAdd = getPercentOfBaseDamage(
         activeTrooper.baseWeaponDamage!,
         percent

@@ -32,7 +32,6 @@ type DivineParticleProps = {
   position: Position;
   width: number;
   height: number;
-  animationDelay: number;
   animationSpeed: number;
   active: boolean;
 };
@@ -45,12 +44,6 @@ export const Ray = styled.div<DivineParticleProps>`
   height: ${({ height }) => `${height}px`};
   top: ${({ position }) => `${position.y}px`};
   left: ${({ position }) => `${position.x}px`};
-  background: -webkit-linear-gradient(
-    top,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
   background: linear-gradient(
     top,
     rgba(255, 255, 255, 0) 0%,
@@ -59,11 +52,10 @@ export const Ray = styled.div<DivineParticleProps>`
   );
   border-radius: 80% 80% 0 0;
 
-  ${({ active, animationSpeed, animationDelay }) =>
+  ${({ active, animationSpeed }) =>
     active
       ? css`
-          animation: ${dropLight} ${animationSpeed}ms ease-in
-            ${animationDelay}ms 1;
+          animation: ${dropLight} ${animationSpeed}ms ease-in 1;
           animation-fill-mode: forwards;
         `
       : css``};

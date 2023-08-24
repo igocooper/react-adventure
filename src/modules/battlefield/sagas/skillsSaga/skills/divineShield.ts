@@ -3,7 +3,10 @@ import { SKILL, TARGET } from 'common/constants';
 import icon from './icons/divineShield.png';
 import { put, select, call, fork } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/actions';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { wait } from 'common/helpers';
 import { applyBuffs } from '../../abilitiesSaga';
 import SFX from 'modules/SFX';
@@ -23,9 +26,13 @@ export const createDivineShieldSkill = (
   target: TARGET.ALLY,
   coolDown,
   description: `${SKILL.DIVINE_SHIELD}: protects with a holy shield which absorb all damage for ${duration} rounds. Cooldown: ${coolDown}`,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
+
     // create effect
     const divineShieldEffect = createDivineShieldEffect({
       duration

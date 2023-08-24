@@ -14,8 +14,6 @@ type Props = {
 const RAY_WIDTH = 100;
 export const ANIMATION_SPEED = 1000;
 export const Resurrection = ({ containerNode, trooperId }: Props) => {
-  if (!containerNode || !trooperId) return null;
-
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -27,6 +25,8 @@ export const Resurrection = ({ containerNode, trooperId }: Props) => {
       }
     });
   }, []);
+
+  if (!containerNode || !trooperId) return null;
 
   const targetNode = getTrooperNode(trooperId);
   const targetBounds = getElementBoundsWithinContainer(
@@ -49,7 +49,6 @@ export const Resurrection = ({ containerNode, trooperId }: Props) => {
       width={RAY_WIDTH}
       height={rayHeight}
       animationSpeed={ANIMATION_SPEED}
-      animationDelay={0}
     />
   );
 };

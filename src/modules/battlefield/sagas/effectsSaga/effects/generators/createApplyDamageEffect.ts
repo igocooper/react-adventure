@@ -1,5 +1,5 @@
-import type { ApplyEffectProps, DamageType } from 'common/types';
-import { call, fork, put } from 'typed-redux-saga';
+import type { DamageType } from 'common/types';
+import { call, fork, put, select } from 'typed-redux-saga';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import {
   applyDamage,
@@ -8,6 +8,7 @@ import {
 import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
 import { finishTrooperTurn } from 'modules/battlefield/actions';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
+import { activeTrooperSelector } from 'modules/battlefield/selectors';
 
 export const createApplyDamageEffect = ({
   damage,
@@ -20,7 +21,10 @@ export const createApplyDamageEffect = ({
   characterEffectImgSrc: string;
   sfx?: () => void;
 }) =>
-  function* ({ activeTrooper }: ApplyEffectProps) {
+  function* () {
+    const activeTrooper = yield* select(activeTrooperSelector);
+    if (!activeTrooper) return;
+
     const isDying = damage >= activeTrooper.currentHealth;
     const activeTrooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,

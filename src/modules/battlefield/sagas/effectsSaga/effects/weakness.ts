@@ -1,11 +1,12 @@
-import type { ApplyEffectProps, Effect } from 'modules/battlefield/types';
+import type { Effect } from 'modules/battlefield/types';
 import {
   calculatePercentage,
   displayDuration,
   generateId
 } from 'common/helpers';
-import { put } from 'typed-redux-saga';
+import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
+import { activeTrooperSelector } from 'modules/battlefield/selectors';
 import weakness from './icons/weakness.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 
@@ -28,7 +29,10 @@ export const createWeaknessEffect = ({
     duration,
     once: true,
     done: false,
-    applyEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+    applyEffect: function* () {
+      const activeTrooper = yield* select(activeTrooperSelector);
+      if (!activeTrooper) return;
+
       const health =
         activeTrooper.health -
         calculatePercentage(activeTrooper.baseHealth!, percent);
@@ -48,7 +52,10 @@ export const createWeaknessEffect = ({
         })
       );
     },
-    cancelEffect: function* ({ activeTrooper }: ApplyEffectProps) {
+    cancelEffect: function* () {
+      const activeTrooper = yield* select(activeTrooperSelector);
+      if (!activeTrooper) return;
+
       const health =
         activeTrooper.health +
         calculatePercentage(activeTrooper.baseHealth!, percent);

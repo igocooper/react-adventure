@@ -3,7 +3,10 @@ import { SKILL, TARGET } from 'common/constants';
 import icon from './icons/heal.png';
 import { put, select, call, fork } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import theme from 'theme/defaultTheme';
@@ -17,9 +20,13 @@ export const createHealSkill = (): Skill => ({
   target: TARGET.ALLY,
   coolDown: 0,
   description: `${SKILL.HEAL}: heals ally trooper hit points based on trooper healPower.`,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
+
     let heal = activeTrooper.healPower || 1;
 
     const reachedMaxHP =

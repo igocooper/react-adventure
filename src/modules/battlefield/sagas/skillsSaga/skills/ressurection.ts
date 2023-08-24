@@ -3,7 +3,10 @@ import { SKILL, TARGET } from 'common/constants';
 import icon from './icons/resurrection.png';
 import { put, select, call, fork } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { calculatePercentage, wait } from 'common/helpers';
@@ -20,9 +23,12 @@ export const createResurrectionSkill = ({
   target: TARGET.ALLY_DEAD,
   coolDown,
   description: `${SKILL.RESURRECTION}: revive fallen trooper with ${percent}% of HP. Cooldown: ${coolDown}`,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
 
     const targetTrooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,

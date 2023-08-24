@@ -8,7 +8,10 @@ import {
 } from 'common/constants';
 import icon from './icons/hemorrhage.png';
 import { call, put, select, fork } from 'typed-redux-saga';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import theme from 'theme/defaultTheme';
 import { createBleedingEffect } from '../../effectsSaga/effects';
@@ -34,10 +37,12 @@ export const createHemorrhageSkill = ({
   coolDown,
   description: `${SKILL.HEMORRHAGE_HACK}: Open enemy vein during attack. Inflicting ${damage} blood damage at the
    beginning of its' turn. Duration ${duration} rounds. CoolDown: ${coolDown} `,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
 
     const {
       damage: characterDamage,

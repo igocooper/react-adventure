@@ -3,7 +3,10 @@ import { ATTACK_TYPE, DAMAGE_TYPE, SKILL, TARGET } from 'common/constants';
 import { getDamage } from 'common/helpers';
 import icon from './icons/lava-geyser.png';
 import { put, select, call } from 'typed-redux-saga';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { modifyTrooper as modifyTrooperAction } from 'modules/battlefield/actions';
 import { ATTACK_ID_LAVA_GEYSER } from 'modules/battlefield/characters/MountainMage/constants';
 import { attack } from '../../attackSaga';
@@ -29,10 +32,12 @@ export const createLavaGeyserSkill = ({
   }% of base trooper damage. Inflicts ${
     DAMAGE_TYPE.FIRE
   } damage. CoolDown: ${coolDown}`,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
 
     const originalTrooperData = {
       attackId: activeTrooper.attackId,

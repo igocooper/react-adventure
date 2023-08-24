@@ -1,5 +1,5 @@
 import type { Effect } from 'modules/battlefield/types';
-import { call } from 'typed-redux-saga';
+import { call, select } from 'typed-redux-saga';
 import { finishTrooperTurn } from 'modules/battlefield/sagas/roundSaga';
 import anchorIcon from './icons/anchor.png';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
@@ -9,6 +9,7 @@ import { getEffectNode } from '../../../effectsNodesMap';
 import theme from 'theme/defaultTheme';
 import SFX from 'modules/SFX';
 import { generateId } from 'common/helpers';
+import { activeTrooperSelector } from 'modules/battlefield/selectors';
 
 export const createAnchorEffect = ({
   duration
@@ -24,7 +25,10 @@ export const createAnchorEffect = ({
     once: true,
     done: false,
     stacks: false,
-    applyEffect: function* ({ activeTrooper }) {
+    applyEffect: function* () {
+      const activeTrooper = yield* select(activeTrooperSelector);
+      if (!activeTrooper) return;
+
       return function* () {
         void SFX.skipTurn.play();
         yield* call(publishDamageEvent, {
@@ -44,7 +48,10 @@ export const createAnchorEffect = ({
         yield* call(finishTrooperTurn);
       };
     },
-    cancelEffect: function* ({ activeTrooper }) {
+    cancelEffect: function* () {
+      const activeTrooper = yield* select(activeTrooperSelector);
+      if (!activeTrooper) return;
+
       const effectNode = getEffectNode(activeTrooper.id);
 
       effectNode!.classList.remove(EFFECT.ANCHOR);
