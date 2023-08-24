@@ -7,8 +7,7 @@ export type {
   Team,
   AttackType,
   Effect,
-  EffectName,
-  ApplyEffectProps
+  EffectName
 } from 'common/types';
 
 export type Cursor = `${CURSOR}`;

@@ -91,14 +91,14 @@ export type Appearance = {
 };
 
 export type Resistance = {
-  fire?: number;
-  water?: number;
-  earth?: number;
-  wind?: number;
-  light?: number;
-  dark?: number;
-  poison?: number;
-  blood?: number;
+  fire: number;
+  water: number;
+  earth: number;
+  wind: number;
+  light: number;
+  dark: number;
+  poison: number;
+  blood: number;
 };
 
 export type Character = {
@@ -130,7 +130,7 @@ export type Character = {
 
 export type ArmorStats = {
   defence: number;
-  resistance?: Resistance;
+  resistance?: Partial<Resistance>;
   evadeChance?: number;
   criticalChance?: number;
   counterAttackChance?: number;

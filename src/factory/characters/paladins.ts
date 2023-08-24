@@ -8,13 +8,17 @@ import {
   darkPaladinShield,
   paladinShield,
   paladinArmor,
+  paladinHelmet,
   paladinChiefShield,
+  darkPaladinHelmet,
+  paladinChiefHelmet,
   paladinChiefArmor
 } from '../armors';
 import {
   createDivineShieldSkill,
   createDivineHealSkill,
-  createResurrectionSkill
+  createResurrectionSkill,
+  createHealSkill
 } from 'modules/battlefield/sagas/skillsSaga/skills';
 
 export const paladin = (overrides: Partial<Trooper>) =>
@@ -22,7 +26,7 @@ export const paladin = (overrides: Partial<Trooper>) =>
     equipment: {
       leftHand: holyMace,
       armor: paladinArmor,
-      // helmet: paladinHelmet,
+      helmet: paladinHelmet,
       shield: paladinShield
     },
     abilities: [
@@ -33,7 +37,8 @@ export const paladin = (overrides: Partial<Trooper>) =>
     ],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
+      [SKILL.HEAL]: createHealSkill()
     },
     ...overrides,
     appearance: {
@@ -73,13 +78,14 @@ export const darkPaladin = (overrides: Partial<Trooper>) =>
     equipment: {
       leftHand: longSword,
       armor: darkPaladinArmor,
-      // helmet: darkPaladinHelmet,
+      helmet: darkPaladinHelmet,
       shield: darkPaladinShield
     },
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
+      [SKILL.HEAL]: createHealSkill()
     },
     ...overrides,
     appearance: {
@@ -119,7 +125,7 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
     equipment: {
       leftHand: knightSword,
       armor: paladinChiefArmor,
-      // helmet: paladinChiefHelmet,
+      helmet: paladinChiefHelmet,
       shield: paladinChiefShield
     },
     abilities: [],

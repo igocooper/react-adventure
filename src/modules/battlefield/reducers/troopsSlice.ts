@@ -228,9 +228,7 @@ export const troopsSlice = createSlice({
             if (existingEffect && effect.stacks === false) {
               // cancel effect which will be overwritten
               if (existingEffect.cancelEffect) {
-                existingEffect.cancelEffect({
-                  activeTrooper: trooper as Trooper
-                });
+                existingEffect.cancelEffect();
               }
 
               return {
@@ -259,7 +257,6 @@ export const troopsSlice = createSlice({
       return {
         ...state,
         [team]: state[team].map((trooper) => {
-          console.log({ updates });
           if (trooper.id === id) {
             return {
               ...trooper,

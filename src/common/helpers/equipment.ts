@@ -25,7 +25,7 @@ const applyResistanceStats = (
       const currentValue = result[resistanceName as keyof Resistance];
       return {
         ...result,
-        [resistanceName]: currentValue! + value
+        [resistanceName]: currentValue + value
       };
     },
     resistance
