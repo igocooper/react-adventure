@@ -31,7 +31,7 @@ export const paladin = (overrides: Partial<Trooper>) =>
     },
     abilities: [
       createLightningStrikeAbility({
-        damage: 15,
+        damage: 45,
         hitChance: 100
       })
     ],

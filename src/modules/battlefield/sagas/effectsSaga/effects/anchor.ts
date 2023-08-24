@@ -9,7 +9,7 @@ import { getEffectNode } from '../../../effectsNodesMap';
 import theme from 'theme/defaultTheme';
 import SFX from 'modules/SFX';
 import { generateId } from 'common/helpers';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 
 export const createAnchorEffect = ({
   duration
@@ -25,8 +25,10 @@ export const createAnchorEffect = ({
     once: true,
     done: false,
     stacks: false,
-    applyEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    applyEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       return function* () {
@@ -48,8 +50,10 @@ export const createAnchorEffect = ({
         yield* call(finishTrooperTurn);
       };
     },
-    cancelEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    cancelEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       const effectNode = getEffectNode(activeTrooper.id);

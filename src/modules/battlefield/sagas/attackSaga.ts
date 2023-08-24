@@ -78,7 +78,6 @@ export const calculateDamage = (
   }
 
   if (damage >= selectedTrooper.currentHealth) {
-    damage = damage - (damage - selectedTrooper.currentHealth);
     isDying = true;
   }
 

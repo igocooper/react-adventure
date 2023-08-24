@@ -4,7 +4,7 @@ import { modifyTrooper } from 'modules/battlefield/actions';
 import blockIcon from './icons/block.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { generateId } from 'common/helpers';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 
 export const createBlockEffect = (): Effect => {
   return {
@@ -16,8 +16,10 @@ export const createBlockEffect = (): Effect => {
     once: true,
     done: false,
     stacks: false,
-    applyEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    applyEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       yield* put(
@@ -30,8 +32,10 @@ export const createBlockEffect = (): Effect => {
         })
       );
     },
-    cancelEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    cancelEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
       yield* put(
         modifyTrooper({

@@ -155,8 +155,10 @@ export enum SKILL {
 export enum TARGET {
   SELF = 'self',
   ALLY = 'ally',
+  ALL_ALLIES = 'all_allies',
   ALLY_DEAD = 'enemy_dead',
   ENEMY = 'enemy',
+  ALL_ENEMIES = 'all_enemies',
   ENEMY_DEAD = 'ally_dead'
 }
 

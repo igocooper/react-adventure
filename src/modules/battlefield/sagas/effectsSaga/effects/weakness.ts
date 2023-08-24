@@ -6,7 +6,7 @@ import {
 } from 'common/helpers';
 import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import weakness from './icons/weakness.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 
@@ -29,8 +29,10 @@ export const createWeaknessEffect = ({
     duration,
     once: true,
     done: false,
-    applyEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    applyEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       const health =
@@ -52,8 +54,10 @@ export const createWeaknessEffect = ({
         })
       );
     },
-    cancelEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    cancelEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       const health =

@@ -17,7 +17,7 @@ export const TrooperImage = styled.div<ImageProps>`
   overflow: hidden;
   border-radius: 50%;
   background: url(${({ $src }) => $src}), rgba(0, 0, 0, 0.8);
-  background-size: 160%;
+  background-size: 200%;
   background-position: center -30px;
   background-repeat: no-repeat;
   flex-shrink: 0;

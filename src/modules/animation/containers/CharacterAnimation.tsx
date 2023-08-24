@@ -430,7 +430,7 @@ export class CharacterAnimation extends Component<Props> {
       <Canvas
         $team={this.props.team}
         ref={this.canvasRef}
-        width="200"
+        width="260"
         height="200"
       />
     );

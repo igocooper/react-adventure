@@ -1,12 +1,17 @@
 import type { Ability, ApplyAbilityProps } from 'modules/battlefield/types';
-import { call, put, select } from 'typed-redux-saga';
+import { call, fork, put, select } from 'typed-redux-saga';
 import { applyDamage } from 'modules/battlefield/reducers/troopsSlice';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { ABILITY_TYPE, ABILITY, DAMAGE_TYPE } from 'common/constants';
 import icon from './icons/lightningStrike.png';
-import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { wait, getRandomNumberInRange } from 'common/helpers';
 import SFX from 'modules/SFX';
+import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
+import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 
 export const createLightningStrikeAbility = ({
   damage,
@@ -24,11 +29,16 @@ export const createLightningStrikeAbility = ({
     const targetTrooper = yield* select(
       makeCharacterByIdSelector(targetTrooperId)
     );
-    if (!targetTrooper) return;
+    const activeTrooper = yield* select(activeTrooperSelector);
+    if (!targetTrooper || !activeTrooper) return;
 
     const roll = getRandomNumberInRange(1, 100);
 
     if (roll <= hitChance) {
+      const targetTrooperAnimationInstance = yield* call(
+        getTrooperAnimationInstance,
+        targetTrooper.id
+      );
       const lightningStrikeAnimation = yield* call(
         getAreaEffectAnimationInstance,
         ABILITY.LIGHTNING_STRIKE
@@ -38,16 +48,26 @@ export const createLightningStrikeAbility = ({
 
       yield* call(wait, 700);
 
+      const isDying = damage >= targetTrooper.currentHealth;
+
       yield* put(
         applyDamage({
           team: targetTrooper.team,
           id: targetTrooper.id,
-          damage,
+          damage: applyDefenceAndResistance(
+            damage,
+            DAMAGE_TYPE.LIGHT,
+            activeTrooper
+          ),
           damageType: DAMAGE_TYPE.LIGHT
         })
       );
 
       yield* call(lightningStrikeAnimation!.play);
+
+      if (isDying) {
+        yield* fork([targetTrooperAnimationInstance!, 'die']);
+      }
     }
   }
 });

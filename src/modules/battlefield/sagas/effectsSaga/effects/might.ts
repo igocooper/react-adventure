@@ -5,7 +5,7 @@ import { extractDamage } from 'modules/battlefield/helpers/extractDamage';
 import { getPercentOfBaseDamage } from 'modules/battlefield/helpers/getPercentOfBaseDamage';
 import { addDamage } from 'modules/battlefield/helpers/addDamage';
 import mightIcon from './icons/might.png';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { displayDuration, generateId } from 'common/helpers';
@@ -28,8 +28,10 @@ export const createMightEffect = ({
     duration,
     once: true,
     done: false,
-    applyEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    applyEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       const damageToAdd = getPercentOfBaseDamage(
@@ -47,8 +49,10 @@ export const createMightEffect = ({
         })
       );
     },
-    cancelEffect: function* () {
-      const activeTrooper = yield* select(activeTrooperSelector);
+    cancelEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
       if (!activeTrooper) return;
 
       const damageToExtract = getPercentOfBaseDamage(

@@ -3,7 +3,7 @@ import { call, put, select } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
 import SFX from 'modules/SFX';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import healIcon from './icons/continues-heal.png';
 import { CHARACTER_IMAGE_SLOT, EFFECT, EFFECT_TYPE } from 'common/constants';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
@@ -29,8 +29,10 @@ export const createContinuesHealEffect = ({
     `Heals <heal>${heal}</heal> HP. (Duration: ${displayDuration(duration)})`,
   duration,
   done: false,
-  applyEffect: function* () {
-    const activeTrooper = yield* select(activeTrooperSelector);
+  applyEffect: function* ({ targetTrooperId }) {
+    const activeTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     if (!activeTrooper) return;
 
     const reachedMaxHP =

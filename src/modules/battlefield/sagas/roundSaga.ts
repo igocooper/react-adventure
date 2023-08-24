@@ -236,14 +236,18 @@ function* handleTrooperClick({
         !canMeleeTrooperAttack) ||
       (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
         !canMeleeTrooperAttack) ||
-      activeSkill?.target === TARGET.ALLY
+      activeSkill?.target === TARGET.ALLY ||
+      activeSkill?.target === TARGET.ALL_ALLIES ||
+      activeSkill?.target === TARGET.ALLY_DEAD
     ) {
-      console.log('isEnemySelected quit');
       yield* put(setBattlefieldStatus(false));
       return;
     }
 
-    if (activeSkill?.target === TARGET.ENEMY) {
+    if (
+      activeSkill?.target === TARGET.ENEMY ||
+      activeSkill?.target === TARGET.ALL_ENEMIES
+    ) {
       yield* call(applySkill, {
         skill: activeSkill,
         targetTrooper: selectedTrooper!
@@ -260,7 +264,10 @@ function* handleTrooperClick({
     yield* put(finishTrooperTurnAction());
   }
 
-  if (activeSkill?.target === TARGET.ALLY) {
+  if (
+    activeSkill?.target === TARGET.ALLY ||
+    activeSkill?.target === TARGET.ALL_ALLIES
+  ) {
     yield* call(applySkill, {
       skill: activeSkill,
       targetTrooper: selectedTrooper!
@@ -316,7 +323,7 @@ function* handleBlockClick() {
 
     void SFX.shield.play();
     yield* call(blockAnimation!.play);
-    yield* call(blockEffect.applyEffect, { activeTrooper });
+    yield* call(blockEffect.applyEffect, { targetTrooperId: activeTrooper.id });
     yield* put(
       addEffect({
         id: activeTrooper.id,

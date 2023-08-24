@@ -11,7 +11,7 @@ export function* applyEffects(activeTrooper: Trooper) {
   for (const effect of effects) {
     if (effect.duration === 0) {
       if (effect.cancelEffect) {
-        yield* call(effect.cancelEffect);
+        yield* call(effect.cancelEffect, { targetTrooperId: activeTrooper.id });
       }
 
       yield* put(
@@ -45,7 +45,9 @@ export function* applyEffects(activeTrooper: Trooper) {
         );
       }
 
-      const delayedEffect = yield* call([effect, 'applyEffect']);
+      const delayedEffect = yield* call([effect, 'applyEffect'], {
+        targetTrooperId: activeTrooper.id
+      });
 
       if (delayedEffect) {
         delayedEffects.push(delayedEffect);

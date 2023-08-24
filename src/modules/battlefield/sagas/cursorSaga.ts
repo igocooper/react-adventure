@@ -47,19 +47,23 @@ const detectCharacterCursor = ({
   const isDeadTrooperSelected = selectedTrooper.currentHealth <= 0;
   const isAllySelected = !isEnemySelected;
 
-  if (isDeadTrooperSelected) {
-    if (activeSkill !== null && activeSkill.target === TARGET.ALLY_DEAD) {
-      return CURSOR.WAND;
-    }
+  if (isDeadTrooperSelected && activeSkill?.target !== TARGET.ALLY_DEAD) {
     return CURSOR.DISABLED;
   }
 
   if (isEnemySelected) {
-    if (activeSkill !== null && activeSkill.target === TARGET.ALLY) {
+    if (
+      activeSkill?.target === TARGET.ALLY ||
+      activeSkill?.target === TARGET.ALL_ALLIES ||
+      activeSkill?.target === TARGET.ALLY_DEAD
+    ) {
       return CURSOR.DISABLED;
     }
 
-    if (activeSkill !== null && activeSkill.target === TARGET.ENEMY) {
+    if (
+      activeSkill?.target === TARGET.ENEMY ||
+      activeSkill?.target === TARGET.ALL_ENEMIES
+    ) {
       if (activeSkill?.attackType === ATTACK_TYPE.MELEE) {
         if (
           checkMeleeAttackConstraints({
@@ -119,11 +123,18 @@ const detectCharacterCursor = ({
   }
 
   if (isAllySelected) {
-    if (activeSkill !== null && activeSkill.target === TARGET.ALLY) {
+    if (
+      activeSkill?.target === TARGET.ALLY ||
+      activeSkill?.target === TARGET.ALL_ALLIES
+    ) {
       return CURSOR.WAND;
     }
 
-    if (activeSkill !== null && activeSkill.target === TARGET.ENEMY) {
+    if (
+      activeSkill?.target === TARGET.ENEMY ||
+      activeSkill?.target === TARGET.ALL_ENEMIES ||
+      activeSkill?.target === TARGET.ALLY_DEAD
+    ) {
       return CURSOR.DISABLED;
     }
 

@@ -46,7 +46,7 @@ export const createMightSkill = ({
     });
 
     yield* call(mightEffect.applyEffect, {
-      activeTrooper: targetTrooper
+      targetTrooperId: targetTrooper.id
     });
 
     mightEffect.done = true;

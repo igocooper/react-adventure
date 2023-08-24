@@ -41,9 +41,15 @@ export type Ability = {
   iconSrc: string;
 };
 
-type ApplyDelayedEffect = () => () => Generator<CallEffect<void>, void, void>;
+export type ApplyEffectProps = {
+  targetTrooperId: Trooper['id'];
+};
 
-type ApplyEffect = () => void;
+type ApplyDelayedEffect = (
+  props: ApplyEffectProps
+) => () => Generator<CallEffect<void>, void, ApplyEffectProps>;
+
+type ApplyEffect = (props: ApplyEffectProps) => void;
 
 export type Effect = {
   id: number;
@@ -56,7 +62,7 @@ export type Effect = {
   stacks?: boolean; // allows effect to be applied multiple times to single trooper
   done: boolean;
   applyEffect: ApplyEffect | ApplyDelayedEffect;
-  cancelEffect?: () => void;
+  cancelEffect?: (props: ApplyEffectProps) => void;
   iconSrc: string;
 };
 

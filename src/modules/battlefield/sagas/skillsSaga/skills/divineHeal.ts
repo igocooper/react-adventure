@@ -19,7 +19,7 @@ export const createDivineHealSkill = ({
 }: { coolDown?: number } = {}): Skill => ({
   iconSrc: icon,
   name: SKILL.DIVINE_HEAL,
-  target: TARGET.ALLY,
+  target: TARGET.ALL_ALLIES,
   coolDown,
   description: `${SKILL.DIVINE_HEAL}: heals all allies. Cooldown: ${coolDown}`,
   applySkill: function* () {

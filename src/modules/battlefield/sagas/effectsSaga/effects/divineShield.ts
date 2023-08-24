@@ -1,7 +1,7 @@
 import type { Effect } from 'modules/battlefield/types';
 import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/actions';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import icon from './icons/divineShield.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { generateId } from 'common/helpers';
@@ -22,8 +22,10 @@ export const createDivineShieldEffect = ({
   duration,
   once: true,
   done: false,
-  applyEffect: function* () {
-    const activeTrooper = yield* select(activeTrooperSelector);
+  applyEffect: function* ({ targetTrooperId }) {
+    const activeTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     if (!activeTrooper) return;
 
     yield* put(
@@ -46,8 +48,10 @@ export const createDivineShieldEffect = ({
       })
     );
   },
-  cancelEffect: function* () {
-    const activeTrooper = yield* select(activeTrooperSelector);
+  cancelEffect: function* ({ targetTrooperId }) {
+    const activeTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     if (!activeTrooper) return;
 
     const effectNode = getEffectNode(activeTrooper.id);

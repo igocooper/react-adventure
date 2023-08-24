@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { HoveredElementType } from '../types';
+import type { HoveredElementType, Trooper } from '../types';
 
 export type Element = {
-  id: number;
+  id: Trooper['id'];
+  team: Trooper['team'];
   type: HoveredElementType;
 } | null;
 

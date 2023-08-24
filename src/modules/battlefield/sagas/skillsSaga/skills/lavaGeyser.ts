@@ -23,7 +23,7 @@ export const createLavaGeyserSkill = ({
   name: SKILL.LAVA_GEYSER,
   attackType: ATTACK_TYPE.SPLASH,
   damageType: DAMAGE_TYPE.FIRE,
-  target: TARGET.ENEMY,
+  target: TARGET.ALL_ENEMIES,
   coolDown,
   description: `${
     SKILL.LAVA_GEYSER

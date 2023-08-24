@@ -40,7 +40,7 @@ export const createDivineShieldSkill = (
 
     // instantly apply effect
     yield* call(divineShieldEffect.applyEffect, {
-      activeTrooper: targetTrooper
+      targetTrooperId: targetTrooper.id
     });
     divineShieldEffect.done = true;
 
