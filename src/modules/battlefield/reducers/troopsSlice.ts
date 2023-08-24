@@ -259,6 +259,7 @@ export const troopsSlice = createSlice({
       return {
         ...state,
         [team]: state[team].map((trooper) => {
+          console.log({ updates });
           if (trooper.id === id) {
             return {
               ...trooper,

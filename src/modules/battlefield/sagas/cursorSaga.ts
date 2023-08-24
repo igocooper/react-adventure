@@ -48,6 +48,9 @@ const detectCharacterCursor = ({
   const isAllySelected = !isEnemySelected;
 
   if (isDeadTrooperSelected) {
+    if (activeSkill !== null && activeSkill.target === TARGET.ALLY_DEAD) {
+      return CURSOR.WAND;
+    }
     return CURSOR.DISABLED;
   }
 

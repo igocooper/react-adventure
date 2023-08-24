@@ -13,7 +13,8 @@ import {
 } from '../armors';
 import {
   createDivineShieldSkill,
-  createDivineHealSkill
+  createDivineHealSkill,
+  createResurrectionSkill
 } from 'modules/battlefield/sagas/skillsSaga/skills';
 
 export const paladin = (overrides: Partial<Trooper>) =>
@@ -32,8 +33,7 @@ export const paladin = (overrides: Partial<Trooper>) =>
     ],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
-      [SKILL.DIVINE_HEAL]: createDivineHealSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
     },
     ...overrides,
     appearance: {
@@ -51,11 +51,21 @@ export const paladin = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 80,
     currentHealth: 80,
-    initiative: 400,
+    initiative: 4,
     hitChance: 95,
     damageType: DAMAGE_TYPE.PHYSICAL,
     attackType: ATTACK_TYPE.MELEE,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const darkPaladin = (overrides: Partial<Trooper>) =>
@@ -69,8 +79,7 @@ export const darkPaladin = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
-      [SKILL.DIVINE_HEAL]: createDivineHealSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill()
     },
     ...overrides,
     appearance: {
@@ -92,7 +101,17 @@ export const darkPaladin = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     damageType: DAMAGE_TYPE.PHYSICAL,
     attackType: ATTACK_TYPE.MELEE,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 30,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const paladinChief = (overrides: Partial<Trooper>) =>
@@ -106,8 +125,11 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
     abilities: [],
     effects: [],
     skills: {
-      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill(),
-      [SKILL.DIVINE_HEAL]: createDivineHealSkill()
+      [SKILL.DIVINE_SHIELD]: createDivineShieldSkill({
+        duration: 1
+      }),
+      [SKILL.DIVINE_HEAL]: createDivineHealSkill(),
+      [SKILL.RESURRECTION]: createResurrectionSkill()
     },
     ...overrides,
     type: 'paladin-chief',
@@ -116,12 +138,22 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     health: 100,
     currentHealth: 100,
-    initiative: 4,
+    initiative: 12,
     hitChance: 95,
     counterAttackChance: 35,
     damageType: DAMAGE_TYPE.PHYSICAL,
     attackType: ATTACK_TYPE.MELEE,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 40,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const paladins = [paladin, darkPaladin, paladinChief];

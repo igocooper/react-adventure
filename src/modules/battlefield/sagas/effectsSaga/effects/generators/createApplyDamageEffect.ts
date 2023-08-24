@@ -1,14 +1,13 @@
 import type { ApplyEffectProps, DamageType } from 'common/types';
 import { call, fork, put } from 'typed-redux-saga';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
-import { updateCharacterImages } from 'common/helpers';
-import { CHARACTER_IMAGE_SLOT } from 'common/constants';
 import {
   applyDamage,
   removeAllEffects
 } from 'modules/battlefield/reducers/troopsSlice';
 import { applyDefenceAndResistance } from 'common/helpers/applyDefenceAndResistance';
 import { finishTrooperTurn } from 'modules/battlefield/actions';
+import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
 
 export const createApplyDamageEffect = ({
   damage,
@@ -32,17 +31,6 @@ export const createApplyDamageEffect = ({
       damage = damage - (damage - activeTrooper.currentHealth);
     }
 
-    yield* call(
-      updateCharacterImages,
-      [
-        {
-          url: characterEffectImgSrc,
-          itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
-        }
-      ],
-      activeTrooper.id
-    );
-
     yield* put(
       applyDamage({
         id: activeTrooper.id,
@@ -56,7 +44,11 @@ export const createApplyDamageEffect = ({
       if (sfx) {
         yield* call(sfx);
       }
-      yield* call([activeTrooperAnimationInstance!, 'effected']);
+      yield* call(
+        playEffectedAnimation,
+        activeTrooper.id,
+        characterEffectImgSrc
+      );
       yield* fork([activeTrooperAnimationInstance!, 'die']);
       yield* put(
         removeAllEffects({
@@ -69,6 +61,10 @@ export const createApplyDamageEffect = ({
       if (sfx) {
         yield* call(sfx);
       }
-      yield* call([activeTrooperAnimationInstance!, 'effected']);
+      yield* call(
+        playEffectedAnimation,
+        activeTrooper.id,
+        characterEffectImgSrc
+      );
     }
   };

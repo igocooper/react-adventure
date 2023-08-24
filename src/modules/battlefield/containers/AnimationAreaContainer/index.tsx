@@ -14,6 +14,7 @@ import { Heal } from './Heal';
 import { Bleeding } from './Bleeding';
 import { LightningStrike } from './Lightning';
 import { Rage } from './Rage';
+import { Resurrection } from './Resurrection';
 import { AREA_CONTAINER_ID } from '../../constants';
 
 type OwnProps = {
@@ -55,6 +56,10 @@ export const AnimationAreaContainer = ({ children }: OwnProps) => {
             trooperId={selectedTrooper?.id}
           />
           <LightningStrike
+            containerNode={areaAnimationRef.current!}
+            trooperId={selectedTrooper?.id}
+          />
+          <Resurrection
             containerNode={areaAnimationRef.current!}
             trooperId={selectedTrooper?.id}
           />

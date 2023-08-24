@@ -148,13 +148,16 @@ export enum SKILL {
   LAVA_GEYSER = 'Lava Geyser',
   RAGE = 'Rage',
   DIVINE_SHIELD = 'Divine Shield',
-  DIVINE_HEAL = 'Divine Heal'
+  DIVINE_HEAL = 'Divine Heal',
+  RESURRECTION = 'Ressurection'
 }
 
 export enum TARGET {
   SELF = 'self',
   ALLY = 'ally',
-  ENEMY = 'enemy'
+  ALLY_DEAD = 'enemy_dead',
+  ENEMY = 'enemy',
+  ENEMY_DEAD = 'ally_dead'
 }
 
 export enum ATTACK_TYPE {

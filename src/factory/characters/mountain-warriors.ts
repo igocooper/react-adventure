@@ -24,7 +24,17 @@ export const mountainWarrior1 = (overrides: Partial<Trooper>) =>
     currentHealth: 25,
     initiative: 1,
     attackType: ATTACK_TYPE.MELEE,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const mountainMage = (overrides: Partial<Trooper>) =>
@@ -55,7 +65,17 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     castSFX: SFX.fireBall,
     defence: 0,
     criticalChance: 5,
-    criticalMultiplier: 2
+    criticalMultiplier: 2,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const mountainArcher = (overrides: Partial<Trooper>) =>
@@ -80,7 +100,17 @@ export const mountainArcher = (overrides: Partial<Trooper>) =>
     attackId: ATTACK_ID,
     defence: 0,
     criticalChance: 10,
-    criticalMultiplier: 2
+    criticalMultiplier: 2,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const mountainWarriors = [

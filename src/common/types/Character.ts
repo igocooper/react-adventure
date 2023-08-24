@@ -125,7 +125,7 @@ export type Character = {
   criticalMultiplier?: number;
   evadeChance?: number;
   defence: number;
-  resistance?: Resistance;
+  resistance: Resistance;
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];

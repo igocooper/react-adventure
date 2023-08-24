@@ -13,3 +13,5 @@ export { createMightSkill } from './might';
 export { createDivineShieldSkill } from './divineShield';
 
 export { createDivineHealSkill } from './divineHeal';
+
+export { createResurrectionSkill } from './ressurection';

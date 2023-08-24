@@ -129,6 +129,7 @@ export function* finishTrooperTurn() {
     .filter(({ id }) => troopersHealthMap[id]! > 0);
 
   if (updatedInitiative.length === 0) {
+    yield* put(setActiveSkill(null));
     yield* put(finishRoundAction(round));
     yield* put(startRoundAction(round + 1));
   }
@@ -208,7 +209,24 @@ function* handleTrooperClick({
   const selectedTrooper = yield* select(
     makeCharacterByIdSelector(clickedTrooperInfo.id)
   );
-  const isEnemyDead = selectedTrooper!.currentHealth <= 0;
+  const isSelectedTrooperDead = selectedTrooper!.currentHealth <= 0;
+
+  if (isSelectedTrooperDead) {
+    console.log('isSelectedTrooperDead');
+    if (!isEnemySelected && activeSkill?.target === TARGET.ALLY_DEAD) {
+      console.log('isSelectedTrooperDead +');
+      yield* call(applySkill, {
+        skill: activeSkill,
+        targetTrooper: selectedTrooper!
+      });
+      yield* put(setBattlefieldStatus(false));
+      yield* put(finishTrooperTurnAction());
+      return;
+    }
+
+    yield* put(setBattlefieldStatus(false));
+    return;
+  }
 
   if (isEnemySelected) {
     if (
@@ -218,9 +236,9 @@ function* handleTrooperClick({
         !canMeleeTrooperAttack) ||
       (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
         !canMeleeTrooperAttack) ||
-      activeSkill?.target === TARGET.ALLY ||
-      isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
+      activeSkill?.target === TARGET.ALLY
     ) {
+      console.log('isEnemySelected quit');
       yield* put(setBattlefieldStatus(false));
       return;
     }

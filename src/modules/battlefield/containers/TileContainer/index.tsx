@@ -106,7 +106,7 @@ export const TileContainer = ({
   const handleClick = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation();
-      if (!isBattlefieldDisabled && currentHealth > 0) {
+      if (!isBattlefieldDisabled) {
         dispatch(
           trooperClicked({
             id,
