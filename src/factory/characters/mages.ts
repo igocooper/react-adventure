@@ -32,5 +32,17 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     attackType: ATTACK_TYPE.SPLASH,
     attackId: ATTACK_ID_ICE_SPIKES,
     castSFX: SFX.iceSpikes,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 5,
+      earth: 0
+    }
   }) as Trooper;
+
+export const mages = [waterMage];

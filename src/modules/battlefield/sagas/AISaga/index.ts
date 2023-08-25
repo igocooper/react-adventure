@@ -21,6 +21,7 @@ export function* clickOnTrooper({ id, team }: Pick<Trooper, 'id' | 'team'>) {
   yield* put(
     setHoveredElement({
       id,
+      team,
       type: HOVERED_ELEMENT_TYPE.CHARACTER
     })
   );

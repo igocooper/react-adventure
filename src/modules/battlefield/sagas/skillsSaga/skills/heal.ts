@@ -1,15 +1,18 @@
 import type { ApplySkillProps, Skill } from 'common/types';
-import { CHARACTER_IMAGE_SLOT, SKILL, TARGET } from 'common/constants';
+import { SKILL, TARGET } from 'common/constants';
 import icon from './icons/heal.png';
 import { put, select, call, fork } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
-import { updateCharacterImages } from 'common/helpers';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import theme from 'theme/defaultTheme';
 import { applyBuffs } from '../../abilitiesSaga';
 import SFX from 'modules/SFX';
+import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
 
 export const createHealSkill = (): Skill => ({
   iconSrc: icon,
@@ -17,9 +20,13 @@ export const createHealSkill = (): Skill => ({
   target: TARGET.ALLY,
   coolDown: 0,
   description: `${SKILL.HEAL}: heals ally trooper hit points based on trooper healPower.`,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
+
     let heal = activeTrooper.healPower || 1;
 
     const reachedMaxHP =
@@ -29,24 +36,9 @@ export const createHealSkill = (): Skill => ({
       heal = targetTrooper.health - targetTrooper.currentHealth;
     }
 
-    const targetTrooperAnimationInstance = yield* call(
-      getTrooperAnimationInstance,
-      targetTrooper.id
-    );
     const activeTrooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,
       activeTrooper.id
-    );
-
-    yield* call(
-      updateCharacterImages,
-      [
-        {
-          url: '/images/effects/heal.png',
-          itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
-        }
-      ],
-      targetTrooper.id
     );
 
     yield* fork([activeTrooperAnimationInstance!, 'cast'], {
@@ -68,7 +60,11 @@ export const createHealSkill = (): Skill => ({
       })
     );
 
-    yield* call([targetTrooperAnimationInstance!, 'effected']);
+    yield* call(
+      playEffectedAnimation,
+      targetTrooper.id,
+      '/images/effects/heal.png'
+    );
 
     yield* call(applyBuffs, { id: targetTrooper.id });
   }

@@ -29,7 +29,7 @@ export type Sex = `${SEX}`;
 export type SkillTarget = `${TARGET}`;
 
 export type ApplyAbilityProps = {
-  targetTrooper: Trooper;
+  targetTrooperId: Trooper['id'];
 };
 
 export type Ability = {
@@ -42,7 +42,7 @@ export type Ability = {
 };
 
 export type ApplyEffectProps = {
-  activeTrooper: Trooper;
+  targetTrooperId: Trooper['id'];
 };
 
 type ApplyDelayedEffect = (
@@ -67,7 +67,7 @@ export type Effect = {
 };
 
 export type ApplySkillProps = {
-  targetTrooper: Trooper;
+  targetTrooperId: Trooper['id'];
 };
 
 type ApplySkill = (props: ApplySkillProps) => void;
@@ -97,14 +97,14 @@ export type Appearance = {
 };
 
 export type Resistance = {
-  fire?: number;
-  water?: number;
-  earth?: number;
-  wind?: number;
-  light?: number;
-  dark?: number;
-  poison?: number;
-  blood?: number;
+  fire: number;
+  water: number;
+  earth: number;
+  wind: number;
+  light: number;
+  dark: number;
+  poison: number;
+  blood: number;
 };
 
 export type Character = {
@@ -124,7 +124,7 @@ export type Character = {
   criticalMultiplier?: number;
   evadeChance?: number;
   defence: number;
-  resistance?: Resistance;
+  resistance: Resistance;
   appearance?: Appearance;
   equipment: Equipment;
   abilities: Ability[];
@@ -136,7 +136,7 @@ export type Character = {
 
 export type ArmorStats = {
   defence: number;
-  resistance?: Resistance;
+  resistance?: Partial<Resistance>;
   evadeChance?: number;
   criticalChance?: number;
   counterAttackChance?: number;

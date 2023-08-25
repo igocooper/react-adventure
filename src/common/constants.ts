@@ -120,7 +120,8 @@ export enum ABILITY {
   POISON = 'Poison',
   ANCHOR = 'Anchor',
   CONTINUES_HEAL = 'Continues Heal',
-  MIGHT = 'Might'
+  MIGHT = 'Might',
+  LIGHTNING_STRIKE = 'Lightning Strike'
 }
 
 export enum EFFECT {
@@ -131,7 +132,8 @@ export enum EFFECT {
   HEX = 'Hex',
   WEAKNESS = 'Weakness',
   BLOCK = 'Block',
-  CONTINUES_HEAL = 'Continues Heal'
+  CONTINUES_HEAL = 'Continues Heal',
+  DIVINE_SHIELD = 'Divine Shield'
 }
 
 export enum SEX {
@@ -144,13 +146,20 @@ export enum SKILL {
   HEAL = 'Heal',
   MIGHT = 'Might',
   LAVA_GEYSER = 'Lava Geyser',
-  RAGE = 'Rage'
+  RAGE = 'Rage',
+  DIVINE_SHIELD = 'Divine Shield',
+  DIVINE_HEAL = 'Divine Heal',
+  RESURRECTION = 'Ressurection'
 }
 
 export enum TARGET {
   SELF = 'self',
   ALLY = 'ally',
-  ENEMY = 'enemy'
+  ALL_ALLIES = 'all_allies',
+  ALLY_DEAD = 'enemy_dead',
+  ENEMY = 'enemy',
+  ALL_ENEMIES = 'all_enemies',
+  ENEMY_DEAD = 'ally_dead'
 }
 
 export enum ATTACK_TYPE {

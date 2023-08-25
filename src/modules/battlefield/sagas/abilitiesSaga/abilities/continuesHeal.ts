@@ -1,5 +1,5 @@
 import type { Ability, ApplyAbilityProps } from 'modules/battlefield/types';
-import { call, put } from 'typed-redux-saga';
+import { call, put, select } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createContinuesHealEffect } from '../../effectsSaga/effects';
 import { getRandomNumberInRange } from 'common/helpers';
@@ -7,6 +7,7 @@ import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAni
 import { ABILITY, ABILITY_TYPE, EFFECT } from 'common/constants';
 import icon from './icons/continues-heal.png';
 import SFX from 'modules/SFX';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 
 export const createContinuesHealAbility = ({
   duration,
@@ -22,7 +23,12 @@ export const createContinuesHealAbility = ({
   name: ABILITY.CONTINUES_HEAL,
   description: `Has a ${hitChance}% chance to apply "${EFFECT.CONTINUES_HEAL}" effect. Healing target trooper for ${heal} HP right before its' turn starts for ${duration} rounds.`,
   hitChance,
-  applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
+  applyAbility: function* ({ targetTrooperId }: ApplyAbilityProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
+    if (!targetTrooper) return;
+
     const roll = getRandomNumberInRange(1, 100);
 
     if (roll <= hitChance) {

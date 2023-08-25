@@ -23,6 +23,8 @@ import shield from './sounds/shield.aac';
 import poison from './sounds/poison.aac';
 import bleed from './sounds/bleed.aac';
 import anchor from './sounds/anchor.aac';
+import holyShield from './sounds/holyShield.aac';
+import holyRevive from './sounds/holyRevive.aac';
 import lightAura from './sounds/lightAura.aac';
 import heal from './sounds/heal.aac';
 import continuesHeal from './sounds/continuesHeal.aac';
@@ -33,29 +35,32 @@ import rage from './sounds/rage.aac';
 import fireBall from './sounds/fireBall.aac';
 import lavaGeyser from './sounds/lavaGeyser.m4a';
 import iceSpikes from './sounds/iceSpikes.m4a';
+import lightningStrike from './sounds/lightningStrike.aac';
 
 export default {
   click: createAudio(click, { volume: 0.2 }),
   hover: createAudio(hover, { volume: 0.05 }),
   swordHit: createAudio(swordHit),
   swordHitFullPlate: createAudio(swordHitFullPlate),
-  axeHit: createAudio(axeHit),
-  axeHitFullPlate: createAudio(axeHitFullPlate),
-  stickHitFullPlate: createAudio(stickHitFullPlate),
-  stickHit: createAudio(stickHit),
+  axeHit: createAudio(axeHit, { volume: 0.4 }),
+  axeHitFullPlate: createAudio(axeHitFullPlate, { volume: 0.4 }),
+  stickHitFullPlate: createAudio(stickHitFullPlate, { volume: 0.4 }),
+  stickHit: createAudio(stickHit, { volume: 0.4 }),
   bowShoot: createAudio(bowShoot),
   maleDie: createAudio(maleDie, { volume: 0.2 }),
   femaleDie: createAudio(femaleDie, { volume: 0.2 }),
   femaleGrunt: createAudio(femaleGrunt, { volume: 0.2 }),
   miss: createAudio(miss, { volume: 0.5 }),
   run: createAudio(run, { volume: 0.2 }),
-  shield: createAudio(shield, { volume: 0.2 }),
+  shield: createAudio(shield, { volume: 0.1 }),
   poison: createAudio(poison, { volume: 0.4 }),
   bleed: createAudio(bleed, { volume: 0.4 }),
   buff: createAudio(lightAura, { volume: 0.2 }),
   anchor: createAudio(anchor, { volume: 0.4 }),
+  holyShield: createAudio(holyShield, { volume: 0.4 }),
+  holyRevive: createAudio(holyRevive, { volume: 0.4 }),
   skipTurn: createAudio(skipTurn, { volume: 0.3 }),
-  waterSpell: createAudio(waterSpell),
+  waterSpell: createAudio(waterSpell, { volume: 0.05 }),
   heal: createAudio(heal, { volume: 0.4 }),
   healed: createAudio(healed),
   continuesHeal: createAudio(continuesHeal, { volume: 0.6 }),
@@ -64,5 +69,7 @@ export default {
   lavaGeyser: createAudio(lavaGeyser),
   fireBall: createAudio(fireBall, { volume: 0.4 }),
   kraken: createAudio(kraken),
+  lightningStrike: createAudio(lightningStrike),
+  // music
   battleTheme2: createAudio(battleTheme2, { volume: 0.1, loop: true })
 };

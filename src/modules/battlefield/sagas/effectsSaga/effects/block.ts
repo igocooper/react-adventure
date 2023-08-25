@@ -1,9 +1,10 @@
-import type { Effect, Trooper } from 'modules/battlefield/types';
-import { put } from 'typed-redux-saga';
+import type { Effect } from 'modules/battlefield/types';
+import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/actions';
 import blockIcon from './icons/block.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { generateId } from 'common/helpers';
+import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 
 export const createBlockEffect = (): Effect => {
   return {
@@ -15,7 +16,12 @@ export const createBlockEffect = (): Effect => {
     once: true,
     done: false,
     stacks: false,
-    applyEffect: function* ({ activeTrooper }: { activeTrooper: Trooper }) {
+    applyEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
+      if (!activeTrooper) return;
+
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,
@@ -26,7 +32,11 @@ export const createBlockEffect = (): Effect => {
         })
       );
     },
-    cancelEffect: function* ({ activeTrooper }: { activeTrooper: Trooper }) {
+    cancelEffect: function* ({ targetTrooperId }) {
+      const activeTrooper = yield* select(
+        makeCharacterByIdSelector(targetTrooperId)
+      );
+      if (!activeTrooper) return;
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,

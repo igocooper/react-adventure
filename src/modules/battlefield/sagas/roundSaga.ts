@@ -129,6 +129,7 @@ export function* finishTrooperTurn() {
     .filter(({ id }) => troopersHealthMap[id]! > 0);
 
   if (updatedInitiative.length === 0) {
+    yield* put(setActiveSkill(null));
     yield* put(finishRoundAction(round));
     yield* put(startRoundAction(round + 1));
   }
@@ -208,7 +209,22 @@ function* handleTrooperClick({
   const selectedTrooper = yield* select(
     makeCharacterByIdSelector(clickedTrooperInfo.id)
   );
-  const isEnemyDead = selectedTrooper!.currentHealth <= 0;
+  const isSelectedTrooperDead = selectedTrooper!.currentHealth <= 0;
+
+  if (isSelectedTrooperDead) {
+    if (!isEnemySelected && activeSkill?.target === TARGET.ALLY_DEAD) {
+      yield* call(applySkill, {
+        skill: activeSkill,
+        targetTrooper: selectedTrooper!
+      });
+      yield* put(setBattlefieldStatus(false));
+      yield* put(finishTrooperTurnAction());
+      return;
+    }
+
+    yield* put(setBattlefieldStatus(false));
+    return;
+  }
 
   if (isEnemySelected) {
     if (
@@ -218,13 +234,18 @@ function* handleTrooperClick({
         !canMeleeTrooperAttack) ||
       (activeTrooper.attackType === ATTACK_TYPE.MELEE &&
         !canMeleeTrooperAttack) ||
-      isEnemyDead // TODO: we can show hint saying that this trooper is DEAD 💀 already
+      activeSkill?.target === TARGET.ALLY ||
+      activeSkill?.target === TARGET.ALL_ALLIES ||
+      activeSkill?.target === TARGET.ALLY_DEAD
     ) {
       yield* put(setBattlefieldStatus(false));
       return;
     }
 
-    if (activeSkill?.target === TARGET.ENEMY) {
+    if (
+      activeSkill?.target === TARGET.ENEMY ||
+      activeSkill?.target === TARGET.ALL_ENEMIES
+    ) {
       yield* call(applySkill, {
         skill: activeSkill,
         targetTrooper: selectedTrooper!
@@ -241,7 +262,10 @@ function* handleTrooperClick({
     yield* put(finishTrooperTurnAction());
   }
 
-  if (activeSkill?.target === TARGET.ALLY) {
+  if (
+    activeSkill?.target === TARGET.ALLY ||
+    activeSkill?.target === TARGET.ALL_ALLIES
+  ) {
     yield* call(applySkill, {
       skill: activeSkill,
       targetTrooper: selectedTrooper!
@@ -297,7 +321,7 @@ function* handleBlockClick() {
 
     void SFX.shield.play();
     yield* call(blockAnimation!.play);
-    yield* call(blockEffect.applyEffect, { activeTrooper });
+    yield* call(blockEffect.applyEffect, { targetTrooperId: activeTrooper.id });
     yield* put(
       addEffect({
         id: activeTrooper.id,

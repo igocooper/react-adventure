@@ -3,12 +3,16 @@ import { SKILL, TARGET } from 'common/constants';
 import icon from './icons/might.png';
 import { put, select, call, fork } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/actions';
-import { activeTrooperSelector } from 'modules/battlefield/selectors';
+import {
+  activeTrooperSelector,
+  makeCharacterByIdSelector
+} from 'modules/battlefield/selectors';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import SFX from 'modules/SFX';
 import { applyBuffs } from '../../abilitiesSaga';
 import { createMightEffect } from '../../effectsSaga/effects';
+import { playEffectedAnimation } from '../../../helpers/playEffectedAnimation';
 
 export const createMightSkill = ({
   percent,
@@ -24,18 +28,16 @@ export const createMightSkill = ({
   target: TARGET.ALLY,
   coolDown,
   description: `Increase ally damage by ${percent}% for ${duration} rounds.`,
-  applySkill: function* ({ targetTrooper }: ApplySkillProps) {
+  applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
     const activeTrooper = yield* select(activeTrooperSelector);
-    if (!activeTrooper) return;
+    if (!targetTrooper || !activeTrooper) return;
 
     const activeTrooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,
       activeTrooper.id
-    );
-
-    const targetTrooperAnimationInstance = yield* call(
-      getTrooperAnimationInstance,
-      targetTrooper.id
     );
 
     const mightEffect = createMightEffect({
@@ -44,7 +46,7 @@ export const createMightSkill = ({
     });
 
     yield* call(mightEffect.applyEffect, {
-      activeTrooper: targetTrooper
+      targetTrooperId: targetTrooper.id
     });
 
     mightEffect.done = true;
@@ -69,6 +71,10 @@ export const createMightSkill = ({
       })
     );
 
-    yield* call([targetTrooperAnimationInstance!, 'effected']);
+    yield* fork(
+      playEffectedAnimation,
+      targetTrooper.id,
+      '/images/effects/might.png'
+    );
   }
 });

@@ -39,6 +39,45 @@ export const fullHelmet: Helmet = {
   }
 };
 
+export const paladinHelmet: Helmet = {
+  name: 'Paladin Helmet',
+  imageSrc: '/images/helmets/Paladin Helmet.png',
+  type: HELMET_TYPE.FULL_FACE,
+  stats: {
+    defence: 15,
+    resistance: {
+      dark: 30,
+      fire: 10
+    }
+  }
+};
+
+export const darkPaladinHelmet: Helmet = {
+  name: 'Paladin Helmet',
+  imageSrc: '/images/helmets/Dark Paladin Helmet.png',
+  type: HELMET_TYPE.FULL_FACE,
+  stats: {
+    defence: 15,
+    resistance: {
+      dark: 30,
+      fire: 10
+    }
+  }
+};
+
+export const paladinChiefHelmet: Helmet = {
+  name: 'Paladin Chief Helmet',
+  imageSrc: '/images/helmets/Paladin Chief Helmet.png',
+  type: HELMET_TYPE.FULL_FACE,
+  stats: {
+    defence: 20,
+    resistance: {
+      dark: 50,
+      fire: 20
+    }
+  }
+};
+
 export const vikingHelmet: Helmet = {
   name: 'Viking Helmet',
   imageSrc: '/images/helmets/Viking Helmet.png',
@@ -56,3 +95,14 @@ export const torugCrown: Helmet = {
     defence: 10
   }
 };
+
+export const helmets = [
+  torugCrown,
+  vikingHelmet,
+  darkPaladinHelmet,
+  paladinHelmet,
+  fullHelmet,
+  gladiatorFullHelmet,
+  deathKnightHelmet,
+  destroyerHelmet
+];

@@ -111,8 +111,13 @@ export const troopsSlice = createSlice({
       const targetTrooper = state[team].find(
         (trooper) => trooper.id === targetId
       );
+      if (!targetTrooper) return;
 
-      if (targetTrooper != null) {
+      if (damage >= targetTrooper.currentHealth) {
+        // prevent setting less than 0 HP
+        targetTrooper.currentHealth -=
+          damage - (damage - targetTrooper.currentHealth);
+      } else {
         targetTrooper.currentHealth -= damage;
       }
     },
@@ -228,9 +233,7 @@ export const troopsSlice = createSlice({
             if (existingEffect && effect.stacks === false) {
               // cancel effect which will be overwritten
               if (existingEffect.cancelEffect) {
-                existingEffect.cancelEffect({
-                  activeTrooper: trooper as Trooper
-                });
+                existingEffect.cancelEffect({ targetTrooperId: id });
               }
 
               return {

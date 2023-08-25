@@ -18,7 +18,7 @@ export function* applyBuffs({ id }: { id: Trooper['id'] }) {
   );
 
   for (const buff of buffs) {
-    yield* call([buff, 'applyAbility'], { targetTrooper });
+    yield* call([buff, 'applyAbility'], { targetTrooperId: targetTrooper.id });
   }
 }
 
@@ -34,6 +34,6 @@ export function* applyCurses({ id }: { id: Trooper['id'] }) {
   );
 
   for (const curse of curses) {
-    yield* call([curse, 'applyAbility'], { targetTrooper });
+    yield* call([curse, 'applyAbility'], { targetTrooperId: targetTrooper.id });
   }
 }

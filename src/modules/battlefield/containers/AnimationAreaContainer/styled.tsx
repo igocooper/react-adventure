@@ -13,7 +13,7 @@ export const Area = styled.div.attrs(({ $team }: AreaProps) => ({
   width: 880px;
   height: 500px;
   position: absolute;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% + 50px));
   -webkit-box-pack: start;
   justify-content: flex-start;
 

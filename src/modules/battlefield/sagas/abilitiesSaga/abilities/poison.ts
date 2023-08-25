@@ -1,5 +1,5 @@
 import type { Ability, ApplyAbilityProps } from 'modules/battlefield/types';
-import { call, put } from 'typed-redux-saga';
+import { call, put, select } from 'typed-redux-saga';
 import { addEffect } from 'modules/battlefield/reducers/troopsSlice';
 import { createPoisonEffect } from '../../effectsSaga/effects';
 import { getRandomNumberInRange } from 'common/helpers';
@@ -9,6 +9,7 @@ import poisonIcon from './icons/poison.png';
 import { publishDamageEvent } from '../../damageEventsSaga';
 import theme from 'theme/defaultTheme';
 import SFX from 'modules/SFX';
+import { makeCharacterByIdSelector } from '../../../selectors';
 
 export const createPoisonAbility = ({
   duration,
@@ -25,7 +26,12 @@ export const createPoisonAbility = ({
   description: `Has ${hitChance}% chance to poison an enemy during attack. Inflicting ${damage} poison damage at the
    beginning of its' turn for ${duration} rounds.`,
   hitChance,
-  applyAbility: function* ({ targetTrooper }: ApplyAbilityProps) {
+  applyAbility: function* ({ targetTrooperId }: ApplyAbilityProps) {
+    const targetTrooper = yield* select(
+      makeCharacterByIdSelector(targetTrooperId)
+    );
+    if (!targetTrooper) return;
+
     const roll = getRandomNumberInRange(1, 100);
 
     if (roll <= hitChance) {

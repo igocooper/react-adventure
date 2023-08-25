@@ -23,7 +23,7 @@ export function* applySkill({ skill, targetTrooper }: ApplySkillProps) {
   }
 
   yield* call(skill.applySkill, {
-    targetTrooper
+    targetTrooperId: targetTrooper.id
   });
 
   yield* put(

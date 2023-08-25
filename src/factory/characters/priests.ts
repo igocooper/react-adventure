@@ -33,5 +33,17 @@ export const priest1 = (overrides: Partial<Trooper>) =>
     initiative: 2,
     attackType: ATTACK_TYPE.MELEE,
     defence: 0,
-    healPower: 10
+    healPower: 10,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
+
+export const priests = [priest1];

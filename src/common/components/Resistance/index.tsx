@@ -6,7 +6,7 @@ import { getDamageTypeIcon } from 'common/helpers/getDamageTypeIcon';
 
 type Props = Pick<Trooper, 'resistance'>;
 
-export const Resistance = ({ resistance = {} }: Props) => {
+export const Resistance = ({ resistance }: Props) => {
   return (
     <>
       <Item>Resistance:</Item>

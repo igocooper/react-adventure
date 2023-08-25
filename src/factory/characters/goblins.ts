@@ -31,7 +31,17 @@ export const goblin1 = (overrides: Partial<Trooper>) =>
     currentHealth: 25,
     initiative: 1,
     attackType: ATTACK_TYPE.MELEE,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const goblin2 = (overrides: Partial<Trooper>) =>
@@ -55,7 +65,17 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     criticalChance: 10,
     criticalMultiplier: 1.5,
-    defence: 0
+    defence: 0,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const goblin3 = (overrides: Partial<Trooper>) =>
@@ -80,7 +100,17 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
     criticalChance: 5,
     criticalMultiplier: 2,
     defence: 0,
-    evadeChance: 5
+    evadeChance: 5,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const armoredGoblin = (overrides: Partial<Trooper>) =>
@@ -95,18 +125,28 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     ...overrides,
     type: 'armored-goblin',
     sex: SEX.MALE,
-    baseDamage: '10-20',
-    damage: '10-20',
+    baseDamage: '3-3',
+    damage: '3-3',
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
-    initiative: 5,
+    initiative: 3,
     attackType: ATTACK_TYPE.MELEE,
     hitChance: 95,
     criticalChance: 5,
     criticalMultiplier: 2,
     defence: 20,
-    evadeChance: 5
+    evadeChance: 5,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
 
 export const goblinBuffer = (overrides: Partial<Trooper>) =>
@@ -136,5 +176,17 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
     criticalChance: 7,
     criticalMultiplier: 2,
     defence: 20,
-    evadeChance: 5
+    evadeChance: 5,
+    resistance: {
+      fire: 0,
+      water: 0,
+      blood: 0,
+      poison: 0,
+      dark: 0,
+      light: 0,
+      wind: 0,
+      earth: 0
+    }
   }) as Trooper;
+
+export const goblins = [goblinBuffer, armoredGoblin, goblin3, goblin2, goblin1];

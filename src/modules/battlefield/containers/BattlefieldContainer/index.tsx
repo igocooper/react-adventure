@@ -17,6 +17,7 @@ import {
 import { Location, Battlefield } from './styled';
 import type { Trooper } from '../../types';
 import { useLocation } from 'common/hooks/useLocation';
+import { useKeyPress } from 'common/hooks/useKeyPress';
 import { TileContainer } from '../TileContainer';
 import { AnimationAreaContainer } from '../AnimationAreaContainer';
 import { UserInterfaceContainer } from '../UserInterfaceContainer';
@@ -41,6 +42,8 @@ export const BattlefieldContainer = () => {
   const resetActiveSkill = useCallback(() => {
     setActiveSkill(null);
   }, [setActiveSkill]);
+
+  useKeyPress('Escape', resetActiveSkill);
 
   useEffect(() => {
     setTroopersToLoad(troopersToLoad);

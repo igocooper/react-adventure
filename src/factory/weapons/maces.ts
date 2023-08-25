@@ -18,4 +18,13 @@ export const rustyMace: Weapon = {
   }
 };
 
-export const maces = [spikeMace, rustyMace];
+export const holyMace: Weapon = {
+  name: 'Holy Mace',
+  type: WEAPON_TYPE.MACE,
+  imageSrc: '/images/weapons/maces/holy-mace.png',
+  stats: {
+    damage: '4-27'
+  }
+};
+
+export const maces = [spikeMace, rustyMace, holyMace];

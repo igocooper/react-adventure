@@ -9,6 +9,8 @@ import {
 import type { Trooper } from '../../types';
 import { HOVERED_ELEMENT_TYPE } from '../../constants';
 import {
+  activeSkillSelector,
+  activeTeamNameSelector,
   activeTrooperSelector,
   battlefieldDisabledStatusSelector,
   hoveredElementSelector
@@ -24,6 +26,7 @@ import { register } from 'modules/animation/troopersAnimationInstances';
 import { registerTrooperNode } from '../../troopersNodesMap';
 import type { OnLoadArgs } from 'modules/animation/containers/CharacterAnimation';
 import SFX from 'modules/SFX';
+import { detectTrooperHover } from '../../helpers/detectTrooperHover';
 
 type CharacterProps = Pick<
   Trooper,
@@ -68,7 +71,9 @@ export const TileContainer = ({
   const handleMouseEnter = useCallback(() => {
     if (!isBattlefieldDisabled) {
       void SFX.hover.play();
-      dispatch(setHoveredElement({ id, type: HOVERED_ELEMENT_TYPE.CHARACTER }));
+      dispatch(
+        setHoveredElement({ id, team, type: HOVERED_ELEMENT_TYPE.CHARACTER })
+      );
     }
   }, [dispatch, isBattlefieldDisabled]);
 
@@ -106,7 +111,7 @@ export const TileContainer = ({
   const handleClick = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation();
-      if (!isBattlefieldDisabled && currentHealth > 0) {
+      if (!isBattlefieldDisabled) {
         dispatch(
           trooperClicked({
             id,
@@ -119,8 +124,18 @@ export const TileContainer = ({
   );
 
   const activeTrooper = useSelector(activeTrooperSelector);
+  const activeTeamName = useSelector(activeTeamNameSelector);
+  const activeSkill = useSelector(activeSkillSelector);
   const active = id === activeTrooper?.id;
-  const hovered = id === hoveredElement?.id;
+
+  const hovered = detectTrooperHover({
+    id,
+    team,
+    activeTeamName,
+    activeTrooper,
+    hoveredElement,
+    activeSkill
+  });
 
   const CharacterComponent = getCharacterByType(type);
 

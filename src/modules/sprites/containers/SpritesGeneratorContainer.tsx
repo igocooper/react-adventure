@@ -5,8 +5,8 @@ import { useCanvas } from '../hooks/useCanvas';
 import { useKeyframes } from '../hooks/useKeyframes';
 import { sortFilesByName } from '../utils/sortFilesByName';
 
-const IMG_WIDTH = 128 * 2;
-const IMG_HEIGHT = 128 * 2;
+const IMG_WIDTH = 256 * 2;
+const IMG_HEIGHT = 256 * 2;
 
 export const SpritesGeneratorContainer = () => {
   const {

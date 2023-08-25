@@ -3,15 +3,17 @@ import {
   goblin1,
   goblin2,
   goblin3,
-  hero,
   armoredGoblin,
-  mountainArcher,
   mountainMage,
   waterMage,
   priest1,
-  goblinBuffer
+  goblinBuffer,
+  paladin,
+  darkPaladin,
+  paladinChief
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
+import { addBaseTrooperProperties } from './helpers/addBaseTrooperProperties';
 
 export enum TROOPER_TEAM {
   ATTACKERS = 'attackers',
@@ -60,7 +62,7 @@ export enum LOCATION {
 }
 
 const ATTACKERS_TROOPS: Trooper[] = [
-  hero({
+  paladinChief({
     id: 1,
     team: 'attackers',
     position: 2,
@@ -71,7 +73,7 @@ const ATTACKERS_TROOPS: Trooper[] = [
     team: 'attackers',
     position: 4
   }),
-  mountainArcher({
+  darkPaladin({
     id: 3,
     team: 'attackers',
     position: 1
@@ -85,6 +87,11 @@ const ATTACKERS_TROOPS: Trooper[] = [
     id: 4,
     team: 'attackers',
     position: 5
+  }),
+  paladin({
+    id: 6,
+    team: 'attackers',
+    position: 3
   })
 ];
 
@@ -123,7 +130,7 @@ const DEFENDERS_TROOPS: Trooper[] = [
   })
 ];
 
-export const ATTACKERS = ATTACKERS_TROOPS;
-export const DEFENDERS = DEFENDERS_TROOPS;
+export const ATTACKERS = addBaseTrooperProperties(ATTACKERS_TROOPS);
+export const DEFENDERS = addBaseTrooperProperties(DEFENDERS_TROOPS);
 
 export const AREA_CONTAINER_ID = 'area-container';
