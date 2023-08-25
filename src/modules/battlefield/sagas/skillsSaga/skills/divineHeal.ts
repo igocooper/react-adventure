@@ -32,7 +32,9 @@ export const createDivineHealSkill = ({
     );
 
     const activeTrooperTeam = yield* select(activeTeamSelector);
-
+    const aliveTeamMembers = activeTrooperTeam.filter(
+      (trooper) => trooper.currentHealth > 0
+    );
     void SFX.heal.play();
 
     yield* all([
@@ -40,7 +42,7 @@ export const createDivineHealSkill = ({
       call(divineHealAnimation!.play)
     ]);
 
-    for (const trooper of activeTrooperTeam) {
+    for (const trooper of aliveTeamMembers) {
       yield* call(wait, getRandomNumberInRange(0, 200));
       let heal = activeTrooper.healPower || 1;
 

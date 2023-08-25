@@ -158,6 +158,8 @@ type SlotProps = {
 
 export const Slot = styled.div<SlotProps>`
   color: #fff;
+  display: flex;
+  justify-content: center;
   font-family: fantasy;
   box-sizing: border-box;
   background: url('${slotBackgroundImg}'), ${({ theme }) => theme.dialog.slotBg};

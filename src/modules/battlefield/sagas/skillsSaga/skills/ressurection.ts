@@ -13,6 +13,7 @@ import { calculatePercentage, wait } from 'common/helpers';
 import { ANIMATION_SPEED } from 'modules/battlefield/containers/AnimationAreaContainer/Resurrection';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
 import SFX from 'modules/SFX';
+import { getTileNode } from '../../../tilesNodesMap';
 
 export const createResurrectionSkill = ({
   coolDown = 5,
@@ -29,6 +30,8 @@ export const createResurrectionSkill = ({
     );
     const activeTrooper = yield* select(activeTrooperSelector);
     if (!targetTrooper || !activeTrooper) return;
+    const tileNode = getTileNode(targetTrooper.id);
+    const deadOutsideItsDefaultPosition = Boolean(tileNode!.style.transform);
 
     const targetTrooperAnimationInstance = yield* call(
       getTrooperAnimationInstance,
@@ -64,6 +67,13 @@ export const createResurrectionSkill = ({
         heal: calculatePercentage(targetTrooper.health, percent)
       })
     );
+
+    if (deadOutsideItsDefaultPosition) {
+      yield* call([targetTrooperAnimationInstance!, 'meleeGoBack'], {
+        tileNode: tileNode!
+      });
+    }
+
     void SFX.healed.play();
     yield* call(
       playEffectedAnimation,

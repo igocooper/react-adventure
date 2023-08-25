@@ -17,47 +17,47 @@ type AttackImageConrainerProps = {
 
 const moving = (zIndex: number) => keyframes`
   0% {
-    transform: translate(0, 0 ) scale(0.8);
+    transform: translate(40px, 0 ) scale(0.8);
     z-index: ${zIndex + 1};
   }
   
   12% {
-    transform: translate(30px, 7px) scale(1);
+    transform: translate(70px, 7px) scale(1);
     z-index: ${zIndex + 1};
   }
   
   25% {
-    transform: translate(60px, 15px) scale(1);
+    transform: translate(100px, 15px) scale(1);
     z-index: ${zIndex + 1};
   }
 
   37% {
-    transform: translate(90px, 7px) scale(1);
+    transform: translate(130px, 7px) scale(1);
     z-index: ${zIndex + 1};
   }
   
   50% {
-    transform: translate(120px, 0)  scale(0.8);
+    transform: translate(160px, 0)  scale(0.8);
     z-index: ${zIndex + 1};
   }
   
   62% {
-    transform: translate(90px, -7px) scale(0.8);
+    transform: translate(130px, -7px) scale(0.8);
     z-index: ${zIndex - 1};
   }
   
   75% {
-    transform: translate(60px, -15px) scale(0.8);
+    transform: translate(100px, -15px) scale(0.8);
     z-index: ${zIndex - 1};
   }
 
   87% {
-    transform: translate(30px, -7px) scale(0.8);
+    transform: translate(70px, -7px) scale(0.8);
     z-index: ${zIndex - 1};
   }
   
   100% {
-    transform: translate(0, 0) scale(0.8); 
+    transform: translate(40px, 0) scale(0.8); 
     z-index: ${zIndex - 1};
   }
 `;

@@ -212,9 +212,7 @@ function* handleTrooperClick({
   const isSelectedTrooperDead = selectedTrooper!.currentHealth <= 0;
 
   if (isSelectedTrooperDead) {
-    console.log('isSelectedTrooperDead');
     if (!isEnemySelected && activeSkill?.target === TARGET.ALLY_DEAD) {
-      console.log('isSelectedTrooperDead +');
       yield* call(applySkill, {
         skill: activeSkill,
         targetTrooper: selectedTrooper!

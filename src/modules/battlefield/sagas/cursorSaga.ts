@@ -123,6 +123,10 @@ const detectCharacterCursor = ({
   }
 
   if (isAllySelected) {
+    if (isDeadTrooperSelected && activeSkill?.target === TARGET.ALLY_DEAD) {
+      return CURSOR.WAND;
+    }
+
     if (
       activeSkill?.target === TARGET.ALLY ||
       activeSkill?.target === TARGET.ALL_ALLIES

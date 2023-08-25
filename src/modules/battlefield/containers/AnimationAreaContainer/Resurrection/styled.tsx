@@ -50,6 +50,12 @@ export const Ray = styled.div<DivineParticleProps>`
     rgba(255, 255, 255, 0.8) 50%,
     rgba(255, 255, 255, 0) 100%
   );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
   border-radius: 80% 80% 0 0;
 
   ${({ active, animationSpeed }) =>
