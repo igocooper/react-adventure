@@ -60,7 +60,7 @@ export const BattlefieldContainer = () => {
   }, [battleFieldLoaded]);
 
   return (
-    <Battlefield $disabled={isBattleFieldDisabled} onClick={resetActiveSkill}>
+    <Battlefield disabled={isBattleFieldDisabled} onClick={resetActiveSkill}>
       <SoundControl />
       <Location $cursor={cursor} $location={location}>
         <AnimationAreaContainer>
