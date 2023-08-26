@@ -3,6 +3,8 @@ import {
   Container,
   Viewport,
   Sword,
+  Grid,
+  Cell,
   DestroyerArmor,
   DestroyerHelmet
 } from './styled';
@@ -35,6 +37,7 @@ import {
 } from './selectors';
 import { MovableObject } from './components/MovableObject';
 import { Location } from './containers/Location';
+import PF from 'pathfinding';
 
 export const Explore = () => {
   const characterRef = useRef<CharacterAnimation>(null);
@@ -76,10 +79,75 @@ export const Explore = () => {
     );
   };
 
+  const createRow = () => new Array(30).fill(0).map((_, index) => index);
+  const grid = [
+    createRow(),
+    createRow(),
+    createRow(),
+    createRow(),
+    createRow(),
+    createRow(),
+  ];
+
+  const PFGrid = new PF.Grid(30, 6);
+  const finder = new PF.AStarFinder({
+    allowDiagonal: true,
+    dontCrossCorners: true
+  });
+
+  const CELL_SIZE = 100;
   return (
     <Container>
       <Viewport ref={viewportRef} onClick={handleClick}>
         <Location ref={locationRef} positionX={cameraViewPositionX}>
+          <Grid>
+            {grid.map((row, rowIndex) => {
+              return (
+                <>
+                  {row.map((cell, cellIndex) => {
+                    const position = {
+                      x: cellIndex * CELL_SIZE,
+                      y: rowIndex * CELL_SIZE
+                    };
+
+                    return (
+                      <Cell
+                        onClick={() => {
+                          console.log(
+                            `row: ${rowIndex}, cell: ${cellIndex}. Path [${rowIndex}, ${cellIndex}]`
+                          );
+
+                          const path = finder.findPath(
+                            3,
+                            1,
+                            rowIndex,
+                            cellIndex,
+                            PFGrid
+                          );
+
+                          console.log(`path: ${path}`);
+                        }}
+                        onContextMenu={(event) => {
+                          event.preventDefault()
+                          const node = event.target;
+
+                          node.style.background = '#000';
+
+                          console.log(`blocked:  [${rowIndex}, ${cellIndex}]`);
+
+                          PFGrid.setWalkableAt(rowIndex, cellIndex, false);
+                        }}
+                        key={`${rowIndex - cellIndex}`}
+                        position={position}
+                        width={CELL_SIZE}
+                        height={CELL_SIZE}
+                      />
+                    );
+                  })}
+                </>
+              );
+            })}
+          </Grid>
           <Items />
           <MovableObject>
             <CharacterAnimation
@@ -87,7 +155,7 @@ export const Explore = () => {
               {...getCharacterProps({
                 type: CHARACTER.type,
                 equipment: {},
-                appearance: CHARACTER.appearance,
+                appearance: CHARACTER.appearance
               })}
               id={HERO_ID}
               onLoad={handleLoad}

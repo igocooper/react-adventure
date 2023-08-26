@@ -11,7 +11,7 @@ export const Container = styled.div<LocationProps>`
   position: absolute;
   top: 0;
   left: ${({ positionX }) => `${positionX}px`};
-  width: 2940px;
+  width: 3000px;
   height: 100%;
   background-size: contain;
   background-position: 0 center;
