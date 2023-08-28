@@ -10,7 +10,7 @@ import {
   goblinBuffer,
   paladin,
   darkPaladin,
-  paladinChief
+  hero
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 import { addBaseTrooperProperties } from './helpers/addBaseTrooperProperties';
@@ -62,7 +62,7 @@ export enum LOCATION {
 }
 
 const ATTACKERS_TROOPS: Trooper[] = [
-  paladinChief({
+  hero({
     id: 1,
     team: 'attackers',
     position: 2,

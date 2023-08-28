@@ -158,10 +158,10 @@ export type Armor = {
   imageUrls: {
     body: string;
     leftArm: string;
-    leftHand: string;
+    leftHand?: string;
     leftLeg: string;
     rightArm: string;
-    rightHand: string;
+    rightHand?: string;
     rightLeg: string;
   };
 };

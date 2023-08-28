@@ -42,13 +42,13 @@ export const paladin = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/paladin/Head Earless.png',
-      head: '/images/paladin/Head.png',
-      headBeard: '/images/beards/Beard Black.png',
-      headHair: '/images/hairs/Hair Grey Short.png',
-      face01: '/images/paladin/Face 01.png',
-      face02: '/images/paladin/Face 02.png',
-      face03: '/images/paladin/Face 03.png'
+      headEarless: '/images/characters/paladin/Head Earless.png',
+      head: '/images/characters/paladin/Head.png',
+      headBeard: '/images/characters/paladin/Head Beard.png',
+      headHair: '/images/characters/paladin/Head Hair.png',
+      face01: '/images/characters/paladin/Face 01.png',
+      face02: '/images/characters/paladin/Face 02.png',
+      face03: '/images/characters/paladin/Face 03.png'
     },
     type: 'paladin',
     sex: SEX.MALE,
@@ -89,13 +89,13 @@ export const darkPaladin = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/dark-paladin/Head Earless.png',
-      head: '/images/paladin/Head.png',
-      headBeard: '/images/beards/Beard Small.png',
-      headHair: '/images/hairs/Hair Black Long.png',
-      face01: '/images/dark-paladin/Face 01.png',
-      face02: '/images/dark-paladin/Face 02.png',
-      face03: '/images/dark-paladin/Face 03.png'
+      headEarless: '/images/characters/dark-paladin/Head Earless.png',
+      head: '/images/characters/dark-paladin/Head.png',
+      headBeard: '/images/characters/dark-paladin/Head Beard.png',
+      headHair: '/images/characters/dark-paladin/Head Hair.png',
+      face01: '/images/characters/dark-paladin/Face 01.png',
+      face02: '/images/characters/dark-paladin/Face 02.png',
+      face03: '/images/characters/dark-paladin/Face 03.png'
     },
     type: 'dark-paladin',
     sex: SEX.MALE,
@@ -138,6 +138,15 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
       [SKILL.RESURRECTION]: createResurrectionSkill()
     },
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/paladin-chief/Head Earless.png',
+      head: '/images/characters/paladin-chief/Head.png',
+      headBeard: '/images/beards/yellow/06.png',
+      headHair: '/images/hairs/yellow/06.png',
+      face01: '/images/characters/paladin-chief/Face 01.png',
+      face02: '/images/characters/paladin-chief/Face 02.png',
+      face03: '/images/characters/paladin-chief/Face 03.png'
+    },
     type: 'paladin-chief',
     sex: SEX.MALE,
     baseDamage: '1-3',

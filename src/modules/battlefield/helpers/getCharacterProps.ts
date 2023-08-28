@@ -13,34 +13,34 @@ type AppearanceUrls = Record<string, string>;
 
 const getDefaultAppearance = (type: string): AppearanceUrls => {
   return {
-    [CHARACTER_IMAGE_SLOT.BODY]: `/images/${type}/Body.png`,
-    [CHARACTER_IMAGE_SLOT.FACE_01]: `/images/${type}/Face 01.png`,
-    [CHARACTER_IMAGE_SLOT.FACE_02]: `/images/${type}/Face 02.png`,
-    [CHARACTER_IMAGE_SLOT.FACE_03]: `/images/${type}/Face 03.png`,
-    [CHARACTER_IMAGE_SLOT.HEAD]: `/images/${type}/Head.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_ARM]: `/images/${type}/Left Arm.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND]: `/images/${type}/Left Hand.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_LEG]: `/images/${type}/Left Leg.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_ARM]: `/images/${type}/Right Arm.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: `/images/${type}/Right Hand.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: `/images/${type}/Right Leg.png`,
-    [CHARACTER_IMAGE_SLOT.SLASH_FX]: `/images/${type}/SlashFX.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: `/images/${type}/Left Hand Weapon.png`,
+    [CHARACTER_IMAGE_SLOT.BODY]: `/images/characters/${type}/Body.png`,
+    [CHARACTER_IMAGE_SLOT.FACE_01]: `/images/characters/${type}/Face 01.png`,
+    [CHARACTER_IMAGE_SLOT.FACE_02]: `/images/characters/${type}/Face 02.png`,
+    [CHARACTER_IMAGE_SLOT.FACE_03]: `/images/characters/${type}/Face 03.png`,
+    [CHARACTER_IMAGE_SLOT.HEAD]: `/images/characters/${type}/Head.png`,
+    [CHARACTER_IMAGE_SLOT.LEFT_ARM]: `/images/characters/${type}/Left Arm.png`,
+    [CHARACTER_IMAGE_SLOT.LEFT_HAND]: `/images/characters/${type}/Left Hand.png`,
+    [CHARACTER_IMAGE_SLOT.LEFT_LEG]: `/images/characters/${type}/Left Leg.png`,
+    [CHARACTER_IMAGE_SLOT.RIGHT_ARM]: `/images/characters/${type}/Right Arm.png`,
+    [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: `/images/characters/${type}/Right Hand.png`,
+    [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: `/images/characters/${type}/Right Leg.png`,
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: `/images/characters/${type}/SlashFX.png`,
+    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: `/images/characters/${type}/Left Hand Weapon.png`,
     // Archer images
     ...(type.includes('archer')
       ? {
-          [CHARACTER_IMAGE_SLOT.BOW]: `/images/${type}/Bow.png`,
-          [CHARACTER_IMAGE_SLOT.BOWSTRING]: `/images/${type}/Bowstring.png`,
-          [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: `/images/${type}/Drawn Bowstring.png`,
-          [CHARACTER_IMAGE_SLOT.ARROW]: `/images/${type}/Arrow.png`,
-          [CHARACTER_IMAGE_SLOT.QUIVER]: `/images/${type}/Quiver.png`
+          [CHARACTER_IMAGE_SLOT.BOW]: `/images/characters/${type}/Bow.png`,
+          [CHARACTER_IMAGE_SLOT.BOWSTRING]: `/images/characters/${type}/Bowstring.png`,
+          [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: `/images/characters/${type}/Drawn Bowstring.png`,
+          [CHARACTER_IMAGE_SLOT.ARROW]: `/images/characters/${type}/Arrow.png`,
+          [CHARACTER_IMAGE_SLOT.QUIVER]: `/images/characters/${type}/Quiver.png`
         }
       : {}),
     // Hero
     ...(type === 'hero'
       ? {
-          [CHARACTER_IMAGE_SLOT.HEAD_HAIR]: `/images/${type}/Head Hair.png`,
-          [CHARACTER_IMAGE_SLOT.HEAD_BEARD]: `/images/${type}/Head Beard.png`
+          [CHARACTER_IMAGE_SLOT.HEAD_HAIR]: `/images/characters/${type}/Head Hair.png`,
+          [CHARACTER_IMAGE_SLOT.HEAD_BEARD]: `/images/characters/${type}/Head Beard.png`
         }
       : {})
   };

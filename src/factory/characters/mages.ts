@@ -4,12 +4,14 @@ import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
 import { waterMageStaff } from 'factory/weapons';
 import { ATTACK_ID_ICE_SPIKES } from 'modules/battlefield/characters/WaterMage/constants';
 import { createKrakenSkill } from 'modules/battlefield/sagas/skillsSaga/skills/kraken';
+import { iceWizardArmor } from '../armors';
 import SFX from 'modules/SFX';
 
 export const waterMage = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: waterMageStaff
+      leftHand: waterMageStaff,
+      armor: iceWizardArmor
     },
     abilities: [],
     effects: [],
@@ -20,6 +22,15 @@ export const waterMage = (overrides: Partial<Trooper>) =>
       })
     },
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/water-mage/Head Earless.png',
+      head: '/images/characters/water-mage/Head.png',
+      headBeard: '/images/beards/black/12.png',
+      headHair: '/images/hairs/black/16.png',
+      face01: '/images/characters/water-mage/Face 01.png',
+      face02: '/images/characters/water-mage/Face 02.png',
+      face03: '/images/characters/water-mage/Face 03.png'
+    },
     type: 'water-mage',
     sex: SEX.MALE,
     baseDamage: '1-3',

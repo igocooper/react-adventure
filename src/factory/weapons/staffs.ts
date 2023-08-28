@@ -4,7 +4,7 @@ import { WEAPON_TYPE } from 'common/constants';
 export const mountainStaff: Weapon = {
   name: 'Mountain Wand',
   type: WEAPON_TYPE.WOODEN_STAFF,
-  imageSrc: '/images/mountain-mage/Left Hand Weapon.png',
+  imageSrc: '/images/characters/mountain-mage/Left Hand Weapon.png',
   stats: {
     damage: '12-12'
   }

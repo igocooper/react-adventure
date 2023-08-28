@@ -4,11 +4,14 @@ import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
 import { oldWoodenStaff } from 'factory/weapons';
 import { createContinuesHealAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
 import { createHealSkill } from 'modules/battlefield/sagas/skillsSaga/skills';
+import { clericArmor, clericHat } from '../armors';
 
 export const priest1 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      leftHand: oldWoodenStaff
+      leftHand: oldWoodenStaff,
+      armor: clericArmor,
+      helmet: clericHat
     },
     abilities: [
       createContinuesHealAbility({
@@ -22,6 +25,15 @@ export const priest1 = (overrides: Partial<Trooper>) =>
       [SKILL.HEAL]: createHealSkill()
     },
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/priest-1/Head Earless.png',
+      head: '/images/characters/priest-1/Head.png',
+      headBeard: '/images/beards/brown/08.png',
+      headHair: '/images/hairs/brown/11.png',
+      face01: '/images/characters/priest-1/Face 01.png',
+      face02: '/images/characters/priest-1/Face 02.png',
+      face03: '/images/characters/priest-1/Face 03.png'
+    },
     type: 'priest-1',
     sex: SEX.MALE,
     baseDamage: '1-3',

@@ -65,7 +65,7 @@ Battle ends when one of the team is defeated.
 
 ### Adding new Character
 
-- add new folder with character assets in public/images
+- add new folder with character assets in public/images/characters/
 - add character weapon in public/images/[weapon-kind]
 - add character object in /src/factory/characters describing your character properties
 - add weapon object in /src/factory/[weapon-type].ts describing weapon properties
