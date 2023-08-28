@@ -126,11 +126,15 @@ export const equipArmor = ({
     ...appearance,
     [CHARACTER_IMAGE_SLOT.BODY]: armor.imageUrls.body,
     [CHARACTER_IMAGE_SLOT.LEFT_ARM]: armor.imageUrls.leftArm,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND]: armor.imageUrls.leftHand,
     [CHARACTER_IMAGE_SLOT.LEFT_LEG]: armor.imageUrls.leftLeg,
     [CHARACTER_IMAGE_SLOT.RIGHT_ARM]: armor.imageUrls.rightArm,
-    [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: armor.imageUrls.rightHand,
-    [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: armor.imageUrls.rightLeg
+    [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: armor.imageUrls.rightLeg,
+    ...(armor.imageUrls.rightHand
+      ? { [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: armor.imageUrls.rightHand }
+      : {}),
+    ...(armor.imageUrls.leftHand
+      ? { [CHARACTER_IMAGE_SLOT.LEFT_HAND]: armor.imageUrls.leftHand }
+      : {})
   };
 };
 

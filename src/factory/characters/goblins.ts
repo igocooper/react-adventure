@@ -9,18 +9,28 @@ import {
   spikeMace
 } from 'factory/weapons';
 import { createMightSkill } from 'modules/battlefield/sagas/skillsSaga/skills';
-import { woodenRoundShield } from 'factory/armors';
+import { armoredGoblinHelmet, woodenRoundShield } from 'factory/armors';
 
 export const goblin1 = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
       leftHand: spikeMace,
-      shield: woodenRoundShield
+      shield: woodenRoundShield,
+      helmet: armoredGoblinHelmet
     },
     abilities: [],
     effects: [],
     skills: {},
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/goblin-1/Head Earless.png',
+      head: '/images/characters/goblin-1/Head.png',
+      headBeard: '/images/characters/goblin-1/Head Beard.png',
+      headHair: '/images/characters/goblin-1/Head Hair.png',
+      face01: '/images/characters/goblin-1/Face 01.png',
+      face02: '/images/characters/goblin-1/Face 02.png',
+      face03: '/images/characters/goblin-1/Face 03.png'
+    },
     type: 'goblin-1',
     sex: SEX.MALE,
     baseDamage: '1-3',
@@ -53,6 +63,15 @@ export const goblin2 = (overrides: Partial<Trooper>) =>
     effects: [],
     skills: {},
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/goblin-2/Head Earless.png',
+      head: '/images/characters/goblin-2/Head.png',
+      headBeard: '/images/characters/goblin-2/Head Beard.png',
+      headHair: '/images/characters/goblin-2/Head Hair.png',
+      face01: '/images/characters/goblin-2/Face 01.png',
+      face02: '/images/characters/goblin-2/Face 02.png',
+      face03: '/images/characters/goblin-2/Face 03.png'
+    },
     type: 'goblin-2',
     sex: SEX.MALE,
     baseDamage: '2-3',
@@ -87,6 +106,15 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
     effects: [],
     skills: {},
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/goblin-3/Head Earless.png',
+      head: '/images/characters/goblin-3/Head.png',
+      headBeard: '/images/characters/goblin-3/Head Beard.png',
+      headHair: '/images/characters/goblin-3/Head Hair.png',
+      face01: '/images/characters/goblin-3/Face 01.png',
+      face02: '/images/characters/goblin-3/Face 02.png',
+      face03: '/images/characters/goblin-3/Face 03.png'
+    },
     type: 'goblin-3',
     sex: SEX.MALE,
     baseDamage: '3-4',
@@ -117,12 +145,22 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
       rightHand: skullSmasher,
-      shield: woodenRoundShield
+      shield: woodenRoundShield,
+      helmet: armoredGoblinHelmet
     },
     abilities: [],
     effects: [],
     skills: {},
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/armored-goblin/Head Earless.png',
+      head: '/images/characters/armored-goblin/Head.png',
+      headBeard: '/images/characters/armored-goblin/Head Beard.png',
+      headHair: '/images/hairs/brown/08.png',
+      face01: '/images/characters/armored-goblin/Face 01.png',
+      face02: '/images/characters/armored-goblin/Face 02.png',
+      face03: '/images/characters/armored-goblin/Face 03.png'
+    },
     type: 'armored-goblin',
     sex: SEX.MALE,
     baseDamage: '3-3',
@@ -163,6 +201,15 @@ export const goblinBuffer = (overrides: Partial<Trooper>) =>
       })
     },
     ...overrides,
+    appearance: {
+      headEarless: '/images/characters/goblin-buffer/Head Earless.png',
+      head: '/images/characters/goblin-buffer/Head.png',
+      headBeard: '/images/characters/goblin-buffer/Head Beard.png',
+      headHair: '/images/characters/goblin-buffer/Head Hair.png',
+      face01: '/images/characters/goblin-buffer/Face 01.png',
+      face02: '/images/characters/goblin-buffer/Face 02.png',
+      face03: '/images/characters/goblin-buffer/Face 03.png'
+    },
     type: 'goblin-buffer',
     sex: SEX.FEMALE,
     baseDamage: '3-4',

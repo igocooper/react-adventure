@@ -4,12 +4,12 @@ export const torugArmor: Armor = {
   name: 'Torug Armor',
   imageUrls: {
     body: '/images/torug/Body.png',
-    rightHand: '/images/torug/Right Hand.png',
-    rightArm: '/images/torug/Right Arm.png',
-    rightLeg: '/images/torug/Right Leg.png',
-    leftArm: '/images/torug/Left Arm.png',
-    leftHand: '/images/torug/Left Hand.png',
-    leftLeg: '/images/torug/Left Leg.png'
+    rightHand: '/images/characters/torug/Right Hand.png',
+    rightArm: '/images/characters/torug/Right Arm.png',
+    rightLeg: '/images/characters/torug/Right Leg.png',
+    leftArm: '/images/characters/torug/Left Arm.png',
+    leftHand: '/images/characters/torug/Left Hand.png',
+    leftLeg: '/images/characters/torug/Left Leg.png'
   },
   stats: {
     defence: 10
@@ -83,7 +83,7 @@ export const paladinChiefArmor: Armor = {
 export const darkKnightArmor: Armor = {
   name: 'Dark Knight Armor',
   imageUrls: {
-    body: '/images/armor/Body.png',
+    body: '/images/armors/dark-knight/Body.png',
     rightHand: '/images/armors/dark-knight/Right Hand.png',
     rightArm: '/images/armors/dark-knight/Right Arm.png',
     rightLeg: '/images/armors/dark-knight/Right Leg.png',
@@ -96,11 +96,77 @@ export const darkKnightArmor: Armor = {
   }
 };
 
+export const iceWizardArmor: Armor = {
+  name: 'Ice Wizard Armor',
+  imageUrls: {
+    body: '/images/armors/ice-wizard/Body.png',
+    rightHand: '/images/armors/ice-wizard/Right Hand.png',
+    rightArm: '/images/armors/ice-wizard/Right Arm.png',
+    rightLeg: '/images/armors/ice-wizard/Right Leg.png',
+    leftArm: '/images/armors/ice-wizard/Left Arm.png',
+    leftHand: '/images/armors/ice-wizard/Left Hand.png',
+    leftLeg: '/images/armors/ice-wizard/Left Leg.png'
+  },
+  stats: {
+    defence: 10
+  }
+};
+
+export const clericArmor: Armor = {
+  name: 'Cleric Armor',
+  imageUrls: {
+    body: '/images/armors/cleric/Body.png',
+    rightArm: '/images/armors/cleric/Right Arm.png',
+    rightLeg: '/images/armors/cleric/Right Leg.png',
+    leftArm: '/images/armors/cleric/Left Arm.png',
+    leftLeg: '/images/armors/cleric/Left Leg.png'
+  },
+  stats: {
+    defence: 10
+  }
+};
+
+export const cataphractArmor: Armor = {
+  name: 'Cataphract Armor',
+  imageUrls: {
+    body: '/images/armors/cataphract/Body.png',
+    rightHand: '/images/armors/cataphract/Right Hand.png',
+    rightArm: '/images/armors/cataphract/Right Arm.png',
+    rightLeg: '/images/armors/cataphract/Right Leg.png',
+    leftArm: '/images/armors/cataphract/Left Arm.png',
+    leftHand: '/images/armors/cataphract/Left Hand.png',
+    leftLeg: '/images/armors/cataphract/Left Leg.png'
+  },
+  stats: {
+    defence: 10
+  }
+};
+
+export const landsknechtArmor: Armor = {
+  name: 'Landsknecht Armor',
+  imageUrls: {
+    body: '/images/armors/landsknecht/Body.png',
+    rightHand: '/images/armors/landsknecht/Right Hand.png',
+    rightArm: '/images/armors/landsknecht/Right Arm.png',
+    rightLeg: '/images/armors/landsknecht/Right Leg.png',
+    leftArm: '/images/armors/landsknecht/Left Arm.png',
+    leftHand: '/images/armors/landsknecht/Left Hand.png',
+    leftLeg: '/images/armors/landsknecht/Left Leg.png'
+  },
+  stats: {
+    defence: 10
+  }
+};
+
 export const armors = [
   darkPaladinArmor,
   paladinArmor,
   paladinChiefArmor,
   darkKnightArmor,
   destroyerArmor,
-  torugArmor
+  torugArmor,
+  landsknechtArmor,
+  cataphractArmor,
+  clericArmor,
+  iceWizardArmor
 ];

@@ -2,7 +2,7 @@ import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SKILL, SEX } from 'common/constants';
 import { bastardSword } from 'factory/weapons';
-import { paladinArmor } from '../armors';
+import { armoredGoblinHelmet, paladinArmor } from '../armors';
 import {
   createHemorrhageSkill,
   createRageSkill
@@ -13,7 +13,8 @@ export const hero = (overrides: Partial<Trooper>) =>
     equipment: {
       leftHand: bastardSword,
       rightHand: bastardSword,
-      armor: paladinArmor
+      armor: paladinArmor,
+      helmet: armoredGoblinHelmet
     },
     abilities: [],
     effects: [],
@@ -29,13 +30,13 @@ export const hero = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/hero/Head Earless.png',
-      head: '/images/hero/Head.png',
-      headBeard: '/images/hero/Head Beard.png',
-      headHair: '/images/hero/Head Hair.png',
-      face01: '/images/hero/Face 01.png',
-      face02: '/images/hero/Face 02.png',
-      face03: '/images/hero/Face 03.png'
+      headEarless: '/images/characters/hero/Head Earless.png',
+      head: '/images/characters/hero/Head.png',
+      headBeard: '/images/characters/hero/Head Beard.png',
+      headHair: '/images/characters/hero/Head Hair.png',
+      face01: '/images/characters/hero/Face 01.png',
+      face02: '/images/characters/hero/Face 02.png',
+      face03: '/images/characters/hero/Face 03.png'
     },
     type: 'hero',
     sex: SEX.MALE,
