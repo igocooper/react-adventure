@@ -30,9 +30,11 @@ const updateBloodSlot = ({
 
   const url = getRandomArrayElement(urls);
 
-  const newImages = [{ url: url!, itemSlot }];
+  const newImages = {
+    [itemSlot]: url!
+  };
 
-  updateCharacterImages(newImages, id);
+  void updateCharacterImages(id, newImages);
   characterAnimation.bloodSlots[itemSlot] = true;
 };
 

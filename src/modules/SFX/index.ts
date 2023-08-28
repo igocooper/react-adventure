@@ -36,6 +36,7 @@ import fireBall from './sounds/fireBall.aac';
 import lavaGeyser from './sounds/lavaGeyser.m4a';
 import iceSpikes from './sounds/iceSpikes.m4a';
 import lightningStrike from './sounds/lightningStrike.aac';
+import dissarm from './sounds/dissarm.wav';
 
 export default {
   click: createAudio(click, { volume: 0.2 }),
@@ -70,6 +71,7 @@ export default {
   fireBall: createAudio(fireBall, { volume: 0.4 }),
   kraken: createAudio(kraken),
   lightningStrike: createAudio(lightningStrike),
+  dissarm: createAudio(dissarm),
   // music
   battleTheme2: createAudio(battleTheme2, { volume: 0.1, loop: true })
 };

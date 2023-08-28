@@ -54,6 +54,8 @@ export class CharacterAnimation extends Component<Props> {
   animationRequestId: number;
   loading: boolean;
   meleeAttackTransitionTime: number;
+  blinkTimeout: Nullable<number>;
+  blinkRecursiveTimeout: Nullable<number>;
   bloodSlots: {
     [BODY_BLOOD]: boolean;
     [BODY_CUT]: boolean;
@@ -85,6 +87,8 @@ export class CharacterAnimation extends Component<Props> {
     this.canvasRef = React.createRef();
     this.originalFaceImage = null;
     this.blinkingFaceImage = null;
+    this.blinkTimeout = null;
+    this.blinkRecursiveTimeout = null;
     this.bloodSlots = {
       [BODY_BLOOD]: false,
       [BODY_CUT]: false,
@@ -193,7 +197,13 @@ export class CharacterAnimation extends Component<Props> {
       await wait(200);
       this.images[CHARACTER_IMAGE_SLOT.FACE_01] = this.originalFaceImage;
 
-      setTimeout(this.blink, getRandomNumberInRange(3000, 10000));
+      if (this.blinkRecursiveTimeout) {
+        clearTimeout(this.blinkRecursiveTimeout);
+      }
+      this.blinkRecursiveTimeout = setTimeout(
+        this.blink,
+        getRandomNumberInRange(3000, 10000)
+      );
     }
   }
 
@@ -206,7 +216,13 @@ export class CharacterAnimation extends Component<Props> {
     );
     this.animationRequestId = requestAnimationFrame(this.renderAnimationLoop);
 
-    setTimeout(this.blink, getRandomNumberInRange(100, 10000));
+    if (this.blinkTimeout) {
+      clearTimeout(this.blinkTimeout);
+    }
+    this.blinkTimeout = setTimeout(
+      this.blink,
+      getRandomNumberInRange(100, 10000)
+    );
   }
 
   async meleeAttack({

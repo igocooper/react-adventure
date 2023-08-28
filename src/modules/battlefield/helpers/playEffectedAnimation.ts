@@ -18,16 +18,9 @@ export function* playEffectedAnimation(
     targetTrooper.id
   );
 
-  yield* call(
-    updateCharacterImages,
-    [
-      {
-        url: effectImageUrl,
-        itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
-      }
-    ],
-    id
-  );
+  yield* call(updateCharacterImages, id, {
+    [CHARACTER_IMAGE_SLOT.EFFECT]: effectImageUrl
+  });
 
   yield* call([trooperAnimationInstance!, 'effected']);
 }

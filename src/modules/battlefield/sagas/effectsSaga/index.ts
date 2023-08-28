@@ -11,7 +11,9 @@ export function* applyEffects(activeTrooper: Trooper) {
   for (const effect of effects) {
     if (effect.duration === 0) {
       if (effect.cancelEffect) {
-        yield* call(effect.cancelEffect, { targetTrooperId: activeTrooper.id });
+        yield* call(effect.cancelEffect.bind(effect), {
+          targetTrooperId: activeTrooper.id
+        });
       }
 
       yield* put(

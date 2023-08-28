@@ -63,6 +63,8 @@ export type Effect = {
   done: boolean;
   applyEffect: ApplyEffect | ApplyDelayedEffect;
   cancelEffect?: (props: ApplyEffectProps) => void;
+  getTrooperUpdates?: (trooper: Trooper) => Partial<Trooper>;
+  getRevertTrooperUpdates?: (trooper: Trooper) => Partial<Trooper>;
   iconSrc: string;
 };
 
@@ -122,6 +124,7 @@ export type Character = {
   criticalChance?: number;
   counterAttackChance?: number;
   criticalMultiplier?: number;
+  baseCriticalMultiplier?: number;
   evadeChance?: number;
   defence: number;
   resistance: Resistance;
@@ -142,6 +145,7 @@ export type ArmorStats = {
   counterAttackChance?: number;
 };
 
+// Note: if you extend this you should also update "dissarm" effect logic
 export type WeaponStats = {
   damage: string;
   hitChance?: number;

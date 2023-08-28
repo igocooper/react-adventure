@@ -1,14 +1,40 @@
-import type { Effect } from 'modules/battlefield/types';
+import type { Effect, Trooper } from 'modules/battlefield/types';
 import { put, select } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
-import { extractDamage } from 'modules/battlefield/helpers/extractDamage';
+import { substractDamage } from 'modules/battlefield/helpers/substractDamage';
 import { getPercentOfBaseDamage } from 'modules/battlefield/helpers/getPercentOfBaseDamage';
 import { addDamage } from 'modules/battlefield/helpers/addDamage';
 import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { displayDuration, generateId } from 'common/helpers';
 import hexIcon from './icons/hex.png';
+import { detectCancelEffectUpdates } from './helpers/detectCancelEffectUpdates';
 
+const createGetRevertTrooperUpdates =
+  ({ percent }: { percent: number }) =>
+  (trooper: Trooper) => {
+    const damageToAdd = getPercentOfBaseDamage(
+      trooper.baseWeaponDamage!,
+      percent
+    );
+
+    return {
+      damage: addDamage(trooper.damage, damageToAdd)
+    };
+  };
+
+const createGetTrooperUpdates =
+  ({ percent }: { percent: number }) =>
+  (trooper: Trooper) => {
+    const damageToSubstract = getPercentOfBaseDamage(
+      trooper.baseWeaponDamage!,
+      percent
+    );
+
+    return {
+      damage: substractDamage(trooper.damage, damageToSubstract)
+    };
+  };
 export const createHexEffect = ({
   percent,
   duration
@@ -28,22 +54,20 @@ export const createHexEffect = ({
     duration,
     once: true,
     done: false,
+    iconSrc: hexIcon,
     applyEffect: function* ({ targetTrooperId }) {
       const activeTrooper = yield* select(
         makeCharacterByIdSelector(targetTrooperId)
       );
       if (!activeTrooper) return;
 
-      const damageToExtract = getPercentOfBaseDamage(
-        activeTrooper.baseWeaponDamage!,
-        percent
-      );
+      const getTrooperModification = createGetTrooperUpdates({ percent });
+      const updates = getTrooperModification(activeTrooper);
+
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,
-          updates: {
-            damage: extractDamage(activeTrooper.damage, damageToExtract)
-          },
+          updates,
           team: activeTrooper.team
         })
       );
@@ -54,20 +78,17 @@ export const createHexEffect = ({
       );
       if (!activeTrooper) return;
 
-      const damageToAdd = getPercentOfBaseDamage(
-        activeTrooper.baseWeaponDamage!,
-        percent
-      );
+      const updates = detectCancelEffectUpdates(this.id, activeTrooper);
+
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,
-          updates: {
-            damage: addDamage(activeTrooper.damage, damageToAdd)
-          },
+          updates,
           team: activeTrooper.team
         })
       );
     },
-    iconSrc: hexIcon
+    getTrooperUpdates: createGetTrooperUpdates({ percent }),
+    getRevertTrooperUpdates: createGetRevertTrooperUpdates({ percent })
   };
 };

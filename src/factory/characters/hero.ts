@@ -5,7 +5,8 @@ import { bastardSword } from 'factory/weapons';
 import { armoredGoblinHelmet, paladinArmor } from '../armors';
 import {
   createHemorrhageSkill,
-  createRageSkill
+  createRageSkill,
+  createDissarmSkill
 } from 'modules/battlefield/sagas/skillsSaga/skills';
 
 export const hero = (overrides: Partial<Trooper>) =>
@@ -26,6 +27,11 @@ export const hero = (overrides: Partial<Trooper>) =>
       [SKILL.RAGE]: createRageSkill({
         duration: 2,
         coolDown: 6
+      }),
+      [SKILL.DISSARM]: createDissarmSkill({
+        percent: 80,
+        duration: 2,
+        coolDown: 1
       })
     },
     ...overrides,
@@ -41,12 +47,12 @@ export const hero = (overrides: Partial<Trooper>) =>
     type: 'hero',
     sex: SEX.MALE,
     baseDamage: '3-3',
-    damage: '3-3',
+    damage: '10-10',
     damageType: DAMAGE_TYPE.PHYSICAL,
     hitChance: 95,
     health: 50,
     currentHealth: 50,
-    initiative: 13,
+    initiative: 4,
     attackType: ATTACK_TYPE.MELEE,
     counterAttackChance: 100,
     criticalChance: 20,

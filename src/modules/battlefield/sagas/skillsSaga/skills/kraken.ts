@@ -1,6 +1,5 @@
 import type { ApplySkillProps, Skill } from 'common/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SKILL, TARGET } from 'common/constants';
-import { getDamage } from 'common/helpers';
 import icon from './icons/kraken.png';
 import { put, select, call } from 'typed-redux-saga';
 import {
@@ -11,12 +10,13 @@ import { modifyTrooper as modifyTrooperAction } from 'modules/battlefield/action
 import { ATTACK_ID_KRAKEN } from 'modules/battlefield/characters/WaterMage/constants';
 import { attack } from '../../attackSaga';
 import SFX from 'modules/SFX';
+import { getPercentOfBaseDamage } from 'modules/battlefield/helpers/getPercentOfBaseDamage';
 
 export const createKrakenSkill = ({
-  damageMod,
+  percent,
   coolDown
 }: {
-  damageMod: number;
+  percent: number;
   coolDown: number;
 }): Skill => ({
   iconSrc: icon,
@@ -25,11 +25,7 @@ export const createKrakenSkill = ({
   damageType: DAMAGE_TYPE.WATER,
   target: TARGET.ALL_ENEMIES,
   coolDown,
-  description: `${SKILL.KRAKEN}: Water Beast attacks all enemies for ${
-    damageMod * 100
-  }% of base trooper damage. Inflicts ${
-    DAMAGE_TYPE.WATER
-  } damage. CoolDown: ${coolDown}`,
+  description: `${SKILL.KRAKEN}: Water Beast attacks all enemies for ${percent}% of base trooper damage. Inflicts ${DAMAGE_TYPE.WATER} damage. CoolDown: ${coolDown}`,
   applySkill: function* ({ targetTrooperId }: ApplySkillProps) {
     const targetTrooper = yield* select(
       makeCharacterByIdSelector(targetTrooperId)
@@ -45,8 +41,12 @@ export const createKrakenSkill = ({
       castSFX: activeTrooper.castSFX
     };
 
-    const [minDamge, maxDamage] = getDamage(activeTrooper.damage);
-    const damage = `${minDamge * damageMod}-${maxDamage * damageMod}`;
+    const [minDamage, maxDamage] = getPercentOfBaseDamage(
+      activeTrooper.damage,
+      percent
+    );
+    const damage = `${minDamage}-${maxDamage}`;
+
     const castSFX: HTMLAudioElement = {
       play: async () => {
         void SFX.kraken.play();

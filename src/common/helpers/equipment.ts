@@ -16,6 +16,22 @@ import { CHARACTER_IMAGE_SLOT, HELMET_TYPE } from '../constants';
 
 type AppearanceUrls = Record<string, string>;
 
+const removeResistanceStats = (
+  resistance: Resistance,
+  itemResistance: Resistance
+) => {
+  return Object.entries(itemResistance).reduce(
+    (result, [resistanceName, value]) => {
+      const currentValue = result[resistanceName as keyof Resistance];
+      return {
+        ...result,
+        [resistanceName]: currentValue - value
+      };
+    },
+    resistance
+  );
+};
+
 const applyResistanceStats = (
   resistance: Resistance,
   itemResistance: Resistance
@@ -151,6 +167,17 @@ export const equipShield = ({
   };
 };
 
+export const removeBow = (): AppearanceUrls => {
+  return {
+    [CHARACTER_IMAGE_SLOT.BOW]: '',
+    [CHARACTER_IMAGE_SLOT.BOWSTRING]: '',
+    [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: '',
+    [CHARACTER_IMAGE_SLOT.QUIVER]: '',
+    [CHARACTER_IMAGE_SLOT.ARROW]: '',
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: ''
+  };
+};
+
 export const equipBow = ({
   appearance,
   bow
@@ -168,6 +195,13 @@ export const equipBow = ({
   };
 };
 
+export const removeLeftHandWeapon = (): AppearanceUrls => {
+  return {
+    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: '',
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: ''
+  };
+};
+
 export const equipLeftHandWeapon = ({
   appearance,
   weapon
@@ -177,7 +211,15 @@ export const equipLeftHandWeapon = ({
 }): AppearanceUrls => {
   return {
     ...appearance,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: weapon.imageSrc
+    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: weapon.imageSrc,
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: appearance[CHARACTER_IMAGE_SLOT.SLASH_FX]!
+  };
+};
+
+export const removeRightHandWeapon = (): AppearanceUrls => {
+  return {
+    [CHARACTER_IMAGE_SLOT.RIGHT_HAND_WEAPON]: '',
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: ''
   };
 };
 
@@ -190,8 +232,27 @@ export const equipRightHandWeapon = ({
 }): AppearanceUrls => {
   return {
     ...appearance,
-    [CHARACTER_IMAGE_SLOT.RIGHT_HAND_WEAPON]: weapon.imageSrc
+    [CHARACTER_IMAGE_SLOT.RIGHT_HAND_WEAPON]: weapon.imageSrc,
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: appearance[CHARACTER_IMAGE_SLOT.SLASH_FX]!
   };
+};
+
+export const removeEquipment = ({ equipment }: { equipment: Equipment }) => {
+  let appearance = {};
+
+  if (equipment.leftHand) {
+    appearance = removeLeftHandWeapon();
+  }
+
+  if (equipment.bow) {
+    appearance = removeBow();
+  }
+
+  if (equipment.rightHand) {
+    appearance = removeRightHandWeapon();
+  }
+
+  return appearance;
 };
 
 export const applyEquipment = ({
@@ -253,6 +314,47 @@ export const applyEquipment = ({
   return appearance;
 };
 
+const removeWeaponStats = <T>(
+  itemStats: WeaponStats,
+  stats: T & WeaponStats
+): T => {
+  return Object.entries(itemStats).reduce((result, [propertyName, value]) => {
+    const currentValue = result[propertyName as keyof WeaponStats];
+    // TODO: remove abilities
+
+    if (
+      propertyName === 'damage' &&
+      typeof currentValue === 'string' &&
+      typeof value === 'string'
+    ) {
+      const [currentMinDamage, currentMaxDamage] = getDamage(currentValue);
+      const [minDamage, maxDamage] = getDamage(value);
+
+      return {
+        ...result,
+        [propertyName]: `${currentMinDamage - minDamage}-${
+          currentMaxDamage - maxDamage
+        }`
+      };
+    }
+
+    if (typeof currentValue === 'number' && typeof value === 'number') {
+      if (propertyName === 'criticalMultiplier') {
+        // This property is being assign in the parent function as it's calculated based on context of character equipment
+        // and we do not have access to it here
+        return result;
+      }
+
+      return {
+        ...result,
+        [propertyName]: currentValue ? currentValue - value : value
+      };
+    }
+
+    return result;
+  }, stats);
+};
+
 const applyWeaponStats = <T>(
   itemStats: WeaponStats,
   stats: T & WeaponStats
@@ -295,6 +397,34 @@ const applyWeaponStats = <T>(
   }, stats);
 };
 
+const removeArmorStats = <T>(
+  itemStats: ArmorStats,
+  stats: T & ArmorStats
+): T => {
+  return Object.entries(itemStats).reduce((result, [propertyName, value]) => {
+    const currentValue = result[propertyName as keyof ArmorStats];
+
+    if (propertyName === 'resistance') {
+      return {
+        ...result,
+        [propertyName]: removeResistanceStats(
+          currentValue as Resistance,
+          value as Resistance
+        )
+      };
+    }
+
+    if (typeof currentValue === 'number' && typeof value === 'number') {
+      return {
+        ...result,
+        [propertyName]: currentValue - value
+      };
+    }
+
+    return result;
+  }, stats);
+};
+
 const applyArmorStats = <T>(
   itemStats: ArmorStats,
   stats: T & ArmorStats
@@ -323,18 +453,24 @@ const applyArmorStats = <T>(
   }, stats);
 };
 
-export const applyCharacterEquipmentStats = (props: Character) => {
-  const { equipment } = props;
+export const applyCharacterEquipmentStats = (
+  character: Character,
+  equipment: Equipment
+) => {
   const { leftHand, rightHand, armor, helmet, bow, shield } = equipment;
 
+  // base initialized with just character stats
   let equipmentStats = {
-    damage: props.damage,
-    criticalChance: props.criticalChance,
-    criticalMultiplier: props.criticalMultiplier,
-    defence: props.defence,
-    healPower: props.healPower,
-    evadeChance: props.evadeChance,
-    resistance: props.resistance || {}
+    damage: character.damage,
+    initiative: character.initiative,
+    hitChance: character.hitChance,
+    criticalChance: character.criticalChance,
+    criticalMultiplier: character.criticalMultiplier,
+    counterAttackChance: character.counterAttackChance,
+    defence: character.defence,
+    healPower: character.healPower,
+    evadeChance: character.evadeChance,
+    resistance: character.resistance || {}
   };
 
   if (leftHand) {
@@ -362,7 +498,123 @@ export const applyCharacterEquipmentStats = (props: Character) => {
   }
 
   return {
-    ...props,
+    ...character,
+    ...equipmentStats
+  };
+};
+
+export const removeCharacterEquipmentStats = (
+  character: Character,
+  equipment: Equipment,
+  currentCharacterEquipment: Equipment
+) => {
+  const { leftHand, rightHand, armor, helmet, bow, shield } = equipment;
+
+  // base initialized with character stats assuming that equipment
+  // which is about to be removed in applied already, otherwise will lead to incorrect work
+  let equipmentStats = {
+    damage: character.damage,
+    initiative: character.initiative,
+    hitChance: character.hitChance,
+    criticalChance: character.criticalChance,
+    criticalMultiplier: character.criticalMultiplier,
+    counterAttackChance: character.counterAttackChance,
+    defence: character.defence,
+    healPower: character.healPower,
+    evadeChance: character.evadeChance,
+    resistance: character.resistance || {}
+  };
+
+  // when character holds only left hand weapon
+  if (
+    currentCharacterEquipment.leftHand &&
+    !currentCharacterEquipment.rightHand
+  ) {
+    if (leftHand) {
+      equipmentStats = removeWeaponStats(leftHand.stats, equipmentStats);
+      equipmentStats.criticalMultiplier = character.baseCriticalMultiplier || 0;
+    }
+
+    if (rightHand) {
+      throw Error('this character does not have weapon in his right hand');
+    }
+  }
+
+  // when character holds only right hand weapon
+  if (
+    currentCharacterEquipment.rightHand &&
+    !currentCharacterEquipment.leftHand
+  ) {
+    if (rightHand) {
+      equipmentStats = removeWeaponStats(rightHand.stats, equipmentStats);
+      equipmentStats.criticalMultiplier = character.baseCriticalMultiplier || 0;
+    }
+
+    if (leftHand) {
+      throw Error('this character does not have weapon in his left hand');
+    }
+  }
+
+  // when character holds weapon in both hands
+  if (
+    currentCharacterEquipment.leftHand &&
+    currentCharacterEquipment.rightHand
+  ) {
+    // when remove only left hand weapon
+    if (leftHand && !rightHand) {
+      equipmentStats = removeWeaponStats(leftHand.stats, equipmentStats);
+      equipmentStats.criticalMultiplier =
+        currentCharacterEquipment.rightHand.stats.criticalMultiplier ||
+        character.baseCriticalMultiplier ||
+        0;
+    }
+
+    // when remove only right hand weapon
+    if (rightHand && !leftHand) {
+      equipmentStats = removeWeaponStats(rightHand.stats, equipmentStats);
+      equipmentStats.criticalMultiplier =
+        currentCharacterEquipment.leftHand.stats.criticalMultiplier ||
+        character.baseCriticalMultiplier ||
+        0;
+    }
+
+    // when remove both weapons
+    if (rightHand && leftHand) {
+      equipmentStats = removeWeaponStats(rightHand.stats, equipmentStats);
+      equipmentStats.criticalMultiplier = character.baseCriticalMultiplier || 0;
+    }
+  }
+
+  if (bow) {
+    if (!currentCharacterEquipment.bow) {
+      throw Error('this character does not have bow');
+    }
+    equipmentStats = removeWeaponStats(bow.stats, equipmentStats);
+  }
+
+  if (armor) {
+    if (!currentCharacterEquipment.armor) {
+      throw Error('this character does not have any armor');
+    }
+    equipmentStats = removeArmorStats(armor.stats, equipmentStats);
+  }
+
+  if (shield) {
+    if (!currentCharacterEquipment.shield) {
+      throw Error('this character does not have any shield');
+    }
+    equipmentStats = removeArmorStats(shield.stats, equipmentStats);
+  }
+
+  if (helmet) {
+    if (!currentCharacterEquipment.helmet) {
+      throw Error('this character does not have any helmet');
+    }
+    equipmentStats = removeArmorStats(helmet.stats, equipmentStats);
+  }
+
+  return {
+    ...character,
     ...equipmentStats
   };
 };

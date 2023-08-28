@@ -46,7 +46,7 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     effects: [],
     skills: {
       [SKILL.LAVA_GEYSER]: createLavaGeyserSkill({
-        damageMod: 1,
+        percent: 100,
         coolDown: 3
       })
     },

@@ -61,7 +61,7 @@ const applyCharacterAppearance = (
   };
 };
 
-const getAppearance = (props: Props): AppearanceUrls => {
+export const getAppearance = (props: Props): AppearanceUrls => {
   const { type, appearance: characterAppearance, equipment } = props;
   let appearance = getDefaultAppearance(type);
 
@@ -167,7 +167,7 @@ type Props = {
   type: string;
   appearance?: Appearance;
   equipment: Equipment;
-  damageType: string;
+  damageType?: string;
 };
 
 export const getCharacterProps = (props: Props): ReturnType => {
@@ -177,6 +177,8 @@ export const getCharacterProps = (props: Props): ReturnType => {
     imagesUrls: getAppearance(props),
     sconFileUrl: getSconFile(type),
     animationMap: getAnimationMap(props),
-    castEffectImageUrl: getCastEffectImageUrl(props)
+    ...(props.damageType
+      ? { castEffectImageUrl: getCastEffectImageUrl(props) }
+      : {})
   };
 };
