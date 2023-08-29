@@ -78,8 +78,7 @@ export const createDissarmSkill = ({
       yield* fork(publishDamageEvent, {
         id: targetTrooper.id,
         value: 'Dissarmed',
-        color: theme.colors.light,
-        delay: 600
+        color: theme.colors.light
       });
 
       const dissarmAnimation = yield* call(

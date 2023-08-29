@@ -44,5 +44,5 @@ export const detectCancelEffectUpdates = (
   );
 
   // now we need to filter those properties which could be updated by effect to prevent mutating others
-  return omit(trooperState, ['effects', 'id', 'position', 'skills']);
+  return omit(trooperState, ['effects', 'id', 'position', 'skills', 'team']);
 };

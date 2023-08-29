@@ -1,4 +1,4 @@
-export function omit<T extends ArrayLike<T[keyof T]>>(
+export function omit<T extends {}>(
   obj: T,
   properties: Array<keyof T>
 ): Partial<T> {

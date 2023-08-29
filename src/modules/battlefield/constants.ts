@@ -10,7 +10,7 @@ import {
   goblinBuffer,
   paladin,
   darkPaladin,
-  hero
+  hero, mountainArcher
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 import { addBaseTrooperProperties } from './helpers/addBaseTrooperProperties';
@@ -68,66 +68,66 @@ const ATTACKERS_TROOPS: Trooper[] = [
     position: 2,
     abilities: []
   }),
-  priest1({
-    id: 2,
-    team: 'attackers',
-    position: 4
-  }),
-  darkPaladin({
-    id: 3,
-    team: 'attackers',
-    position: 1
-  }),
-  mountainMage({
-    id: 5,
-    team: 'attackers',
-    position: 6
-  }),
-  waterMage({
-    id: 4,
-    team: 'attackers',
-    position: 5
-  }),
-  paladin({
-    id: 6,
-    team: 'attackers',
-    position: 3
-  })
+  // priest1({
+  //   id: 2,
+  //   team: 'attackers',
+  //   position: 4
+  // }),
+  // darkPaladin({
+  //   id: 3,
+  //   team: 'attackers',
+  //   position: 1
+  // }),
+  // mountainMage({
+  //   id: 5,
+  //   team: 'attackers',
+  //   position: 6
+  // }),
+  // waterMage({
+  //   id: 4,
+  //   team: 'attackers',
+  //   position: 5
+  // }),
+  // paladin({
+  //   id: 6,
+  //   team: 'attackers',
+  //   position: 3
+  // })
 ];
 
 const DEFENDERS_TROOPS: Trooper[] = [
-  goblin1({
+  mountainArcher({
     id: 101,
     position: 1,
     team: 'defenders'
   }),
-  armoredGoblin({
-    id: 102,
-    position: 2,
-    team: 'defenders',
-    abilities: [
-      createPoisonAbility({
-        duration: 2,
-        damage: 10,
-        hitChance: 75
-      })
-    ]
-  }),
-  goblin3({
-    id: 103,
-    position: 3,
-    team: 'defenders'
-  }),
-  goblin2({
-    id: 104,
-    position: 4,
-    team: 'defenders'
-  }),
-  goblinBuffer({
-    id: 105,
-    position: 5,
-    team: 'defenders'
-  })
+  // armoredGoblin({
+  //   id: 102,
+  //   position: 2,
+  //   team: 'defenders',
+  //   abilities: [
+  //     createPoisonAbility({
+  //       duration: 2,
+  //       damage: 10,
+  //       hitChance: 75
+  //     })
+  //   ]
+  // }),
+  // goblin3({
+  //   id: 103,
+  //   position: 3,
+  //   team: 'defenders'
+  // }),
+  // goblin2({
+  //   id: 104,
+  //   position: 4,
+  //   team: 'defenders'
+  // }),
+  // goblinBuffer({
+  //   id: 105,
+  //   position: 5,
+  //   team: 'defenders'
+  // })
 ];
 
 export const ATTACKERS = addBaseTrooperProperties(ATTACKERS_TROOPS);
