@@ -9,6 +9,13 @@ type ObjectProps = {
   $time: number;
 };
 export const Object = styled.div<ObjectProps>`
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+
   position: absolute;
   top: ${({ $position }) => $position.y}px;
   left: ${({ $position }) => $position.x}px;

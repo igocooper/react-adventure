@@ -3,8 +3,6 @@ import {
   Container,
   Viewport,
   Sword,
-  Grid,
-  Cell,
   DestroyerArmor,
   DestroyerHelmet
 } from './styled';
@@ -24,20 +22,21 @@ import {
 import { useDispatch, useSelector } from 'store/hooks';
 import { updateCharacterImages } from '../../common/helpers';
 import {
-  moveHero as moveHeroAction,
+  moveCameraView,
+  moveHeroThroughPath,
+  moveHeroThroughPath as moveHeroThroughPathAction,
   setLocationBounds as setLocationBoundsAction,
   setViewportBounds as setViewportBoundsAction
 } from '../explore/actions';
 import { HERO_ID } from './constants';
 import {
   cameraViewPositionXSelector,
-  heroDirectionSelector,
+  heroGridPositionSelector,
   heroIsRunningSelector,
-  heroPositionSelector
 } from './selectors';
 import { MovableObject } from './components/MovableObject';
 import { Location } from './containers/Location';
-import PF from 'pathfinding';
+import { MapGrid } from './containers/MapGrid';
 
 export const Explore = () => {
   const characterRef = useRef<CharacterAnimation>(null);
@@ -46,6 +45,7 @@ export const Explore = () => {
   const dispatch = useDispatch();
   const isRunning = useSelector(heroIsRunningSelector);
   const cameraViewPositionX = useSelector(cameraViewPositionXSelector);
+  const heroGridPosition = useSelector(heroGridPositionSelector);
 
   useEffect(() => {
     const viewportBounds = viewportRef.current!.getBoundingClientRect();
@@ -63,104 +63,42 @@ export const Explore = () => {
     [dispatch]
   );
 
-  const handleClick = (event: MouseEvent) => {
+  const handleClick = (event: MouseEvent, path) => {
     if (isRunning) {
       return;
     }
 
+    dispatch(moveCameraView(event));
     dispatch(
-      moveHeroAction({
+      moveHeroThroughPathAction({
         id: HERO_ID,
-        position: {
-          x: event.clientX,
-          y: event.clientY
-        }
+        path
       })
     );
   };
 
-  const createRow = () => new Array(30).fill(0).map((_, index) => index);
-  const grid = [
-    createRow(),
-    createRow(),
-    createRow(),
-    createRow(),
-    createRow(),
-    createRow(),
-  ];
-
-  const PFGrid = new PF.Grid(30, 6);
-  const finder = new PF.AStarFinder({
-    allowDiagonal: true,
-    dontCrossCorners: true
-  });
-
-  const CELL_SIZE = 100;
   return (
     <Container>
-      <Viewport ref={viewportRef} onClick={handleClick}>
+      <Viewport ref={viewportRef}>
         <Location ref={locationRef} positionX={cameraViewPositionX}>
-          <Grid>
-            {grid.map((row, rowIndex) => {
-              return (
-                <>
-                  {row.map((cell, cellIndex) => {
-                    const position = {
-                      x: cellIndex * CELL_SIZE,
-                      y: rowIndex * CELL_SIZE
-                    };
-
-                    return (
-                      <Cell
-                        onClick={() => {
-                          console.log(
-                            `row: ${rowIndex}, cell: ${cellIndex}. Path [${rowIndex}, ${cellIndex}]`
-                          );
-
-                          const path = finder.findPath(
-                            3,
-                            1,
-                            rowIndex,
-                            cellIndex,
-                            PFGrid
-                          );
-
-                          console.log(`path: ${path}`);
-                        }}
-                        onContextMenu={(event) => {
-                          event.preventDefault()
-                          const node = event.target;
-
-                          node.style.background = '#000';
-
-                          console.log(`blocked:  [${rowIndex}, ${cellIndex}]`);
-
-                          PFGrid.setWalkableAt(rowIndex, cellIndex, false);
-                        }}
-                        key={`${rowIndex - cellIndex}`}
-                        position={position}
-                        width={CELL_SIZE}
-                        height={CELL_SIZE}
-                      />
-                    );
-                  })}
-                </>
-              );
-            })}
-          </Grid>
-          <Items />
-          <MovableObject>
-            <CharacterAnimation
-              ref={characterRef}
-              {...getCharacterProps({
-                type: CHARACTER.type,
-                equipment: {},
-                appearance: CHARACTER.appearance
-              })}
-              id={HERO_ID}
-              onLoad={handleLoad}
-            />
-          </MovableObject>
+          <MapGrid
+            heroGridPosition={heroGridPosition}
+            onTileClick={handleClick}
+          >
+            <Items />
+            <MovableObject>
+              <CharacterAnimation
+                ref={characterRef}
+                {...getCharacterProps({
+                  type: CHARACTER.type,
+                  equipment: {},
+                  appearance: CHARACTER.appearance
+                })}
+                id={HERO_ID}
+                onLoad={handleLoad}
+              />
+            </MovableObject>
+          </MapGrid>
         </Location>
       </Viewport>
     </Container>
@@ -231,7 +169,7 @@ const Items = () => (
         updateCharacterImages(
           [
             {
-              url: '/images/helmets/Destroyer Helmet.png',
+              url: '/images/helmets/600/Destroyer Helmet.png',
               itemSlot: 'Head Armor High.png'
             },
             { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_01 },

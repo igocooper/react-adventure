@@ -24,7 +24,7 @@ export const Sword = styled.img.attrs({
   src: '/images/weapons/swords/meat-cutter.png'
 })`
   position: absolute;
-  top: 500px;
+  top: 200px;
   left: 1890px;
   width: 120px;
 `;
@@ -39,33 +39,10 @@ export const DestroyerArmor = styled.img.attrs({
 `;
 
 export const DestroyerHelmet = styled.img.attrs({
-  src: '/images/helmets/Destroyer Helmet.png'
+  src: '/images/helmets/600/Destroyer Helmet.png'
 })`
   position: absolute;
   top: 350px;
   left: 1390px;
   width: 100px;
-`;
-
-export const Grid = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 600px;
-  top: 200px;
-  left: 0;
-  border: 1px dashed red;
-`;
-
-type CellProps = {
-  position: Position;
-  width: number;
-  height: number;
-};
-export const Cell = styled.div<CellProps>`
-  position: absolute;
-  left: ${({ position }) => `${position.x}px`};
-  top: ${({ position }) => `${position.y}px`};
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-  border: 1px dashed red;
 `;

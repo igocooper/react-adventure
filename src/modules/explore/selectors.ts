@@ -28,6 +28,11 @@ export const heroDirectionSelector = createSelector(
   (hero) => hero.direction
 );
 
+export const heroGridPositionSelector = createSelector(
+  heroStateSelector,
+  (hero) => hero.gridPosition
+);
+
 export const heroPositionSelector = createSelector(
   heroStateSelector,
   (hero) => hero.position

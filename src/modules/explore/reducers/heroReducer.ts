@@ -6,14 +6,21 @@ type Position = {
   y: number;
 };
 
+type GridPosition = [number, number];
 
-const initialState = {
+const initialState : {
+  position: Position;
+  gridPosition: GridPosition;
+  direction: string;
+  isRunning: boolean;
+} = {
   position: {
-    x: 0,
-    y: 400
+    x: 100,
+    y: 300
   },
+  gridPosition: [3, 1],
   isRunning: false,
-  direction: 'right',
+  direction: 'right'
 };
 
 export const heroSlice = createSlice({
@@ -24,6 +31,12 @@ export const heroSlice = createSlice({
       return {
         ...state,
         position: action.payload
+      };
+    },
+    setHeroGridPosition: (state, action: PayloadAction<GridPosition>) => {
+      return {
+        ...state,
+        gridPosition: action.payload
       };
     },
     setHeroDirection: (state, action: PayloadAction<string>) => {
@@ -37,10 +50,15 @@ export const heroSlice = createSlice({
         ...state,
         isRunning: action.payload
       };
-    },
+    }
   }
 });
 
-export const { setHeroPosition, setHeroDirection, setHeroIsRunning,  } = heroSlice.actions;
+export const {
+  setHeroPosition,
+  setHeroDirection,
+  setHeroIsRunning,
+  setHeroGridPosition
+} = heroSlice.actions;
 
 export const heroReducer = heroSlice.reducer;
