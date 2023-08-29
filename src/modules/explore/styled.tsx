@@ -18,6 +18,7 @@ export const Viewport = styled.div`
   width: 100vw;
   height: 100vh;
   cursor: url(${cursorDefaultImg}), auto;
+  overflow-x: hidden;
 `;
 
 export const Sword = styled.img.attrs({
