@@ -13,6 +13,23 @@ export const Container = styled.div`
   height: 100vh;
 `;
 
+
+export const NPC = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  //top: 100px;
+  //left: 400px;
+  z-index: 1;
+  
+  & > * {
+    pointer-events: none;
+  }
+`
+
 export const Viewport = styled.div`
   position: relative;
   width: 100vw;
@@ -26,7 +43,7 @@ export const Sword = styled.img.attrs({
 })`
   position: absolute;
   top: 200px;
-  left: 1890px;
+  left: 1000px;
   width: 120px;
 `;
 
@@ -35,7 +52,7 @@ export const DestroyerArmor = styled.img.attrs({
 })`
   position: absolute;
   top: 300px;
-  left: 1490px;
+  left: 1500px;
   width: 100px;
 `;
 
@@ -43,7 +60,7 @@ export const DestroyerHelmet = styled.img.attrs({
   src: '/images/helmets/600/Destroyer Helmet.png'
 })`
   position: absolute;
-  top: 350px;
-  left: 1390px;
+  top: 400px;
+  left: 1600px;
   width: 100px;
 `;

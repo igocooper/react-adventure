@@ -22,7 +22,7 @@ export const Cell = styled.div<CellProps>`
   top: ${({ position }) => `${position.y}px`};
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
-  //border: 1px dashed red;
+  border: 1px dashed red;
   
   &.barrel {
     background: url(${barrelImg});

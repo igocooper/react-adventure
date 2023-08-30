@@ -1,6 +1,8 @@
-import React, { PropsWithChildren, useRef } from 'react';
-import PF from 'pathfinding';
+import React, { PropsWithChildren, useEffect } from 'react';
 import { Cell, Grid } from './styled';
+import { useSelector, useDispatch } from 'store/hooks';
+import { gridSelector, pathFinderSelector } from '../../selectors';
+import { initGrid } from '../../reducers/gridReducer';
 
 type Props = {
   cellSize?: number;
@@ -18,14 +20,20 @@ export const MapGrid = ({
   rows = 6,
   columns = 30
 }: PropsWithChildren<Props>) => {
+  const dispatch = useDispatch();
+  const PFGrid = useSelector(gridSelector);
+  const pathFinder = useSelector(pathFinderSelector);
   const createRow = () => new Array(columns).fill(0).map((_, index) => index);
   const grid = new Array(rows).fill(0).map(() => createRow());
 
-  const PFGridRef = useRef(new PF.Grid(rows, columns));
-  const finder = new PF.AStarFinder({
-    allowDiagonal: true,
-    dontCrossCorners: true
-  });
+  useEffect(() => {
+    dispatch(
+      initGrid({
+        rows,
+        columns
+      })
+    );
+  }, []);
 
   return (
     <Grid>
@@ -40,15 +48,16 @@ export const MapGrid = ({
             return (
               <Cell
                 onClick={(e) => {
+                  if (!PFGrid || !pathFinder) return;
                   const [heroPositionRow, heroPositionColumn] =
                     heroGridPosition;
 
-                  const path = finder.findPath(
+                  const path = pathFinder.findPath(
                     heroPositionRow,
                     heroPositionColumn,
                     rowIndex,
                     cellIndex,
-                    PFGridRef.current.clone()
+                    PFGrid.clone()
                   );
 
                   if (onTileClick) {
@@ -61,7 +70,10 @@ export const MapGrid = ({
                   const node = event.target;
                   const blocked = node.classList.contains('barrel');
                   node.classList.toggle('barrel');
-                  PFGridRef.current.setWalkableAt(rowIndex, cellIndex, blocked);
+
+                  if (PFGrid) {
+                    PFGrid.setWalkableAt(rowIndex, cellIndex, blocked);
+                  }
                 }}
                 key={`${rowIndex - cellIndex}`}
                 position={position}

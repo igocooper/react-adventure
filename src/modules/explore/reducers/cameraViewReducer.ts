@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const cameraViewSlice = createSlice({
-  name: 'hero',
+  name: 'cameraView',
   initialState,
   reducers: {
     setCameraViewPosition: (state, action: PayloadAction<number>) => {

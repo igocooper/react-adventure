@@ -8,9 +8,14 @@ export const uiStateSelector = createSelector(
   (explore) => explore.ui
 );
 
-export const heroStateSelector = createSelector(
+export const charactersStateSelector = createSelector(
   exploreSelector,
-  (explore) => explore.hero
+  (explore) => explore.characters
+);
+
+export const gridStateSelector = createSelector(
+  exploreSelector,
+  (explore) => explore.grid
 );
 
 export const cameraViewStateSelector = createSelector(
@@ -18,24 +23,60 @@ export const cameraViewStateSelector = createSelector(
   (explore) => explore.cameraView
 );
 
-export const heroIsRunningSelector = createSelector(
-  heroStateSelector,
-  (hero) => hero.isRunning
+export const gridSelector = createSelector(
+  gridStateSelector,
+  (state) => state.grid
 );
 
-export const heroDirectionSelector = createSelector(
-  heroStateSelector,
-  (hero) => hero.direction
+export const pathFinderSelector = createSelector(
+  gridStateSelector,
+  (state) => state.pathFinder
 );
 
-export const heroGridPositionSelector = createSelector(
-  heroStateSelector,
-  (hero) => hero.gridPosition
+export const makeCharacterIsRunningSelector = (id: number) => createSelector(
+  charactersStateSelector,
+  (characters) => {
+    const character = characters.find(item => item.id === id);
+
+    if (!character) return false;
+
+    return character.isRunning;
+  }
 );
 
-export const heroPositionSelector = createSelector(
-  heroStateSelector,
-  (hero) => hero.position
+export const makeCharacterDirectionSelector = (id: number) => createSelector(
+  charactersStateSelector,
+  (characters) => {
+    const character = characters.find(item => item.id === id);
+
+    if (!character) return 'right';
+
+    return character.direction;
+  }
+);
+export const makeCharacterGridPositionSelector = (id: number) => createSelector(
+  charactersStateSelector,
+  (characters) => {
+    const character = characters.find(item => item.id === id);
+
+    if (!character) return [0, 0];
+
+    return character.gridPosition;
+  }
+);
+
+export const makeCharacterPositionSelector = (id: number) => createSelector(
+  charactersStateSelector,
+  (characters) => {
+    const character = characters.find(item => item.id === id);
+
+    if (!character) return {
+      x: 0,
+      y: 0,
+    };
+
+    return character.position;
+  }
 );
 
 export const cameraViewPositionXSelector = createSelector(

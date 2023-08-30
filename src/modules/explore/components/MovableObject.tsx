@@ -3,11 +3,14 @@ import React, { PropsWithChildren } from 'react';
 import usePrevious from 'common/hooks/usePrevious';
 import { calculateMoveAnimationTime } from 'common/helpers';
 import { useSelector } from 'store/hooks';
-import { heroDirectionSelector, heroPositionSelector } from '../selectors';
+import {
+  makeCharacterDirectionSelector,
+  makeCharacterPositionSelector,
+} from '../selectors';
 
-export const MovableObject = ({ children }: PropsWithChildren) => {
-  const position = useSelector(heroPositionSelector);
-  const direction = useSelector(heroDirectionSelector);
+export const MovableObject = ({ children, id }: PropsWithChildren<{ id: number}>) => {
+  const position = useSelector(makeCharacterPositionSelector(id));
+  const direction = useSelector(makeCharacterDirectionSelector(id));
   const prevPosition = usePrevious(position) || { x: 0, y: 0 };
   const heroMoveAnimationTime = calculateMoveAnimationTime(
     position,
@@ -16,9 +19,10 @@ export const MovableObject = ({ children }: PropsWithChildren) => {
 
   return (
     <Object
-      $forwardDirection={direction === 'right'}
-      $time={heroMoveAnimationTime}
-      $position={position}
+      forwardDirection={direction === 'right'}
+      time={heroMoveAnimationTime}
+      position={position}
+      zIndex={position.y / 100}
     >
       {children}
     </Object>

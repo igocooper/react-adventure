@@ -2,23 +2,34 @@ import { createAction } from '@reduxjs/toolkit';
 import type { Position } from 'common/types';
 
 export {
-  setHeroPosition,
-  setHeroDirection,
-  setHeroIsRunning,
-  setHeroGridPosition
-} from './reducers/heroReducer';
+  addCharacter,
+  setCharacterPosition,
+  setCharacterGridPosition,
+  setCharacterDirection,
+  setCharacterIsRunning
+} from './reducers/charactersReducer';
 export { setCameraViewPosition } from './reducers/cameraViewReducer';
 export { setLocationBounds, setViewportBounds } from './reducers/uiReducer';
 
-export type MoveHeroPayload = {
+export type MoveCharacterPayload = {
   position: Position;
   id: number;
 };
 
-export type moveHeroThroughPathPayload = {
+export type MoveCharacterThroughPathPayload = {
   path: Array<[number, number]>;
   id: number;
 };
-export const moveHero = createAction<MoveHeroPayload>('move_hero');
+
+export type ObjectClickedPayload = {
+  id: number;
+  gridPosition: [number, number];
+};
+
+export const moveCharacter = createAction<MoveCharacterPayload>('move_character');
+export const objectClicked =
+  createAction<ObjectClickedPayload>('object_clicked');
 export const moveCameraView = createAction<MouseEvent>('move_camera_view');
-export const moveHeroThroughPath = createAction<moveHeroThroughPathPayload>('move_hero_through_path');
+export const moveCharacterThroughPath = createAction<MoveCharacterThroughPathPayload>(
+  'move_character_through_path'
+);

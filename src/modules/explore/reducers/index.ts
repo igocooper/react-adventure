@@ -1,15 +1,12 @@
 import { combineReducers } from 'redux';
 import { uiReducer } from './uiReducer';
-import { heroReducer } from './heroReducer';
+import { charactersReducer } from './charactersReducer';
 import { cameraViewReducer } from './cameraViewReducer';
+import { gridReducer } from './gridReducer';
 
 export const exploreReducer = combineReducers({
   ui: uiReducer,
-  hero: heroReducer,
-  cameraView: cameraViewReducer,
-
+  grid: gridReducer,
+  characters: charactersReducer,
+  cameraView: cameraViewReducer
 });
-
-
-
-
