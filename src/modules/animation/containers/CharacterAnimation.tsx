@@ -129,7 +129,7 @@ export class CharacterAnimation extends Component<Props> {
       try {
         image = await loadImage(imageUrl!);
       } catch (err) {
-        console.log(err);
+        console.log(imageUrl, err);
       }
 
       if (image) {

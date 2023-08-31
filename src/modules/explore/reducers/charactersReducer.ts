@@ -7,7 +7,7 @@ type Position = {
   y: number;
 };
 
-type GridPosition = [number, number];
+type GridPosition = number[];
 
 type CharacterPosition = {
   id: number;
@@ -37,7 +37,49 @@ const initialState: Record<number, CharacterPosition> = {
     gridPosition: [1, 4],
     isRunning: false,
     direction: 'right'
-  }
+  },
+  [3]: {
+    id: 3,
+    position: {
+      x: 0,
+      y: 400
+    },
+    gridPosition: [4, 0],
+    isRunning: false,
+    direction: 'right'
+  },
+  [4]: {
+    id: 4,
+    position: {
+      x: 200,
+      y: 500
+    },
+    gridPosition: [5, 2],
+    isRunning: false,
+    direction: 'right'
+  },
+  [5]: {
+    id: 5,
+    position: {
+      x: 300,
+      y: 500
+    },
+    gridPosition: [5, 3],
+    isRunning: false,
+    direction: 'right'
+  },
+  [6]: {
+    id: 6,
+    position: {
+      x: 200,
+      y: 0
+    },
+    gridPosition: [0, 2],
+    isRunning: false,
+    direction: 'right'
+  },
+
+
 };
 
 type SetCharacterPositionPayload = {

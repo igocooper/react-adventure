@@ -16,6 +16,7 @@ export const Object = styled.div<ObjectProps>`
   align-items: flex-end;
   justify-content: center;
   z-index: ${({ zIndex }) => zIndex};
+  pointer-events: none;
 
   position: absolute;
   top: ${({ position }) => position.y}px;

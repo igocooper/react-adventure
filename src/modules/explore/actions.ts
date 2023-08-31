@@ -16,8 +16,8 @@ export type MoveCharacterPayload = {
   id: number;
 };
 
-export type MoveCharacterThroughPathPayload = {
-  path: number[][];
+export type MoveCharacterToGridCellPayload = {
+  gridCell: number[];
   id: number;
 };
 
@@ -31,6 +31,6 @@ export const moveCharacter = createAction<MoveCharacterPayload>('move_character'
 export const objectClicked =
   createAction<ObjectClickedPayload>('object_clicked');
 export const moveCameraView = createAction<MouseEvent>('move_camera_view');
-export const moveCharacterThroughPath = createAction<MoveCharacterThroughPathPayload>(
-  'move_character_through_path'
+export const moveCharacterToGridCell = createAction<MoveCharacterToGridCellPayload>(
+  'move_character_to_grid_cell'
 );

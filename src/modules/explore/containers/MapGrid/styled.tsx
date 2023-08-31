@@ -2,13 +2,12 @@ import styled from 'styled-components';
 import { Position } from 'common/types';
 import barrelImg from './images/barrel.png';
 
-export const Grid = styled.div`
+export const Container = styled.div`
   position: absolute;
   width: 100%;
   height: 600px;
   top: 200px;
   left: 0;
-  //border: 1px dashed red;
 `;
 
 type CellProps = {

@@ -54,7 +54,7 @@ export const equipHelmet = ({
   characterAppearance
 }: {
   helmet: Helmet;
-  appearance: AppearanceUrls;
+  appearance?: AppearanceUrls;
   characterAppearance: Appearance;
 }): AppearanceUrls => {
   const result = {
@@ -70,13 +70,13 @@ export const equipHelmet = ({
 
   switch (helmet.type) {
     case HELMET_TYPE.FULL_FACE: {
-      delete result[CHARACTER_IMAGE_SLOT.FACE_01];
-      delete result[CHARACTER_IMAGE_SLOT.FACE_02];
-      delete result[CHARACTER_IMAGE_SLOT.FACE_03];
-      delete result[CHARACTER_IMAGE_SLOT.HEAD];
-      delete result[CHARACTER_IMAGE_SLOT.HEAD_HAIR];
-      delete result[CHARACTER_IMAGE_SLOT.HEAD_BEARD];
-      delete result[removeHelmetSlot];
+      result[CHARACTER_IMAGE_SLOT.FACE_01] = '';
+      result[CHARACTER_IMAGE_SLOT.FACE_02] = '';
+      result[CHARACTER_IMAGE_SLOT.FACE_03] = '';
+      result[CHARACTER_IMAGE_SLOT.HEAD] = '';
+      result[CHARACTER_IMAGE_SLOT.HEAD_HAIR] = '';
+      result[CHARACTER_IMAGE_SLOT.HEAD_BEARD] = '';
+      result[removeHelmetSlot] = '';
 
       return {
         ...result,
@@ -84,8 +84,8 @@ export const equipHelmet = ({
       };
     }
     case HELMET_TYPE.LARGE: {
-      delete result[removeHelmetSlot];
-      delete result[CHARACTER_IMAGE_SLOT.HEAD_HAIR];
+      result[removeHelmetSlot] = '';
+      result[CHARACTER_IMAGE_SLOT.HEAD_HAIR] = '';
 
       return {
         ...result,
@@ -98,8 +98,8 @@ export const equipHelmet = ({
       };
     }
     case HELMET_TYPE.MEDIUM: {
-      delete result[removeHelmetSlot];
-      delete result[CHARACTER_IMAGE_SLOT.HEAD_HAIR];
+      result[removeHelmetSlot] = '';
+      result[CHARACTER_IMAGE_SLOT.HEAD_HAIR] = '';
 
       return {
         ...result,
@@ -112,7 +112,7 @@ export const equipHelmet = ({
       };
     }
     case HELMET_TYPE.SMALL: {
-      delete result[removeHelmetSlot];
+      result[removeHelmetSlot] = '';
 
       return {
         ...result,
@@ -132,11 +132,11 @@ export const equipHelmet = ({
 };
 
 export const equipArmor = ({
-  appearance,
+  appearance = {},
   armor
 }: {
   armor: Armor;
-  appearance: AppearanceUrls;
+  appearance?: AppearanceUrls;
 }): AppearanceUrls => {
   return {
     ...appearance,
@@ -224,11 +224,11 @@ export const removeRightHandWeapon = (): AppearanceUrls => {
 };
 
 export const equipRightHandWeapon = ({
-  appearance,
+  appearance = {},
   weapon
 }: {
   weapon: Weapon;
-  appearance: AppearanceUrls;
+  appearance?: AppearanceUrls;
 }): AppearanceUrls => {
   return {
     ...appearance,

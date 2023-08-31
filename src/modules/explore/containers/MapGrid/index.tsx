@@ -1,90 +1,107 @@
-import React, { PropsWithChildren, useEffect } from 'react';
-import { Cell, Grid } from './styled';
+import React, { PropsWithChildren, useEffect, useRef } from 'react';
+import { Cell, Container } from './styled';
 import { useSelector, useDispatch } from 'store/hooks';
-import { gridSelector, pathFinderSelector } from '../../selectors';
+import { gridSelector } from '../../selectors';
 import { initGrid } from '../../reducers/gridReducer';
 
 type Props = {
   cellSize?: number;
-  onTileClick?: (e: MouseEvent, path: Array<[number, number]>) => void;
-  heroGridPosition: [number, number];
+  onTileClick?: (e: MouseEvent, destination: number[]) => void;
   rows?: number;
   columns?: number;
 };
 
-export const MapGrid = ({
-  cellSize = 100,
-  onTileClick,
-  heroGridPosition,
-  children,
-  rows = 6,
-  columns = 30
-}: PropsWithChildren<Props>) => {
-  const dispatch = useDispatch();
-  const PFGrid = useSelector(gridSelector);
-  const pathFinder = useSelector(pathFinderSelector);
-  const createRow = () => new Array(columns).fill(0).map((_, index) => index);
-  const grid = new Array(rows).fill(0).map(() => createRow());
+export const MapGrid = React.memo(
+  ({
+    cellSize = 100,
+    onTileClick,
+    children,
+    rows = 6,
+    columns = 30
+  }: PropsWithChildren<Props>) => {
+    const dispatch = useDispatch();
+    const gridRef = useRef([]);
 
-  useEffect(() => {
-    dispatch(
-      initGrid({
-        rows,
-        columns
-      })
+    useEffect(() => {
+      const createRow = () =>
+        new Array(columns).fill(0).map((_, index) => index);
+      gridRef.current = new Array(rows).fill(0).map(() => createRow());
+
+      dispatch(
+        initGrid({
+          rows,
+          columns
+        })
+      );
+    }, []);
+
+    return (
+      <Container>
+        <Grid
+          grid={gridRef.current}
+          cellSize={cellSize}
+          onTileClick={onTileClick}
+        />
+        {children}
+      </Container>
     );
-  }, []);
+  }
+);
 
-  return (
-    <Grid>
-      {grid.map((row, rowIndex) => (
-        <>
-          {row.map((_, cellIndex) => {
-            const position = {
-              x: cellIndex * cellSize,
-              y: rowIndex * cellSize
-            };
+export const Grid = React.memo(
+  ({
+     grid,
+     cellSize = 100,
+     onTileClick
+   }: {
+    grid: number[][];
+    cellSize?: number;
+    onTileClick?: (e: MouseEvent, destination: number[]) => void;
+  }) => {
+    const PFGrid = useSelector(gridSelector);
 
-            return (
-              <Cell
-                onClick={(e) => {
-                  if (!PFGrid || !pathFinder) return;
-                  const [heroPositionRow, heroPositionColumn] =
-                    heroGridPosition;
+    if (!grid) {
+      return null;
+    }
 
-                  const path = pathFinder.findPath(
-                    heroPositionRow,
-                    heroPositionColumn,
-                    rowIndex,
-                    cellIndex,
-                    PFGrid.clone()
-                  );
+    return (
+      <>
+        {grid?.map((row, rowIndex) => (
+          <>
+            {row.map((_, cellIndex) => {
+              const position = {
+                x: cellIndex * cellSize,
+                y: rowIndex * cellSize
+              };
 
-                  if (onTileClick) {
-                    onTileClick(e, path);
-                  }
-                }}
-                // TODO: remove this mock
-                onContextMenu={(event) => {
-                  event.preventDefault();
-                  const node = event.target;
-                  const blocked = node.classList.contains('barrel');
-                  node.classList.toggle('barrel');
+              return (
+                <Cell
+                  onClick={(e) => {
+                    if (onTileClick) {
+                      onTileClick(e, [rowIndex, cellIndex]);
+                    }
+                  }}
+                  // TODO: remove this mock
+                  onContextMenu={(event) => {
+                    event.preventDefault();
+                    const node = event.target;
+                    const blocked = node.classList.contains('barrel');
+                    node.classList.toggle('barrel');
 
-                  if (PFGrid) {
-                    PFGrid.setWalkableAt(rowIndex, cellIndex, blocked);
-                  }
-                }}
-                key={`${rowIndex - cellIndex}`}
-                position={position}
-                width={cellSize}
-                height={cellSize}
-              />
-            );
-          })}
-        </>
-      ))}
-      {children}
-    </Grid>
-  );
-};
+                    if (PFGrid) {
+                      PFGrid.setWalkableAt(rowIndex, cellIndex, blocked);
+                    }
+                  }}
+                  key={`${rowIndex - cellIndex}`}
+                  position={position}
+                  width={cellSize}
+                  height={cellSize}
+                />
+              );
+            })}
+          </>
+        ))}
+      </>
+    );
+  }
+);

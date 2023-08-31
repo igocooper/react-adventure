@@ -24,6 +24,7 @@ export const NPC = styled.div`
   //top: 100px;
   //left: 400px;
   z-index: 1;
+  pointer-events: initial;
   
   & > * {
     pointer-events: none;

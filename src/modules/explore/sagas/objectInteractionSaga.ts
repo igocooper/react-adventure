@@ -4,7 +4,7 @@ import {
   ObjectClickedPayload
 } from '../actions';
 
-import { moveCharacterThroughPath } from './moveCharacterSaga';
+import { moveCharacterToGridCell } from './moveCharacterSaga';
 import {
   gridSelector,
   makeCharacterGridPositionSelector,
@@ -32,12 +32,13 @@ function* comeToObject(objectProps: {
   )
     return;
 
+
   const isWalkable = PFGrid.isWalkableAt(row, column);
 
   if (!isWalkable) {
     PFGrid.setWalkableAt(row, column, true);
 
-    const fullPath = pathFinder.findPath(
+    const path = pathFinder.findPath(
       characterPositionRow,
       characterPositionColumn,
       row,
@@ -45,14 +46,18 @@ function* comeToObject(objectProps: {
       PFGrid.clone()
     );
 
-    const path = fullPath.slice(0, fullPath.length - 1);
+    const targetGridCell = path[path.length - 2];
 
-    yield* call(moveCharacterThroughPath, {
-      payload: {
-        id,
-        path
-      }
-    });
+    if (targetGridCell) {
+      
+    yield *
+      call(moveCharacterToGridCell, {
+        payload: {
+          id,
+          gridCell: targetGridCell
+        }
+      });
+    }
 
     PFGrid.setWalkableAt(row, column, false);
   } else {
@@ -63,13 +68,18 @@ function* comeToObject(objectProps: {
       column,
       PFGrid.clone()
     );
+    
+    const targetCell = path[path.length - 1];
 
-    yield* call(moveCharacterThroughPath, {
+    if (targetCell) {
+    yield* call(moveCharacterToGridCell, {
       payload: {
         id,
-        path
+        gridCell: targetCell,
       }
     });
+      
+    }
   }
 }
 
