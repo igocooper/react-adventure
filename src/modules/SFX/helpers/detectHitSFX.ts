@@ -1,6 +1,6 @@
 import SFX from 'modules/SFX';
-import type { Equipment, WeaponType } from 'common/types';
-import { WEAPON_TYPE } from 'common/constants';
+import type { DamageType, Equipment, WeaponType } from 'common/types';
+import { DAMAGE_TYPE, WEAPON_TYPE } from 'common/constants';
 
 const detectSFXBasedOnType = (type: WeaponType) => {
   if (type === WEAPON_TYPE.WOODEN_STAFF) {
@@ -14,9 +14,21 @@ const detectSFXBasedOnType = (type: WeaponType) => {
   return SFX.swordHit;
 };
 
-export const detectHitSFX = (equipment: Equipment, hasMissed: boolean) => {
+export const detectHitSFX = ({
+  equipment,
+  hasMissed,
+  damageType
+}: {
+  equipment: Equipment;
+  hasMissed: boolean;
+  damageType: DamageType;
+}) => {
   if (hasMissed) {
     return SFX.miss;
+  }
+
+  if (damageType === DAMAGE_TYPE.BARE_HANDS) {
+    return SFX.bareHandHit;
   }
 
   if (!equipment.leftHand && equipment.rightHand) {

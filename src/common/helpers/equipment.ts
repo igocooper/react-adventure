@@ -255,8 +255,6 @@ export const removeEquipment = ({ equipment }: { equipment: Equipment }) => {
     };
   }
 
-  console.log('appearance', appearance);
-
   return appearance;
 };
 

@@ -107,7 +107,11 @@ function* playCounterAttackAnimation({
   if (isDying) {
     yield* all([
       call([attackedTrooperAnimationInstance!, 'attack'], {
-        sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+        sfx: detectHitSFX({
+          equipment: enemyTrooper.equipment,
+          hasMissed,
+          damageType: enemyTrooper.damageType
+        })
       }),
       call([activeTrooperAnimationInstance!, 'die']),
       put(
@@ -130,7 +134,11 @@ function* playCounterAttackAnimation({
   if (hasMissed) {
     yield* all([
       call([attackedTrooperAnimationInstance!, 'attack'], {
-        sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+        sfx: detectHitSFX({
+          equipment: enemyTrooper.equipment,
+          hasMissed,
+          damageType: enemyTrooper.damageType
+        })
       }),
       put(
         applyDamage({
@@ -148,7 +156,11 @@ function* playCounterAttackAnimation({
 
   yield* all([
     call([attackedTrooperAnimationInstance!, 'attack'], {
-      sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+      sfx: detectHitSFX({
+        equipment: enemyTrooper.equipment,
+        hasMissed,
+        damageType: enemyTrooper.damageType
+      })
     }),
     call([activeTrooperAnimationInstance!, 'hurt']),
     put(
@@ -264,7 +276,11 @@ export function* playMeleeAttackAnimation({
     characterBounds: activeTrooperBounds,
     targetBounds: attackedTrooperBounds,
     tileNode,
-    sfx: detectHitSFX(activeTrooper.equipment, hasMissed)
+    sfx: detectHitSFX({
+      equipment: activeTrooper.equipment,
+      hasMissed,
+      damageType: activeTrooper.damageType
+    })
   });
 
   if (isDying) {

@@ -67,7 +67,7 @@ export const createDissarmSkill = ({
         duration
       });
 
-      yield* call(dissarmedEffect.applyEffect, {
+      yield* call(dissarmedEffect.applyEffect.bind(dissarmedEffect), {
         targetTrooperId: targetTrooper.id
       });
 

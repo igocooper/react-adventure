@@ -15,6 +15,9 @@ export const getAttackTypeIcon = (
     case ATTACK_TYPE.SPLASH:
       return `💥:${getDamageTypeIcon(damageType)}`;
     case ATTACK_TYPE.MELEE:
+      if (damageType === DAMAGE_TYPE.BARE_HANDS) {
+        return '👊🏼';
+      }
       return '🗡';
     default:
       return '👊🏼';

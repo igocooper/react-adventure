@@ -4,6 +4,7 @@ import battleTheme2 from './music/battleTheme2.aac';
 
 import click from './sounds/click.aac';
 import hover from './sounds/hover.aac';
+import bareHandHit from './sounds/bareHandHit.aac';
 import swordHit from './sounds/swordHit.m4a';
 import swordHitFullPlate from './sounds/swordHitFullplate.aac';
 import axeHit from './sounds/axeHitFlesh.aac';
@@ -45,6 +46,7 @@ import droppedWooden from './sounds/droppedWooden.aac';
 export default {
   click: createAudio(click, { volume: 0.2 }),
   hover: createAudio(hover, { volume: 0.05 }),
+  bareHandHit: createAudio(bareHandHit, { volume: 0.2 }),
   swordHit: createAudio(swordHit),
   swordHitFullPlate: createAudio(swordHitFullPlate),
   axeHit: createAudio(axeHit, { volume: 0.4 }),
