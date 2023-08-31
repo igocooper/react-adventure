@@ -43,8 +43,8 @@ export class MagmaGeysers extends Component<Props, State> {
     registerAreaEffect(ATTACK_ID_LAVA_GEYSER, this);
   }
 
-  async play(coordinates: Coordinates | undefined) {
-    if (!coordinates) return;
+  async play(coordinates: number | Coordinates | undefined) {
+    if (!coordinates || typeof coordinates === 'number') return;
 
     this.itemsRefs = coordinates.map(() => createRef());
 

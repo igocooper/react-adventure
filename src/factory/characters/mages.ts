@@ -17,7 +17,7 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     effects: [],
     skills: {
       [SKILL.KRAKEN]: createKrakenSkill({
-        damageMod: 0.3,
+        percent: 30,
         coolDown: 3
       })
     },

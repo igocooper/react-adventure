@@ -2,17 +2,13 @@ import type { Effect } from 'modules/battlefield/types';
 import { call, put, select } from 'typed-redux-saga';
 import { applyHeal } from 'modules/battlefield/actions';
 import SFX from 'modules/SFX';
-import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import healIcon from './icons/continues-heal.png';
-import { CHARACTER_IMAGE_SLOT, EFFECT, EFFECT_TYPE } from 'common/constants';
+import { EFFECT, EFFECT_TYPE } from 'common/constants';
 import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
+import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
 import theme from 'theme/defaultTheme';
-import {
-  displayDuration,
-  generateId,
-  updateCharacterImages
-} from 'common/helpers';
+import { displayDuration, generateId } from 'common/helpers';
 
 export const createContinuesHealEffect = ({
   duration,
@@ -37,25 +33,10 @@ export const createContinuesHealEffect = ({
 
     const reachedMaxHP =
       heal + activeTrooper.currentHealth > activeTrooper.health;
-    const activeTrooperAnimationInstance = yield* call(
-      getTrooperAnimationInstance,
-      activeTrooper.id
-    );
 
     if (reachedMaxHP) {
       heal = activeTrooper.health - activeTrooper.currentHealth;
     }
-
-    yield* call(
-      updateCharacterImages,
-      [
-        {
-          url: '/images/effects/heal.png',
-          itemSlot: CHARACTER_IMAGE_SLOT.EFFECT
-        }
-      ],
-      activeTrooper.id
-    );
 
     yield* call(publishDamageEvent, {
       id: activeTrooper.id,
@@ -72,7 +53,11 @@ export const createContinuesHealEffect = ({
       })
     );
     void SFX.healed.play();
-    yield* call([activeTrooperAnimationInstance!, 'effected']);
+    yield* call(
+      playEffectedAnimation,
+      activeTrooper.id,
+      '/images/effects/heal.png'
+    );
   },
   iconSrc: healIcon
 });

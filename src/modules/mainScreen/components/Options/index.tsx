@@ -10,9 +10,6 @@ export const Options = () => {
         <Link to={path.BATTLEFIELD}>Battlefield</Link>
       </li>
       <li>
-        <Link to={path.WARDROBE}>Wardrobe</Link>
-      </li>
-      <li>
         <Link to={path.SPRITES}>Sprites</Link>
       </li>
     </OptionsList>

@@ -25,7 +25,6 @@ const getDefaultAppearance = (type: string): AppearanceUrls => {
     [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: `/images/characters/${type}/Right Hand.png`,
     [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: `/images/characters/${type}/Right Leg.png`,
     [CHARACTER_IMAGE_SLOT.SLASH_FX]: `/images/characters/${type}/SlashFX.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: `/images/characters/${type}/Left Hand Weapon.png`,
     // Archer images
     ...(type.includes('archer')
       ? {
@@ -36,13 +35,6 @@ const getDefaultAppearance = (type: string): AppearanceUrls => {
           [CHARACTER_IMAGE_SLOT.QUIVER]: `/images/characters/${type}/Quiver.png`
         }
       : {}),
-    // Hero
-    ...(type === 'hero'
-      ? {
-          [CHARACTER_IMAGE_SLOT.HEAD_HAIR]: `/images/characters/${type}/Head Hair.png`,
-          [CHARACTER_IMAGE_SLOT.HEAD_BEARD]: `/images/characters/${type}/Head Beard.png`
-        }
-      : {})
   };
 };
 
@@ -61,7 +53,7 @@ const applyCharacterAppearance = (
   };
 };
 
-const getAppearance = (props: Props): AppearanceUrls => {
+export const getAppearance = (props: Props): AppearanceUrls => {
   const { type, appearance: characterAppearance, equipment } = props;
   let appearance = getDefaultAppearance(type);
 
@@ -81,7 +73,7 @@ const getAnimationMap = (props: Props): Record<string, string> => {
 
   if (bow) {
     return {
-      attack: 'shoot_with_bow',
+      attack: 'slashing_with_left_hand',
       idle: 'idle_with_bow',
       hurt: 'hurt_with_bow',
       die: 'dying_with_bow',
@@ -167,7 +159,7 @@ type Props = {
   type: string;
   appearance?: Appearance;
   equipment: Equipment;
-  damageType: string;
+  damageType?: string;
 };
 
 export const getCharacterProps = (props: Props): ReturnType => {
@@ -177,6 +169,8 @@ export const getCharacterProps = (props: Props): ReturnType => {
     imagesUrls: getAppearance(props),
     sconFileUrl: getSconFile(type),
     animationMap: getAnimationMap(props),
-    castEffectImageUrl: getCastEffectImageUrl(props)
+    ...(props.damageType
+      ? { castEffectImageUrl: getCastEffectImageUrl(props) }
+      : {})
   };
 };

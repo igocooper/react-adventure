@@ -16,6 +16,7 @@ import { LightningStrike } from './Lightning';
 import { Rage } from './Rage';
 import { Resurrection } from './Resurrection';
 import { AREA_CONTAINER_ID } from '../../constants';
+import { Dissarm } from './Dissarm';
 
 type OwnProps = {
   children: React.ReactNode;
@@ -64,6 +65,7 @@ export const AnimationAreaContainer = ({ children }: OwnProps) => {
             trooperId={selectedTrooper?.id}
           />
           <Rage containerNode={areaAnimationRef.current!} />
+          <Dissarm containerNode={areaAnimationRef.current!} />
         </>
       )}
 

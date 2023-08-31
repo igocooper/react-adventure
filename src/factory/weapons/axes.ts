@@ -4,7 +4,10 @@ import { WEAPON_TYPE } from 'common/constants';
 export const rustyAxe: Weapon = {
   name: 'Rusty Axe',
   type: WEAPON_TYPE.AXE,
-  imageSrc: '/images/weapons/axes/rusty-axe.png',
+  imageUrls: {
+    weapon: '/images/weapons/axes/rusty-axe.png',
+    slashFX: '/images/slashFX/axe-default.png'
+  },
   stats: {
     damage: '6-7'
   }
@@ -13,7 +16,10 @@ export const rustyAxe: Weapon = {
 export const skullSmasher: Weapon = {
   name: 'Skull Smasher',
   type: WEAPON_TYPE.AXE,
-  imageSrc: '/images/weapons/axes/skull-smasher.png',
+  imageUrls: {
+    weapon: '/images/weapons/axes/skull-smasher.png',
+    slashFX: '/images/slashFX/skull-smasher.png'
+  },
   stats: {
     damage: '15-25'
   }

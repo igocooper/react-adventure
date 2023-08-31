@@ -1,4 +1,4 @@
-import type { Effect } from 'modules/battlefield/types';
+import type { Effect, Trooper } from 'modules/battlefield/types';
 import {
   calculatePercentage,
   displayDuration,
@@ -9,6 +9,32 @@ import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import weakness from './icons/weakness.png';
 import { EFFECT, EFFECT_TYPE } from 'common/constants';
+import { detectCancelEffectUpdates } from './helpers/detectCancelEffectUpdates';
+
+const createGetRevertTrooperUpdates =
+  ({ percent }: { percent: number }) =>
+  (trooper: Trooper) => {
+    const health =
+      trooper.health + calculatePercentage(trooper.baseHealth!, percent);
+
+    return {
+      health
+    };
+  };
+
+const createGetTrooperUpdates =
+  ({ percent }: { percent: number }) =>
+  (trooper: Trooper) => {
+    const health =
+      trooper.health - calculatePercentage(trooper.baseHealth!, percent);
+    const currentHealth =
+      trooper.currentHealth > health ? health : trooper.currentHealth;
+
+    return {
+      currentHealth,
+      health
+    };
+  };
 
 export const createWeaknessEffect = ({
   percent,
@@ -21,7 +47,7 @@ export const createWeaknessEffect = ({
     id: generateId(),
     name: EFFECT.WEAKNESS,
     type: EFFECT_TYPE.CURSE,
-    description: `"${EFFECT.WEAKNESS}" effect. Decrease target health ${percent} times.`,
+    description: `"${EFFECT.WEAKNESS}" effect. Decrease target max health by ${percent}%.`,
     stackInfo: (duration) =>
       `Decrease health by <curse>${percent}%</curse>. (Duration: ${displayDuration(
         duration
@@ -29,27 +55,20 @@ export const createWeaknessEffect = ({
     duration,
     once: true,
     done: false,
+    iconSrc: weakness,
     applyEffect: function* ({ targetTrooperId }) {
       const activeTrooper = yield* select(
         makeCharacterByIdSelector(targetTrooperId)
       );
       if (!activeTrooper) return;
 
-      const health =
-        activeTrooper.health -
-        calculatePercentage(activeTrooper.baseHealth!, percent);
-      const currentHealth =
-        activeTrooper.currentHealth > health
-          ? health
-          : activeTrooper.currentHealth;
+      const getTrooperModification = createGetTrooperUpdates({ percent });
+      const updates = getTrooperModification(activeTrooper);
 
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,
-          updates: {
-            currentHealth,
-            health
-          },
+          updates,
           team: activeTrooper.team
         })
       );
@@ -60,20 +79,17 @@ export const createWeaknessEffect = ({
       );
       if (!activeTrooper) return;
 
-      const health =
-        activeTrooper.health +
-        calculatePercentage(activeTrooper.baseHealth!, percent);
+      const updates = detectCancelEffectUpdates(this.id, activeTrooper);
 
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,
-          updates: {
-            health
-          },
+          updates,
           team: activeTrooper.team
         })
       );
     },
-    iconSrc: weakness
+    getTrooperUpdates: createGetTrooperUpdates({ percent }),
+    getRevertTrooperUpdates: createGetRevertTrooperUpdates({ percent })
   };
 };

@@ -11,3 +11,5 @@ export { createHexEffect } from './hex';
 export { createAnchorEffect } from './anchor';
 
 export { createContinuesHealEffect } from './continuesHeal';
+
+export { createDissarmEffect } from './dissarm';

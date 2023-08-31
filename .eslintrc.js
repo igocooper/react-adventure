@@ -45,6 +45,7 @@ module.exports = {
     '@typescript-eslint/return-await': 'off',
     'react/display-name': 'off',
     '@typescript-eslint/consistent-type-assertions': 'off',
+    '@typescript-eslint/consistent-indexed-object-style': 'off',
     semi: 'off'
   }
 };

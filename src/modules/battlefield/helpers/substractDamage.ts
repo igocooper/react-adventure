@@ -1,6 +1,6 @@
 import { getDamage } from 'common/helpers';
 
-export const extractDamage = (
+export const substractDamage = (
   damage: string,
   damageToExtract: [number, number]
 ) => {

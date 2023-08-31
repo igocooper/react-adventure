@@ -46,7 +46,7 @@ export const mountainMage = (overrides: Partial<Trooper>) =>
     effects: [],
     skills: {
       [SKILL.LAVA_GEYSER]: createLavaGeyserSkill({
-        damageMod: 1,
+        percent: 100,
         coolDown: 3
       })
     },
@@ -93,8 +93,8 @@ export const mountainArcher = (overrides: Partial<Trooper>) =>
     damage: '1-3',
     damageType: DAMAGE_TYPE.PHYSICAL,
     hitChance: 95,
-    health: 25,
-    currentHealth: 25,
+    health: 160,
+    currentHealth: 160,
     initiative: 5,
     attackType: ATTACK_TYPE.RANGE,
     attackId: ATTACK_ID,
