@@ -17,12 +17,13 @@ export type MoveCharacterPayload = {
 };
 
 export type MoveCharacterThroughPathPayload = {
-  path: Array<[number, number]>;
+  path: number[][];
   id: number;
 };
 
 export type ObjectClickedPayload = {
   id: number;
+  cb?: CallableFunction;
   gridPosition: [number, number];
 };
 

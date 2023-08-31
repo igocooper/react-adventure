@@ -10,15 +10,27 @@ import {
   makeCharacterGridPositionSelector,
   pathFinderSelector
 } from '../selectors';
-import { HERO_ID } from '../constants';
 
-function* comeToObject(objectProps: { id: number; gridPosition: [number, number] }) {
+function* comeToObject(objectProps: {
+  id: number;
+  gridPosition: [number, number];
+}) {
   const { gridPosition, id } = objectProps;
-  const characterGridPosition = yield* select(makeCharacterGridPositionSelector(id));
+  const characterGridPosition = yield* select(
+    makeCharacterGridPositionSelector(id)
+  );
   const PFGrid = yield* select(gridSelector);
   const pathFinder = yield* select(pathFinderSelector);
   const [row, column] = gridPosition;
   const [characterPositionRow, characterPositionColumn] = characterGridPosition;
+
+  if (
+    !PFGrid ||
+    !pathFinder ||
+    characterPositionRow === undefined ||
+    characterPositionColumn === undefined
+  )
+    return;
 
   const isWalkable = PFGrid.isWalkableAt(row, column);
 

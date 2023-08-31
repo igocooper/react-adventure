@@ -17,8 +17,8 @@ type CharacterPosition = {
   isRunning: boolean;
 };
 
-const initialState: Array<CharacterPosition> = [
-  {
+const initialState: Record<number, CharacterPosition> = {
+  [HERO_ID]: {
     id: HERO_ID,
     position: {
       x: 100,
@@ -28,7 +28,7 @@ const initialState: Array<CharacterPosition> = [
     isRunning: false,
     direction: 'right'
   },
-  {
+  [NPC_ID]: {
     id: NPC_ID,
     position: {
       x: 400,
@@ -38,7 +38,7 @@ const initialState: Array<CharacterPosition> = [
     isRunning: false,
     direction: 'right'
   }
-];
+};
 
 type SetCharacterPositionPayload = {
   id: number;
@@ -58,14 +58,17 @@ type SetCharacterDirectionPayload = {
 type SetCharacterisRunningPayload = {
   id: number;
   isRunning: boolean;
-}
+};
 
 export const charactersSlice = createSlice({
   name: 'characters',
   initialState,
   reducers: {
     addCharacter: (state, action: PayloadAction<CharacterPosition>) => {
-      return [...state, action.payload];
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      };
     },
     setCharacterPosition: (
       state,
@@ -73,7 +76,7 @@ export const charactersSlice = createSlice({
     ) => {
       const { position, id } = action.payload;
 
-      const targetCharacter = state.find((character) => character.id == id);
+      const targetCharacter = state[id];
 
       if (targetCharacter) {
         targetCharacter.position = position;
@@ -85,7 +88,7 @@ export const charactersSlice = createSlice({
     ) => {
       const { position, id } = action.payload;
 
-      const targetCharacter = state.find((character) => character.id == id);
+      const targetCharacter = state[id];
 
       if (targetCharacter) {
         targetCharacter.gridPosition = position;
@@ -97,7 +100,7 @@ export const charactersSlice = createSlice({
     ) => {
       const { direction, id } = action.payload;
 
-      const targetCharacter = state.find((character) => character.id == id);
+      const targetCharacter = state[id];
 
       if (targetCharacter) {
         targetCharacter.direction = direction;
@@ -109,12 +112,12 @@ export const charactersSlice = createSlice({
     ) => {
       const { isRunning, id } = action.payload;
 
-      const targetCharacter = state.find((character) => character.id == id);
+      const targetCharacter = state[id];
 
       if (targetCharacter) {
         targetCharacter.isRunning = isRunning;
       }
-    },
+    }
   }
 });
 

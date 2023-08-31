@@ -84,17 +84,17 @@ export const Explore = () => {
       })
     );
 
-    dispatch(
-      moveCharacterThroughPathAction({
-        id: NPC_ID,
-        path: [
-          [1, 5],
-          [1, 6],
-          [1, 7],
-          [1, 8]
-        ]
-      })
-    );
+    // dispatch(
+    //   moveCharacterThroughPathAction({
+    //     id: NPC_ID,
+    //     path: [
+    //       [1, 5],
+    //       [1, 6],
+    //       [1, 7],
+    //       [1, 8]
+    //     ]
+    //   })
+    // );
   };
 
   return (
@@ -239,7 +239,7 @@ const Items = () => {
       <DestroyerHelmet
         data-grid-position="4, 16"
         onClick={(event) => {
-          const node = event.target;
+          const node: HTMLElement = event.target;
           const [row, column] = getGridPositionFromNode(node as HTMLElement);
 
           dispatch(

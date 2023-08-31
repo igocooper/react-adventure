@@ -1,4 +1,10 @@
-import { takeLatest, takeEvery, put, select, call } from 'typed-redux-saga/macro';
+import {
+  takeLatest,
+  takeEvery,
+  put,
+  select,
+  call
+} from 'typed-redux-saga/macro';
 import {
   moveCharacter as moveCharacterAction,
   moveCharacterThroughPath as moveCharacterThroughPathAction,
@@ -45,6 +51,11 @@ export function* moveCharacterThroughPath({
 
   for (const step of way) {
     const [row, column] = step;
+
+    if (!row || !column) {
+      continue;
+    }
+
     const x = column * cellSize;
     const y = row * cellSize;
 

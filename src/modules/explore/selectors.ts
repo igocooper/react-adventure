@@ -36,7 +36,7 @@ export const pathFinderSelector = createSelector(
 export const makeCharacterIsRunningSelector = (id: number) => createSelector(
   charactersStateSelector,
   (characters) => {
-    const character = characters.find(item => item.id === id);
+    const character = characters[id];
 
     if (!character) return false;
 
@@ -47,7 +47,7 @@ export const makeCharacterIsRunningSelector = (id: number) => createSelector(
 export const makeCharacterDirectionSelector = (id: number) => createSelector(
   charactersStateSelector,
   (characters) => {
-    const character = characters.find(item => item.id === id);
+    const character = characters[id];
 
     if (!character) return 'right';
 
@@ -57,7 +57,7 @@ export const makeCharacterDirectionSelector = (id: number) => createSelector(
 export const makeCharacterGridPositionSelector = (id: number) => createSelector(
   charactersStateSelector,
   (characters) => {
-    const character = characters.find(item => item.id === id);
+    const character = characters[id];
 
     if (!character) return [0, 0];
 
@@ -68,7 +68,7 @@ export const makeCharacterGridPositionSelector = (id: number) => createSelector(
 export const makeCharacterPositionSelector = (id: number) => createSelector(
   charactersStateSelector,
   (characters) => {
-    const character = characters.find(item => item.id === id);
+    const character = characters[id];
 
     if (!character) return {
       x: 0,
