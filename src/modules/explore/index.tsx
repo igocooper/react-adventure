@@ -22,6 +22,7 @@ import {
   equipRightHandWeapon
 } from 'common/helpers';
 import {
+  addFollowers as addFollowersAction,
   moveCameraView as moveCameraViewAction,
   moveCharacterToGridCell as moveCharacterToGridCellAction,
   objectClicked,
@@ -70,17 +71,27 @@ export const Explore = () => {
       PFGrid.setWalkableAt(1, 4, false);
     }
 
+    dispatch(
+      addFollowersAction({
+        id: HERO_ID,
+        followers: [
+          { id: NPC_ID, offsetX: 1, offsetY: 0 },
+          { id: 3, offsetX: 2, offsetY: 0 },
+          { id: 4, offsetX: 3, offsetY: 0 },
+          { id: 5, offsetX: 2, offsetY: -1 },
+          { id: 6, offsetX: 3, offsetY: 1 }
+        ]
+      })
+    );
+
     dispatch(setLocationBoundsAction(locationBounds));
     dispatch(setViewportBoundsAction(viewportBounds));
   }, [PFGrid]);
 
-  const handleLoad = useCallback(
-    ({ id, canvasNode, instance }: OnLoadArgs) => {
-      register(id, instance);
-      registerTrooperNode(id, canvasNode);
-    },
-    []
-  );
+  const handleLoad = useCallback(({ id, canvasNode, instance }: OnLoadArgs) => {
+    register(id, instance);
+    registerTrooperNode(id, canvasNode);
+  }, []);
 
   const handleClick = useCallback(
     (event: MouseEvent, gridCell: number[]) => {
@@ -270,7 +281,7 @@ const Items = () => {
 
                 const characterImagesToUpdate = equipHelmet({
                   helmet: destroyerHelmet,
-                  characterAppearance: hero({}).appearance!,
+                  characterAppearance: hero({}).appearance!
                 });
 
                 void SFX.equip.play();

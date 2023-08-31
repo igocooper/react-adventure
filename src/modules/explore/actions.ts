@@ -6,7 +6,8 @@ export {
   setCharacterPosition,
   setCharacterGridPosition,
   setCharacterDirection,
-  setCharacterIsRunning
+  setCharacterIsRunning,
+  addFollowers
 } from './reducers/charactersReducer';
 export { setCameraViewPosition } from './reducers/cameraViewReducer';
 export { setLocationBounds, setViewportBounds } from './reducers/uiReducer';

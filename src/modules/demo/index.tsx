@@ -10,10 +10,9 @@ import {
   DestroyerArmor,
   DestroyerHelmet
 } from './styled';
+import { hero } from 'factory/characters';
 import { useLocation } from 'common/hooks/useLocation';
 import { getCharacterProps } from '../battlefield/helpers/getCharacterProps';
-import { CHARACTER } from '../wardrobe/constants';
-import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE } from '../../common/constants';
 import { TROOPER_TEAM } from '../battlefield/constants';
 import {
   CharacterAnimation,
@@ -26,7 +25,14 @@ import {
 } from '../battlefield/troopersNodesMap';
 import { useDispatch } from 'store/hooks';
 import { wait } from 'common/helpers/wait';
-import { updateCharacterImages } from '../../common/helpers';
+import {
+  equipArmor,
+  equipHelmet,
+  equipRightHandWeapon,
+  updateCharacterImages
+} from '../../common/helpers';
+import { destroyerArmor, destroyerHelmet } from 'factory/armors';
+import { meatCutter } from 'factory/weapons';
 
 type Position = {
   x: number;
@@ -35,6 +41,7 @@ type Position = {
 
 const SPEED_BASE = 0.3;
 const BG_SCROLL_STEP = 500;
+const HERO_ID = 1;
 
 export const Demo = () => {
   const location = useLocation();
@@ -70,7 +77,7 @@ export const Demo = () => {
       viewportRef.current!.getBoundingClientRect();
     const { width: locationWidth } =
       locationRef.current!.getBoundingClientRect();
-    const heroNode = getTrooperNode(CHARACTER.id);
+    const heroNode = getTrooperNode(HERO_ID);
     const heroBounds = heroNode!.getBoundingClientRect();
 
     const maxBgPosition = 0;
@@ -142,19 +149,18 @@ export const Demo = () => {
             <CharacterAnimation
               ref={characterRef}
               {...getCharacterProps({
-                type: CHARACTER.type,
-                equipment,
-                appearance: CHARACTER.appearance,
-                damageType: DAMAGE_TYPE.PHYSICAL
+                type: 'hero',
+                equipment: hero({}).equipment,
+                appearance: hero({}).appearance
               })}
-              id={CHARACTER.id}
+              id={HERO_ID}
               team={TROOPER_TEAM.ATTACKERS}
               onLoad={handleLoad}
             />
           </Hero>
         </Location>
-        {/*<Border style={{ zIndex: 1 }} />*/}
-        {/*<Border style={{ right: 0, left: 'initial' }} />*/}
+        <Border style={{ zIndex: 1 }} />
+        <Border style={{ right: 0, left: 'initial' }} />
       </Viewport>
     </Container>
   );
@@ -167,79 +173,34 @@ const Items = () => (
         const url = e.target.src;
         e.target.remove();
 
-        updateCharacterImages(
-          [
-            {
-              url,
-              itemSlot: 'Left Hand Weapon.png'
-            }
-          ],
-          CHARACTER.id
-        );
+        const characterImagesToUpdate = equipRightHandWeapon({
+          weapon: meatCutter
+        });
+
+        void updateCharacterImages(HERO_ID, characterImagesToUpdate);
       }}
     />
     <DestroyerArmor
       onClick={(e) => {
         e.target.remove();
 
-        updateCharacterImages(
-          [
-            {
-              url: '/images/armors/destroyer/Body.png',
-              itemSlot: 'Body.png'
-            },
-            {
-              url: '/images/armors/destroyer/Right Arm.png',
-              itemSlot: 'Right Arm.png'
-            },
-            {
-              url: '/images/armors/destroyer/Right Hand.png',
-              itemSlot: 'Right Hand.png'
-            },
-            {
-              url: '/images/armors/destroyer/Right Leg.png',
-              itemSlot: 'Right Leg.png'
-            },
-            {
-              url: '/images/armors/destroyer/Left Arm.png',
-              itemSlot: 'Left Arm.png'
-            },
-            {
-              url: '/images/armors/destroyer/Left Hand.png',
-              itemSlot: 'Left Hand.png'
-            },
-            {
-              url: '/images/armors/destroyer/Left Leg.png',
-              itemSlot: 'Left Leg.png'
-            }
-          ],
-          CHARACTER.id
-        );
+        const characterImagesToUpdate = equipArmor({
+          armor: destroyerArmor
+        });
 
-        // setEquipment({
-        //   armor: destroyerArmor
-        // });
+        void updateCharacterImages(HERO_ID, characterImagesToUpdate);
       }}
     />
     <DestroyerHelmet
       onClick={(e) => {
         e.target.remove();
 
-        updateCharacterImages(
-          [
-            {
-              url: '/images/helmets/Destroyer Helmet.png',
-              itemSlot: 'Head Armor High.png'
-            },
-            { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_01 },
-            { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_02 },
-            { url: '', itemSlot: CHARACTER_IMAGE_SLOT.FACE_03 },
-            { url: '', itemSlot: CHARACTER_IMAGE_SLOT.HEAD },
-            { url: '', itemSlot: CHARACTER_IMAGE_SLOT.HEAD_HAIR },
-            { url: '', itemSlot: CHARACTER_IMAGE_SLOT.HEAD_BEARD }
-          ],
-          CHARACTER.id
-        );
+        const characterImagesToUpdate = equipHelmet({
+          helmet: destroyerHelmet,
+          characterAppearance: hero({}).appearance!
+        });
+
+        void updateCharacterImages(HERO_ID, characterImagesToUpdate);
       }}
     />
   </>

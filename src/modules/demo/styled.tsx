@@ -93,7 +93,7 @@ export const DestroyerArmor = styled.img.attrs({
 `
 
 export const DestroyerHelmet = styled.img.attrs({
-  src: '/images/helmets/Destroyer Helmet.png',
+  src: '/images/helmets/600/Destroyer Helmet.png',
 })`
   position: absolute;
   top: 350px;

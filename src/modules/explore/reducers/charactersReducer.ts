@@ -15,6 +15,7 @@ type CharacterPosition = {
   gridPosition: GridPosition;
   direction: string;
   isRunning: boolean;
+  followers?: Follower[];
 };
 
 const initialState: Record<number, CharacterPosition> = {
@@ -77,9 +78,7 @@ const initialState: Record<number, CharacterPosition> = {
     gridPosition: [0, 2],
     isRunning: false,
     direction: 'right'
-  },
-
-
+  }
 };
 
 type SetCharacterPositionPayload = {
@@ -102,6 +101,17 @@ type SetCharacterisRunningPayload = {
   isRunning: boolean;
 };
 
+type Follower = {
+  id: number;
+  offsetX: number;
+  offsetY: number;
+};
+
+type AddFollowersPayload = {
+  id: number;
+  followers: Follower[];
+};
+
 export const charactersSlice = createSlice({
   name: 'characters',
   initialState,
@@ -111,6 +121,16 @@ export const charactersSlice = createSlice({
         ...state,
         [action.payload.id]: action.payload
       };
+    },
+    addFollowers: (state, action: PayloadAction<AddFollowersPayload>) => {
+      const { id, followers } = action.payload;
+      const targetCharacter = state[id];
+
+      if (targetCharacter) {
+        targetCharacter.followers = targetCharacter.followers
+          ? [...targetCharacter.followers, ...followers]
+          : [...followers];
+      }
     },
     setCharacterPosition: (
       state,
@@ -168,7 +188,8 @@ export const {
   setCharacterPosition,
   setCharacterGridPosition,
   setCharacterDirection,
-  setCharacterIsRunning
+  setCharacterIsRunning,
+  addFollowers,
 } = charactersSlice.actions;
 
 export const charactersReducer = charactersSlice.reducer;

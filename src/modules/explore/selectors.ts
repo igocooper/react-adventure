@@ -44,6 +44,17 @@ export const makeCharacterIsRunningSelector = (id: number) => createSelector(
   }
 );
 
+export const makeCharacterFollowersSelector = (id: number) => createSelector(
+  charactersStateSelector,
+  (characters) => {
+    const character = characters[id];
+
+    if (!character) return undefined;
+
+    return character.followers;
+  }
+);
+
 export const makeCharacterDirectionSelector = (id: number) => createSelector(
   charactersStateSelector,
   (characters) => {

@@ -27,7 +27,8 @@ import {
   makeCharacterGridPositionSelector,
   gridSelector,
   pathFinderSelector,
-  makeCharacterIsRunningSelector
+  makeCharacterIsRunningSelector,
+  makeCharacterFollowersSelector
 } from '../selectors';
 
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
@@ -48,6 +49,7 @@ export function* moveCharacterToGridCell({
   const PFGrid = yield* select(gridSelector);
   const pathFinder = yield* select(pathFinderSelector);
   const isRunning = yield* select(makeCharacterIsRunningSelector(id));
+  const followers = yield* select(makeCharacterFollowersSelector(id));
   const [characterPositionRow, characterPositionColumn] = characterGridPosition;
   const [destinationRow, destinationColumn] = gridCell;
 
@@ -73,6 +75,30 @@ export function* moveCharacterToGridCell({
 
   const compressedPath = PF.Util.compressPath(path);
 
+  if (followers) {
+    for (const follower of followers) {
+      const { offsetX, offsetY } = follower;
+
+      const destinationGridCell = path[path.length - 1 - offsetX];
+
+      if (!destinationGridCell) {
+        continue;
+      }
+
+
+      PFGrid.isWalkableAt()
+
+      const [y, x] = destinationGridCell;
+
+      yield* put(
+        moveCharacterToGridCellAction({
+          id: follower.id,
+          gridCell: [y + offsetY, x]
+        })
+      );
+    }
+  }
+
   yield* put(setCharacterIsRunningAction({ id, isRunning: true }));
 
   // TODO: where to get instances from?
@@ -81,6 +107,7 @@ export function* moveCharacterToGridCell({
 
   characterAnimationInstance.run();
   const runSFX: HTMLAudioElement = SFX.run.cloneNode() as HTMLAudioElement;
+  runSFX.volume = 0.2;
   void runSFX.play();
 
   for (const step of compressedPath) {
