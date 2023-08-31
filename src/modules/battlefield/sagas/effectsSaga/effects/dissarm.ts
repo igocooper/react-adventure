@@ -4,7 +4,14 @@ import { put, select, call } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import icon from './icons/dissarm.png';
 import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
-import { ATTACK_TYPE, EFFECT, EFFECT_TYPE } from 'common/constants';
+import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
+import {
+  ATTACK_TYPE,
+  EFFECT,
+  EFFECT_TYPE,
+  SKILL,
+  WEAPON_TYPE
+} from 'common/constants';
 import {
   removeCharacterEquipmentStats,
   applyCharacterEquipmentStats,
@@ -14,6 +21,8 @@ import {
 } from 'common/helpers';
 import { detectCancelEffectUpdates } from './helpers/detectCancelEffectUpdates';
 import { getAppearance } from '../../../helpers/getCharacterProps';
+import SFX from 'modules/SFX';
+import type { DissarmedEquipment } from 'modules/battlefield/containers/AnimationAreaContainer/Dissarm';
 
 const getRevertTrooperUpdates = (trooper: Trooper) => {
   // we need to cancel effect which were applied before dissarm
@@ -209,6 +218,23 @@ export const createDissarmEffect = ({
         characterImagesToUpdate
       );
 
+      const dissarmAnimation = yield* call(
+        getAreaEffectAnimationInstance,
+        SKILL.DISSARM
+      );
+
+      void SFX.dissarm.play();
+      void SFX.dissarmFalling.play();
+
+      const equipment: DissarmedEquipment = prepareEquipment(activeTrooper);
+
+      if (dissarmAnimation) {
+        yield* call(dissarmAnimation.add!, activeTrooper.id, equipment);
+        yield* call(dissarmAnimation.play, activeTrooper.id);
+      }
+
+      yield* call(playDroppedEffect, equipment);
+
       yield* put(
         modifyTrooper({
           id: activeTrooper.id,
@@ -223,6 +249,16 @@ export const createDissarmEffect = ({
       );
       if (!activeTrooper) return;
 
+      const dissarmAnimation = yield* call(
+        getAreaEffectAnimationInstance,
+        SKILL.DISSARM
+      );
+
+      if (dissarmAnimation) {
+        yield* call(dissarmAnimation.remove!, activeTrooper.id);
+      }
+
+      // start displaying weapon
       const characterImagesToUpdate = yield* call(getAppearance, {
         equipment: {
           leftHand: activeTrooper.equipment.leftHand,
@@ -233,7 +269,8 @@ export const createDissarmEffect = ({
         type: activeTrooper.type
       });
 
-      // stop displaying weapon
+      void SFX.equip.play();
+
       yield* call(
         updateCharacterImages,
         activeTrooper.id,
@@ -253,4 +290,48 @@ export const createDissarmEffect = ({
     getTrooperUpdates,
     getRevertTrooperUpdates
   };
+};
+
+const prepareEquipment = (activeTrooper: Trooper) => {
+  return {
+    ...(activeTrooper.equipment.leftHand
+      ? {
+          leftHand: {
+            type: activeTrooper.equipment.leftHand.type,
+            src: activeTrooper.equipment.leftHand.imageUrls.weapon
+          }
+        }
+      : {}),
+    ...(activeTrooper.equipment.rightHand
+      ? {
+          rightHand: {
+            type: activeTrooper.equipment.rightHand.type,
+            src: activeTrooper.equipment.rightHand.imageUrls.weapon
+          }
+        }
+      : {}),
+    ...(activeTrooper.equipment.bow
+      ? {
+          bow: {
+            type: activeTrooper.equipment.bow.type,
+            src: activeTrooper.equipment.bow.imageUrls.bowStem
+          }
+        }
+      : {})
+  };
+};
+
+const playDroppedEffect = (equipment: DissarmedEquipment) => {
+  if (
+    equipment.bow?.src ||
+    (!equipment.rightHand &&
+      equipment.leftHand?.type === WEAPON_TYPE.WOODEN_STAFF) ||
+    (!equipment.leftHand &&
+      equipment.rightHand?.type === WEAPON_TYPE.WOODEN_STAFF)
+  ) {
+    void SFX.droppedWooden.play();
+    return;
+  }
+
+  void SFX.droppedMetal.play();
 };

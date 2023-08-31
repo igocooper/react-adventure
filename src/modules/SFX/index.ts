@@ -37,6 +37,10 @@ import lavaGeyser from './sounds/lavaGeyser.m4a';
 import iceSpikes from './sounds/iceSpikes.m4a';
 import lightningStrike from './sounds/lightningStrike.aac';
 import dissarm from './sounds/dissarm.wav';
+import dissarmFalling from './sounds/dissarm-falling.aac';
+import equip from './sounds/equip.aac';
+import droppedMetal from './sounds/droppedMetal.aac';
+import droppedWooden from './sounds/droppedWooden.aac';
 
 export default {
   click: createAudio(click, { volume: 0.2 }),
@@ -72,6 +76,10 @@ export default {
   kraken: createAudio(kraken),
   lightningStrike: createAudio(lightningStrike),
   dissarm: createAudio(dissarm),
+  dissarmFalling: createAudio(dissarmFalling, { volume: 0.4 }),
+  equip: createAudio(equip, { volume: 0.4 }),
+  droppedWooden: createAudio(droppedWooden, { volume: 0.2 }),
+  droppedMetal: createAudio(droppedMetal),
   // music
   battleTheme2: createAudio(battleTheme2, { volume: 0.1, loop: true })
 };

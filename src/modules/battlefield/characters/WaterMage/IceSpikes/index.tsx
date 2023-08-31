@@ -43,8 +43,8 @@ export class IceSpikes extends Component<Props, State> {
     registerAreaEffect(ATTACK_ID_ICE_SPIKES, this);
   }
 
-  async play(coordinates: Coordinates | undefined) {
-    if (!coordinates) return;
+  async play(coordinates: number | Coordinates | undefined) {
+    if (!coordinates || typeof coordinates === 'number') return;
 
     this.spikesRefs = coordinates.map(() => createRef());
 

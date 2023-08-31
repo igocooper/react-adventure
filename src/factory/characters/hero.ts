@@ -30,8 +30,8 @@ export const hero = (overrides: Partial<Trooper>) =>
       }),
       [SKILL.DISSARM]: createDissarmSkill({
         percent: 80,
-        duration: 2,
-        coolDown: 1
+        duration: 1,
+        coolDown: 0
       })
     },
     ...overrides,

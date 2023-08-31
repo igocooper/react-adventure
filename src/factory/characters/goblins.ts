@@ -144,7 +144,7 @@ export const goblin3 = (overrides: Partial<Trooper>) =>
 export const armoredGoblin = (overrides: Partial<Trooper>) =>
   createCharacter({
     equipment: {
-      rightHand: skullSmasher,
+      leftHand: skullSmasher,
       shield: woodenRoundShield,
       helmet: armoredGoblinHelmet
     },

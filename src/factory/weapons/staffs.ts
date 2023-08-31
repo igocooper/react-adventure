@@ -4,7 +4,10 @@ import { WEAPON_TYPE } from 'common/constants';
 export const mountainStaff: Weapon = {
   name: 'Mountain Wand',
   type: WEAPON_TYPE.WOODEN_STAFF,
-  imageSrc: '/images/characters/mountain-mage/Left Hand Weapon.png',
+  imageUrls: {
+    weapon: '/images/weapons/staffs/mountain-wand.png',
+    slashFX: '/images/slashFX/staff-default.png'
+  },
   stats: {
     damage: '12-12'
   }
@@ -13,7 +16,10 @@ export const mountainStaff: Weapon = {
 export const oldWoodenStaff: Weapon = {
   name: 'Old Wooden Staff',
   type: WEAPON_TYPE.WOODEN_STAFF,
-  imageSrc: '/images/weapons/staffs/old-wooden-staff.png',
+  imageUrls: {
+    weapon: '/images/weapons/staffs/old-wooden-staff.png',
+    slashFX: '/images/slashFX/staff-default.png'
+  },
   stats: {
     damage: '3-5',
     healPower: 10
@@ -23,7 +29,10 @@ export const oldWoodenStaff: Weapon = {
 export const waterMageStaff: Weapon = {
   name: 'Water Mage Staff',
   type: WEAPON_TYPE.WOODEN_STAFF,
-  imageSrc: '/images/weapons/staffs/water-mage-staff.png',
+  imageUrls: {
+    weapon: '/images/weapons/staffs/water-mage-staff.png',
+    slashFX: '/images/slashFX/water-mage-staff.png'
+  },
   stats: {
     damage: '13-17'
   }
@@ -32,7 +41,10 @@ export const waterMageStaff: Weapon = {
 export const crookedStaff: Weapon = {
   name: 'Crooked Staff',
   type: WEAPON_TYPE.WOODEN_STAFF,
-  imageSrc: '/images/weapons/staffs/crooked-staff.png',
+  imageUrls: {
+    weapon: '/images/weapons/staffs/crooked-staff.png',
+    slashFX: '/images/slashFX/water-mage-staff.png'
+  },
   stats: {
     damage: '3-5'
   }

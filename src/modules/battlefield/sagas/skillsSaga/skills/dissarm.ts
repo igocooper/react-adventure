@@ -11,9 +11,7 @@ import theme from 'theme/defaultTheme';
 import { createDissarmEffect } from '../../effectsSaga/effects';
 import { publishDamageEvent } from '../../damageEventsSaga';
 import { playMeleeAttackAnimation, calculateDamage } from '../../attackSaga';
-import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { getPercentOfBaseDamage } from 'modules/battlefield/helpers/getPercentOfBaseDamage';
-import SFX from 'modules/SFX';
 
 export const createDissarmSkill = ({
   duration = 2,
@@ -80,17 +78,6 @@ export const createDissarmSkill = ({
         value: 'Dissarmed',
         color: theme.colors.light
       });
-
-      const dissarmAnimation = yield* call(
-        getAreaEffectAnimationInstance,
-        SKILL.DISSARM
-      );
-
-      void SFX.dissarm.play();
-
-      if (dissarmAnimation) {
-        yield* call(dissarmAnimation.play);
-      }
 
       yield* put(
         addEffect({

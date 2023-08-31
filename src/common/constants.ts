@@ -88,7 +88,8 @@ export enum WEAPON_TYPE {
   MACE = 'mace',
   AXE = 'axe',
   STAFF = 'staff',
-  WOODEN_STAFF = 'wooden staff'
+  WOODEN_STAFF = 'wooden staff',
+  BOW = 'bow'
 }
 
 export enum HELMET_TYPE {

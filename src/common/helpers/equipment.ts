@@ -211,8 +211,8 @@ export const equipLeftHandWeapon = ({
 }): AppearanceUrls => {
   return {
     ...appearance,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: weapon.imageSrc,
-    [CHARACTER_IMAGE_SLOT.SLASH_FX]: appearance[CHARACTER_IMAGE_SLOT.SLASH_FX]!
+    [CHARACTER_IMAGE_SLOT.LEFT_HAND_WEAPON]: weapon.imageUrls.weapon,
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: weapon.imageUrls.slashFX
   };
 };
 
@@ -227,13 +227,13 @@ export const equipRightHandWeapon = ({
   appearance,
   weapon
 }: {
-  weapon: Weapon | Shield;
+  weapon: Weapon;
   appearance: AppearanceUrls;
 }): AppearanceUrls => {
   return {
     ...appearance,
-    [CHARACTER_IMAGE_SLOT.RIGHT_HAND_WEAPON]: weapon.imageSrc,
-    [CHARACTER_IMAGE_SLOT.SLASH_FX]: appearance[CHARACTER_IMAGE_SLOT.SLASH_FX]!
+    [CHARACTER_IMAGE_SLOT.RIGHT_HAND_WEAPON]: weapon.imageUrls.weapon,
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: weapon.imageUrls.slashFX
   };
 };
 
@@ -249,8 +249,13 @@ export const removeEquipment = ({ equipment }: { equipment: Equipment }) => {
   }
 
   if (equipment.rightHand) {
-    appearance = removeRightHandWeapon();
+    appearance = {
+      ...appearance,
+      ...removeRightHandWeapon()
+    };
   }
+
+  console.log('appearance', appearance);
 
   return appearance;
 };

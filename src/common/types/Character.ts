@@ -180,6 +180,7 @@ export type Helmet = {
 
 export type Bow = {
   name: string;
+  type: WeaponType;
   imageUrls: {
     bowStem: string;
     bowString: string;
@@ -193,7 +194,10 @@ export type Bow = {
 export type Weapon = {
   name: string;
   type: WeaponType;
-  imageSrc: string;
+  imageUrls: {
+    weapon: string;
+    slashFX: string;
+  };
   stats: WeaponStats;
 };
 

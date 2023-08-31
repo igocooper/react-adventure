@@ -1,4 +1,4 @@
-export function omit<T extends {}>(
+export function omit<T extends { [s: string]: T[keyof T] }>(
   obj: T,
   properties: Array<keyof T>
 ): Partial<T> {
