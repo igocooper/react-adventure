@@ -11,7 +11,11 @@ export const applyDefenceAndResistance = (
   const { fire, poison, water, wind, earth, blood, light, dark } =
     resistance || {};
 
-  if (damageType === DAMAGE_TYPE.PHYSICAL && defence) {
+  if (
+    (damageType === DAMAGE_TYPE.PHYSICAL ||
+      damageType === DAMAGE_TYPE.BARE_HANDS) &&
+    defence
+  ) {
     if (defence > 100) {
       return 0;
     }

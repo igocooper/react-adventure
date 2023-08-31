@@ -63,8 +63,11 @@ export type Effect = {
   done: boolean;
   applyEffect: ApplyEffect | ApplyDelayedEffect;
   cancelEffect?: (props: ApplyEffectProps) => void;
-  getTrooperUpdates?: (trooper: Trooper) => Partial<Trooper>;
-  getRevertTrooperUpdates?: (trooper: Trooper) => Partial<Trooper>;
+  getTrooperUpdates?: (this: Effect, trooper: Trooper) => Partial<Trooper>;
+  getRevertTrooperUpdates?: (
+    this: Effect,
+    trooper: Trooper
+  ) => Partial<Trooper>;
   iconSrc: string;
 };
 

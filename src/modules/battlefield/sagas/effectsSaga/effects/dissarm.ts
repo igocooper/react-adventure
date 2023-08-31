@@ -1,5 +1,5 @@
 import type { Effect, Trooper } from 'modules/battlefield/types';
-import type { Equipment } from 'common/types';
+import type { DamageType, Equipment } from 'common/types';
 import { put, select, call } from 'typed-redux-saga';
 import { modifyTrooper } from 'modules/battlefield/reducers/troopsSlice';
 import icon from './icons/dissarm.png';
@@ -7,6 +7,7 @@ import { makeCharacterByIdSelector } from 'modules/battlefield/selectors';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import {
   ATTACK_TYPE,
+  DAMAGE_TYPE,
   EFFECT,
   EFFECT_TYPE,
   SKILL,
@@ -24,7 +25,10 @@ import { getAppearance } from '../../../helpers/getCharacterProps';
 import SFX from 'modules/SFX';
 import type { DissarmedEquipment } from 'modules/battlefield/containers/AnimationAreaContainer/Dissarm';
 
-const getRevertTrooperUpdates = (trooper: Trooper) => {
+function getRevertTrooperUpdates(
+  this: Effect & { originalDamageType?: DamageType },
+  trooper: Trooper
+) {
   // we need to cancel effect which were applied before dissarm
   const dissarmEffectIndex = trooper.effects.findIndex(
     (effect) => effect.name === EFFECT.DISSARM
@@ -48,6 +52,7 @@ const getRevertTrooperUpdates = (trooper: Trooper) => {
       ...equipmentStats,
       damage: equipmentStats.damage,
       baseWeaponDamage: equipmentStats.damage,
+      damageType: this.originalDamageType!,
       // return attack type for archers
       ...(equipment.bow ? { attackType: ATTACK_TYPE.RANGE } : {})
     };
@@ -77,12 +82,13 @@ const getRevertTrooperUpdates = (trooper: Trooper) => {
     ...equipmentStats,
     damage: equipmentStats.damage,
     baseWeaponDamage: equipmentStats.damage,
+    damageType: this.originalDamageType!,
     // return attack type for archers
     ...(equipment.bow ? { attackType: ATTACK_TYPE.RANGE } : {})
   };
 
   // figure out what the state of other effect would be after base is changed
-  return effects.reduce(
+  return effects.reduce<Trooper>(
     (updatedTrooper, effect) => {
       if (effect.getTrooperUpdates) {
         return {
@@ -98,8 +104,11 @@ const getRevertTrooperUpdates = (trooper: Trooper) => {
       ...revertedUpdates
     }
   );
-};
-const getTrooperUpdates = (trooper: Trooper) => {
+}
+function getTrooperUpdates(
+  this: Effect & { originalDamageType?: string },
+  trooper: Trooper
+) {
   // we need to cancel effect which were applied before dissarm
   const dissarmEffectIndex = trooper.effects.findIndex(
     (effect) => effect.name === EFFECT.DISSARM
@@ -123,10 +132,13 @@ const getTrooperUpdates = (trooper: Trooper) => {
       trooper.equipment
     );
 
+    this.originalDamageType = trooper.damageType;
+
     const updates = {
       ...trooperWithoutWeaponStats,
       damage: trooperWithoutWeaponStats.damage,
       baseWeaponDamage: trooperWithoutWeaponStats.damage,
+      damageType: DAMAGE_TYPE.BARE_HANDS,
       // return attack type for archers
       ...(equipment.bow ? { attackType: ATTACK_TYPE.MELEE } : {})
     };
@@ -157,12 +169,13 @@ const getTrooperUpdates = (trooper: Trooper) => {
     ...trooperWithoutWeaponStats,
     damage: trooperWithoutWeaponStats.damage,
     baseWeaponDamage: trooperWithoutWeaponStats.damage,
+    damageType: DAMAGE_TYPE.BARE_HANDS,
     // change attack type for archers
     ...(equipment.bow ? { attackType: ATTACK_TYPE.MELEE } : {})
   };
 
   // figure out what the state of other effect would be after base is changed
-  return effects.reduce(
+  return effects.reduce<Trooper>(
     (updatedTrooper, effect) => {
       if (effect.getTrooperUpdates) {
         return {
@@ -178,7 +191,7 @@ const getTrooperUpdates = (trooper: Trooper) => {
       ...updates
     }
   );
-};
+}
 
 export const createDissarmEffect = ({
   duration
@@ -201,7 +214,8 @@ export const createDissarmEffect = ({
       );
       if (!activeTrooper) return;
 
-      const updates = getTrooperUpdates(activeTrooper);
+      // we bind context so it could store original  data inside effect so it could be reverted later
+      const updates = getTrooperUpdates.call(this, activeTrooper);
 
       const characterImagesToUpdate = yield* call(removeEquipment, {
         equipment: {

@@ -173,6 +173,7 @@ export enum ATTACK_TYPE {
 
 export enum DAMAGE_TYPE {
   PHYSICAL = 'physical',
+  BARE_HANDS = 'bare_hands',
   POISON = 'poison',
   WATER = 'water',
   FIRE = 'fire',

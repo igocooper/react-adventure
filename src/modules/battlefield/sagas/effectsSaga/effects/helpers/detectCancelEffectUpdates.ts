@@ -11,7 +11,7 @@ export const detectCancelEffectUpdates = (
       if (effect.getRevertTrooperUpdates) {
         return {
           ...updatedTrooper,
-          ...effect.getRevertTrooperUpdates(updatedTrooper)
+          ...effect.getRevertTrooperUpdates.bind(effect)(updatedTrooper)
         };
       } else {
         return updatedTrooper;
@@ -30,7 +30,7 @@ export const detectCancelEffectUpdates = (
       if (effect.getTrooperUpdates) {
         return {
           ...updatedTrooper,
-          ...effect.getTrooperUpdates(updatedTrooper)
+          ...effect.getTrooperUpdates.bind(effect)(updatedTrooper)
         };
       } else {
         return updatedTrooper;
