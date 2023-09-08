@@ -91,6 +91,6 @@ export const GlobalStyle = createGlobalStyle`
   }
   #app {
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
   }
 `;

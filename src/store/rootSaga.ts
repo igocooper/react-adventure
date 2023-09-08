@@ -10,6 +10,7 @@ import { bloodSagaWatcher } from '../modules/battlefield/sagas/bloodSaga';
 import { skillsSagaWatcher } from '../modules/battlefield/sagas/skillsSaga';
 import { moveCharacterSagaWatcher } from '../modules/explore/sagas/moveCharacterSaga';
 import { objectInteractionSagaWatcher } from '../modules/explore/sagas/objectInteractionSaga';
+import { locationSagaWatcher } from '../modules/explore/sagas/locationSaga';
 
 export function* rootSaga() {
   yield* all([
@@ -23,6 +24,7 @@ export function* rootSaga() {
     fork(bloodSagaWatcher),
     fork(skillsSagaWatcher),
     fork(moveCharacterSagaWatcher),
-    fork(objectInteractionSagaWatcher)
+    fork(objectInteractionSagaWatcher),
+    fork(locationSagaWatcher)
   ]);
 }

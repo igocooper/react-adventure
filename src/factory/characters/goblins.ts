@@ -163,8 +163,8 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     },
     type: 'armored-goblin',
     sex: SEX.MALE,
-    baseDamage: '3-3',
-    damage: '3-3',
+    baseDamage: '600-600',
+    damage: '600-600',
     damageType: DAMAGE_TYPE.PHYSICAL,
     health: 60,
     currentHealth: 60,
@@ -173,6 +173,7 @@ export const armoredGoblin = (overrides: Partial<Trooper>) =>
     hitChance: 95,
     criticalChance: 5,
     criticalMultiplier: 2,
+    counterAttackChance: 100,
     defence: 20,
     evadeChance: 5,
     resistance: {

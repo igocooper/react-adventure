@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import { LocationName } from 'modules/battlefield/types';
 
 type LocationProps = {
-  src: string;
+  location: LocationName;
   positionX: number;
   scrollTime: number;
   bgSize: string;
   width: number;
 };
 
-export const LocationBackground = styled.div<LocationProps>`
+export const Container = styled.div<LocationProps>`
   position: absolute;
   top: 0;
   left: ${({ positionX }) => `${positionX}px`};
@@ -18,5 +19,6 @@ export const LocationBackground = styled.div<LocationProps>`
   background-position: 0 0;
   background-repeat: no-repeat;
   transition: ${({ scrollTime }) => `left ${scrollTime}ms linear`};
-  background-image: url(${({ src }) => src});
+  background-image: url(${({ location }) =>
+          `/images/locations/${location}.png`});
 `;

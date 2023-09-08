@@ -23,9 +23,9 @@ const initialState: Record<number, CharacterPosition> = {
     id: HERO_ID,
     position: {
       x: 100,
-      y: 300
+      y: 600
     },
-    gridPosition: [3, 1],
+    gridPosition: [6, 1],
     isRunning: false,
     direction: 'right'
   },

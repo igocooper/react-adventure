@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useRef } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Cell, Container } from './styled';
 import { useSelector, useDispatch } from 'store/hooks';
 import { gridSelector } from '../../selectors';
@@ -9,6 +9,7 @@ type Props = {
   onTileClick?: (e: MouseEvent, destination: number[]) => void;
   rows?: number;
   columns?: number;
+  scale?: number;
 };
 
 export const MapGrid = React.memo(
@@ -16,16 +17,18 @@ export const MapGrid = React.memo(
     cellSize = 100,
     onTileClick,
     children,
-    rows = 6,
-    columns = 30
+    rows = 10,
+    columns = 53,
+    scale = 1
   }: PropsWithChildren<Props>) => {
     const dispatch = useDispatch();
-    const gridRef = useRef([]);
+    const [grid, setGrid] = useState<number[][]>([]);
 
     useEffect(() => {
       const createRow = () =>
         new Array(columns).fill(0).map((_, index) => index);
-      gridRef.current = new Array(rows).fill(0).map(() => createRow());
+
+      setGrid(new Array(rows).fill(0).map(() => createRow()));
 
       dispatch(
         initGrid({
@@ -33,15 +36,11 @@ export const MapGrid = React.memo(
           columns
         })
       );
-    }, []);
+    }, [columns]);
 
     return (
-      <Container>
-        <Grid
-          grid={gridRef.current}
-          cellSize={cellSize}
-          onTileClick={onTileClick}
-        />
+      <Container scale={scale}>
+        <Grid grid={grid} cellSize={cellSize} onTileClick={onTileClick} />
         {children}
       </Container>
     );
@@ -50,10 +49,10 @@ export const MapGrid = React.memo(
 
 export const Grid = React.memo(
   ({
-     grid,
-     cellSize = 100,
-     onTileClick
-   }: {
+    grid,
+    cellSize = 100,
+    onTileClick
+  }: {
     grid: number[][];
     cellSize?: number;
     onTileClick?: (e: MouseEvent, destination: number[]) => void;

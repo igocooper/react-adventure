@@ -80,7 +80,7 @@ export class CharacterAnimation extends Component<Props> {
     this.anim_length = 1000;
     this.camera_x = 0;
     this.camera_y = 0;
-    this.camera_zoom = 0.26;
+    this.camera_zoom = 0.36;
     this.alpha = 1;
     this.images = {};
     this.animationRequestId = 0;
@@ -445,8 +445,8 @@ export class CharacterAnimation extends Component<Props> {
       <Canvas
         team={this.props.team}
         ref={this.canvasRef}
-        width="260"
-        height="200"
+        width="360"
+        height="360"
       />
     );
   }

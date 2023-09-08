@@ -5,6 +5,7 @@ export { wait } from './wait';
 export { pick } from './pick';
 export { omit } from './omit';
 export { loadImage } from './loadImage';
+export { getImageSize } from './getImageSize';
 export { getRandomArrayElement } from './getRandomArrayElement';
 export { updateCharacterImages } from './updateCharacterImages';
 export { getDamage } from './getDamage';

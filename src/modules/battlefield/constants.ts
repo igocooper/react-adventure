@@ -10,7 +10,7 @@ import {
   goblinBuffer,
   paladin,
   darkPaladin,
-  hero
+  hero, paladinChief
 } from 'factory/characters';
 import { createPoisonAbility } from './sagas/abilitiesSaga/abilities';
 import { addBaseTrooperProperties } from './helpers/addBaseTrooperProperties';
@@ -58,7 +58,9 @@ export enum LOCATION {
   FOREST = 'forest',
   ELVEN_FOREST = 'elven-forest',
   FOREST_2 = 'forest-2',
-  FOREST_3 = 'forest-3'
+  FOREST_3 = 'forest-3',
+  VILLAGE = 'village',
+  CASTLE_TEST = 'castle-test',
 }
 
 const ATTACKERS_TROOPS: Trooper[] = [
@@ -68,10 +70,10 @@ const ATTACKERS_TROOPS: Trooper[] = [
     position: 2,
     abilities: []
   }),
-  priest1({
+  paladinChief({
     id: 2,
     team: 'attackers',
-    position: 4
+    position: 3
   }),
   darkPaladin({
     id: 3,

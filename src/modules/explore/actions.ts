@@ -12,6 +12,14 @@ export {
 export { setCameraViewPosition } from './reducers/cameraViewReducer';
 export { setLocationBounds, setViewportBounds } from './reducers/uiReducer';
 
+export {
+  setLocation,
+  updateLocation,
+  updateLocationMeta,
+  setIsLoading,
+  setInitialized
+} from './reducers/locationReducer';
+
 export type MoveCharacterPayload = {
   position: Position;
   id: number;
@@ -28,10 +36,12 @@ export type ObjectClickedPayload = {
   gridPosition: [number, number];
 };
 
-export const moveCharacter = createAction<MoveCharacterPayload>('move_character');
+export const initLocation = createAction<string>('init_location');
+
+export const moveCharacter =
+  createAction<MoveCharacterPayload>('move_character');
 export const objectClicked =
   createAction<ObjectClickedPayload>('object_clicked');
 export const moveCameraView = createAction<MouseEvent>('move_camera_view');
-export const moveCharacterToGridCell = createAction<MoveCharacterToGridCellPayload>(
-  'move_character_to_grid_cell'
-);
+export const moveCharacterToGridCell =
+  createAction<MoveCharacterToGridCellPayload>('move_character_to_grid_cell');
