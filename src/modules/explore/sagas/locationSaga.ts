@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'typed-redux-saga/macro';
+import { takeLatest, put, call, select } from 'typed-redux-saga/macro';
 import {
   initLocation as initLocationAction,
   setIsLoading as setIsLoadingAction,
@@ -8,12 +8,14 @@ import {
 import { locationService } from 'modules/explore/services/locationService';
 import { getImageSize } from 'common/helpers';
 import { getWidthPreserveRatio } from '../helpers/getWidthPreserveRatio';
+import { initGrid } from '../reducers/gridReducer';
+import { PFGridSelector } from '../selectors';
 
 function* initLocation({ payload: locationName }: { payload: string }) {
   yield* put(setIsLoadingAction(true));
   const location = yield* call(locationService.getLocation, locationName);
 
-  const { backgroundSrc } = location;
+  const { backgroundSrc, grid } = location;
 
   const originalBgBounds = yield* call(getImageSize, backgroundSrc);
 
@@ -26,13 +28,29 @@ function* initLocation({ payload: locationName }: { payload: string }) {
   const bgSize = `${bgWidth}px ${window.innerHeight}px`;
 
   yield* put(
+    initGrid({
+      grid
+    })
+  );
+
+  const PFGrid = yield* select(PFGridSelector);
+
+  // block nodes of the grid where objects are located
+  location.objects.forEach((object) => {
+    object.gridPositions.forEach(([row, column]) => {
+      PFGrid!.setWalkableAt(row!, column!, false);
+    });
+  });
+
+  yield* put(
     setLocation({
       ...location,
       meta: {
         bgSize,
         scale,
         bgWidth,
-        originalBgWidth: originalBgBounds.width
+        originalBgWidth: originalBgBounds.width,
+        originalBgHeight: originalBgBounds.height
       }
     })
   );

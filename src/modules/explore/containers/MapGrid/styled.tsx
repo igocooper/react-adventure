@@ -14,6 +14,7 @@ export const Container = styled.div<{
 
 type CellProps = {
   position: Position;
+  visible?: boolean;
   width: number;
   height: number;
 };
@@ -23,7 +24,7 @@ export const Cell = styled.div<CellProps>`
   top: ${({ position }) => `${position.y}px`};
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
-  border: 1px dashed red;
+  border: ${({ visible }) => (visible ? '1px dashed red' : 'none')};
 
   &.barrel {
     background: url(${barrelImg});

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type Location = {
-  foregroundDecorSrc: Nullable<string>;
+  frontDecorSrc: Nullable<string>;
   backgroundSrc: Nullable<string>;
   objects: Array<any>;
   meta: LocationMeta;
@@ -13,6 +13,7 @@ type LocationMeta = {
   bgSize: string;
   bgWidth: number;
   originalBgWidth: number;
+  originalBgHeight: number;
 };
 
 const initialState: {
@@ -23,7 +24,7 @@ const initialState: {
   isLoading: false,
   initialized: false,
   location: {
-    foregroundDecorSrc: null,
+    frontDecorSrc: null,
     backgroundSrc: null,
     objects: [],
     meta: {
@@ -31,6 +32,7 @@ const initialState: {
       bgSize: '100%',
       bgWidth: 0,
       originalBgWidth: 0,
+      originalBgHeight: 0,
     }
   }
 };

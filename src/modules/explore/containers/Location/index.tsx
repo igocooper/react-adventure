@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useRef } from 'react';
-import { LocationBackground } from './styled';
+import { FrontDecor, LocationBackground, StaticObject } from './styled';
 import { MOVEMENT_ANIMATION_SPEED } from 'common/helpers/calculateMoveAnimationTime';
 import { CAMERA_SCROLL_STEP } from '../../constants';
 import { Background, Viewport } from '../../styled';
@@ -10,9 +10,14 @@ import {
   locationSelector
 } from '../../selectors';
 import { useInitLocation } from './hooks/useInitLocation';
+import { MapGrid } from 'modules/explore/containers/MapGrid';
+import { getStaticObjectZIndex } from '../../helpers/getStaticObjectZIndex';
 
-export const Location = (props: PropsWithChildren) => {
-  const { children } = props;
+type LocationProps = {
+  onGridTileClick: (e: MouseEvent, destination: number[]) => void;
+};
+export const Location = (props: PropsWithChildren<LocationProps>) => {
+  const { children, onGridTileClick } = props;
   const viewportRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
 
@@ -25,8 +30,9 @@ export const Location = (props: PropsWithChildren) => {
   });
 
   const locationMeta = useSelector(locationMetaSelector);
-  const { backgroundSrc } = useSelector(locationSelector);
-  const { bgWidth, bgSize } = locationMeta;
+  const { backgroundSrc, frontDecorSrc, objects } =
+    useSelector(locationSelector);
+  const { bgWidth, bgSize, scale } = locationMeta;
 
   return (
     <Background>
@@ -39,7 +45,25 @@ export const Location = (props: PropsWithChildren) => {
           bgSize={bgSize}
           width={bgWidth}
         >
-          {children}
+          <MapGrid onTileClick={onGridTileClick} scale={scale}>
+            {objects &&
+              objects.map((object) => {
+                const { src, gridPositions, position, id } = object;
+                const zIndex = getStaticObjectZIndex(gridPositions);
+                return (
+                  <StaticObject
+                    key={id}
+                    src={src}
+                    zIndex={zIndex}
+                    position={position}
+                  />
+                );
+              })}
+            {children}
+            {frontDecorSrc && (
+              <FrontDecor width={bgWidth} src={frontDecorSrc} />
+            )}
+          </MapGrid>
         </LocationBackground>
       </Viewport>
     </Background>

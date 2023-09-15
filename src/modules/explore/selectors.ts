@@ -31,6 +31,11 @@ export const gridSelector = createSelector(
   (state) => state.grid
 );
 
+export const PFGridSelector = createSelector(
+  gridStateSelector,
+  (state) => state.PFGrid
+);
+
 export const pathFinderSelector = createSelector(
   gridStateSelector,
   (state) => state.pathFinder

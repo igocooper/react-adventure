@@ -2,21 +2,20 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import PF from 'pathfinding';
 import type { Grid } from 'pathfinding';
+import { transformToMatrix } from '../helpers/transformToMatrix';
 
 const initialState: {
-  grid: Nullable<Grid>;
+  grid: Nullable<Array<Array<number>>>;
+  PFGrid: Nullable<Grid>;
   pathFinder: Nullable<PF.AStarFinder>;
 } = {
   grid: null,
+  PFGrid: null,
   pathFinder: null
 };
 
-// type Matrix = Array<number[]>;
-
-// TODO: it should use Matrix
 type Payload = {
-  columns: number;
-  rows: number;
+  grid: number[][];
 };
 
 export const gridSlice = createSlice({
@@ -24,9 +23,14 @@ export const gridSlice = createSlice({
   initialState,
   reducers: {
     initGrid: (_, action: PayloadAction<Payload>) => {
-      const { rows, columns } = action.payload;
+      const { grid } = action.payload;
+
+      const matrix = transformToMatrix(grid);
+      const PFGrid = new PF.Grid(matrix);
+
       return {
-        grid: new PF.Grid(rows, columns),
+        grid,
+        PFGrid,
         pathFinder: new PF.AStarFinder({
           allowDiagonal: true,
           dontCrossCorners: true

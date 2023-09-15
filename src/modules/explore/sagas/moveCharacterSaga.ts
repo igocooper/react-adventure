@@ -25,7 +25,7 @@ import {
   locationBoundsSelector,
   viewportBoundsSelector,
   makeCharacterGridPositionSelector,
-  gridSelector,
+  PFGridSelector,
   pathFinderSelector,
   makeCharacterIsRunningSelector,
   makeCharacterFollowersSelector
@@ -46,7 +46,7 @@ export function* moveCharacterToGridCell({
   const characterGridPosition = yield* select(
     makeCharacterGridPositionSelector(id)
   );
-  const PFGrid = yield* select(gridSelector);
+  const PFGrid = yield* select(PFGridSelector);
   const pathFinder = yield* select(pathFinderSelector);
   const isRunning = yield* select(makeCharacterIsRunningSelector(id));
   const followers = yield* select(makeCharacterFollowersSelector(id));
@@ -73,6 +73,10 @@ export function* moveCharacterToGridCell({
     PFGrid.clone()
   );
 
+  if (path.length === 0) {
+    return;
+  }
+
   const compressedPath = PF.Util.compressPath(path);
 
   if (followers) {
@@ -85,15 +89,12 @@ export function* moveCharacterToGridCell({
         continue;
       }
 
-
-      PFGrid.isWalkableAt()
-
       const [y, x] = destinationGridCell;
 
       yield* put(
         moveCharacterToGridCellAction({
           id: follower.id,
-          gridCell: [y + offsetY, x]
+          gridCell: [y! + offsetY, x!]
         })
       );
     }
