@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { EffectAnimation } from 'modules/animation/containers/EffectAnimation';
 import { registerAreaEffect } from 'modules/animation/areaEffectsAnimationInstances';
 import { EFFECT } from 'common/constants';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import type { Trooper } from '../../types';
 
 type Props = {
@@ -23,7 +24,7 @@ export const Heal = (props: Props) => {
       imageHeight={100}
       attackId={EFFECT.CONTINUES_HEAL}
       animationDuration={500}
-      imageUrl="/images/effects/heal.png"
+      imageUrl={resolveAssetUrl('/images/effects/heal.png')}
       {...props}
     />
   );

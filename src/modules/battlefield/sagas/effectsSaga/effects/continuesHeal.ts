@@ -9,6 +9,7 @@ import { publishDamageEvent } from 'modules/battlefield/sagas/damageEventsSaga';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
 import theme from 'theme/defaultTheme';
 import { displayDuration, generateId } from 'common/helpers';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const createContinuesHealEffect = ({
   duration,
@@ -56,7 +57,7 @@ export const createContinuesHealEffect = ({
     yield* call(
       playEffectedAnimation,
       activeTrooper.id,
-      '/images/effects/heal.png'
+      resolveAssetUrl('/images/effects/heal.png')
     );
   },
   iconSrc: healIcon

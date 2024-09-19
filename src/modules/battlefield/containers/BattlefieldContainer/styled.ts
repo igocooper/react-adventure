@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import type { LocationName } from 'modules/battlefield/types';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import cursorDefaultImg from '../../images/cursors/cursor-default.png';
 import cursorWandImg from '../../images/cursors/cursor-wand.png';
 import cursorBowImg from '../../images/cursors/cursor-bow.png';
 import cursorSwordImg from '../../images/cursors/cursor-sword.png';
 import cursorHandImg from '../../images/cursors/cursor-hand.png';
-import type { LocationName } from 'modules/battlefield/types';
 
 type BattlefieldProps = {
   $disabled: boolean;
@@ -35,7 +36,7 @@ export const Location = styled.div.attrs((props: LocationProps) => ({
   display: flex;
   justify-content: center;
   background-image: url(${({ $location }) =>
-    `/images/locations/${$location}.png`});
+    resolveAssetUrl(`/images/locations/${$location}.png`)});
 
   &.cursor-sword {
     cursor: url(${cursorSwordImg}), auto;

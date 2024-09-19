@@ -5,6 +5,7 @@ import { frames } from './frames';
 import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
 import { getElementBoundsWithinContainer } from 'common/helpers';
 import type { Trooper } from 'modules/battlefield/types';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 type Props = {
   trooperId?: Trooper['id'];
@@ -35,7 +36,7 @@ export const LightningStrike = ({ containerNode, trooperId }: Props) => {
     <SpriteAnimation
       attackId={ABILITY.LIGHTNING_STRIKE}
       className="lightning"
-      src="/images/sprites/lightning.png"
+      src={resolveAssetUrl('/images/sprites/lightning.png')}
       frames={frames}
       position={position}
     />

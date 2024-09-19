@@ -5,6 +5,7 @@ import { SpriteAnimation } from 'modules/animation/containers/SpriteAnimation';
 import frames from './frames';
 import { activeTeamNameSelector } from 'modules/battlefield/selectors';
 import { TROOPER_TEAM } from 'modules/battlefield/constants';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { ATTACK_ID_KRAKEN } from '../constants';
 
 const FRAME_WIDTH = 384;
@@ -26,7 +27,7 @@ export const Kraken = ({ containerNode }: Props) => {
     <SpriteAnimation
       attackId={ATTACK_ID_KRAKEN}
       className="Kraken"
-      src="/images/sprites/kraken.png"
+      src={resolveAssetUrl('/images/sprites/kraken.png')}
       frames={frames}
       position={position}
     />,

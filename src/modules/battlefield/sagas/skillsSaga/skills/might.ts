@@ -10,6 +10,7 @@ import {
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { getTrooperAnimationInstance } from 'modules/animation/troopersAnimationInstances';
 import SFX from 'modules/SFX';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { applyBuffs } from '../../abilitiesSaga';
 import { createMightEffect } from '../../effectsSaga/effects';
 import { playEffectedAnimation } from '../../../helpers/playEffectedAnimation';
@@ -74,7 +75,7 @@ export const createMightSkill = ({
     yield* fork(
       playEffectedAnimation,
       targetTrooper.id,
-      '/images/effects/might.png'
+      resolveAssetUrl('/images/effects/might.png')
     );
   }
 });

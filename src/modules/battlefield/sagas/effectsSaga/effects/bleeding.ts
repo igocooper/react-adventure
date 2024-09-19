@@ -4,6 +4,7 @@ import { DAMAGE_TYPE, EFFECT, EFFECT_TYPE } from 'common/constants';
 import { createApplyDamageEffect } from './generators/createApplyDamageEffect';
 import SFX from 'modules/SFX';
 import { displayDuration, generateId } from 'common/helpers';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const createBleedingEffect = ({
   duration,
@@ -26,7 +27,7 @@ export const createBleedingEffect = ({
   applyEffect: createApplyDamageEffect({
     damage,
     damageType: DAMAGE_TYPE.BLOOD,
-    characterEffectImgSrc: '/images/effects/bleeding.png',
+    characterEffectImgSrc: resolveAssetUrl('/images/effects/bleeding.png'),
     sfx: () => {
       void SFX.bleed.play();
     }

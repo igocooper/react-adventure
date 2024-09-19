@@ -1,5 +1,6 @@
 import styled, { keyframes, css } from 'styled-components';
 import type { Position } from 'common/types';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 const fadeIn = keyframes`
   0% {
@@ -43,7 +44,7 @@ type DivineParticleProps = {
   active: boolean;
 };
 export const HealParticle = styled.img.attrs({
-  src: '/images/effects/holy.png'
+  src: resolveAssetUrl('/images/effects/holy.png')
 })<DivineParticleProps>`
   position: absolute;
   opacity: 0;

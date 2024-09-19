@@ -1,6 +1,7 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SKILL, SEX } from 'common/constants';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { bastardSword } from 'factory/weapons';
 import { armoredGoblinHelmet, paladinArmor } from '../armors';
 import {
@@ -36,13 +37,13 @@ export const hero = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/characters/hero/Head Earless.png',
-      head: '/images/characters/hero/Head.png',
-      headBeard: '/images/characters/hero/Head Beard.png',
-      headHair: '/images/characters/hero/Head Hair.png',
-      face01: '/images/characters/hero/Face 01.png',
-      face02: '/images/characters/hero/Face 02.png',
-      face03: '/images/characters/hero/Face 03.png'
+      headEarless: resolveAssetUrl('/images/characters/hero/Head Earless.png'),
+      head: resolveAssetUrl('/images/characters/hero/Head.png'),
+      headBeard: resolveAssetUrl('/images/characters/hero/Head Beard.png'),
+      headHair: resolveAssetUrl('/images/characters/hero/Head Hair.png'),
+      face01: resolveAssetUrl('/images/characters/hero/Face 01.png'),
+      face02: resolveAssetUrl('/images/characters/hero/Face 02.png'),
+      face03: resolveAssetUrl('/images/characters/hero/Face 03.png')
     },
     type: 'hero',
     sex: SEX.MALE,

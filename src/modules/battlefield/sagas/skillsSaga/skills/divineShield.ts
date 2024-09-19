@@ -13,6 +13,7 @@ import SFX from 'modules/SFX';
 import { createDivineShieldEffect } from '../../effectsSaga/effects/divineShield';
 import { getEffectNode } from 'modules/battlefield/effectsNodesMap';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const DIVINE_SHIELD_EFFECT_DURATION = 800;
 export const createDivineShieldSkill = (
@@ -49,7 +50,7 @@ export const createDivineShieldSkill = (
     yield* fork(
       playEffectedAnimation,
       targetTrooper.id,
-      '/images/effects/holy.png'
+      resolveAssetUrl('/images/effects/holy.png')
     );
     const effectNode = getEffectNode(targetTrooper.id);
     effectNode!.classList.add('divine-shield');

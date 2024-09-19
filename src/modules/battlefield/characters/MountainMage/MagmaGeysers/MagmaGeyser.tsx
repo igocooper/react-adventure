@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import type { ForwardedRef } from 'react';
 import { SpriteAnimation } from 'modules/animation/containers/SpriteAnimation';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import frames from './frames';
 
 type Props = {
@@ -21,7 +22,7 @@ export const MagmaGeyser = forwardRef(
       <SpriteAnimation
         className="magma-geyser"
         ref={ref}
-        src="/images/sprites/magma-geyser.png"
+        src={resolveAssetUrl('/images/sprites/magma-geyser.png')}
         frames={frames}
         fps={13}
         {...props}

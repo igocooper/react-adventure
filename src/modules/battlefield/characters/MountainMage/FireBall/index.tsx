@@ -4,6 +4,7 @@ import { AREA_CONTAINER_ID } from 'modules/battlefield/constants';
 import { useSelector } from 'store/hooks';
 import { FireBallAnimation } from './FireBallAnimation';
 import { hoveredElementSelector } from 'modules/battlefield/selectors';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import type { Trooper } from 'modules/battlefield/types';
 
 type Props = {
@@ -25,7 +26,7 @@ export const FireBall = ({ id, attackId, position }: Props) => {
       attackId={attackId}
       position={position}
       animationDuration={400}
-      imageUrl="/images/rangeAttackItems/fireball.png"
+      imageUrl={resolveAssetUrl('/images/rangeAttackItems/fireball.png')}
       trooperId={id}
       targetTrooperId={hoveredElement?.id}
       containerNode={containerNode}

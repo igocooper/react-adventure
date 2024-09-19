@@ -8,6 +8,7 @@ import {
   makeCharacterByIdSelector
 } from 'modules/battlefield/selectors';
 import type { Trooper } from 'modules/battlefield/types';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 type Props = {
   id: Trooper['id'];
@@ -29,7 +30,7 @@ export const FireBall = ({ id, attackId, position }: Props) => {
       imageHeight={30}
       attackId={attackId}
       animationDuration={400}
-      imageUrl="/images/rangeAttackItems/fireball.png"
+      imageUrl={resolveAssetUrl('/images/rangeAttackItems/fireball.png')}
       trooperId={id}
       targetTrooperId={hoveredElement?.id}
       containerNode={containerNode}

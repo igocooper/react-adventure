@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import type { ForwardedRef } from 'react';
 import { SpriteAnimation } from 'modules/animation/containers/SpriteAnimation';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import frames from './frames';
 
 type Props = {
@@ -21,7 +22,7 @@ export const IceSpike = forwardRef(
       <SpriteAnimation
         className="ice-spike"
         ref={ref}
-        src="/images/sprites/ice-spike.png"
+        src={resolveAssetUrl('/images/sprites/ice-spike.png')}
         frames={frames}
         {...props}
       />

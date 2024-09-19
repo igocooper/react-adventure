@@ -1,3 +1,5 @@
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
+
 export enum CHARACTER_IMAGE_SLOT {
   HEAD = 'Head.png',
   HEAD_ARMOR = 'Head Armor.png',
@@ -31,56 +33,56 @@ export enum CHARACTER_IMAGE_SLOT {
 }
 
 export const BODY_BLOOD_URLS = [
-  '/images/blood/Body Blood.png',
-  '/images/blood/Body Blood 01.png',
-  '/images/blood/Body Blood 02.png',
-  '/images/blood/Body Blood 03.png',
-  '/images/blood/Body Blood 04.png',
-  '/images/blood/Body Blood 05.png',
-  '/images/blood/Body Blood 06.png',
-  '/images/blood/Body Blood 07.png',
-  '/images/blood/Body Blood 08.png',
-  '/images/blood/Body Blood 09.png'
+  resolveAssetUrl('/images/blood/Body Blood.png'),
+  resolveAssetUrl('/images/blood/Body Blood 01.png'),
+  resolveAssetUrl('/images/blood/Body Blood 02.png'),
+  resolveAssetUrl('/images/blood/Body Blood 03.png'),
+  resolveAssetUrl('/images/blood/Body Blood 04.png'),
+  resolveAssetUrl('/images/blood/Body Blood 05.png'),
+  resolveAssetUrl('/images/blood/Body Blood 06.png'),
+  resolveAssetUrl('/images/blood/Body Blood 07.png'),
+  resolveAssetUrl('/images/blood/Body Blood 08.png'),
+  resolveAssetUrl('/images/blood/Body Blood 09.png')
 ];
 
 export const BODY_CUT_URLS = [
-  '/images/blood/Body Cut.png',
-  '/images/blood/Body Cut 01.png',
-  '/images/blood/Body Cut 02.png',
-  '/images/blood/Body Cut 03.png',
-  '/images/blood/Body Cut 04.png',
-  '/images/blood/Body Cut 05.png',
-  '/images/blood/Body Cut 06.png',
-  '/images/blood/Body Cut 07.png',
-  '/images/blood/Body Cut 08.png'
+  resolveAssetUrl('/images/blood/Body Cut.png'),
+  resolveAssetUrl('/images/blood/Body Cut 01.png'),
+  resolveAssetUrl('/images/blood/Body Cut 02.png'),
+  resolveAssetUrl('/images/blood/Body Cut 03.png'),
+  resolveAssetUrl('/images/blood/Body Cut 04.png'),
+  resolveAssetUrl('/images/blood/Body Cut 05.png'),
+  resolveAssetUrl('/images/blood/Body Cut 06.png'),
+  resolveAssetUrl('/images/blood/Body Cut 07.png'),
+  resolveAssetUrl('/images/blood/Body Cut 08.png')
 ];
 
 export const FACE_BLOOD_URLS = [
-  '/images/blood/Face Blood.png',
-  '/images/blood/Face Blood 01.png',
-  '/images/blood/Face Blood 02.png',
-  '/images/blood/Face Blood 03.png',
-  '/images/blood/Face Blood 04.png',
-  '/images/blood/Face Blood 05.png',
-  '/images/blood/Face Blood 06.png',
-  '/images/blood/Face Blood 07.png',
-  '/images/blood/Face Blood 08.png',
-  '/images/blood/Face Blood 09.png',
-  '/images/blood/Face Blood 10.png',
-  '/images/blood/Face Blood 11.png'
+  resolveAssetUrl('/images/blood/Face Blood.png'),
+  resolveAssetUrl('/images/blood/Face Blood 01.png'),
+  resolveAssetUrl('/images/blood/Face Blood 02.png'),
+  resolveAssetUrl('/images/blood/Face Blood 03.png'),
+  resolveAssetUrl('/images/blood/Face Blood 04.png'),
+  resolveAssetUrl('/images/blood/Face Blood 05.png'),
+  resolveAssetUrl('/images/blood/Face Blood 06.png'),
+  resolveAssetUrl('/images/blood/Face Blood 07.png'),
+  resolveAssetUrl('/images/blood/Face Blood 08.png'),
+  resolveAssetUrl('/images/blood/Face Blood 09.png'),
+  resolveAssetUrl('/images/blood/Face Blood 10.png'),
+  resolveAssetUrl('/images/blood/Face Blood 11.png')
 ];
 
 export const FACE_CUT_URLS = [
-  '/images/blood/Face Cut.png',
-  '/images/blood/Face Cut 01.png',
-  '/images/blood/Face Cut 02.png',
-  '/images/blood/Face Cut 03.png',
-  '/images/blood/Face Cut 04.png',
-  '/images/blood/Face Cut 05.png',
-  '/images/blood/Face Cut 06.png',
-  '/images/blood/Face Cut 07.png',
-  '/images/blood/Face Cut 08.png',
-  '/images/blood/Face Cut 09.png'
+  resolveAssetUrl('/images/blood/Face Cut.png'),
+  resolveAssetUrl('/images/blood/Face Cut 01.png'),
+  resolveAssetUrl('/images/blood/Face Cut 02.png'),
+  resolveAssetUrl('/images/blood/Face Cut 03.png'),
+  resolveAssetUrl('/images/blood/Face Cut 04.png'),
+  resolveAssetUrl('/images/blood/Face Cut 05.png'),
+  resolveAssetUrl('/images/blood/Face Cut 06.png'),
+  resolveAssetUrl('/images/blood/Face Cut 07.png'),
+  resolveAssetUrl('/images/blood/Face Cut 08.png'),
+  resolveAssetUrl('/images/blood/Face Cut 09.png')
 ];
 
 export enum WEAPON_TYPE {

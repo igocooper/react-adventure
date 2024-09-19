@@ -13,6 +13,7 @@ import theme from 'theme/defaultTheme';
 import { applyHeal } from 'modules/battlefield/reducers/troopsSlice';
 import { getAreaEffectAnimationInstance } from 'modules/animation/areaEffectsAnimationInstances';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const createDivineHealSkill = ({
   coolDown = 1
@@ -38,7 +39,11 @@ export const createDivineHealSkill = ({
     void SFX.heal.play();
 
     yield* all([
-      call(playEffectedAnimation, activeTrooper.id, '/images/effects/holy.png'),
+      call(
+        playEffectedAnimation,
+        activeTrooper.id,
+        resolveAssetUrl('/images/effects/holy.png')
+      ),
       call(divineHealAnimation!.play)
     ]);
 
@@ -71,7 +76,7 @@ export const createDivineHealSkill = ({
       yield* fork(
         playEffectedAnimation,
         trooper.id,
-        '/images/effects/heal.png'
+        resolveAssetUrl('/images/effects/heal.png')
       );
     }
   }

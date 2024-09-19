@@ -99,7 +99,8 @@ const DEFENDERS_TROOPS: Trooper[] = [
   goblin1({
     id: 101,
     position: 1,
-    team: 'defenders'
+    team: 'defenders',
+    AIType: AI_TYPE.STRATEGIC
   }),
   armoredGoblin({
     id: 102,
@@ -111,22 +112,26 @@ const DEFENDERS_TROOPS: Trooper[] = [
         damage: 10,
         hitChance: 75
       })
-    ]
+    ],
+    AIType: AI_TYPE.STRATEGIC
   }),
   goblin3({
     id: 103,
     position: 3,
-    team: 'defenders'
+    team: 'defenders',
+    AIType: AI_TYPE.STRATEGIC
   }),
   goblin2({
     id: 104,
     position: 4,
-    team: 'defenders'
+    team: 'defenders',
+    AIType: AI_TYPE.STRATEGIC
   }),
   goblinBuffer({
     id: 105,
     position: 5,
-    team: 'defenders'
+    team: 'defenders',
+    AIType: AI_TYPE.SUPPORT_RANDOM
   })
 ];
 

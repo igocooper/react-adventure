@@ -1,9 +1,10 @@
 import { HELMET_TYPE } from 'common/constants';
 import type { Helmet } from 'common/types';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const deathKnightHelmet: Helmet = {
   name: 'Death Knight Helmet',
-  imageSrc: '/images/helmets/480/Death Knight Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Death Knight Helmet.png'),
   type: HELMET_TYPE.LARGE,
   stats: {
     defence: 10
@@ -11,7 +12,7 @@ export const deathKnightHelmet: Helmet = {
 };
 export const clericHat: Helmet = {
   name: 'Cleric Hat',
-  imageSrc: '/images/helmets/600/Cleric Hat.png',
+  imageSrc: resolveAssetUrl('/images/helmets/600/Cleric Hat.png'),
   type: HELMET_TYPE.MEDIUM,
   large: true,
   stats: {
@@ -20,7 +21,7 @@ export const clericHat: Helmet = {
 };
 export const armoredGoblinHelmet: Helmet = {
   name: 'Armored Goblin Helmet',
-  imageSrc: '/images/helmets/480/Armored Goblin Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Armored Goblin Helmet.png'),
   type: HELMET_TYPE.LARGE,
   stats: {
     defence: 10
@@ -29,7 +30,7 @@ export const armoredGoblinHelmet: Helmet = {
 
 export const landsknechtHelmet: Helmet = {
   name: 'Landsknecht Helmet',
-  imageSrc: '/images/helmets/600/Landsknecht Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/600/Landsknecht Helmet.png'),
   type: HELMET_TYPE.LARGE,
   large: true,
   stats: {
@@ -39,7 +40,7 @@ export const landsknechtHelmet: Helmet = {
 
 export const destroyerHelmet: Helmet = {
   name: 'Destroyer Helmet',
-  imageSrc: '/images/helmets/600/Destroyer Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/600/Destroyer Helmet.png'),
   type: HELMET_TYPE.FULL_FACE,
   large: true,
   stats: {
@@ -49,7 +50,7 @@ export const destroyerHelmet: Helmet = {
 
 export const spartanianFullHelmet: Helmet = {
   name: 'Spartanian Full Helmet',
-  imageSrc: '/images/helmets/600/Spartanian Full Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/600/Spartanian Full Helmet.png'),
   type: HELMET_TYPE.FULL_FACE,
   large: true,
   stats: {
@@ -59,7 +60,7 @@ export const spartanianFullHelmet: Helmet = {
 
 export const fullHelmet: Helmet = {
   name: 'Full Helmet',
-  imageSrc: '/images/helmets/480/Knight Full Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Knight Full Helmet.png'),
   type: HELMET_TYPE.FULL_FACE,
   stats: {
     defence: 10
@@ -68,7 +69,7 @@ export const fullHelmet: Helmet = {
 
 export const paladinHelmet: Helmet = {
   name: 'Paladin Helmet',
-  imageSrc: '/images/helmets/480/Paladin Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Paladin Helmet.png'),
   type: HELMET_TYPE.FULL_FACE,
   stats: {
     defence: 15,
@@ -81,7 +82,7 @@ export const paladinHelmet: Helmet = {
 
 export const darkPaladinHelmet: Helmet = {
   name: 'Paladin Helmet',
-  imageSrc: '/images/helmets/480/Dark Paladin Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Dark Paladin Helmet.png'),
   type: HELMET_TYPE.FULL_FACE,
   stats: {
     defence: 15,
@@ -94,7 +95,7 @@ export const darkPaladinHelmet: Helmet = {
 
 export const paladinChiefHelmet: Helmet = {
   name: 'Paladin Chief Helmet',
-  imageSrc: '/images/helmets/480/Paladin Chief Helmet.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Paladin Chief Helmet.png'),
   type: HELMET_TYPE.FULL_FACE,
   stats: {
     defence: 20,
@@ -107,7 +108,9 @@ export const paladinChiefHelmet: Helmet = {
 
 export const vikingHelmet: Helmet = {
   name: 'Viking Helmet',
-  imageSrc: '/images/helmets/480/Viking Small Picked Helmet.png',
+  imageSrc: resolveAssetUrl(
+    '/images/helmets/480/Viking Small Picked Helmet.png'
+  ),
   type: HELMET_TYPE.MEDIUM,
   stats: {
     defence: 10
@@ -116,7 +119,7 @@ export const vikingHelmet: Helmet = {
 
 export const torugCrown: Helmet = {
   name: 'Torug Crown',
-  imageSrc: '/images/helmets/480/Torug Crown.png',
+  imageSrc: resolveAssetUrl('/images/helmets/480/Torug Crown.png'),
   type: HELMET_TYPE.SMALL,
   stats: {
     defence: 10

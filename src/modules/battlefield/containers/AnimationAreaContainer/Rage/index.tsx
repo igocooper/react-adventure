@@ -6,6 +6,7 @@ import { SpriteAnimation } from 'modules/animation/containers/SpriteAnimation';
 import { frames } from './frames';
 import { getTrooperNode } from 'modules/battlefield/troopersNodesMap';
 import { getElementBoundsWithinContainer } from 'common/helpers';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 type Props = {
   containerNode: HTMLElement;
@@ -30,7 +31,7 @@ export const Rage = ({ containerNode }: Props) => {
     <SpriteAnimation
       attackId={SKILL.RAGE}
       className="Rage"
-      src="/images/sprites/rage.png"
+      src={resolveAssetUrl('/images/sprites/rage.png')}
       frames={frames}
       position={position}
     />

@@ -4,6 +4,7 @@ import { SingleRangeAttackAnimation } from 'modules/animation/containers/SingleR
 import { AREA_CONTAINER_ID } from 'modules/battlefield/constants';
 import { ATTACK_ID } from './constants';
 import { useSelector } from 'store/hooks';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import {
   activeTrooperSelector,
   hoveredElementSelector,
@@ -27,7 +28,9 @@ export const MountainArcherArrow = () => {
       imageHeight={8}
       attackId={ATTACK_ID}
       animationDuration={200}
-      imageUrl="/images/rangeAttackItems/mountainArcherArrow.png"
+      imageUrl={resolveAssetUrl(
+        '/images/rangeAttackItems/mountainArcherArrow.png'
+      )}
       imageAdjustmentY={22}
       imageAdjustmentX={0}
       trooperId={activeTrooper?.id}

@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "React Adventure is a game written with React / Redux",
   "main": "src/index.js",
+  "homepage": "https://igocooper.github.io/react-adventure",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
-    "start": "webpack serve --open",
-    "prepare": "husky install"
+    "build": "webpack --mode production --config webpack.config.js",
+    "build:gh-pages": "webpack --mode production --env BUILD_TYPE=\"gh-pages\" --config webpack.config.js",
+    "start": "webpack serve --open --mode development",
+    "prepare": "husky install",
+    "predeploy": "yarn build:gh-pages && cp ./public/404.html ./build && cp ./public/common.scon ./build && cp ./public/archer.scon ./build && cp ./public/favicon.ico ./build && cp -r ./public/images/* ./build/images",
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -29,7 +33,6 @@
   "bugs": {
     "url": "https://github.com/igocooper/react-adventure/issues"
   },
-  "homepage": "https://github.com/igocooper/react-adventure#readme",
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/eslint-parser": "^7.21.8",
@@ -57,6 +60,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.5.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",

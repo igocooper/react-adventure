@@ -1,6 +1,7 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { createLightningStrikeAbility } from 'modules/battlefield/sagas/abilitiesSaga/abilities';
 import { longSword, holyMace, knightSword } from 'factory/weapons';
 import {
@@ -42,13 +43,15 @@ export const paladin = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/characters/paladin/Head Earless.png',
-      head: '/images/characters/paladin/Head.png',
-      headBeard: '/images/characters/paladin/Head Beard.png',
-      headHair: '/images/characters/paladin/Head Hair.png',
-      face01: '/images/characters/paladin/Face 01.png',
-      face02: '/images/characters/paladin/Face 02.png',
-      face03: '/images/characters/paladin/Face 03.png'
+      headEarless: resolveAssetUrl(
+        resolveAssetUrl('/images/characters/paladin/Head Earless.png')
+      ),
+      head: resolveAssetUrl('/images/characters/paladin/Head.png'),
+      headBeard: resolveAssetUrl('/images/characters/paladin/Head Beard.png'),
+      headHair: resolveAssetUrl('/images/characters/paladin/Head Hair.png'),
+      face01: resolveAssetUrl('/images/characters/paladin/Face 01.png'),
+      face02: resolveAssetUrl('/images/characters/paladin/Face 02.png'),
+      face03: resolveAssetUrl('/images/characters/paladin/Face 03.png')
     },
     type: 'paladin',
     sex: SEX.MALE,
@@ -89,13 +92,19 @@ export const darkPaladin = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/characters/dark-paladin/Head Earless.png',
-      head: '/images/characters/dark-paladin/Head.png',
-      headBeard: '/images/characters/dark-paladin/Head Beard.png',
-      headHair: '/images/characters/dark-paladin/Head Hair.png',
-      face01: '/images/characters/dark-paladin/Face 01.png',
-      face02: '/images/characters/dark-paladin/Face 02.png',
-      face03: '/images/characters/dark-paladin/Face 03.png'
+      headEarless: resolveAssetUrl(
+        '/images/characters/dark-paladin/Head Earless.png'
+      ),
+      head: resolveAssetUrl('/images/characters/dark-paladin/Head.png'),
+      headBeard: resolveAssetUrl(
+        '/images/characters/dark-paladin/Head Beard.png'
+      ),
+      headHair: resolveAssetUrl(
+        '/images/characters/dark-paladin/Head Hair.png'
+      ),
+      face01: resolveAssetUrl('/images/characters/dark-paladin/Face 01.png'),
+      face02: resolveAssetUrl('/images/characters/dark-paladin/Face 02.png'),
+      face03: resolveAssetUrl('/images/characters/dark-paladin/Face 03.png')
     },
     type: 'dark-paladin',
     sex: SEX.MALE,
@@ -139,13 +148,15 @@ export const paladinChief = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/characters/paladin-chief/Head Earless.png',
-      head: '/images/characters/paladin-chief/Head.png',
-      headBeard: '/images/beards/yellow/06.png',
-      headHair: '/images/hairs/yellow/06.png',
-      face01: '/images/characters/paladin-chief/Face 01.png',
-      face02: '/images/characters/paladin-chief/Face 02.png',
-      face03: '/images/characters/paladin-chief/Face 03.png'
+      headEarless: resolveAssetUrl(
+        '/images/characters/paladin-chief/Head Earless.png'
+      ),
+      head: resolveAssetUrl('/images/characters/paladin-chief/Head.png'),
+      headBeard: resolveAssetUrl('/images/beards/yellow/06.png'),
+      headHair: resolveAssetUrl('/images/hairs/yellow/06.png'),
+      face01: resolveAssetUrl('/images/characters/paladin-chief/Face 01.png'),
+      face02: resolveAssetUrl('/images/characters/paladin-chief/Face 02.png'),
+      face03: resolveAssetUrl('/images/characters/paladin-chief/Face 03.png')
     },
     type: 'paladin-chief',
     sex: SEX.MALE,

@@ -1,11 +1,12 @@
 import { CHARACTER_IMAGE_SLOT, DAMAGE_TYPE } from 'common/constants';
 import type { Appearance, Equipment } from 'common/types';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { applyEquipment } from 'common/helpers/equipment';
 
 const getSconFile = (type: string) => {
   switch (type) {
     default:
-      return '/common.scon';
+      return resolveAssetUrl('/common.scon');
   }
 };
 
@@ -13,28 +14,62 @@ type AppearanceUrls = Record<string, string>;
 
 const getDefaultAppearance = (type: string): AppearanceUrls => {
   return {
-    [CHARACTER_IMAGE_SLOT.BODY]: `/images/characters/${type}/Body.png`,
-    [CHARACTER_IMAGE_SLOT.FACE_01]: `/images/characters/${type}/Face 01.png`,
-    [CHARACTER_IMAGE_SLOT.FACE_02]: `/images/characters/${type}/Face 02.png`,
-    [CHARACTER_IMAGE_SLOT.FACE_03]: `/images/characters/${type}/Face 03.png`,
-    [CHARACTER_IMAGE_SLOT.HEAD]: `/images/characters/${type}/Head.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_ARM]: `/images/characters/${type}/Left Arm.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_HAND]: `/images/characters/${type}/Left Hand.png`,
-    [CHARACTER_IMAGE_SLOT.LEFT_LEG]: `/images/characters/${type}/Left Leg.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_ARM]: `/images/characters/${type}/Right Arm.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: `/images/characters/${type}/Right Hand.png`,
-    [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: `/images/characters/${type}/Right Leg.png`,
-    [CHARACTER_IMAGE_SLOT.SLASH_FX]: `/images/characters/${type}/SlashFX.png`,
+    [CHARACTER_IMAGE_SLOT.BODY]: resolveAssetUrl(
+      `/images/characters/${type}/Body.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.FACE_01]: resolveAssetUrl(
+      `/images/characters/${type}/Face 01.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.FACE_02]: resolveAssetUrl(
+      `/images/characters/${type}/Face 02.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.FACE_03]: resolveAssetUrl(
+      `/images/characters/${type}/Face 03.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.HEAD]: resolveAssetUrl(
+      `/images/characters/${type}/Head.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.LEFT_ARM]: resolveAssetUrl(
+      `/images/characters/${type}/Left Arm.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.LEFT_HAND]: resolveAssetUrl(
+      `/images/characters/${type}/Left Hand.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.LEFT_LEG]: resolveAssetUrl(
+      `/images/characters/${type}/Left Leg.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.RIGHT_ARM]: resolveAssetUrl(
+      `/images/characters/${type}/Right Arm.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.RIGHT_HAND]: resolveAssetUrl(
+      `/images/characters/${type}/Right Hand.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.RIGHT_LEG]: resolveAssetUrl(
+      `/images/characters/${type}/Right Leg.png`
+    ),
+    [CHARACTER_IMAGE_SLOT.SLASH_FX]: resolveAssetUrl(
+      `/images/characters/${type}/SlashFX.png`
+    ),
     // Archer images
     ...(type.includes('archer')
       ? {
-          [CHARACTER_IMAGE_SLOT.BOW]: `/images/characters/${type}/Bow.png`,
-          [CHARACTER_IMAGE_SLOT.BOWSTRING]: `/images/characters/${type}/Bowstring.png`,
-          [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: `/images/characters/${type}/Drawn Bowstring.png`,
-          [CHARACTER_IMAGE_SLOT.ARROW]: `/images/characters/${type}/Arrow.png`,
-          [CHARACTER_IMAGE_SLOT.QUIVER]: `/images/characters/${type}/Quiver.png`
+          [CHARACTER_IMAGE_SLOT.BOW]: resolveAssetUrl(
+            `/images/characters/${type}/Bow.png`
+          ),
+          [CHARACTER_IMAGE_SLOT.BOWSTRING]: resolveAssetUrl(
+            `/images/characters/${type}/Bowstring.png`
+          ),
+          [CHARACTER_IMAGE_SLOT.DRAWN_BOWSTRING]: resolveAssetUrl(
+            `/images/characters/${type}/Drawn Bowstring.png`
+          ),
+          [CHARACTER_IMAGE_SLOT.ARROW]: resolveAssetUrl(
+            `/images/characters/${type}/Arrow.png`
+          ),
+          [CHARACTER_IMAGE_SLOT.QUIVER]: resolveAssetUrl(
+            `/images/characters/${type}/Quiver.png`
+          )
         }
-      : {}),
+      : {})
   };
 };
 
@@ -138,10 +173,10 @@ const getAnimationMap = (props: Props): Record<string, string> => {
 const getCastEffectImageUrl = ({ damageType }: Props) => {
   switch (damageType) {
     case DAMAGE_TYPE.FIRE: {
-      return '/images/effects/fire.png';
+      return resolveAssetUrl('/images/effects/fire.png');
     }
     case DAMAGE_TYPE.WATER: {
-      return '/images/effects/water.png';
+      return resolveAssetUrl('/images/effects/water.png');
     }
     default:
       return undefined;

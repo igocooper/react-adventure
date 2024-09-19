@@ -13,6 +13,7 @@ import { calculatePercentage, wait } from 'common/helpers';
 import { ANIMATION_SPEED } from 'modules/battlefield/containers/AnimationAreaContainer/Resurrection';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
 import SFX from 'modules/SFX';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { getTileNode } from '../../../tilesNodesMap';
 
 export const createResurrectionSkill = ({
@@ -43,7 +44,7 @@ export const createResurrectionSkill = ({
     yield* call(
       playEffectedAnimation,
       activeTrooper.id,
-      '/images/effects/holy.png'
+      resolveAssetUrl('/images/effects/holy.png')
     );
 
     const resurrectionAnimation = getAreaEffectAnimationInstance(
@@ -56,7 +57,7 @@ export const createResurrectionSkill = ({
     yield* call(
       playEffectedAnimation,
       targetTrooper.id,
-      '/images/effects/holy.png'
+      resolveAssetUrl('/images/effects/holy.png')
     );
     yield* fork([targetTrooperAnimationInstance!, 'idle']);
 
@@ -78,7 +79,7 @@ export const createResurrectionSkill = ({
     yield* call(
       playEffectedAnimation,
       targetTrooper.id,
-      '/images/effects/heal.png'
+      resolveAssetUrl('/images/effects/heal.png')
     );
   }
 });

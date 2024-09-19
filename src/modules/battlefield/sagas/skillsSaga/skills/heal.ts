@@ -13,6 +13,7 @@ import theme from 'theme/defaultTheme';
 import { applyBuffs } from '../../abilitiesSaga';
 import SFX from 'modules/SFX';
 import { playEffectedAnimation } from 'modules/battlefield/helpers/playEffectedAnimation';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const createHealSkill = (): Skill => ({
   iconSrc: icon,
@@ -63,7 +64,7 @@ export const createHealSkill = (): Skill => ({
     yield* call(
       playEffectedAnimation,
       targetTrooper.id,
-      '/images/effects/heal.png'
+      resolveAssetUrl('/images/effects/heal.png')
     );
 
     yield* call(applyBuffs, { id: targetTrooper.id });

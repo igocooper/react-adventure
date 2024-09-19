@@ -4,6 +4,7 @@ import { DAMAGE_TYPE, EFFECT, EFFECT_TYPE } from 'common/constants';
 import { createApplyDamageEffect } from './generators/createApplyDamageEffect';
 import SFX from 'modules/SFX';
 import { displayDuration, generateId } from 'common/helpers';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 
 export const createPoisonEffect = ({
   duration,
@@ -26,7 +27,7 @@ export const createPoisonEffect = ({
   applyEffect: createApplyDamageEffect({
     damage,
     damageType: DAMAGE_TYPE.POISON,
-    characterEffectImgSrc: '/images/effects/poison.png',
+    characterEffectImgSrc: resolveAssetUrl('/images/effects/poison.png'),
     sfx: () => {
       void SFX.poison.play();
     }

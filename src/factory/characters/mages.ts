@@ -1,6 +1,7 @@
 import { createCharacter } from './createCharacter';
 import type { Trooper } from 'modules/battlefield/types';
 import { ATTACK_TYPE, DAMAGE_TYPE, SEX, SKILL } from 'common/constants';
+import { resolveAssetUrl } from 'common/helpers/resolveAssetUrl';
 import { waterMageStaff } from 'factory/weapons';
 import { ATTACK_ID_ICE_SPIKES } from 'modules/battlefield/characters/WaterMage/constants';
 import { createKrakenSkill } from 'modules/battlefield/sagas/skillsSaga/skills/kraken';
@@ -23,13 +24,15 @@ export const waterMage = (overrides: Partial<Trooper>) =>
     },
     ...overrides,
     appearance: {
-      headEarless: '/images/characters/water-mage/Head Earless.png',
-      head: '/images/characters/water-mage/Head.png',
-      headBeard: '/images/beards/black/12.png',
-      headHair: '/images/hairs/black/16.png',
-      face01: '/images/characters/water-mage/Face 01.png',
-      face02: '/images/characters/water-mage/Face 02.png',
-      face03: '/images/characters/water-mage/Face 03.png'
+      headEarless: resolveAssetUrl(
+        '/images/characters/water-mage/Head Earless.png'
+      ),
+      head: resolveAssetUrl('/images/characters/water-mage/Head.png'),
+      headBeard: resolveAssetUrl('/images/beards/black/12.png'),
+      headHair: resolveAssetUrl('/images/hairs/black/16.png'),
+      face01: resolveAssetUrl('/images/characters/water-mage/Face 01.png'),
+      face02: resolveAssetUrl('/images/characters/water-mage/Face 02.png'),
+      face03: resolveAssetUrl('/images/characters/water-mage/Face 03.png')
     },
     type: 'water-mage',
     sex: SEX.MALE,
