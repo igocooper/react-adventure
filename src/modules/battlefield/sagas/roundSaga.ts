@@ -284,6 +284,7 @@ function* handleWaitClick({
 }: {
   payload: Pick<Trooper, 'id' | 'team'>;
 }) {
+  yield* put(setBattlefieldStatus(true));
   const { id } = payload;
   const initiative = yield* select(initiativeSelector);
   const activeTrooperInitiative = initiative.find(
@@ -306,9 +307,11 @@ function* handleWaitClick({
     yield* put(setInitiative(updatedInitiative));
     yield* put(finishTrooperTurnAction());
   }
+  yield* put(setBattlefieldStatus(false));
 }
 
 function* handleBlockClick() {
+  yield* put(setBattlefieldStatus(true));
   const activeTrooper = yield* select(activeTrooperSelector);
 
   if (activeTrooper) {
@@ -331,6 +334,7 @@ function* handleBlockClick() {
     );
   }
   yield* put(finishTrooperTurnAction());
+  yield* put(setBattlefieldStatus(false));
 }
 
 function* startBattle({ payload }: { payload: TroopsState }) {

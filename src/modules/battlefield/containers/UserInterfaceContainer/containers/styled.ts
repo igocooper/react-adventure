@@ -89,6 +89,10 @@ export const Icon = styled.img<IconProps>`
   filter: drop-shadow(2px 4px 6px black);
   pointer-events: initial;
 
+  .battlefield.disabled & {
+    pointer-events: none;
+  }
+
   ${({ disabled }) => {
     if (!disabled) {
       return css`
