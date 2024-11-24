@@ -32,6 +32,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     line-height: 1;
+    background-color: #212121;
   }
 
   ol, ul {
